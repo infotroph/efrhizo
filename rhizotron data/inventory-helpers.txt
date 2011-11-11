@@ -1,0 +1,11 @@
+# These are just some shell commands to make it easier to see what's in the thicket of rhizotron files. Crude, inelegant, no warranty, etc.
+
+# unique tube numbers of images in current directory
+ls| sed '/jpg/!d; s/^.*_T\(...\).*/\1/' | sort | uniq
+
+#ditto patfiles
+ls | sed '/pat/!d; s/^.*_T\(...\).*/\1/' | sort | uniq
+
+# extract image dates the really dumb way. 
+# Modify for your year.
+ls | sed '/jpg/!d; s/^.*_\(2009......\).*/\1/' | sort | uniq

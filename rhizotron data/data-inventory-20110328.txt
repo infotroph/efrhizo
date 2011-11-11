@@ -1,0 +1,98 @@
+version on ED-Imager:
+2009
+	june 05, 17, 25, 27 ("session 1"): 
+		images: tube 53 missing, others present (which frames?)
+		patfiles: T1, plus T26L5
+	Separate directory for june 05:
+		images: tubes 1-24 
+		patfiles: tube 1, locations 1-111
+	Separate directory for june 17 (contains images from june 17,25,27):
+		Images:
+			T9L1, T9L2, T19L2, T20L1, T20L2 (I think I wanted reference images?)	
+			tubes 25-52, 54-97
+		patfiles: just one, from T26L5
+	
+	July 24 (images from July 24 & 28)
+		images: tubes 1-24
+		patfiles: none
+	August 26 & 27:
+		images: tubes 25-68
+		patfiles: tubes 25-68		 
+2010
+	May 24 (photos taken on May 27 & 28)
+		images: tubes 9-20, 33-49, 51-60, 62-67, 69-96
+		patfiles: tubes 9-20, 33-49, 51-60, 62-67, 69-96
+		winrhizo file "EF2010.05.24" contains data for all of these.
+		
+	July 22 (images taken july 22, 23, 26)
+		images: tubes 2, 6-49, 51-55, 57-64, 66, 69-96
+		patfiles: tubes 9, 17-20, 41-42, 66, 89-92
+		winrhizo file "EF2010-07-22" contains data matching patfiles.
+
+	August 12 (images taken Aug 12, 17,18)
+		images: T1-2, 4-12, 14-24, 26-27, 29, 32-49, 51-64, 69-89, 91-97
+		patfiles: none
+	
+	October 7 (images taken oct 7, 8, 14, 15)
+		images: tubes 1-24, 33-64, 69-97
+		patfiles: none	
+---------
+version on rhizotron's desktop on DeLaRhizo:
+2009
+	2009-06-05
+		images: tubes 1-24
+		patfiles: just tube 1
+	2009-06-17 (taken 06-17, 25, 27)
+		images: tubes 9, 19-20, 25-52, 54-97
+		patfiles:T26L5 only
+	2009-7-24 (taken 7-24, 28)
+		images: 1-24
+		patfiles: none
+	2009-8-26 (taken 8-26 & 27)
+		images: 25-68		
+		patfiles: 25-68	
+		winrhizo file present, has data from tubes 52-68.
+	Session 1 (taken 06-5, 17, 25, 27)
+		images: 1-52, 54-97
+		patfiles: T1, 26, 97 (What was I doing tracing roots in 97??)
+2010
+	2010-05-24 (taken 5-27 & 28)
+		imges: 9-20, 33-49, 51-60, 62-67, 69-97
+		patfiles: same as images
+		winrhizo file: has all
+	2010-7-22 (taken 7-22, 	23, 26)
+		images: 2, 6-49, 51-55, 57-64, 66, 69-97
+		patfiles: same
+		no winrhizo file	
+-----------
+version in restored folder on DeLaRhizo:
+2009:
+	2009-06-05 (taken 06-05)
+		images: 1-24
+		patfiles: 1, 2, 12
+		no winrhizo file
+	2009-06-17 (taken 6-17, 25, 27)
+		images: 9, 19-20, 25-52, 54-97
+		patfiles: 26, 49-52, 54-77
+		winrhizo file has data for 49-52 and 54-77, but not 26
+	2009-7-24 (taken 7-24 & 28)
+		images: 1-24
+		patfiles: none
+		winrhizo: none
+	Session 1 (taken 06-05, 17, 25, 27)
+		images: 1-52, 54-97
+		patfiles: 1, 12, 26, 97
+		no winrhizo file 
+    
+    
+    
+    
+So. Check this when it's not 1 AM, but:
+2009-6-5: use restored (S1)
+2009-6-17: use restored (not S1)
+2009-7-24: untraced, all have same tubes -- use any
+2009-8-26: not present in restored. use DeLaRhizo (not restored) version (is there seriously no winrhizo file in the imager version?)
+2010-05-24: not present on restored, other two are equivalent.
+2010-7-22: use imager version
+2010-8-12: use imager, not present elsewhere
+2010-10-7: use imager, not present elsewhere

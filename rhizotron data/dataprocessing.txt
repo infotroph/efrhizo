@@ -1,0 +1,179 @@
+1. Strip records for individual roots, e.g.
+    	
+		sed '/ROOT/ d' EF2010.05.24.TXT > EF2010.05.24-frametots.txt
+
+2. Use a text editor to remove lines two and three (the headers for segment and axis records; the sed command above takes care of the root header) and to replace the single remaining header line with the version below that has more R-friendly names (Don't miss the trailing tab character, it's important):
+
+*** BEWARE: The header below assumes all units are in mm. Depending on configuration, WinRhizo may record mm, cm, or raw pixels. Check the header before replacing it!
+
+
+Img	MeasDate	MeasTime	Experiment	Tube	Location	Date	Time	Session	DataGatherer	ImgType	PxSizeH	PxSizeV	Fungae	Undefined	Undefined	Undefined	TotLength.mm	TotProjArea.mm2	TotSurfArea.mm2	TotAvgDiam.10ths.mm	TotVolume.mm3	TotNumberOfTips	AliveLength.mm	AliveProjArea.mm2	AliveSurfArea.mm2	AliveAvgDiam.10ths.mm	AliveVolume.mm3	AliveNumberOfTips	DeadLength.mm	DeadProjArea.mm2	DeadSurfArea.mm2	DeadAvgDiam.10ths.mm	DeadVolume.mm3	DeadNumberOfTips	GoneLength.mm	GoneProjArea.mm2	GoneSurfArea.mm2	GoneAvgDiam.10ths.mm	GoneVolume.mm3	GoneNumberOfTips	NumberOfClasses	L0to0.5	L0.5to1	L1to1.5	L1.5to2	L2to2.5	L2.5to3	L3to3.5	L3.5to4	L4to4.5	Lgreaterthan4.5	SA0to0.5	SA0.5to1	SA1to1.5	SA1.5to2	SA2to2.5	SA2.5to3	SA3to3.5	SA3.5to4	SA4to4.5	SAgreaterthan4.5	PA0to0.5	PA0.5to1	PA1to1.5	PA1.5to2	PA2to2.5	PA2.5to3	PA3to3.5	PA3.5to4	PA4to4.5	PAgreaterthan4.5	V0to0.5	V0.5to1	V1to1.5	V1.5to2	V2to2.5	V2.5to3	V3to3.5	V3.5to4	V4to4.5	Vgreaterthan4.5	T0to0.5	T0.5to1	T1to1.5	T1.5to2	T2to2.5	T2.5to3	T3to3.5	T3.5to4	T4to4.5	Tgreaterthan4.5		ImageNotes	
+
+
+4. Read the file into R, e.g.
+		
+		s12010.raw = read.delim("~/UI/energy farm/rhizotron data/EF2010.05.24-frametots.txt")
+		
+	Check that the columns are named correctly (If the header above is missing its trailing tab, the columns will align wrong).
+	
+5. Remove duplicate readings. These mostly exist because WinRhizo writes a new line to the data file every time a tube analysis is opened, even if you don't change anything. 
+	
+	There's probably a better way, but here's my labor-intensive approach.
+	
+	a. Remove all the duplicates where nothing but the MeasDate/MeasTime has changed:
+	 	
+	 		s12010.noeasydups = s12010.raw[!duplicated(s12010.raw[,c(1,4:95)],fromLast=TRUE),]
+	
+	b. Find Tube/Location pairs that have more than one record remaining.
+			
+			s12010.dups = aggregate(s12010.noeasydups$Img, by=list(loc=s12010.noeasydups$Location, tube=s12010.noeasydups$Tube), length)
+			s12010.dups = s12010.dups[s12010.dups$x > 1,]
+			
+	 	This will probably give you a long list that implicates only a few tubes. 
+	 	
+	 c. Now look at the duplicated tubes in detail using a convenience function:
+			
+			tubeview = function(frame, tube, loc){return(frame[frame$Tube %in% tube & frame$Location %in% loc ,c('Img','Tube','Location','MeasDate','MeasTime','TotLength.mm', 'TotProjArea.mm2')])}
+			
+		You can inspect single locations:
+			
+			tubeview(s12010.raw, 35, 100)
+			
+		Or whole tubes:
+			
+			tubeview(s12010.raw, 22, 1:120)
+			
+	 	Work systematically through the list of duplicated tubes. Most likely a lot of these are tubes left partially analyzed the first time, so many frames will have zeroes in the first entry. TotProjArea should change with any alteration to the tracing (it captures both length and diameter changes), so look at that first. If there's no change, check the image name. In every case, ask whether the line that occurs latest in the file is the line we want to keep. If not, remove duplicates by hand leaving only one line for that location.
+	 		 
+	 d. Once you're satisfied that the last record for each location is the correct one, let's get ruthless. Prune every row with a duplicated image name:
+	 
+	 		s12010.nodupimg = s12010.raw[!duplicated(s12010.raw[,'Img'],fromLast=TRUE),]	
+	 
+	 e. Resolve any locations with multiple images (E.G. bad image found and replaced after WinRhizo analysis started):
+	 
+	 		multiimg = aggregate(s12010.nodupimg$Img, by=list(tube=s12010.nodupimg$Tube,loc=s12010.nodupimg$Location),length)
+	 		multiimg = multiimg[multiimg$x > 1,]
+	 
+	 	For each (tube, location) pair in multiimg, get the current row indexes (not the same as the numeric row names shown in multiimg!) and use it to remove the record(s) you don't want. For example:
+	 		
+	 		which(s12010.nodupimg$Tube == 33 & s12010.nodupimg$Location == 90)
+			# Returns: [1]  39 267
+			# Look at rows 39 and 267
+			s12010.nodupimg[c(39,267),]
+			# Decided row 267 is the one to keep, so delete row 39
+			s12010.nodupimg = s12010.nodupimg[-39,]
+	 
+
+
+
+6. Repeat the hand-deletion procedure from step 5e to remove any unreadable frames noted in the analysis log.
+	 
+7. Double-check that every tube and location has exactly one record:
+	 		
+	 		tc = aggregate(s12010.nodupimg$Img, by=list(tube=s12010.nodupimg$Tube,loc=s12010.nodupimg$Location),length)
+	 		
+	 		# This should return 0 if there are no duplicates:
+	 		which(aggregate(s12010.nodupimg$Img, by=list(tube=s12010.nodupimg$Tube,loc=s12010.nodupimg$Location),length)$x > 1) 
+	 	 	
+	 	 	#Now check for missing readings:
+	 	 	checktube = function(tube){
+	 				tl = tc[tc$tube == tube,'loc']; 
+	 				locs = c(1,seq(5,110,5));
+	 				ifelse (all(!(locs %in% tl)),
+	 					return("No images"),
+	 					return(
+	 						paste("Missing: ", 
+	 							toString(locs[!(locs %in% tl)]))))
+	 			}
+			unlist(lapply(c(1:96),checktube))
+		
+		Compare this list against the analysis log, then clean up from the correction process: 
+			efrhizo20100524 = s12010.nodupimg
+			rm(s12010.raw)
+			rm(s12010.noeasydups)
+			rm(s12010.dups)
+			rm(s12010.nodupimg)
+			rm(multiimg)
+			rm(tc)
+	
+8. Set up species and block factors (there's probably an easier way, but this works):
+		
+			efrhizo20100524$Species = efrhizo20100524$Tube
+			efrhizo20100524$Species[efrhizo20100524$Species %in% 1:24] = "Cornsoy"
+			efrhizo20100524$Species[efrhizo20100524$Species %in% 25:48] = "Miscanthus"
+			efrhizo20100524$Species[efrhizo20100524$Species %in% 49:72] = "Switchgrass"
+			efrhizo20100524$Species[efrhizo20100524$Species %in% 73:96] = "Prairie"
+			efrhizo20100524$Species = factor(efrhizo20100524$Species)
+			
+			efrhizo20100524$Block = efrhizo20100524$Tube
+			efrhizo20100524$Block[efrhizo20100524$Block %in% c(1:8, 25:32, 49:56, 73:80)] = 0
+			efrhizo20100524$Block[efrhizo20100524$Block %in% c(9:12, 33:36, 57:60, 81:84)] = 1
+			efrhizo20100524$Block[efrhizo20100524$Block %in% c(13:16, 37:40, 61:64, 85:88)] = 2
+			efrhizo20100524$Block[efrhizo20100524$Block %in% c(17:20, 41:44, 65:68, 89:92)] = 3
+			efrhizo20100524$Block[efrhizo20100524$Block %in% c(21:24, 45:48, 69:72, 93:96)] = 4
+			efrhizo20100524$Block = factor(efrhizo20100524$Block)
+			
+9. Convert location in an angled tube to vertical depth below the ground surface. 
+		TO ADD LATER: account for differences in tube installation depth.
+		Locations are indexed 13.5 mm apart, and the tube is 30 degrees from vertical, and we don't need subcentimeter precision here, so:
+			
+			efrhizo20100524$Depth = round((efrhizo20100524$Location*1.35)*cos((pi/180)*30))
+	
+10. Convert pixel size to image scaling factor:
+		each image is 754x510 px, so
+			efrhizo20100524$ImgArea.mm2 = (754 * efrhizo20100524$PxSizeH) * (510 * efrhizo20100524$PxSizeV)
+	
+		Now we can normalize measurements to viewing area, e.g.: 
+			 
+ 			efrhizo20100524$mmroot.per.cm2 = 
+ 				efrhizo20100524$TotLength.mm / 
+ 				efrhizo20100524$ImgArea.mm2 * 100
+		(CHECK what TotProjArea.mm2 is, and how it differs from ImgArea!)
+
+2011-03-27:
+	Going through the saved console file from around the time I wrote this up. Here's another trick that looks useful for sorting through duplicated tubes:
+
+# For all frame with multiple entries, 
+# make a list of the total root length in each one.
+tdl = aggregate(
+	s12010.trimdups$TotLength.mm, 
+	by=list(tube=s12010.trimdups$Tube,l
+	oc=s12010.trimdups$Location),
+	paste)
+# and have a look in an easy format:
+tdl[lapply(tdl$x, function(l){return(length(l))}) > 1,]
+
+Sample clip of output:
+     tube loc                   x
+76     11   5          0, 11.8352
+90     37   5          0, 10.5207
+120    70   5           0, 2.3202
+207    84  10          0, 17.4986
+209    86  10    26.9428, 30.2327
+
+So we have four frames that were loaded twice but not analyzed until the second time, and the last frame was apparently traced once and then someone came back and added more roots they had missed the first time.
+
+a sample of getting stats out. Just extractming mean/se of total rootlength here, not normalized to frame size or accounting for size classes or blocks or anything.
+> rhizo.stats = aggregate(efrhizo20100524$TotLength.mm,by=list(Depth=Depth,Species=Species),mean)
+> rhizo.statsse = aggregate(efrhizo20100524$TotLength.mm,by=list(Depth=Depth,Species=Species),std.error)
+> rhizo.stats$se = rhizo.statsse$x
+> names(rhizo.stats)[3]="mean"
+> rhizo.stats.sp = split(rhizo.stats,rhizo.stats$Species)
+
+
+# some plotting; haven't revisited this to convince myself it does what I think.
+> plotCI(rhizo.stats.sp$Cornsoy$Depth, rhizo.stats.sp$Cornsoy$mean,rhizo.stats.sp$Cornsoy$se,add=TRUE)
+> abline(v=111)
+> abline(h=111)
+> abline(h=1)
+> abline(v=1)
+> abline(v=6)
+> abline(v=20)
+> abline(v=19)
+> interaction.plot(Depth, Species, TotLength.mm)
+> plotCI(1:21, rhizo.stats.sp$Cornsoy$mean,rhizo.stats.sp$Cornsoy$se,add=TRUE)
+> plotCI(1:19, rhizo.stats.sp$Miscanthus$mean,rhizo.stats.sp$Miscanthus$se,add=TRUE)
+> plotCI(1:19, rhizo.stats.sp$Prairie$mean,rhizo.stats.sp$Prairie$se,add=TRUE)
+> plotCI(1:19, rhizo.stats.sp$Switchgrass$mean,rhizo.stats.sp$Switchgrass$se,add=TRUE)
+
+> by(efrhizo20100524[,c(18:23,97,98)],Species,function(x){quartz(); return(plot(x))})

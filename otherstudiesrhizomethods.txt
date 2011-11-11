@@ -1,0 +1,41 @@
+Arnone 2000 (Switzerland)
+	1 tube/plot
+	18 cm deep, 45 frames
+	Used all 45 for RLD, 3 frames (3,9,15 cm) for root prod/mortality in first 10 samplings
+Pritchard (Duke FACE): 
+	30 cm vertical insertion at 45 deg 
+	30/cos(45) ~= 42 cm tube in ground 
+	monthly imaging for 6 years
+	16 images/tube ~= 2.6 cm spacing
+		=> Probably analyzed every two positions (27 mm)
+
+Prichard (artificial pine)
+	32.5 cm vertical, 45 deg
+	32.5/cos(45) ~= 46 cm
+	images every 3 weeks x7
+	46/ 17 frames =2.7
+		=> every other 
+
+
+Baronti (Italian mini FACE):
+	2 tubes/ring
+	biomass reported as 0-15 & 015-30 cm
+	Root #s reported per tube
+	
+Brown 2009 (open-topped chambers in FL)
+	Lumps values for whole 1-m tube
+
+Edwards 2004 (shading)
+	2/plot
+	monitored only 4 & 11 cm
+
+Gill 2002 (shortgrass steppe)
+	8 tubes
+	5 samplings/season
+	Analyzed RLD over 20-cm increments, unclear how many images/increment
+	
+Higgins 2002 (Jasper Ridge open-top chambers)
+	Images every cm to 20 cm depth
+	analyzed central area (10.86x14.49 out of 13.5x18)
+	rejected frames with >5% bad soil contact
+	4 depth zones (5 cm increments down tube starting at 8 cm), analyzed best frame/zone

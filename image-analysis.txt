@@ -1,0 +1,41 @@
+Analysis for Energy Farm rhizotron images
+DeLucia Lab
+Chris Black, 08 July 2009
+
+First, transfer the images:
+0. On the lab computer, check that C:\Rhizotron Image Transfer is empty.
+1. Connect the field computer to the lab computer via FireWire. 
+2. On the field computer, open the I_CAP Data Transfer utility.
+3. In the 'Source Computer' list, navigate to C:\btc2\images\EF_images and double-click on it. A list of filenames should appear below.
+4. In the 'Target Computer' list, navigate to z:[\\Fitzhugh1\Rhizotron Image Tranfser] and double-click it. This is a network drive mapped to the lab computer's Rhizotron Image Transfer directory.
+5. Click 'Transfer Data.' When it complains that the folder you've selected doesn't mention the experiment name, pick "I still want to use this folder" and click 'Proceed.' It will take you back to the previous screen. Hit 'Transfer Data' again. When it asks if that's really what you intended, double-check the folder names and hit 'yes.
+6. Wait for the transfer to finish (it should only take a few seconds). When it suggests that you check on the lab computer to be sure everything looks like it arrived safely, do that and then hit 'Okay.'
+7. Back on the field computer, the image transfer program is at step 3, internal transfers. Hitting 'Transfer Data' at this stage doesn't seem to do anything, but feel free to click, wait a while, and check the image folder to see if it did what it said it would. When you get bored with that, click 'Exit Program' and put the field computer aside.
+
+
+Second, back up (requires a fileserver login):
+0. Connect to \\file-server.igb.uiuc.edu\themes\GEGC\DeLucia Lab\2009-enfarm-rhizotron-Black\Raw Imgs.
+1. Make a new subdirectory named with the imaging session number.
+3. Copy the entire contents of c:\Rhizotron Image transfer into the new directory.
+4. Disconnect from the fileserver.
+
+Third, redistribute files:
+0. Launch BTC Utilities and select the Distribute-Image-Files utility. 
+1. Type in the experiment name EF. It should bring up a saved folder setup:
+	Tube 001 to 024: EF_Corn_T1-24
+	Tube 025 to 048: EF_Mxg_T45-48
+	Tube 049 to 072: EF_Switch_T49-72
+	Tube 073 to 096: EF_Prairie_T73-96
+	Tube 97: EF_calibrations
+2. In the left bottom pane, Browse to C:\Rhizotron Image Transfer. In the right bottom pane, select c:\EF_TubeFolder if it's not already shown (the drive name is the only thing you can change).
+3. Click "Move." When the progress bar finishes, click "Exit Program."
+4. 
+
+
+Fourth, clean up from field mistakes:
+0. In Desktop\Energy Farm Rhizotron, make a new directory named after the imaging session number. Move everything from Rhizotron Image Transfer into this new directory.
+1. Launch BTC Utilities. Select "Browse for Files" and navigate to C:\Documents and Settings\IGB\Desktop\Energy Farm Rhizotron. Double-click on the folder you just created and then click "View Files."
+2. If it warns that it found multiple images, hit "okay". Those get resolved in a moment.
+3. Click on the session number to see the 
+
+Beware! Notes are associated with a particular /image/, not a particular location. If there are multiple images at one location and the useful notes are attached to the less useful image, some merging is in order before you remove any images.[[1,2,3],[1,2,3]],[0]

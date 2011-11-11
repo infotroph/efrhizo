@@ -1,0 +1,41 @@
+1-8: no data
+11: 6/22, 6/23
+12: 6/22, 6/23
+19: 6/23, 6/25
+21-32: no data
+33: 6/1, 6/2       loc 90 has 2 imgs 
+35: 6/1, 6/2 (measured four times!) loc 55 has 2 imgs
+37: measured twice on 6/2
+42: 6/7, 6/8 
+50: no data
+61: no data
+68: no data
+69: 6/9, 6/11
+70: measured twice on 6/9
+76: measured twice on 6/16
+77: 6/16, 6/21
+80: 6/21, 6/22
+82: 6/1, 6/2           loc 70 has 2 imgs
+84: 6/1, 6/2 (measured three times!)
+86: 6/2, 6/3
+93: measured twice on 6/8
+
+
+Blurry images: 
+Kept:
+    T51 L35
+Deleted:
+    T19 L50
+    T66 L20
+    T80 L20
+    T94 L65
+
+diffvals = function(
+	unlist(lapply(bar$x, 
+	function(list){
+		return(length(unique(list)) != 1)
+	})),] #2011-03-17: what is this I don't even
+
+
+tdl = aggregate(s12010.trimdups$TotLength.mm, by=list(tube=s12010.trimdups$Tube,loc=s12010.trimdups$Location),paste)
+
