@@ -77,7 +77,7 @@ Img	MeasDate	MeasTime	Experiment	Tube	Location	Date	Time	Session	DataGatherer	Im
 	 		tc = aggregate(s12010.nodupimg$Img, by=list(tube=s12010.nodupimg$Tube,loc=s12010.nodupimg$Location),length)
 	 		
 	 		# This should return 0 if there are no duplicates:
-	 		which(aggregate(s12010.nodupimg$Img, by=list(tube=s12010.nodupimg$Tube,loc=s12010.nodupimg$Location),length)$x > 1) 
+	 		which(tc$x > 1) 
 	 	 	
 	 	 	#Now check for missing readings:
 	 	 	checktube = function(tube){
@@ -102,12 +102,10 @@ Img	MeasDate	MeasTime	Experiment	Tube	Location	Date	Time	Session	DataGatherer	Im
 	
 8. Set up species and block factors (there's probably an easier way, but this works):
 		
-			efrhizo20100524$Species = efrhizo20100524$Tube
-			efrhizo20100524$Species[efrhizo20100524$Species %in% 1:24] = "Cornsoy"
-			efrhizo20100524$Species[efrhizo20100524$Species %in% 25:48] = "Miscanthus"
-			efrhizo20100524$Species[efrhizo20100524$Species %in% 49:72] = "Switchgrass"
-			efrhizo20100524$Species[efrhizo20100524$Species %in% 73:96] = "Prairie"
-			efrhizo20100524$Species = factor(efrhizo20100524$Species)
+			efrhizo20100524$Species = cut(
+				efrhizo20100524$Tube,
+				breaks=c(0, 24, 48, 72, 96), 
+				labels=c("Cornsoy", "Miscanthus", "Switchgrass", "Prairie"))
 			
 			efrhizo20100524$Block = efrhizo20100524$Tube
 			efrhizo20100524$Block[efrhizo20100524$Block %in% c(1:8, 25:32, 49:56, 73:80)] = 0
