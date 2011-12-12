@@ -1,0 +1,58 @@
+\citep{mcwilliams:1999dp}
+	Soy taproot 4-8 ft, most roots 6-12"
+		= 1.2-2.4 m
+
+Maximum rooting depths \citep{canadell:1996cl}
+	by biome 
+		cropland 2.1 ± 0.2 m (max 3.7 m)
+		temperate grassland 2.6 ± 0.2 m (max 6.3 m)
+		tropical grass/savannah 15.0 ± 5.4 m (max 68 m)
+		tundra 0.5 ± 0.1 m (max 0.9 m)
+	By functional group:
+		trees 7.0 ± 1.2 m
+		shrubs 5.1 ± 0.8 m
+		herbaceous 2.6 ± 0.1 m
+	Glycine max: 1.8 m (from \citep{mayaki:1976mb})
+	Zea Mays: 
+		1.3 m from \citep{pages:1994cq}, 
+		2.4 m from \citep{weaver:1926kh}
+Root depths from a water-depletion experiment \citep{dardanelli:1997ay}
+	Soy (3 maturity groups)
+		85 day  130 cm
+		112 day 190 cm
+		128 day 230 cm
+	Alfalfa 250 cm (mention Borg and Grimes report 3 to 6 m)
+	Maize 190 cm
+
+
+Evan said we "want to be sure we really need the extra depth."
+	--What are the consequences of missing deep-root observations?
+	--is absolute maximum root depth interesting to us?
+	--if trying to calculate biomass: magnitude of potential error if roots deeper than 1.5 m are unquantifiable?
+	
+Candace says water table is at ~0.5 m. Prob. limits root depth? What about tube flooding?
+
+Wageningen Rhizotron: 
+	14-day interval between observations
+	presented as # roots per cm^2 of tube surface (tubes are horizontal)
+
+\citep{yang:2003ai}: Tube angle (30¡) is to discourage roots following tube.
+
+Zhang 2009: Rhizotron numbers differed from soil core numbers for first few months. Endorse 10-month waiting period, say Johnson 2001 recommend waiting 6-12 months after tube installation. 
+	One month with differing counts: Probably when fine roots were dying very rapidly. Issue of accurate ID of dead roots in rhizotron. (Check: Any reason to expect difference under UV light?)
+	
+Higher soil temp -> faster root turnover? \citep{hendrick:1993ul}
+
+Install with Giddings probe
+
+Tube tops: Cap with aluminum cans
+	light block: 
+		aluminum foil \citep{hirasawa:1995kl}
+		black plastic \citep{bragg:1983pi}
+		opaque tape \citep{arnone:2000oz}\citep{brown:2009fr}
+		black paint \citep{edwards:2004qf}
+		white paint \citep{zhang:2009mz}
+		Fiberglass insulation (pipe tape) & reflective duct tape (to avoid temp. change)\citep{gill:2002il}\citep{milchunas:2005fu}
+		Black tape, covered in white plastic when not in use \citep{withington:2003qo}
+		cloth tape, PVC cap \citep{yang:2003ai}
+		

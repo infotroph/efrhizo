@@ -1,0 +1,6 @@
+Bugs in WinRhizo TRON (MF, v. 2009a)
+
+*Display of total root length does not update when node is dragged with mouse. Root and segment stats update normally, and frame totals do update immediately when node is moved with ctrl-arrow.
+
+
+
