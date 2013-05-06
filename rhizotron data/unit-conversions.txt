@@ -1,0 +1,18 @@
+radians / (2pi/360) = degrees
+
+degrees * 2pi/360 = radians
+
+Tube length: 184 cm, 22 cm aboveground = 1620 cm belowground
+
+tube at 30 degrees ==> 1.620*cos(30*(2*pi/360)) ~= 1.4 m vertical depth
+
+Index handle spacing: 13.5 mm 
+Images are 754*510, typically ~ 0.025 x 0.026 px/mm =>
+	Typical field of view: ~ 18.85*13.26 mm ~ 250 mm^2
+
+Observe every 5 stops = 5*1.35*cos(30*(2*pi/360)) = 5.84 cm vertical spacing.
+ 
+
+
+
+To convert estimated root volume to grams root: Have found root density estimates for grasses ranging from 0.1 to 0.4 g/cm^3, but didn't note sources. See several of Joseph Craine's papers, for a start.
