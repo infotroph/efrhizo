@@ -1,0 +1,132 @@
+Reference images:
+EF2012_T097_L001_2012.05.18_101438_001_CKB
+EF2012_T097_L002_2012.05.21_095906_001_JNR
+EF2012_T097_L001_2012.05.22_095657_001_JNR
+EF2012_T097_L003_2012.05.23_101112_001_JNR
+
+EF2012_T097_L003_2012.06.05_093902_002_TAW
+EF2012_T097_L002_2012.06.07_094537_002_MDM
+2012.06.08? Data but no calibration
+EF2012_T097_L004_2012.06.20_100133_002_TAW
+EF2012_T097_L001_2012.06.21_094533_003_LYF
+EF2012_T037_L115_2012.06.22_095627_003_LYF
+EF2012_T098_L001_2012.08.02_113953_003_TAW renamed to EF2012_T097_L001_2012.08.02_113953_003_TAW
+2012.08.03?
+EF2012_T097_L003_2012.08.06_093153_004_TAW
+EF2012_T097_L004_2012.08.07_093846_004_TAW
+EF2012_T097_L001_2012.08.29_104414_005_MDM
+2012.08.30?
+EF2012_T097_L003_2012.08.31_092840_005_MDM
+EF2012_T097_L001_2012.10.22_102219_006_MDM
+EF2012_T097_L002_2012.10.25_092418_006_MDM
+EF2012_T097_L001_2012.10.26_143614_006_RMC
+
+Calibration images- 3 missing. Some recorded as duplicates
+
+Tubes 33 and 34 confusing. Note on 34 Ses6 says: "33 and 34 switched." 33-1 33-2 33-3 all match and are labeled "1m1" 33-4 and 33-5 are likely 1m1 also
+but can't be confirmed. Hypothesise: 33 is all 1m1 except 33-6,which is 1m2
+					34 is all 1m2 except 34-6 which is 1m1
+
+
+Tube 41 labels clearly read 3m- something, in sequence with tubes around it so assuming 3m1
+
+T43 ses6 and T44 ses6 switched
+
+T52 ses2 doesn't appear identical to other T52s, but other T52s confirmed
+T53 ses2 doesn't appear identical to other T53s, but other T53s confirmed
+
+T55 and T56 are both labeled 0512 (have no idea what that means), but the style of sharpie marks is clearly different so they're different 0512s. Very confusing
+
+T73 ses5 sharpie style matches t74 ses (1,2,3,4,6)
+
+T75 ses6 L1 pic is a duplicate under T77 ses6 L1, with T77 available also  how do i extract it?
+Actually it appears T75 ses6 is a complete dataset recorded as duplicates of T77 ses6  L85 shows relation
+
+T98 Ses1 is T36ses1 data?
+
+CKB 2013-06-06:
+	Resolved the following multiple-image sets 
+		T1 S1: 2 complete sets, some locations in 1st set blurry, images match when not blurry. Kept second set.
+		T35 & T47 S1: Kept real images, deleted bluescreens from camera malfunction
+		T49 S1: 
+			One complete set of bluescreens removed. 
+			L75 has two identical images in addition to bluescreen, kept last. 
+			L55 and L80 have two images in addition to bluescreen that aren't identical; did not resolve these.
+		T61 S4: Removed bluescreens & duplicated L5
+		T63 S4: Removed bluescreens
+
+	T97 L2 S4: There were three camera-test images, none of which showed the calibration target. I deleted all three.
+	Deleted the following images that were saved in places no images should be saved:
+		--L6, image is a duplicate of L1 (all in S1): T1, T23, T42.
+		--L2&3, images are duplicates of L5 & L10: T45 S3.
+
+
+CRS 2013-06-07  
+
+Working with the antrenamer and worried about creating duplicates when trying to switch two tubes
+Decided to rename T002 to T102 temporarily, rename T005 to T002, then T102 to T005 (only for ses 2,3,5)
+	-Now T005 is correct for ses's 2,3,4,5 (was already correct for ses4), and what was in T005 ses 2,3,5 is now in T002
+ses 2,3,5; but what these tubes are is unknown 
+
+
+**** From now on, while using this method of 3-change replacements, the temporarily renamed tube is always T(100 + [Tube number
+of the destination]); such that the last step is renaming a tube by subtracting 100 from tube #
+
+It's easier to do with two AntRenamer windows open, then each batch has to only be selected once. Seems to have worked with
+no issues. In the practice of closing the tubeviewer program before any renaming (it read an error once when I didn't)
+
+
+Likewise, T005 ses1 >> T108 ses1; T008 ses1 >> T005 ses1; T108 ses1 >> T008 ses1
+
+T004 ses 2,3,5>> T107; T007>>T004; T107>>T007
+Problem with 3 tubes all mixmatched
+fixing multiple images
+3 tubes mismatched + duplicated images **
+
+
+CRS 2013-10-06
+
+T002 ses 2,3,5 >> T108 ses2,3,5; T008 >> T002; T108>>T008
+T003 Ses 2,3,5 >> T104; T004>>T003; T104>>T004
+T019 Ses1,5 >> T123; T023>>T019; T123>>T023
+	
+	T27-32 are very confusing because no tube numbers are shown.
+		Leaving this group until other simpler ones are resolved, but will probably have to trust they're correct.
+		Most sessions within the tubes are similar enough to declare they're in the correct tubes, but without tube
+		numbers it's not 100% clear. See "2012 Tube Corrections with renamer" excel spread sheet
+
+Printing out a copy of the "2012 Tube Corrections with renamer" spread sheet and writing down the pathways 
+(i.e. T019 Ses1,5 >> T123; T023>>T019; T123>>T023 ) needed to correct the tubes. Since all the necessary data's in the spreadsht
+no software is needed for this. I theorize it'll be faster to write out the pathways, quadrouple check them, then make the
+changes all at once Rather than bludgering my way through the spreadsheet tube by tube when no two sessions are in the correct
+ tube (which is actually quite disorientating)... not to mention I can get more coffee this way
+
+
+CRS 2013-18-06
+ 
+T049>>T152; T052>>T156; T056>>T049; T152>>T052; T156>>T056 (Switched back after I verified old label codes)
+T033 ses6>>T134; T034>>T033; T134>>T034
+T055 switched to T051 when confused about 0S12 label. Switched back, so no change was made.
+All old labels (ex: 0S12) locations confirmed; old codes match "theoretical" tube #s
+0S6 (originally T051) moved to T052 to match old codes. No label on T051, but same tube across sessions
+
+T027 and T030 are both labeled, different, 30s. Both tubes are consistent throughout sessions, and in the large miscanthus
+block. Agreed that T027, being labeled 30, shouldn't be an issue. NODATA for ses 1,2,6, however.
+
+12 Tubes recorded as same tube across sessions, but no tube label present. I have to assume they're in the correct locations
+and can only verify the consistency of the tube across sessions
+
+Tube 8 is copletely mysterious>> have to assume it's correct or throw it out (assume it's correct)
+Deleted 2012.10.25 duplicate in T097 (was a blurred tube label with a duplicate in the correct tube)
+
+CKB 2013-06-19:
+	* Tube currently named as 36 (label says '1m4') is actually 35 -- at installation in 2009, both 35 and 36 were labeled '1m4'
+	* Tube currently named 35 is actually 36, as labeled. 
+	* T098 only appears in session 1, labeled 36. Matches labels of tube currently named 35 in other sessions.
+	>> Changed T98 -> T035
+	*Oops, EF2012_T098_L001_2012.08.02_113953_003_TAW was a calibration image! 
+		Renamed to EF2012_T097_L001_2012.08.02_113953_003_TAW
+	>> Changed T035 - > T136; T036 -> T035; T136 -> T036
+
+CKB 2014-01-07: Found WinRhizo trace data from session 6 tubes 45-46-47-48, which was previously missing without explanation, appended to this file. Moved to "EF2012_S6_found_in_SoC_notes", copied headers from EF2012_S6.TXT
+ 
