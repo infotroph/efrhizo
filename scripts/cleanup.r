@@ -58,10 +58,3 @@ tdl = aggregate(
 tdl.dups = tdl[lapply(tdl$x, function(l){return(length(l))}) > 1,]
 
 
-
-	
-			efrhizo20100524$Species = cut(
-				efrhizo20100524$Tube,
-				breaks=c(0, 24, 48, 72, 96), 
-				labels=c("Cornsoy", "Miscanthus", "Switchgrass", "Prairie"))
-			
