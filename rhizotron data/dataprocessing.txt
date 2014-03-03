@@ -1,26 +1,30 @@
-1. Strip records for individual roots, e.g.
-    	
-		sed '/ROOT/ d' EF2010.05.24.TXT > EF2010.05.24-frametots.txt
+1. Strip WinRhizo data files down to frame totals:
+	
+	cat frametot-headers.txt <(sed -e '1,4d' -e '/ROOT/d' rhizotron\ data/2010/ef2010-07-22.txt) > rhizotron\ data/2010/ef2010-07-22-frametots-2.txt
 
-2. Use a text editor to remove lines two and three (the headers for segment and axis records; the sed command above takes care of the root header) and to replace the single remaining header line with the version below that has more R-friendly names (Don't miss the trailing tab character, it's important):
+	Taking this one section at a time: 
+		* cat reads a file of more useful headers ("frametot-headers.txt"), concatenates it with standard input, and sends the results to standard output.
+		* "<(...)" runs everything inside the parentheses as a separate command, and redirects the output to become input to cat.
+		* sed deletes the first four lines of unneeded headers ('1,4d'), deletes records for individual roots ('/ROOT/d'), leaving only the totals from each image, and sends the results to standard output (which cat takes as input).
+		* ">" takes the output from this whole cascade and writes it to a new file ("rhizotron\ data/2010/ef2010-07-22-frametots.txt"). 
+	This output file now contains only totals for each frame (no individual roots) and has one line of R-friendly headers.
 
-*** BEWARE: 
-	Don't trust unit labels! The header below assumes all units are in mm. WinRhizo can be calibrated in mm, cm, or px, and furthermore it's perfectly happy to mix calibrations, INCLUDING calibrations labeled with different units, within one file. The header reflect the units in use at the time the file was created, and if there's no warning if they change in midfile. Fortunately for this project, all calibrations are performed against a photo of a 1-mm grid, and the saved calibration factor will thus be in mm even if labeled otherwise. 
+	Two notes about frametot-headers.txt:
+		1. Whitespace is important! The header file ends with a tab and two newlines; the tabs will matter when we read the final datafile into R, and the newlines keep cat from mashing data into the same line as the headers.
+		2. Beware of unit changes. We've just replaced all headers with one that assumes mm, but WinRhizo can be calibrated in mm, cm, or px, and it's perfectly happy to mix calibrations even within one file (!). The units in the original header reflect the units in use at the time the file was created, and there's no warning if they change in midfile. Fortunately for this project, all calibrations are performed against a photo of a 1-mm grid, and the saved calibration factor will thus be in mm even if labeled otherwise. 
 
-	So in short, it's most likely okay to paste in the header below, even if the line it's replacing says e.g. "TotLength.px".
+	To strip a whole season at once:
+		cd rhizotron\ data/2010
+		cp ../../frametot-headers.txt ef2010-allframetots.txt
+		ls ef2010*.txt | xargs -n1 sed -e '1,4d' -e '/ROOT/d' >> ef2010-allframetots.txt
 
-***
-
-Img	MeasDate	MeasTime	Experiment	Tube	Location	Date	Time	Session	DataGatherer	ImgType	PxSizeH	PxSizeV	Fungae	Undefined	Undefined	Undefined	TotLength.mm	TotProjArea.mm2	TotSurfArea.mm2	TotAvgDiam.10ths.mm	TotVolume.mm3	TotNumberOfTips	AliveLength.mm	AliveProjArea.mm2	AliveSurfArea.mm2	AliveAvgDiam.10ths.mm	AliveVolume.mm3	AliveNumberOfTips	DeadLength.mm	DeadProjArea.mm2	DeadSurfArea.mm2	DeadAvgDiam.10ths.mm	DeadVolume.mm3	DeadNumberOfTips	GoneLength.mm	GoneProjArea.mm2	GoneSurfArea.mm2	GoneAvgDiam.10ths.mm	GoneVolume.mm3	GoneNumberOfTips	NumberOfClasses	L0to0.5	L0.5to1	L1to1.5	L1.5to2	L2to2.5	L2.5to3	L3to3.5	L3.5to4	L4to4.5	Lgreaterthan4.5	SA0to0.5	SA0.5to1	SA1to1.5	SA1.5to2	SA2to2.5	SA2.5to3	SA3to3.5	SA3.5to4	SA4to4.5	SAgreaterthan4.5	PA0to0.5	PA0.5to1	PA1to1.5	PA1.5to2	PA2to2.5	PA2.5to3	PA3to3.5	PA3.5to4	PA4to4.5	PAgreaterthan4.5	V0to0.5	V0.5to1	V1to1.5	V1.5to2	V2to2.5	V2.5to3	V3to3.5	V3.5to4	V4to4.5	Vgreaterthan4.5	T0to0.5	T0.5to1	T1to1.5	T1.5to2	T2to2.5	T2.5to3	T3to3.5	T3.5to4	T4to4.5	Tgreaterthan4.5		ImageNotes	
-
-
-4. Read the file into R, e.g.
+2. Read the file into R, e.g.
 		
-		s12010.raw = read.delim("~/UI/energy farm/rhizotron data/EF2010.05.24-frametots.txt")
+		s12010.raw = read.delim("~/UI/efrhizo/rhizotron data/2010/EF2010.05.24-frametots.txt")
 		
 	Check that the columns are named correctly (If the header above is missing its trailing tab, the columns will align wrong).
 	
-5. Remove duplicate readings. These mostly exist because WinRhizo writes a new line to the data file every time a tube analysis is opened, even if you don't change anything. 
+3. Remove duplicate readings. These mostly exist because WinRhizo writes a new line to the data file every time a tube analysis is opened, even if you don't change anything. 
 	
 	There's probably a better way, but here's my labor-intensive approach.
 	
