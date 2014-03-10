@@ -17,14 +17,14 @@ strip.tracing.dups = function(x){
 	if (length(unique(x$PxSizeH)) > 1 || length(unique(x$PxSizeV)) > 1 ){
 		# Calibration changed! resolve by hand
 		# (or, better, further upstream)
-		# NOT IMPLEMENTED YET -- just returns last value.
+		# NOT IMPLEMENTED YET -- just warns and moves on.
 		print(paste(
 			x$Img[1], 
 			": multiple cals. PxSizeH: ", 
 			paste(x$PxSizeH, collapse=", "), 
 			", PxSizeV: ", 
 			paste(x$PxSizeV, collapse=", ")))
-		return(x[nrow(x),])
+		# return(x[nrow(x),])
 	}
 	
 	xv  = x$TotVolume.mm3
