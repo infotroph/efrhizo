@@ -29,11 +29,11 @@ strip.tracing.dups = function(x){
 	
 	xv  = x$TotVolume.mm3
 	
-	if (length(unique(xv)) == 1 # All values identical
-		|| (all(xv[xv > 0] == xv[length(xv)]) # all nonzeros identical
-			&&  all(xv == sort(xv)))  # and later than all the zeros 
+	if (length(unique(xv)) == 1 # All values identical...
+		|| (all(xv[xv > 0] == xv[length(xv)]) # ...or all nonzeros identical
+			&&  all(xv == sort(xv)))  # ...and later than all the zeros 
 		){ 
-			return(x[nrow(x),])
+			return(x[nrow(x),]) # ...Then last value is the correct one.
 	}
 	
 	# If we got this far, there are either multiple nonzeros 
