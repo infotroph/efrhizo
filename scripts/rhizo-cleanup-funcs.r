@@ -1,4 +1,4 @@
-strip.tracing.dups = function(x){
+strip.tracing.dups = function(x, warn=TRUE){
 	# Takes rhizotron data for a single image 
 	# and return the most recent tracing, with a warning if it's unclear that's
 	# the correct tracing to keep.
@@ -18,12 +18,14 @@ strip.tracing.dups = function(x){
 		# Calibration changed! resolve by hand
 		# (or, better, further upstream)
 		# NOT IMPLEMENTED YET -- just warns and moves on.
-		print(paste(
-			x$Img[1], 
-			": multiple cals. PxSizeH: ", 
-			paste(x$PxSizeH, collapse=", "), 
-			", PxSizeV: ", 
-			paste(x$PxSizeV, collapse=", ")))
+		if(warn){
+			print(paste(
+				x$Img[1], 
+				": multiple cals. PxSizeH: ", 
+				paste(x$PxSizeH, collapse=", "), 
+				", PxSizeV: ", 
+				paste(x$PxSizeV, collapse=", ")))
+		}
 		# return(x[nrow(x),])
 	}
 	
@@ -38,10 +40,12 @@ strip.tracing.dups = function(x){
 	
 	# If we got this far, there are either multiple nonzeros 
 	# or zeros after a nonzero; either way, need to check manually.
-	print(paste(
-		x$Img[1], 
-		": multiple values: ", 
-		paste(xv, collapse = ", ")))
+	if(warn){
+		print(paste(
+			x$Img[1], 
+			": multiple values: ", 
+			paste(xv, collapse = ", ")))
+	}
 	return(x[nrow(x),])
 } 
 
