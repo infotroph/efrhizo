@@ -1,4 +1,4 @@
-s22010.raw = read.delim("/Users/chrisb/UI/energy farm/rhizotron data/2010/ef2010-07-22-frametots.txt")
+s22010.raw = read.delim("../data/2010/ef2010-07-22-frametots.txt")
 s22010.noeasydups = s22010.raw[!duplicated(s22010.raw[,c(1,4:95)],fromLast=TRUE),]
 s22010.dups = aggregate(s22010.noeasydups$Img, by=list(loc=s22010.noeasydups$Location, tube=s22010.noeasydups$Tube), length)
 			s22010.dups = s22010.dups[s22010.dups$x > 1,]

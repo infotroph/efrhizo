@@ -1,8 +1,8 @@
 # Logs hand-converted to compatible formats before loading
-log524 = read.csv("~/UI/efrhizo/rhizotron data/2010/analysis log 05-24.csv")
-log722 = read.csv("~/UI/efrhizo/rhizotron data/2010/analysis log 7-22-2010.csv")
-log812 = read.csv("~/UI/efrhizo/rhizotron data/2010/analysis log 2010-8-12.csv")
-log1007 = read.csv("~/UI/efrhizo/rhizotron data/2010/analysis log 2010-10-07.csv")
+log524 = read.csv("../data/2010/analysis log 05-24.csv")
+log722 = read.csv("../data/2010/analysis log 7-22-2010.csv")
+log812 = read.csv("../data/2010/analysis log 2010-8-12.csv")
+log1007 = read.csv("../data/2010/analysis log 2010-10-07.csv")
 
 logs.2010 = rbind(log524, log722, log812, log1007)
 rm(log524, log722, log812, log1007)

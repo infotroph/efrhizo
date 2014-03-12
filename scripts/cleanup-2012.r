@@ -1,6 +1,6 @@
 require(rhizoFuncs)
 
-raw.2012 = read.delim("~/UI/efrhizo/rhizotron data/2012/ef2012-allframetots.txt")
+raw.2012 = read.delim("../data/2012/ef2012-allframetots.txt")
 raw.2012 = make.datetimes(raw.2012)
 
 # Delete all Loc 1 records (none show roots)
@@ -8,7 +8,7 @@ raw.2012 = make.datetimes(raw.2012)
 raw.2012 = droplevels(raw.2012[raw.2012$Location %in% seq(5,120,5),])
 
 # Censor all images that were too low-quality to trace
-censor.2012 = read.csv("~/UI/efrhizo/rhizotron data/2012/2012-censorframes.csv")
+censor.2012 = read.csv("../data/2012/2012-censorframes.csv")
 	# TODO: 2012-censorframes is VERY incomplete, only covers first 1.5 sessions.
 censor.2012$date = as.Date(censor.2012$date)
 censor.2012 = censor.2012[order(censor.2012$date, censor.2012$tube, censor.2012$loc),]
