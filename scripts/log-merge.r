@@ -1,11 +1,9 @@
 # Logs hand-converted to compatible formats before loading
-log524 = read.csv("../rawdata/analysis-log-2010-05-24.csv")
-log722 = read.csv("../rawdata/analysis-log-2010-07-22.csv")
-log812 = read.csv("../rawdata/analysis-log-2010-08-12.csv")
-log1007 = read.csv("../rawdata/analysis-log-2010-10-07.csv")
-
-logs.2010 = rbind(log524, log722, log812, log1007)
-rm(log524, log722, log812, log1007)
+logs.2010 = rbind(
+	read.csv("../rawdata/analysis-log-2010-05-24.csv"),
+	read.csv("../rawdata/analysis-log-2010-07-22.csv"),
+	read.csv("../rawdata/analysis-log-2010-08-12.csv"),
+	read.csv("../rawdata/analysis-log-2010-10-07.csv"))
 
 logs.2010$Date.imaged = as.Date(logs.2010$Date.imaged, format="%Y-%m-%d") 
 logs.2010$Date.Analyzed = as.Date(logs.2010$Date.Analyzed, format="%Y-%m-%d")
