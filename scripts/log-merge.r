@@ -1,17 +1,16 @@
 # Logs hand-converted to compatible formats before loading
-log524 = read.csv("../data/2010/analysis log 05-24.csv")
-log722 = read.csv("../data/2010/analysis log 7-22-2010.csv")
-log812 = read.csv("../data/2010/analysis log 2010-8-12.csv")
-log1007 = read.csv("../data/2010/analysis log 2010-10-07.csv")
+log524 = read.csv("../rawdata/analysis-log-2010-05-24.csv")
+log722 = read.csv("../rawdata/analysis-log-2010-07-22.csv")
+log812 = read.csv("../rawdata/analysis-log-2010-08-12.csv")
+log1007 = read.csv("../rawdata/analysis-log-2010-10-07.csv")
 
 logs.2010 = rbind(log524, log722, log812, log1007)
 rm(log524, log722, log812, log1007)
 
 logs.2010$Date.imaged = as.Date(logs.2010$Date.imaged, format="%Y-%m-%d") 
-logs.2010$Date.Analyzed = as.Date(logs.2010$Date.Analyzed, format="%m/%d/%y")
-	# TODO: Fix date format in the CSVs so these match! 
+logs.2010$Date.Analyzed = as.Date(logs.2010$Date.Analyzed, format="%Y-%m-%d")
 	# This converts non-date strings (e.g. "not imaged") to NA. 
-	# Good riddance.
+	# Good riddance, they should be in the notes column instead.
 
 
 # Compare pixel calibrations in datafile against what's claimed in the log
