@@ -21,11 +21,11 @@ all: $(ALL)
 	#not written yet
 
 data/ef2010-allframetots.txt: $(RAW2010)
-	cp frametot-headers.txt data/ef2010-allframetots.txt
+	cp scripts/frametot-headers.txt data/ef2010-allframetots.txt
 	ls $(RAW2010) | xargs -n1 sed -e '1,4d' -e '/ROOT/d' >> data/ef2010-allframetots.txt 
 
 data/ef2012-allframetots.txt: $(RAW2012)
-	cp frametot-headers.txt data/ef2012-allframetots.txt
+	cp scripts/frametot-headers.txt data/ef2012-allframetots.txt
 	ls $(RAW2012) | xargs -n1 sed -e '1,4d' -e '/ROOT/d' >> data/ef2012-allframetots.txt 
 
 data/2010-allcals.csv:
