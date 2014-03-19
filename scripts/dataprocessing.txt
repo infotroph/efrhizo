@@ -14,9 +14,9 @@
 		2. Beware of unit changes. We've just replaced all headers with one that assumes mm, but WinRhizo can be calibrated in mm, cm, or px, and it's perfectly happy to mix calibrations even within one file (!). The units in the original header reflect the units in use at the time the file was created, and there's no warning if they change in midfile. Fortunately for this project, all calibrations are performed against a photo of a 1-mm grid, and the saved calibration factor will thus be in mm even if labeled otherwise. 
 
 	To strip a whole season at once:
-		cd data/2010
-		cp ../../scripts/frametot-headers.txt ef2010-allframetots.txt
-		ls ef2010*.txt | xargs -n1 sed -e '1,4d' -e '/ROOT/d' >> ef2010-allframetots.txt
+		cd data
+		cp ../scripts/frametot-headers.txt frametots2010.txt
+		ls ef2010*.txt | xargs -n1 sed -e '1,4d' -e '/ROOT/d' >> frametots2010.txt
 
 2. Read the file into R, e.g.
 		

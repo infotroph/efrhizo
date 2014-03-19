@@ -1,6 +1,6 @@
 require(rhizoFuncs)
 
-raw.2010 = read.delim("../data/2010/ef2010-allframetots.txt")
+raw.2010 = read.delim("../data/frametots2010.txt")
 raw.2010 = make.datetimes(raw.2010)
 
 # Delete all Loc 1 records (none show roots)
