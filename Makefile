@@ -22,11 +22,11 @@ all: $(ALL)
 
 data/frametots2010.txt: $(RAW2010)
 	cp scripts/frametot-headers.txt data/frametots2010.txt
-	ls $(RAW2010) | xargs -n1 sed -e '1,4d' -e '/ROOT/d' >> data/frametots2010.txt 
+	scripts/frametot-collect.sh $(RAW2010) >> data/frametots2010.txt 
 
 data/frametots2012.txt: $(RAW2012)
 	cp scripts/frametot-headers.txt data/frametots2012.txt
-	ls $(RAW2012) | xargs -n1 sed -e '1,4d' -e '/ROOT/d' >> data/frametots2012.txt 
+	scripts/frametot-collect.sh $(RAW2012) >> data/frametots2012.txt 
 
 data/calibs2010.csv:
 	echo "file, h, v, unit" > data/calibs2010.csv
@@ -37,5 +37,6 @@ data/calibs2012.csv:
 	scripts/slurpcals.sh rawdata/calibs2012/*.CAL >> data/calibs2012.csv
 
 clean:
-	# not written yet
+	rm $(ALL)
+	# Is this actually what I want?
 
