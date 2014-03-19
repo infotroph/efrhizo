@@ -12,8 +12,12 @@ RAW2012 = rawdata/EF2012_S1test.TXT \
 	rawdata/EF2012_S6.TXT \
 	rawdata/EF2012_S6_found_in_SoC_notes.txt
 
+ALL = data/ef2010-allframetots.txt\
+	data/ef2012-allframetots.txt\
+	data/2010-allcals.csv\
+	data/2012-allcals.csv
 
-all: 
+all: $(ALL)
 	#not written yet
 
 data/ef2010-allframetots.txt: $(RAW2010)
@@ -24,6 +28,13 @@ data/ef2012-allframetots.txt: $(RAW2012)
 	cp frametot-headers.txt data/ef2012-allframetots.txt
 	ls $(RAW2012) | xargs -n1 sed -e '1,4d' -e '/ROOT/d' >> data/ef2012-allframetots.txt 
 
+data/2010-allcals.csv:
+	echo "file, h, v, unit" > data/2010-allcals.csv
+	scripts/slurpcals.sh rawdata/calibs2010/*.CAL >> data/2010-allcals.csv
+
+data/2012-allcals.csv:
+	echo "file, h, v, unit" > data/2012-allcals.csv
+	scripts/slurpcals.sh rawdata/calibs2012/*.CAL >> data/2012-allcals.csv
 
 clean:
 	# not written yet
