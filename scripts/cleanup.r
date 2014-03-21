@@ -5,9 +5,10 @@
 #	censorfile, CSV with columns "date", "tube", "loc", "reason", "notes". 
 #		Lists dates/locations with image quality too poor to trace accurately.
 #	imgcensorfile, csv with columns "img", "reason", "notes".
-#		lists IMAGES by name, not just date/locations, to remove. Use when e.g. same 
+#		This file lists IMAGES by name, not just date/locations, to remove. Use when e.g. same 
 #		location was photographed more than once in a session
 # 		and  you want to completely remove all tracings from one of them.
+#		If no images to be censored, give filename as "NULL."
 #	outfile, path and filename to which to write the cleaned-up data (as CSV). 
 #		If this points to an existing file, it will be overwritten.
 
@@ -17,7 +18,7 @@ args = commandArgs(trailingOnly = TRUE)
 
 raw = read.delim(args[1])
 censor = read.csv(args[2])
-censorimg = read.csv(args[3], stringsAsFactors=FALSE)
+if(args[3] == "NULL"){ censorimg=NULL }else{ censorimg = read.csv(args[3], stringsAsFactors=FALSE) }
 outfile = args[4]
 
 raw = make.datetimes(raw)
@@ -28,7 +29,7 @@ raw = droplevels(raw[raw$Location %in% seq(5, 120, 5),])
 # Remove entries for images specified in image censor file. 
 # Should only be needed when you have multiple images from 
 # same day/tube/depth that weren't caught in the pre-tracing cleanup.
-raw = raw[!(raw$Img %in% censorimg[,1]),]
+if(!is.null(censorimg)){ raw = raw[!(raw$Img %in% censorimg[,1]),] }
 
 # Remove all images that were too low-quality to trace, as specified in location censor file
 censor$date = as.Date(censor$date)

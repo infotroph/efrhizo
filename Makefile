@@ -15,7 +15,9 @@ RAW2012 = rawdata/EF2012_S1test.TXT \
 ALL = data/frametots2010.txt\
 	data/frametots2012.txt\
 	data/calibs2010.csv\
-	data/calibs2012.csv
+	data/calibs2012.csv\
+	data/stripped2010.csv\
+	data/stripped2012.csv
 
 all: $(ALL)
 	#not written yet
@@ -35,6 +37,12 @@ data/calibs2010.csv:
 data/calibs2012.csv:
 	echo "file, h, v, unit" > data/calibs2012.csv
 	scripts/slurpcals.sh rawdata/calibs2012/*.CAL >> data/calibs2012.csv
+
+data/stripped2010.csv: data/frametots2010.txt rawdata/censorframes2010.csv rawdata/censorimg2010.csv
+	Rscript scripts/cleanup.r data/frametots2010.txt rawdata/censorframes2010.csv rawdata/censorimg2010.csv data/stripped2010.csv
+
+data/stripped2012.csv: data/frametots2012.txt rawdata/censorframes2012.csv
+	Rscript scripts/cleanup.r data/frametots2012.txt rawdata/censorframes2012.csv "NULL" data/stripped2012.csv
 
 clean:
 	rm $(ALL)
