@@ -50,11 +50,11 @@ stripped.by = by(raw, raw$Img, strip.tracing.dups)
 stripped = do.call(rbind, stripped.by)
 rm(stripped.by)
 
-stripped$Tube = factor(stripped$Tube)
 stripped$Month = months(stripped$Date)
 stripped$Block = assign.block(stripped$Tube)
 stripped$Species = assign.species(stripped$Tube)
 stripped$Depth = loc.to.depth(stripped$Location)
+stripped$Tube = factor(stripped$Tube)
 stripped$rootvol.mm3.mm2 = with(stripped, 
  	rootvol.perarea(TotVolume.mm3, PxSizeH, PxSizeV))
 # normed = normalize.soilvol(stripped) # normalize.soilvol is unfinished and might stay that way
