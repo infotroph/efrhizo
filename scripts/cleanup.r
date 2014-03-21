@@ -64,7 +64,7 @@ stripped$Date.c = scale(stripped$Date, center=TRUE, scale=FALSE)
 stripped$Depth.c = scale(stripped$Depth, center=TRUE, scale=FALSE)
 
 # Done. Save the result.
-write.csv(x=stripped, file=outfile, row.names=FALSE, col.names=TRUE)
+write.csv(x=stripped, file=outfile, row.names=FALSE)
 
 
 
