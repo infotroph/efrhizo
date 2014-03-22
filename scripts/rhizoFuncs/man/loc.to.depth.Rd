@@ -24,7 +24,7 @@ loc.to.depth(loc, offset=22, angle=30)
 %% ~put references to the literature/web site here ~
 }
 \author{
-Chris Black <chris@bdoger.org>
+Chris Black <chris@bodger.org>
 }
 \note{
 %%  ~~further notes~~

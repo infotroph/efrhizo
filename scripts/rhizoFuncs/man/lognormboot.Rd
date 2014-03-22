@@ -40,7 +40,7 @@ Numeric vector of length 2, corresponding respectively to the lower and upper re
 %% ~put references to the literature/web site here ~
 }
 \author{
-Chris Black <chris@bdoger.org>
+Chris Black <chris@bodger.org>
 }
 \note{
 %%  ~~further notes~~

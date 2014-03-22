@@ -31,7 +31,7 @@ Factor with levels "Cornsoy", "Miscanthus", "Switchgrass", "Prairie".
 %% ~put references to the literature/web site here ~
 }
 \author{
-Chris Black <chris@bdoger.org>
+Chris Black <chris@bodger.org>
 }
 \note{
 %%  ~~further notes~~

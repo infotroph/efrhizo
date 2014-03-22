@@ -32,7 +32,7 @@ normalize.soilvol(df)
 %% ~put references to the literature/web site here ~
 }
 \author{
-Chris Black <chris@bdoger.org>
+Chris Black <chris@bodger.org>
 }
 \note{
 	Once again, FIX THIS before using it.

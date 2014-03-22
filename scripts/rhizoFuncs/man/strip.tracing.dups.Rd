@@ -38,7 +38,7 @@ Data frame with the same columns as x and length(unique(x$Img)) rows.
 %% ~put references to the literature/web site here ~
 }
 \author{
-Chris Black <chris@bdoger.org>
+Chris Black <chris@bodger.org>
 }
 \note{
 No, seriously, don't use warn=FALSE.

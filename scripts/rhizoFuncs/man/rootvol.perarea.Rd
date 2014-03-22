@@ -36,7 +36,7 @@ Numeric, in the nonsensical but calibration-corrected units of ``cubic millimete
 %% ~put references to the literature/web site here ~
 }
 \author{
-Chris Black <chris@bdoger.org>
+Chris Black <chris@bodger.org>
 }
 \note{
 %%  ~~further notes~~

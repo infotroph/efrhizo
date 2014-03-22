@@ -32,7 +32,7 @@ Factor with levels %in% c(0,1,2,3,4).
 %% ~put references to the literature/web site here ~
 }
 \author{
-Chris Black <chris@bdoger.org>
+Chris Black <chris@bodger.org>
 }
 \note{
 %%  ~~further notes~~
