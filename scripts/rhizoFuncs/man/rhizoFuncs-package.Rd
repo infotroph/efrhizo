@@ -12,8 +12,8 @@ Some functions I use together for sorting, finding duplicates, rearranging, and 
 \tabular{ll}{
 Package: \tab rhizoFuncs\cr
 Type: \tab Package\cr
-Version: \tab 0.1-0\cr
-Date: \tab 2014-03-11\cr
+Version: \tab 0.1-1\cr
+Date: \tab 2014-03-22\cr
 License: \tab Unlimited\cr
 }
 ~~ An overview of how to use the package, including the most important functions ~~
@@ -28,8 +28,6 @@ Maintainer: <chris@bodger.org>
 }
 \keyword{ package }
 \seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
 }
 \examples{
 \dontrun{

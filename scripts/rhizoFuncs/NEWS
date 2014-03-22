@@ -1,0 +1,4 @@
+New in 0.1-1: 
+	* loc.to.depth gains two optional arguments, with defaults matching the values that were hard-coded in verrsion 0.1-0:
+		- offset (in cm from top of tube to ground). Defaults to 22. 
+		- angle (in degrees from vertical). Defaults to 30.

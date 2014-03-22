@@ -1,8 +1,8 @@
 Package: rhizoFuncs
 Type: Package
 Title: Minirhizotron data cleanup
-Version: 0.1-0
-Date: 2014-03-11
+Version: 0.1-1
+Date: 2014-03-22
 Author: Chris Black
 Maintainer: Chris Black <chris@bodger.org>
 Description: Some functions I use together for sorting, finding duplicates, rearranging, and plotting the DeLucia lab's minirhizotron data. Created partly because I was tired of functions filling my .GlobalEnvironment , partly because I wanted to learn how to make an R package, and only a tiny bit because it was useful.
