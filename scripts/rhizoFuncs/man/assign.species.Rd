@@ -10,8 +10,7 @@ Given a [vector of] tube number[s] from the EBI Energy Farm minirhizotron experi
 assign.species(tube)
 }
 \arguments{
-  \item{tube}{
-}
+  \item{tube}{numeric, hopefully integers in the range 1-96. }
 }
 \value{
 Factor with levels "Cornsoy", "Miscanthus", "Switchgrass", "Prairie".
@@ -20,7 +19,7 @@ Factor with levels "Cornsoy", "Miscanthus", "Switchgrass", "Prairie".
 Chris Black <chris@bodger.org>
 }
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{assign.block}} for the experimental replicate (0-4) of a tube.
 }
 \examples{
 ##---- Should be DIRECTLY executable !! ----

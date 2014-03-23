@@ -29,21 +29,18 @@ Numeric with length 2: Lower and upper quantiles to compute. Defaults to c(0.025
   \item{na.rm}{
 Method of dealing with missing values. Not currently used; may be removed in a future version. }
 }
-\details{
-The algorithm is from http://www.amstat.org/publications/jse/v13n1/olsson.html, but neither that site nor the package author promises it's correct.
-}
 \value{
 Numeric vector of length 2, corresponding respectively to the lower and upper requested quantiles
 }
 \references{
-%% ~put references to the literature/web site here ~
+The algorithm is from \url{http://www.amstat.org/publications/jse/v13n1/olsson.html}, but neither that site nor the package author promises it's correct.
 }
 \author{
 Chris Black <chris@bodger.org>
 }
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{boot}} for a better-tested and less ad-hoc bootstrap implementation.
 }
 \examples{
 ##---- Should be DIRECTLY executable !! ----

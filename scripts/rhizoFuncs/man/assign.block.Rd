@@ -21,7 +21,7 @@ Factor with levels %in% c(0,1,2,3,4).
 Chris Black <chris@bodger.org>
 }
 \seealso{
-\code{\link{assign.species}}
+\code{\link{assign.species}} to assign treatments.
 }
 \examples{
 ##---- Should be DIRECTLY executable !! ----

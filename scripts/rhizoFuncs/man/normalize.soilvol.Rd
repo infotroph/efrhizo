@@ -32,7 +32,7 @@ Chris Black <chris@bodger.org>
 }
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{rootvol.perarea}} for the normalization function I'm using.
 }
 \examples{
 ## The function is currently defined as
