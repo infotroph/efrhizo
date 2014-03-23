@@ -1,6 +1,5 @@
 \name{make.datetimes}
 \alias{make.datetimes}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Mash WinRhizo dates and times together into a POSIXct datetime
 }
@@ -10,7 +9,6 @@ Given a dataframe with a Date ("2014.07.01") and a Time ("121505") in WinRhizo's
 \usage{
 make.datetimes(df)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{df}{A dataframe produced from a WinRhizo datafile.}
 }
@@ -59,7 +57,3 @@ function (df)
     })
   }
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

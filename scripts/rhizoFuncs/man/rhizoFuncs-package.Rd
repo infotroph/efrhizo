@@ -16,19 +16,13 @@ Version: \tab 0.1-1\cr
 Date: \tab 2014-03-22\cr
 License: \tab Unlimited\cr
 }
-~~ An overview of how to use the package, including the most important functions ~~
 }
 \author{
 Chris Black
 
 Maintainer: <chris@bodger.org>
 }
-\references{
-~~ Literature or other references for background information ~~
-}
 \keyword{ package }
-\seealso{
-}
 \examples{
 \dontrun{
 noeasy.2010.by = by(raw.2010, raw.2010$Img, strip.tracing.dups)

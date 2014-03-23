@@ -1,6 +1,5 @@
 \name{normalize.soilvol}
 \alias{normalize.soilvol}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Scale rhizotron root volume to soil volume
 }
@@ -22,14 +21,8 @@ normalize.soilvol(df)
   		Dataframe derived from WinRhizo data. See function definition below to see required column names.
 	}
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
 \value{
 	Input dataframe with additional columns "rootvol<n>to<n>" corresponding to every "V<n>to<n>" input column, and "rootvol.mm3.mm3" giving frame totals (would be in range(0,1) if the function worked right)
-}
-\references{
-%% ~put references to the literature/web site here ~
 }
 \author{
 Chris Black <chris@bodger.org>
@@ -37,8 +30,6 @@ Chris Black <chris@bodger.org>
 \note{
 	Once again, FIX THIS before using it.
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
@@ -73,7 +64,3 @@ normalize.soilvol <- function(df){
 			+ rootvolgreaterthan4.5)})
 }
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

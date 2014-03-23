@@ -1,6 +1,5 @@
 \name{lognormboot}
 \alias{lognormboot}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 lognormal bootstrap confidence intervals
 }
@@ -42,11 +41,6 @@ Numeric vector of length 2, corresponding respectively to the lower and upper re
 \author{
 Chris Black <chris@bodger.org>
 }
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
@@ -73,7 +67,3 @@ function (nboot = 1000, nsim = 4, ybar = 0, s2 = 1, quantiles = c(0.025,
     return(exp(quantile(t2, probs = quantiles)))
   }
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
