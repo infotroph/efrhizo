@@ -12,34 +12,33 @@ make.datetimes(df)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{df}{
-%%     ~~Describe \code{df} here~~
-}
+  \item{df}{A dataframe produced from a WinRhizo datafile.}
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+	The current implementation performs the following conversions: 
+	
+	Coerces column "Time"" to character, then pads times <10:00 so that \code{strptime} has a consistent string length to work from.
+	
+	Coerces columns "Date" and "MeasDate"" to type \code{Date} .
+	
+	Creates new columns "DateTime" and "MeasDateTime" of type \code{POSIXct}.
+	
+	Column "MeasTime"" is neither coerced to a time object nor checked for correct formatting -- this should probably be changed eventually.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
+Dataframe, changed from the input dataframe in the following ways:
+	\item{Time}{Converted to character and leading zeroes added where previously missing.}
+	\item{Date, MeasDate}{Converted to POSIXct.}
+	\item{DateTime, MeasDateTime}{New columns, POSIXct.}
 }
 \author{
-Chris Black <chris@bodger.org>
+Chris Black \email{chris@bodger.org}
 }
 \note{
-%%  ~~further notes~~
+This function only works on freshly read dataframes. It will fail if called on an object of its own creation, because Date and MeasDate formats have changed!	
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{DateTimeClasses}}
 }
 \examples{
 ##---- Should be DIRECTLY executable !! ----
