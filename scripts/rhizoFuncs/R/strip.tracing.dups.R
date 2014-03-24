@@ -4,7 +4,7 @@ function(x, warn=TRUE){
 	# and return the most recent tracing, with a warning if it's unclear that's
 	# the correct tracing to keep.
 	# Sample usage: 
-	# 	notracedups.2010 = by(raw.rhizo.2010, raw.thizo.2010$Tube, strip.tracing.dups)
+	# 	notracedups.2010 = by(raw.rhizo.2010, raw.thizo.2010$Img, strip.tracing.dups)
 	#	notracedups.2010 = do.call(rbind, notracedups.2010)
 
 	stopifnot(!is.unsorted(x$MeasDateTime)) # need to rely on last row = most recent

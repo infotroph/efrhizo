@@ -31,7 +31,7 @@ No, seriously, don't use warn=FALSE.
 }
 \examples{
 \dontrun{
-notracedups.2010 = by(raw.rhizo.2010, raw.thizo.2010$Tube, strip.tracing.dups)
+notracedups.2010 = by(raw.rhizo.2010, raw.thizo.2010$Img, strip.tracing.dups)
 notracedups.2010 = do.call(rbind, notracedups.2010)
 }
 
