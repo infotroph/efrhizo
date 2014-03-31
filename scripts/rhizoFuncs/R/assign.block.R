@@ -1,5 +1,8 @@
 assign.block <-
 function(tube){ 
+	if(is.factor(tube)){
+			tube=as.numeric(as.character(tube))
+	}
 	b = rep(NA,length(tube))
 	b[tube %in% c(1:8, 25:32, 49:56, 73:80)] = 0
 	b[tube %in% c(9:12, 33:36, 57:60, 81:84)] = 1
