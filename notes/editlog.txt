@@ -1,3 +1,7 @@
 2014-03-19: 
 	Raw data file ef2010.05.24.TXT ends with 499 blank lines (some empty, some with varying numbers of tabs). Cause unknown, but present in version on tracing computer as well. Hoping these won't show up in any future versions, but tweaked the sed call to remove blank lines from any WinRhizo file (sed -E -e '/^[[:space:]]+$/d') while collecting frame totals. 
 	While I'm at it, moved the sed call out of Makefile into a separate script.
+
+
+2014-03-23: 
+	There seem to be 3 cal filenames for July but only 2 image names, so assuming AS A COMPLETE GUESS that 103015 is both 7-22.cal and EF2010_T097_001.cal. Check this against the available evidence on the imaging computer.
