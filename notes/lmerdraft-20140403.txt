@@ -1,0 +1,129 @@
+summary(lmer(log(rootvol.mm3.mm2+1e-6)~1+(1|Tube)+Species*poly(Depth.sc,degree=2)*poly(Date.sc, degree=2), strp10))
+Linear mixed model fit by REML ['lmerMod']
+Formula: log(rootvol.mm3.mm2 + 1e-06) ~ 1 + (1 | Tube) + Species * poly(Depth.sc,  
+    degree = 2) * poly(Date.sc, degree = 2)
+   Data: strp10
+
+REML criterion at convergence: 32666.3
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-2.81240 -0.82357 -0.03858  0.82836  2.71393 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ Tube     (Intercept)  1.914   1.384   
+ Residual             11.414   3.379   
+Number of obs: 6219, groups: Tube, 95
+
+Fixed effects:
+                                                                  Estimate
+(Intercept)                                                     -9.915e+00
+Species1                                                        -1.263e+00
+Species2                                                        -1.070e+00
+Species3                                                        -8.738e-01
+poly(Depth.sc, degree = 2)1                                     -4.954e+01
+poly(Depth.sc, degree = 2)2                                     -5.397e+01
+poly(Date.sc, degree = 2)1                                       3.919e+01
+poly(Date.sc, degree = 2)2                                      -5.038e+01
+Species1:poly(Depth.sc, degree = 2)1                             8.849e+01
+Species2:poly(Depth.sc, degree = 2)1                             1.709e+00
+Species3:poly(Depth.sc, degree = 2)1                             1.622e+00
+Species1:poly(Depth.sc, degree = 2)2                             1.906e+01
+Species2:poly(Depth.sc, degree = 2)2                             1.386e+01
+Species3:poly(Depth.sc, degree = 2)2                            -7.635e-02
+Species1:poly(Date.sc, degree = 2)1                              8.504e+00
+Species2:poly(Date.sc, degree = 2)1                              1.592e+01
+Species3:poly(Date.sc, degree = 2)1                             -8.606e+00
+Species1:poly(Date.sc, degree = 2)2                             -3.500e+01
+Species2:poly(Date.sc, degree = 2)2                             -2.055e+01
+Species3:poly(Date.sc, degree = 2)2                             -4.446e+00
+poly(Depth.sc, degree = 2)1:poly(Date.sc, degree = 2)1           1.514e+03
+poly(Depth.sc, degree = 2)2:poly(Date.sc, degree = 2)1          -2.694e+02
+poly(Depth.sc, degree = 2)1:poly(Date.sc, degree = 2)2           3.294e+02
+poly(Depth.sc, degree = 2)2:poly(Date.sc, degree = 2)2           1.219e+03
+Species1:poly(Depth.sc, degree = 2)1:poly(Date.sc, degree = 2)1  1.466e+03
+Species2:poly(Depth.sc, degree = 2)1:poly(Date.sc, degree = 2)1  5.170e+02
+Species3:poly(Depth.sc, degree = 2)1:poly(Date.sc, degree = 2)1  1.774e+03
+Species1:poly(Depth.sc, degree = 2)2:poly(Date.sc, degree = 2)1 -1.335e+02
+Species2:poly(Depth.sc, degree = 2)2:poly(Date.sc, degree = 2)1  3.654e+02
+Species3:poly(Depth.sc, degree = 2)2:poly(Date.sc, degree = 2)1  9.385e+01
+Species1:poly(Depth.sc, degree = 2)1:poly(Date.sc, degree = 2)2 -2.259e+03
+Species2:poly(Depth.sc, degree = 2)1:poly(Date.sc, degree = 2)2  7.294e+02
+Species3:poly(Depth.sc, degree = 2)1:poly(Date.sc, degree = 2)2 -4.722e+02
+Species1:poly(Depth.sc, degree = 2)2:poly(Date.sc, degree = 2)2  2.290e+03
+Species2:poly(Depth.sc, degree = 2)2:poly(Date.sc, degree = 2)2  9.224e+02
+Species3:poly(Depth.sc, degree = 2)2:poly(Date.sc, degree = 2)2 -7.209e+00
+                                                                Std. Error t value
+(Intercept)                                                      1.497e-01  -66.25 <- more than zero roots. Good, good
+Species1                                                         3.444e-01   -3.67 <- Perennials have more than soy
+Species2                                                         3.678e-01   -2.91 <- Mxg has less than other avg. of Switch/prairie
+Species3                                                         4.234e-01   -2.06 <- Switch has more than prairie
+poly(Depth.sc, degree = 2)1                                      3.466e+00  -14.29 <- |
+poly(Depth.sc, degree = 2)2                                      3.479e+00  -15.51 <- |root vol changes quadratically with Depth 
+poly(Date.sc, degree = 2)1                                       3.570e+00   10.98 <- |
+poly(Date.sc, degree = 2)2                                       3.562e+00  -14.15 <- |and with date 
+Species1:poly(Depth.sc, degree = 2)1                             7.928e+00   11.16 <- 	|Depth shape differs between soy and perennials
+Species2:poly(Depth.sc, degree = 2)1                             8.711e+00    0.20		|
+Species3:poly(Depth.sc, degree = 2)1                             9.638e+00    0.17		|
+Species1:poly(Depth.sc, degree = 2)2                             7.884e+00    2.42 <- 	|
+Species2:poly(Depth.sc, degree = 2)2                             8.770e+00    1.58		|
+Species3:poly(Depth.sc, degree = 2)2                             9.727e+00   -0.01		|but not between perennials
+Species1:poly(Date.sc, degree = 2)1                              8.715e+00    0.98	  |
+Species2:poly(Date.sc, degree = 2)1                              8.884e+00    1.79	  |
+Species3:poly(Date.sc, degree = 2)1                              9.308e+00   -0.92	  |
+Species1:poly(Date.sc, degree = 2)2                              8.601e+00   -4.07 <- | Diff between soy and others
+Species2:poly(Date.sc, degree = 2)2                              8.923e+00   -2.30 <- | ...and Mxg and others... varies quad with date
+Species3:poly(Date.sc, degree = 2)2                              9.345e+00   -0.48	  |	
+poly(Depth.sc, degree = 2)1:poly(Date.sc, degree = 2)1           2.807e+02    5.39 <- 	|Depth shape changes with date
+poly(Depth.sc, degree = 2)2:poly(Date.sc, degree = 2)1           2.829e+02   -0.95		|
+poly(Depth.sc, degree = 2)1:poly(Date.sc, degree = 2)2           2.747e+02    1.20		|
+poly(Depth.sc, degree = 2)2:poly(Date.sc, degree = 2)2           2.757e+02    4.42 <- 	|
+Species1:poly(Depth.sc, degree = 2)1:poly(Date.sc, degree = 2)1  6.498e+02    2.26 <-
+Species2:poly(Depth.sc, degree = 2)1:poly(Date.sc, degree = 2)1  7.227e+02    0.72
+Species3:poly(Depth.sc, degree = 2)1:poly(Date.sc, degree = 2)1  7.493e+02    2.37 <-
+Species1:poly(Depth.sc, degree = 2)2:poly(Date.sc, degree = 2)1  6.451e+02   -0.21
+Species2:poly(Depth.sc, degree = 2)2:poly(Date.sc, degree = 2)1  7.338e+02    0.50
+Species3:poly(Depth.sc, degree = 2)2:poly(Date.sc, degree = 2)1  7.609e+02    0.12
+Species1:poly(Depth.sc, degree = 2)1:poly(Date.sc, degree = 2)2  6.512e+02   -3.47 <-
+Species2:poly(Depth.sc, degree = 2)1:poly(Date.sc, degree = 2)2  6.835e+02    1.07
+Species3:poly(Depth.sc, degree = 2)1:poly(Date.sc, degree = 2)2  7.433e+02   -0.64
+Species1:poly(Depth.sc, degree = 2)2:poly(Date.sc, degree = 2)2  6.469e+02    3.54 <-
+Species2:poly(Depth.sc, degree = 2)2:poly(Date.sc, degree = 2)2  6.895e+02    1.34
+Species3:poly(Depth.sc, degree = 2)2:poly(Date.sc, degree = 2)2  7.505e+02   -0.01
+
+
+-- residual plots look terrible -- all the zeroes form a diagonal line across resid vs. fitted
+-- residual variance from above model is only ~25% less than whole-dataset variance of log(rootvol)
+-- "Warning message: In checkScaleX(X, ctrl = control) : Some predictor variables are on very different scales: consider rescaling"
+	("But lmer, I rescaled those already, what more do you want?")
+
+rdep = lmer(log(rootvol.mm3.mm2+1e-6)~1+(poly(Depth.sc,degree=2)|Block/Tube)+Species*poly(Depth.sc,degree=2)*poly(Date.sc, degree=2), strp10)
+Warning message:
+In checkScaleX(X, ctrl = control) :
+  Some predictor variables are on very different scales: consider rescaling
+
+-- Random slopes for Date are perfectly correlated with intercept
+
+rdat = lmer(log(rootvol.mm3.mm2+1e-6)~1+(poly(Date.sc,degree=2)|Block/Tube)+Species*poly(Depth.sc,degree=2)*poly(Date.sc, degree=2), strp10)
+Warning message:
+In checkScaleX(X, ctrl = control) :
+  Some predictor variables are on very different scales: consider rescaling
+
+
+rdd = lmer(log(rootvol.mm3.mm2+1e-6)~1+(poly(Date.sc,degree=2)*poly(Depth.sc, degree=2)|Block/Tube)+Species*poly(Depth.sc,degree=2)*poly(Date.sc, degree=2), strp10)
+Warning messages:
+1: In checkScaleX(X, ctrl = control) :
+  Some predictor variables are on very different scales: consider rescaling
+2: In commonArgs(par, fn, control, environment()) :
+  maxfun < 10 * length(par)^2 is not recommended.
+3: In optwrap(optimizer, devfun, getStart(start, rho$lower, rho$pp),  :
+  convergence code 1 from bobyqa: bobyqa -- maximum number of function evaluations exceeded
+4: In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge with max|grad| = 1.34173 (tol = 0.002)
+5: In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge: degenerate  Hessian with 25 negative eigenvalues
+
+
+
+

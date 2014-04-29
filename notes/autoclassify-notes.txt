@@ -1,0 +1,19 @@
+Totally unvetted half-asleep notion for how to automatically classify roots
+
+Starting from a directory of WinRhizo-traced root images, we have:
+
+	* images with a uniform naming scheme; note for later that not all are from the same experimental unit, and the classifier may need to be trained differently fro some than others.
+
+	* A data file containing hand-traced dimensions for each image, taken as canonical. Level of detail in logging is configurable -- it's possible to save every root segment, each whole root, or just frame totals. Will assume for starters that frame totals are good enough, but we can revisit that if needed.
+
+	* Pattern files for each image, describing start/end coordinate and diameters for each (Assumed cylindrical) root segment.
+
+Procedure:
+
+	* load each image, 
+	* use the pattern file to divide it into root and nonroot pixels
+	* Magic happens here: find differences between root and nonroot. Possible requirements:
+		-- brightness threshold
+		-- color distinctions: Perhaps whiteness (i.e. evenness of R,G,B values?) vs. soil colors (mostly red?)
+		-- shape restrictions -- roots wiggle, but are generally long and skinny.
+		-- 

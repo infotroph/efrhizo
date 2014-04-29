@@ -1,0 +1,9 @@
+What would a Bayesian model for rhizotron data look like?
+
+data ~ norm(0,sig_data) around the process model
+
+process model:
+	Root density ~ 	lognorm(mu_dens, sig_dens)
+	mu_dens ~ lognorm(mu_depth, sig_depth)
+
+	Should length and width be separate distributions? Dependent or independent?
