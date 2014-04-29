@@ -1,0 +1,64 @@
+#----------
+# Fake rhizotron data, for testing models:
+
+96 tubes, each with a N(0,<big>) tube effect
+5 blocks, each with a N(0,<small> block effect)
+
+4 crops, with betas:
+	Cornsoy = control = 0
+	?
+	Base these on Krista's core weights:
+		corn 49 ± 15 g/m2
+		mxg 323 ± 57
+		switch 362 ± 33
+		prairie 206 ± 22
+
+		49 g/m2 => to depth of 1 m, so really g/m^3
+		49/1e9 = 4.9e-8 g/mm^3
+		4.9e-8 g/mm^3 * (1000 mm^3 root)/(0.2 g) = 0.000245 mm^3 root / mm^3 soil
+
+If X = exp(Z) and Z ~ N(mu, sigsq)
+(i.e. X is lognormally distributed)
+E(X) = exp(mu + sigsq/2)
+var(X) = exp(sigsq + 2*mu)*(exp(sigsq)-1)
+med(X) = exp(mu)
+
+==> mu = log(mean(X)^2/ sqrt(var(X)+mean(X)^2))
+	sigsq = log(1+ var(X)/mean(X)^2)
+
+
+# compare model's fixed group means against dataset group means
+# Caution: These methods probably won't return species in the same order, be sure to compare by name!
+getfixmeans(cbt.norm)
+tapply(simdatcbt.norm$rootvol, simdatcbt.norm$Species, mean)
+
+
+Expected variance of generated data:
+assuming independence,
+normsamp = rnorm(n, mean=vector_of_group_means, sd=sqrt(fixed_var))
+should have var(normsamp) ~= var(vector_of_group_means)+fixed_var
+and
+lnormsamp = rlnorm(n, meanlog=vector_of_group_means, sdlog=sqrt(fixed_var))
+should have variance such that 
+var(log(lnormsamp)) ~= var(vector_of_group_means)+fixed_var
+
+
+If correlated:
+var(a+b) = var(a) + var(b) + (2 * cor(a,b) * sd(a) * sd(b))
+var(a-b) = var(a) + var(b) - (2 * cor(a,b) * sd(a) * sd(b))
+
+e.g. 
+with(simdatc,
+	var(log(rootvol)) 
+	+ var(log(spmean))
+	- (2 * cor(log(rootvol),log(spmean))
+		* sd(log(rootvol))
+		* sd(log(spmean))))
+
+should equal
+
+summary(lm(log(rootvol) ~ Species, simdatc))$sigma^2
+
+
+
+
