@@ -1,0 +1,43 @@
+Testing reanalysis of 2010 data. Goals:
+	-- get diameter information for individual root segments, to allow recalculating volume.
+	-- check tracing quality of images traced by AP, evaluate possible need to re-trace.
+
+--opened WinRhizo, loaded same config file used previously.
+-- Changed settings for root diameter display from 10 classes of 0.05 mm each to 50 classes of 0.05 mm each.
+-- Changed display settings from "load previous analysis" (loads roots traced in last session; useful if modifying is faster than retracing but will overwrite any previously-traced .pat file for current image) to "load current analysis"
+-- changed data save settings to include only individual segments.
+--saved configuration as winrhizo_reanalysis.cfg
+--Copied entire previously analyzed 2010-05-24 directory to desktop, renamed "2010-05-24_reanalysis"
+-- Loaded previously traced calibration for 2010-05-27 (did not check accuracy)
+-- created new data file "ef2010-05-24_reanalysis20140407.txt"
+-- Added 3 columns to analysis log: "reanalysis type", "reanalysis tech", "reanalysis date". As each tube loaded, filled with "reload previous tracing using winrhizo_reanalysis.cfg", 
+"CKB", "2014-04-07" respectively.
+-- Loaded each tube imaged 2010-05-27. Scrolled around some to see what was there, but did not edit anything, just let WinRhizo save existing analysis to new file. Many roots are traced as if smaller than apparent diameter. 
+-- Changed calibration by loading 2010-05-28.cal, repeated previous step for all tubes imaged 2010-05-28.
+
+Back at laptop:
+copied ef2010-05-24_reanalysis20140407.TXT to rawdata/.
+
+In bash:
+CRLF=$(printf '\r\n')
+LF=$(printf '\n')
+sed -n \
+	-e '/SEG/p' \
+	-E -e '/^[[:space:]]*$/d' \
+	-e "s/$CRLF/$LF/" rawdata/ef2010-05-24-reanalysis20140407.txt > data/segs201005.txt
+
+In text editor (do this a smarter way in production):
+replaced header line with (keep trailing tab!)
+
+RootName	SEG	Segment	Experiment	Tube	Location	Date	Time	Session	DataGatherer	BirthSession	DeathSession	Length.mm	ProjArea.mm2	SurfArea.mm2	AvgDiam.10ths.mm	Volume.mm3	AliveLength	AliveProjArea	AliveSurfArea	AliveAvgDiam	AliveVolume	DeadLength	DeadProjArea	DeadSurfArea	DeadAvgDiam	DeadVolume	GoneLength	GoneProjArea	GoneSurfArea	GoneAvgDiam	GoneVolume	HBegin	VBegin	HEnd	VEnd	Fungae	Undefined	Undefined	Undefined	BranchingAngle	Magnitude	PathLength	Order	LinkClass	
+
+In R:
+
+setwd("~/UI/efrhizo")
+segmay = read.delim("data/segs201005.txt")
+# 2014-04-29: ...And apparently I didn't save the rest of what I did with it. 
+# Bottom line: Largest individual-segment diameter seen in this session is about 1.6 mm, 
+# which is significant because it's very close to the largest diameter reported by 
+# Taylor et al 2013 (10.1007/s11104-013-1930-7) as measurable without depth-of-field 
+# correction. This is encouraging and means our volume calculations are probably OK,
+# at least to the extent our traced diameters are OK.
