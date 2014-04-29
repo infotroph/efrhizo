@@ -17,7 +17,11 @@ ALL = data/frametots2010.txt \
 	data/calibs2010.csv \
 	data/calibs2012.csv \
 	data/stripped2010.csv \
-	data/stripped2012.csv
+	data/stripped2012.csv \
+	figures/logvol-cornpoints-2012.png \
+	figures/logvol-cornpointsline-2012.png \
+	figures/logvol-polyfit-2010.png \
+	figures/logvol-polyfit-2012.png
 
 all: $(ALL)
 	#not written yet
@@ -52,6 +56,26 @@ data/stripped2012.csv: \
 		data/frametots2012.txt \
 		rawdata/censorframes2012.csv
 	Rscript scripts/cleanup.r data/frametots2012.txt rawdata/censorframes2012.csv "NULL" data/stripped2012.csv
+
+figures/logvol-cornpoints-2012.png: \
+		data/stripped2012.csv \
+		scripts/plot-ebireportspring2014.r
+	Rscript scripts/plot-ebireportspring2014.r
+
+figures/logvol-cornpointsline-2012.png: \
+		data/stripped2012.csv \
+		scripts/plot-ebireportspring2014.r
+	Rscript scripts/plot-ebireportspring2014.r
+
+figures/logvol-polyfit-2010.png: \
+		data/stripped2010.csv \
+		scripts/plot-ebireportspring2014.r
+	Rscript scripts/plot-ebireportspring2014.r
+
+figures/logvol-polyfit-2012.png: \
+		data/stripped2012.csv \
+		scripts/plot-ebireportspring2014.r
+	Rscript scripts/plot-ebireportspring2014.r
 
 clean:
 	rm $(ALL)
