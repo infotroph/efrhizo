@@ -21,6 +21,8 @@ Makefile: Script for the Unix 'make' utility, specifying how each component of t
 
 notes: Human-readable information. What I did, what I didn't do, reminders, to-do lists, etc.
 
+operator-agreement: a sub-experiment asking "how similar are the data produced by different workers tracing the same images?" I'm now using these same images as a worker training battery. Nothing in here is updated by Make.
+
 protocols: Field maps, instructions for camera operators, tube installation schematics...
 
 rawdata: Uncleaned data in the form it came to me: WinRhizo files, hand-compiled spreadsheets. If anything in here needs to change, it probably means we had to redo a lot of hours of work.
