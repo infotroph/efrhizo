@@ -15,7 +15,7 @@ function(x, warn=TRUE){
 		return(x)
 	}
 	
-	if (length(unique(x$PxSizeH)) > 1 || length(unique(x$PxSizeV)) > 1 ){
+	if (any(x$PxSizeH != x$PxSizeH[1])|| any(x$PxSizeV != x$PxSizeH[1])){
 		# Calibration changed! resolve by hand
 		# (or, better, further upstream)
 		# NOT IMPLEMENTED YET -- just warns and moves on.
@@ -32,7 +32,7 @@ function(x, warn=TRUE){
 	
 	xv  = x$TotVolume.mm3
 	
-	if (length(unique(xv)) == 1 # All values identical...
+	if (all(xv == xv[1]) # All values identical...
 		|| (all(xv[xv > 0] == xv[length(xv)]) # ...or all nonzeros identical
 			&&  all(xv == sort(xv)))  # ...and later than all the zeros 
 		){ 
