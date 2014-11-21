@@ -1,1 +1,14 @@
-Tube,code,Date,Offset cm,Remarks60,1s4,2014-09-16,28,Water in tube -- did not image past loc 7036,1m4,2014-09-16,24,VERY little aboveground biomass in front of tube84,1p4,2014-09-17,35,1,0c1,2014-09-17,38,this tube is in-row5,0c5,2014-09-19,21,this tube is in-row72,4s4,2014-09-19,24,,,,,2,0c2,2014-11-10,22,"Between rows. Tube pulled after corn harvest, no soil excavated"3,0c3,2014-11-10,25,"In row. Tube pulled after corn harvest, no soil excavated"4,0c4,2014-11-10,33,"Between rows. Tube pulled after corn harvest, no soil excavated"6,0c6,2014-11-10,23,"Between rows. Tube pulled after corn harvest, no soil excavated"7,0c7,2014-11-10,19,"In row. Tube pulled after corn harvest, no soil excavated"8,0c8,2014-11-10,25,"Between rows. Tube pulled after corn harvest, no soil excavated"
+Tube,code,Date,Offset cm,Remarks
+60,1s4,2014-09-16,28,Water in tube -- did not image past loc 70
+36,1m4,2014-09-16,24,VERY little aboveground biomass in front of tube
+84,1p4,2014-09-17,35,
+1,0c1,2014-09-17,38,this tube is in-row
+5,0c5,2014-09-19,21,this tube is in-row
+72,4s4,2014-09-19,24,
+,,,,
+2,0c2,2014-11-10,22,"Between rows. Tube pulled after corn harvest, no soil excavated"
+3,0c3,2014-11-10,25,"In row. Tube pulled after corn harvest, no soil excavated"
+4,0c4,2014-11-10,33,"Between rows. Tube pulled after corn harvest, no soil excavated"
+6,0c6,2014-11-10,23,"Between rows. Tube pulled after corn harvest, no soil excavated"
+7,0c7,2014-11-10,19,"In row. Tube pulled after corn harvest, no soil excavated"
+8,0c8,2014-11-10,25,"Between rows. Tube pulled after corn harvest, no soil excavated"
