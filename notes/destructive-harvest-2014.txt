@@ -25,3 +25,10 @@ All collection dates, tube offsets, wet and dry weights, and root-washing dates 
 AG bag wt g: mass of empty bag from this aboveground biomass sample -- subtract from previous column to get dry biomass.
 
 * Tube offset: Length in cm along the rhizotron tube (30° from vertical) from soil surface to top edge of tube. Note that this is NOT the vertical height from soil to top of tube -- if you need that number for anything, compute it as (offset*cos(30*2pi/360)).
+
+Decided 2014-11-21 that 1.43 g per envelope assumption was not precise enough. Returned all samples to oven overnight, reweighed 2014-11-22 on a more sensitive scale. Roots were weighed in tared metal weigh boats, envelopes weighed empty. 
+	* Mean envelope weight was 1.404 g--apparently the envelopes on the shelf contained about 30 mg water when we were computing "average" weight!
+	* envelope weight increased with time since removal from the oven, from ~1.395 fresh out of oven to ~1.415 28 samples (~85 minutes) later. Presumably the samples also took on water in this time, but the differences will be on the order of milligrams, so I'll ignore them. 
+	* Did not record exact time out of oven, but "weigh order" is the sequence I weighed them in. All samples weighed the afternoon of 2014-11-22, returning unweighed ones to the oven twice: 20 min for lunch between 24th and 25th-weighed samples, 21 min for coffee between 52nd and 53rd samples. 
+	* Moved previously recorded weights to rhizo-destructive-belowground-envel-wt-est.csv, replaced root and envelope masses in rhizo-destructive-belowground.csv with reweighed values.
+	
