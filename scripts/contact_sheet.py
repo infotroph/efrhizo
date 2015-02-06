@@ -23,7 +23,7 @@ EF2013_T001_L050_2013.07.09_160735_003_LCR.jpg
 
 ==> drop everything after the 3rd underscore, match on what remains.'''
 def strip_date(s):
-	return("_".join(s.split("_")[:3]))
+    return("_".join(s.split("_")[:3]))
 
 '''Assemble images 
 at full size with 5px margins
@@ -31,12 +31,12 @@ on a black background
 with filename underneath each image
 in 24-point white text'''
 cmdbase = [
-	"montage",
-	"-geometry", "100%x100%+5+5",
-	"-background", 'black',
-	"-label", "'%f'",
-	"-fill", 'white',
-	"-pointsize", "24"]
+    "montage",
+    "-geometry", "100%x100%+5+5",
+    "-background", 'black',
+    "-label", "'%f'",
+    "-fill", 'white',
+    "-pointsize", "24"]
 
 img_path = argv[1]
 out_path = argv[2]
@@ -46,7 +46,7 @@ imgs = [f for f in os.listdir(img_path) if f.endswith('.jpg')]
 sites = set([strip_date(i) for i in imgs])
 
 for site in sites:
-	filestr = "%s*.jpg" % site
-	outstr = "%s%s.jpg" % (out_path, site)
-	subprocess.call(cmdbase + [filestr, outstr])
-	
+    filestr = "%s*.jpg" % site
+    outstr = "%s%s.jpg" % (out_path, site)
+    subprocess.call(cmdbase + [filestr, outstr])
+    
