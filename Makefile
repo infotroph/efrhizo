@@ -26,11 +26,17 @@ ALL = data/frametots2010.txt \
 all: $(ALL)
 	#not written yet
 
-data/frametots2010.txt: $(RAW2010)
+data/frametots2010.txt: \
+		$(RAW2010) \
+		scripts/frametot-headers.txt \
+		scripts/frametot-collect.sh
 	cp scripts/frametot-headers.txt data/frametots2010.txt
 	scripts/frametot-collect.sh $(RAW2010) >> data/frametots2010.txt 
 
-data/frametots2012.txt: $(RAW2012)
+data/frametots2012.txt: \
+		$(RAW2012) \
+		scripts/frametot-headers.txt \
+		scripts/frametot-collect.sh
 	cp scripts/frametot-headers.txt data/frametots2012.txt
 	scripts/frametot-collect.sh $(RAW2012) >> data/frametots2012.txt 
 
@@ -49,12 +55,14 @@ data/calibs2012.csv: \
 data/stripped2010.csv: \
 		data/frametots2010.txt \
 		rawdata/censorframes2010.csv \
-		rawdata/censorimg2010.csv
+		rawdata/censorimg2010.csv \
+		scripts/cleanup.r
 	Rscript scripts/cleanup.r data/frametots2010.txt rawdata/censorframes2010.csv rawdata/censorimg2010.csv data/stripped2010.csv
 
 data/stripped2012.csv: \
 		data/frametots2012.txt \
-		rawdata/censorframes2012.csv
+		rawdata/censorframes2012.csv \
+		scripts/cleanup.r
 	Rscript scripts/cleanup.r data/frametots2012.txt rawdata/censorframes2012.csv "NULL" data/stripped2012.csv
 
 figures/logvol-cornpoints-2012.png: \

@@ -22,3 +22,6 @@ Cleaning up uncommitted changes left from last time I worked in this directory, 
 * scripts/sitedups.py is a Python script for finding duplicate images, i.e. those that share the same tube, location, and session number. I whipped it up while checking 2013 images two weeks ago and did not commit it at the time; fixing that now.
 
 * Added this file. No more excuses for wondering why I did that thing.
+
+* Makefile was missing prerequisites -- cleaned data files for `frametotals*.txt` and `stripped*.txt`  failed to list their processing scripts in prerequisite lists. Fixed that, remade all outputs.
+
