@@ -1,0 +1,81 @@
+N.B. these obervations based only on the patfiles from EF2010-04-04, as stored in my desktop folder since who-knows-when.
+
+Pat files...
+* Always have one number or string per line
+* Lines end with a CRLF
+* Last line is always a 0 (+ CRLF)
+* always start with "6 - - - - ", where space means CRLF to conserve space in this file. 
+* When empty, consist of "6 - - - - 0"
+* Known possible values for one line:
+	non-negative integers
+	decimals with six digits after the dot (may be negative)
+	"R<integer" (Very likely that this means "root number <integer>")
+	"*"
+	"-"
+* When R<integer> appears, the line above it is always "7".
+* Lines below an R seem to go:
+R<n>
+<8 lines integers>, in the form
+	<plausible starting X for a root segment>
+	<plausible starting y>
+	<plausible ending x>
+	<plausible ending y>
+	<same four repeated in same order>
+<8 lines decimal> 
+	All digits right of decimal place are zero.
+	Values seem to *usually*, not always, be nearly identical to integer XY values above, with lines in the same order, but sometimes off by one, e.g. integer line is 669 and decimal line is 668.000000. Sometimes differs by more.
+<4 lines integers>:
+	<1 or 0>
+	<1 or 0>
+	<integer>, usually seems to be in the 2-3 digit (tens to low hundreds) range
+	<0, 1, 2, or 3>
+<4 lines decimal>, places right of decimal *are* significant
+	first two lines may be positive or negative, most ~log-distributed around -100-100, occasional overflows to 1000.00
+	second two lines none <0, ~log-distributed 0 to ~20000, occasional overflows to 1e6
+<5 lines integer>:
+	<0 or 1>
+	<integer between 0 and 13>, this is probably the root number -- matches the <n> of most recent "R<n>".
+	<three lines "0">
+<2 lines decimal>
+	these look like they're probably PxSizeH pixel dimensions -- in this directory the first line is either "0.024064" or "0.024161", same as 5-27 and 5-28 PxSizeH values, and second line is either "0.025157" or "0.025424", ditto PxSizeV. (follow-up question: Does WinRhizo change these when you load them under a different calibration?)
+<integer "1">
+<2 lines decimal, tenths place 0 or 0.5>
+	Most commonly 0.500000 for both lines, but not always, and both lines not always the same.
+	In the 2010-05-28 directory, the possible values are:
+	0.500000
+	2.000000
+	3.500000
+	4.000000
+	4.500000
+	6.000000
+	8.000000
+	8.500000
+	12.000000
+	12.500000
+	15.500000
+	16.000000
+	16.500000
+	20.000000
+	24.000000
+	24.500000
+	28.000000
+	32.000000
+	Maaaaybe these are diameter classes, but in the data file WinRhizo saved by 0.05-mm classes... would expect "35" rather than "32"... unless these are midpoints rounded off, e.g avg(3,3.5)=3.25? but there are still 18 possible values and WinRhizo only writes 10 diameter classes in my currently configured output.
+<1 line decimal>
+	Values mostly 0.5-2, min 0.14 max 11.07.
+<3 lines integer>:
+	<nearly always "300", occasionally "301" or "302">
+	<"1">
+	<nearly always "0", a very few "1">
+<5 lines character>: 
+	<nearly always "*" except one case where it is "\">
+	<4 lines nearly always "-" except a very few "*">
+<1 line "1">
+<1 line "7" if another R follows, "0" if not>
+
+This makes 46 lines for each root segment.
+
+After the last root segment, each non-empty contains a variable number of additional lines, all with integers, usually single-digit or low teens. Doesn't seem to be closely related to number of segments in file -- T038 L025 has 32 segments from 11 roots, but only three lines ("1 1 0") beyond the end of the last root, while others with only a segment or two have >20 lines at the end.
+
+Second-to-last line of the file is always "1", last line is "0".
+
