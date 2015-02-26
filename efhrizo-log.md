@@ -41,3 +41,6 @@ Manually added updated censoring for session 1; this too needs checking when I'm
 	-- check S1 frame censoring records, add them for other sessions.
 	-- copy in updated analysis logs.
 
+2015-02-26:
+
+censorframes2010.csv and censorframes2010.csv both had CR-only line endings (Grr, Excel). Changed these to LF and added a final newline for easier diffing later; will make other changes in a separate commit.
