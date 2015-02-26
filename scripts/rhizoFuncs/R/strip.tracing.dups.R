@@ -15,7 +15,7 @@ function(x, warn=TRUE){
 		return(x)
 	}
 	
-	if (any(x$PxSizeH != x$PxSizeH[1])|| any(x$PxSizeV != x$PxSizeH[1])){
+	if (any(x$PxSizeH != x$PxSizeH[1])|| any(x$PxSizeV != x$PxSizeV[1])){
 		# Calibration changed! resolve by hand
 		# (or, better, further upstream)
 		# NOT IMPLEMENTED YET -- just warns and moves on.
