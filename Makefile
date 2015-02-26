@@ -57,13 +57,21 @@ data/stripped2010.csv: \
 		rawdata/censorframes2010.csv \
 		rawdata/censorimg2010.csv \
 		scripts/cleanup.r
-	Rscript scripts/cleanup.r data/frametots2010.txt rawdata/censorframes2010.csv rawdata/censorimg2010.csv data/stripped2010.csv
+	Rscript scripts/cleanup.r \
+		data/frametots2010.txt \
+		rawdata/censorframes2010.csv \
+		rawdata/censorimg2010.csv \
+		data/stripped2010.csv >> tmp/2010-cleanup-log.txt
 
 data/stripped2012.csv: \
 		data/frametots2012.txt \
 		rawdata/censorframes2012.csv \
 		scripts/cleanup.r
-	Rscript scripts/cleanup.r data/frametots2012.txt rawdata/censorframes2012.csv "NULL" data/stripped2012.csv
+	Rscript scripts/cleanup.r \
+		data/frametots2012.txt \
+		rawdata/censorframes2012.csv \
+		"NULL" \
+		data/stripped2012.csv >> tmp/2012-cleanup-log.txt
 
 figures/logvol-cornpoints-2012.png: \
 		data/stripped2012.csv \

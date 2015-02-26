@@ -29,6 +29,7 @@ rawdata: Uncleaned data in the form it came to me: WinRhizo files, hand-compiled
 
 scripts: tools to automate the rest of the analysis. Mostly written in R, some in bash.
 
+tmp: Things I don't intend to keep but am not deleting just yet, e.g. logged debugging output. This directory is ignored by git.
 
 Questions? 
 Chris Black
