@@ -44,3 +44,32 @@ Manually added updated censoring for session 1; this too needs checking when I'm
 2015-02-26:
 
 censorframes2010.csv and censorframes2010.csv both had CR-only line endings (Grr, Excel). Changed these to LF and added a final newline for easier diffing later; will make other changes in a separate commit.
+
+Rechecked 2012 raw data:
+	
+* S1,5,6 add previously missing tubes, need to commit updated versions.
+* S2,3,4 remain identical. `EF2012_S6_found_in_SoC_notes.txt` is identical except header lines, which are missing in the imager version and I manually added them when I committed it, so no change needed.
+
+Updating censorframes2012:
+
+* T19 apparent typos lead to seeing some probable tracing errors. 
+	* On 2015-06-08, T19 L45 and T19 L105 listed in censor table but none from T20, while trace log says to censor T19 L50,100 as blurry AND T20 L45 blur, L105 water. 
+	* On inspecting images to resolve this, it looks to me as if T19 L45,50,100 are all clear enough to confidently call root-free, but T19 L45 has some traced roots; I bet they're from a mud track at bottom middle.
+	* Inspecting T20 S2 images, L45 is indeed blurry and L105 is indeed obscured by water.
+==> Removed censor entry for T19 L105 S2, kept entry for T19 L45 S2 but changed reason from "blur" to "mistraced", added a note to check more carefully in WinRhizo. 
+
+* Added missing T20 L45,105 lines.
+
+* Last line of `censorframes2012.csv` is:
+	,,,,"""Multiple duplicates of images"""
+I be this is referring to T21 S2, which is bad data that will take work to remove -- trace log says "Review tube: has multiple duplicates of images." Will need to make a `censorimg2012.csv` eventually to resolve this. Removed line from censorframes and will hope it doesn't screw up my numbers too badly until I finish removing it.
+
+* Added censored frames from trace log for the following tube. Did not check images, just trusted log: 25, 28, 30, 32, 41, 42, 43, 48, 49, 52, 54, 55, 59, 63, 64, 66, 70, 71, 72, 74...
+
+* Can't interpret 75 note: "L010115 obscurred".  Ignoring for the moment. Come back to this!
+
+* ... more censored frames from 77, 82, 83, 84, 85, 86, 88, 96.
+
+Out of time and ambition for today. Still need to add censor entries for sessions 3,4,5,6 and check all against what's visible in WinRhizo.
+
+Compiled updated data,censoring info, and figures. Only slight changes -- early-season prairie moves up to match the rest of the season, most shallow depths increase very slightly (guess: Because we're censoring more tape-covered Locations 5). Committed all.
