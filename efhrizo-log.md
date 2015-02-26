@@ -83,3 +83,14 @@ Now for a VERY quick and dirty look at 2014:
 * Trace log NOT imported yet!
 * Added Make rules to build `data/frametots2014.txt`, `data/calibs2014.csv`, `data/stripped2014.csv`, `figures/logvol-polyfit-2014.png`. All rules have same structure as previous years, except plotting uses the new script I mentioned above instead of `plot-ebireportspring2014.r`.
 
+Beginning the process of moving analysis logs from Excel binary format to CSV. Starting with `data/2012/analysis log 2012-s1.xls` in a process that will be painful to replicate:
+
+* Opened in Excel on Mac, exported as CSV.
+* Opened CSV in text editor. Changed line endings from CR to LF, saved.
+* Changed date formatting to match ISO standard (this will make future updates easier):
+	- date separator from  "." to "-" everywhere, e.g. 2013.10.15 -> 2013-10-15
+	- fixed a few one-digit days, e.g. 2013-10-1 -> 2013-10-01
+	- fixed some reversed months/days, e.g.  2013-14-11 -> 2013-11-14
+	- changed "2013-23-13" to "2013-10-23" in B4 prairie. Had to look up the tracing dates in the data file to figure out what to correct it to; I guess he switched from YYYY-MM-DD to MM-DD-YY in the middle of typing?
+	- changed image collection date of "2013-05-21" (impossible in 2012 data) to 2012-05-21.
+* Deleted Excel file, committed changes.

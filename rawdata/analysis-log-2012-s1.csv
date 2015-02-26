@@ -1,0 +1,97 @@
+Crop,Block,Tube number,Label code,Date imaged,Field Tech,Date Analyzed,Lab tech,Calibration image,Bad frames?,Deepest roots,# frames with roots,Notes
+Corn,0,1,0C1,2012-05-22,JNR,2014-01-12,CRS,05_22,L005 day,110,5,
+Corn,0,2,0C2,2012-05-22,JNR,2014-01-13,CRS,05_22,L005 day; 60-70 water; L090 crack,110,12,
+Corn,0,3,0C3,2012-05-22,JNR,2014-01-13,CRS,05_22,"L005 day; L040,50-70, 80,85 water",105,6,Tube very wet
+Corn,0,4,0C4,2012-05-22,JNR,2014-01-13,CRS,05_22,L015 blur,85,5,
+Corn,0,5,0C5,2012-05-22,JNR,2014-01-13,CRS,05_22,L085 wet,110,9,
+Corn,0,6,0C6,2012-05-22,JNR,2014-01-13,CRS,05_22,,70,7,
+Corn,0,7,0C7,2012-05-22,JNR,2014-01-13,CRS,05_22,,75,2,
+Corn,0,8,0C8,2012-05-22,JNR,2014-01-13,CRS,05_22,L005 day; L055 water,95,8,
+Corn,1,9,1C1,2012-05-22,JNR,2013-08-26,JNR,05_22 (actually 05_21 but labeled 05_22), ,90,2,L055 has something that look somewhat like roots.  Take a look but they don't seem to be slamm roots
+Corn,1,10,1C2,2012-05-22,JNR,2013-08-26,JNR,05_22,L85 blurry,85,5,L085 counted in total frames with roots but not measured
+Corn,1,11,1C3,2012-05-22,JNR,2013-08-26,JNR,05_22,,40,2,
+Corn,1,12,1C4,2012-05-22,JNR,2013-08-26,JNR,05_22,L010 too wet L105  blurry,100,8,
+Corn,2,13,2C1,2012-05-22,JNR,2013-08-26,JNR,05_22,,100,4,
+Corn,2,14,2C2,2012-05-22,JNR,2013-08-26,JNR,05_22,,110,6,
+Corn,2,15,2C3,2012-05-22,JNR,2013-08-26,JNR,05_22,,105,2,
+Corn,2,16,2C4,2012-05-22,JNR,2013-08-26,JNR,05_22,,75,3,
+Corn,3,17,3C1,2012-05-21,JNR,2014-01-13,CRS,05_21,L005 day,95,10,
+Corn,3,18,3C2,2012-05-21,JNR,2014-01-13,CRS,05_21,L085 fuzz,105,11,
+Corn,3,19,3C3,2012-05-21,JNR,2014-01-13,CRS,05_21,"L075,80,90-110 wet",65,9,
+Corn,3,20,3C4,2012-05-21,JNR,2014-01-13,CRS,05_21,L030 blur,105,11,*
+Corn,4,21,4C1,2012-05-21,JNR,2013-08-28,JNR,05_22,,0,0,
+Corn,4,22,4C1,2012-05-21,JNR,2013-08-28,JNR,05_22,,0,0,L005 and L010 above ground
+Corn,4,23,4C3,2012-05-21,JNR,2013-08-28,JNR,05_22,,0,0,L005 and L010 above ground.  Water dropplets look like root pieces in this tube.
+Corn,4,24,4C4,2012-05-21,JNR,2013-08-28,JNR,05_22,,10,1,
+Miscanthus,0,25,0M1,,,,,,,,,Does not exist
+Miscanthus,0,26,0M3,2012-05-23,JNR,2014-01-13,CRS,05_23,,105,14,
+Miscanthus,0,27,0M5,,,,CRS,,,,,tube labeled 30. Not imaged.
+Miscanthus,0,28,0M6,2012-05-23,JNR,2014-01-13,CRS,05_23,"L080,85,90 tube cracked",10,12,L080-95 tube cracked
+Miscanthus,0,29,0M7,2012-05-23,JNR,2014-01-13,CRS,05_23,"L015,20,45,60-70 water",110,8,
+Miscanthus,0,30,0M9,2012-05-23,JNR,2014-01-13,CRS,05_23,,105,15,
+Miscanthus,0,31,0M10,2012-05-23,JNR,2014-01-14,CRS,05_23,,110,17,
+Miscanthus,0,32,0M11,2012-05-23,JNR,2014-01-14,CRS,05_23,,110,12,
+Miscanthus,1,33,1M1,2012-05-22,JNR,2013-08-28,JNR,05_22,,105,19,
+Miscanthus,1,34,1M2,2012-05-22,JNR,2013-08-28,JNR,05_22,,110,14,
+Miscanthus,1,35,1M4,2012-05-22,JNR,2013-08-28,JNR,05_22,,110,15,labeled 1m4
+Miscanthus,1,36,1M4,2012-05-22,JNR,2013-08-28,JNR,05_22,,100,11,Check L110
+Miscanthus,2,37,2M1,2012-05-22,JNR,2013-08-28,JNR,05_22,,110,16,
+Miscanthus,2,38,2M2,2012-05-22,JNR,2013-08-30,JNR,05_22,,80,,
+Miscanthus,2,39,2M3,2012-05-22,JNR,2013-08-30,JNR,05_22,,110,,
+Miscanthus,2,40,2M4,2012-05-22,JNR,2013-08-30,JNR,05_22,,110,,
+Miscanthus,3,41,3M1,2012-05-21,JNR,2014-01-14,CRS,05_21,L005 above ground,110,17,
+Miscanthus,3,42,3M2,2012-05-21,JNR,2014-01-14,CRS,05_21,,110,13,
+Miscanthus,3,43,3M3,2012-05-21,JNR,2014-01-14,CRS,05_21,,110,16,
+Miscanthus,3,44,3M4,2012-05-21,JNR,2014-01-14,CRS,05_21,,90,13,
+Miscanthus,4,45,4M1,2012-05-21,JNR,2013-09-30,JNR,05_21,,100,14,
+Miscanthus,4,46,4M2,,,,,,,,,Does not exist
+Miscanthus,4,47,4M3,2012-05-21,JNR,2013-09-30,JNR,05_21,L001 is a blue frame,100,15,
+Miscanthus,4,48,4M4,2012-05-21,JNR,2013-09-30,JNR,05_21,,100,14,
+Switch,0,49,0S2,2012-05-23,TAW,2014-01-21,CRS,05_23,,110,22,
+Switch,0,50,0S3,2012-05-23,TAW,2014-01-21,CRS,05_23,,105,17,
+Switch,0,51,0S5,2012-05-23,JNR,2014-01-23,CRS,05_23,L005 tape,110,14,
+Switch,0,52,0S6,2012-05-23,JNR,2014-01-23,CRS,05_23,L005 above ground,105,17,
+Switch,0,53,0S8,2012-05-23,JNR,2014-02-10,CRS,05_23,,110,19,
+Switch,0,54,0S9,,,,CRS,,,,,
+Switch,0,55,0S12,,,,CRS,,,,,labeled 0s12
+Switch,0,56,0S12,,,,CRS,,,,,
+Switch,1,57,1S1,2012-05-22,JNR,2013-09-30,JNR,05_22,,100,9,
+Switch,1,58,1S2,2012-05-22,JNR,2013-10-01,JNR,05_22,L020 has roots but is too wet,90,16,Lots of roots.  L020 not counted in #frames with roots count but does have roots (too wet to meaure).
+Switch,1,59,1S3,2012-05-22,JNR,2013-10-01,JNR,05_22,L001 and L005 above ground.,0,0,No roots found in this tube.
+Switch,1,60,1S4,2012-05-22,JNR,2013-10-01,JNR,05_22,,100,12,
+Switch,2,61,2S1,2012-05-22,JNR,2013-10-03,JNR,05_22,,50,8,
+Switch,2,62,2S2,2012-05-22,JNR,2013-10-03,JNR,05_22,,85,10,
+Switch,2,63,2S3,2012-05-22,JNR,2013-10-03,JNR,05_22,,100,11,
+Switch,2,64,2S4,2012-05-22,JNR,2013-10-03,JNR,05_22,,40,5,
+Switch,3,65,3S1,,,,CRS,,,,,
+Switch,3,66,3S2,,,,CRS,,,,,
+Switch,3,67,3S3,,,,CRS,,,,,
+Switch,3,68,3S4,,,,CRS,,,,,
+Switch,4,69,4S1,2012-05-21,JNR,2013-10-09,JNR,05_21,,80,15,
+Switch,4,70,4S2,2012-05-21,JNR,2013-10-09,JNR,05_21,,100,15,
+Switch,4,71,4S3,2012-05-21,JNR,2013-10-09,JNR,05_21,,100,18,
+Switch,4,72,4S4,2012-05-21,JNR,2013-10-09,JNR,05_21,,100,17,
+Prairie,0,73,0P2,,,,CRS,,,,,
+Prairie,0,74,0P3,,,,CRS,,,,,
+Prairie,0,75,0P5,,,,CRS,,,,,
+Prairie,0,76,0P6,,,,CRS,,,,,
+Prairie,0,77,0P7,,,,CRS,,,,,
+Prairie,0,78,0P9,,,,CRS,,,,,
+Prairie,0,79,0P11,,,,CRS,,,,,
+Prairie,0,80,0P12,,,,CRS,,,,,
+Prairie,1,81,1P1,2012-05-22,JNR,2013-10-11,JNR,05_22,,75,13,
+Prairie,1,82,1P2,2012-05-22,JNR,2013-10-11,JNR,05_22,,95,15,
+Prairie,1,83,1P3,2012-05-22,JNR,2013-10-11,JNR,05_22,,95,13,"L001 and 005 above ground.  L015-030,045 and L055 have roots but are too obscured.   L070 half of it is too obscured.  All slides counted in total. Meausred and nunmeasured."
+Prairie,1,84,1P4,2012-05-22,JNR,2013-10-11,JNR,05_22,,90,17,L001-005 above ground.  L085 has roots but is half too wet to measure the entire slide.  All slides counted in total. Measured and unmeasured.
+Prairie,2,85,2P1,2012-05-22,JNR,2013-11-14,JNR,05_22,,75,14,
+Prairie,2,86,2P2,2012-05-22,JNR,2013-11-14,JNR,05_22,,100,15,
+Prairie,2,87,2P3,2012-05-22,JNR,2013-11-16,JNR,05_22,,80,15,
+Prairie,2,88,2P4,2012-05-22,JNR,2013-11-16,JNR,05_22,,90,16,
+Prairie,3,89,3P1,,,,CRS,,,,,
+Prairie,3,90,3P2,,,,CRS,,,,,
+Prairie,3,91,3P3,,,,CRS,,,,,
+Prairie,3,92,3P4,,,,CRS,,,,,
+Prairie,4,93,4P1,2012-05-21,JNR,2013-10-23,JNR,5_21,,100,11,L005 partially above ground (~10%)
+Prairie,4,94,4P2,2012-05-21,JNR,2013-10-23,JNR,5_21,,95,17,
+Prairie,4,95,4P3,2012-05-21,JNR,2013-10-23,JNR,5_21,,100,17,
+Prairie,4,96,4P4,2012-05-21,JNR,2013-10-23,JNR,5_21,,100,13,L005 above ground (100%)
