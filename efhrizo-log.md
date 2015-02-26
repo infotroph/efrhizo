@@ -94,3 +94,5 @@ Beginning the process of moving analysis logs from Excel binary format to CSV. S
 	- changed "2013-23-13" to "2013-10-23" in B4 prairie. Had to look up the tracing dates in the data file to figure out what to correct it to; I guess he switched from YYYY-MM-DD to MM-DD-YY in the middle of typing?
 	- changed image collection date of "2013-05-21" (impossible in 2012 data) to 2012-05-21.
 * Deleted Excel file, committed changes.
+
+* Now that the trace log is in a format we can actually see changes in, let's update it with the most recent version from the tracing computer! opened imager's version of `analysis-log-2012-s1.xls`, exported as CSV, opened in text editor, changed line endings from Cr to LF. Hooray, the only differences are the places CRS added his tracing remarks for previously untraced tubes!
