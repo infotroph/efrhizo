@@ -73,3 +73,13 @@ I be this is referring to T21 S2, which is bad data that will take work to remov
 Out of time and ambition for today. Still need to add censor entries for sessions 3,4,5,6 and check all against what's visible in WinRhizo.
 
 Compiled updated data,censoring info, and figures. Only slight changes -- early-season prairie moves up to match the rest of the season, most shallow depths increase very slightly (guess: Because we're censoring more tape-covered Locations 5). Committed all.
+
+Now for a VERY quick and dirty look at 2014:
+
+* Added data from peak sampling (`EF2014_peak.txt`).
+* Made a token `censorframe2014.pdf`, essentially as a placeholder -- only censors T4 L5 for daylight.
+* Copied calibration files to `calibs2014/`
+* Quick half-assed copy of plotting script named `plot-2014.r`. Man, I really need to overhaul the plotting to make it work on all years.
+* Trace log NOT imported yet!
+* Added Make rules to build `data/frametots2014.txt`, `data/calibs2014.csv`, `data/stripped2014.csv`, `figures/logvol-polyfit-2014.png`. All rules have same structure as previous years, except plotting uses the new script I mentioned above instead of `plot-ebireportspring2014.r`.
+
