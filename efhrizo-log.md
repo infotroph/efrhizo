@@ -33,3 +33,11 @@ Those pixel sizes look identical to me and they should to `strip.tracing.dups()`
 
 A sidetrack: Spent a while documenting what I can see of the file format for WinRhizo patterns files. Not yet reverse-engineered well enough to reconstruct the trace images confidently outside of WinRhino, but it's a start. See `notes/patfile-notes.txt` for details.
 
+Updating 2012 data files. Have brought over the most recent versions of at least S1, S5, S6 (possibly not the "found in notes" S6 file, though). Am too tired to trust my evaluation of the changes before committing -- in particular, make sure line endings and sort order aren't inflating the changeset. 
+
+Manually added updated censoring for session 1; this too needs checking when I'm better rested. Menu for tomorrow before committing these changes:
+	-- confirm that all raw data files are updated.
+	-- check for line ending issues in raw data files.
+	-- check S1 frame censoring records, add them for other sessions.
+	-- copy in updated analysis logs.
+
