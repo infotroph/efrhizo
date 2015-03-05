@@ -1,10 +1,10 @@
-N.B. these obervations based only on the patfiles from EF2010-04-04, as stored in my desktop folder since who-knows-when.
+N.B. these obervations written based only on the patfiles from EF2010-04-04, as stored in my desktop folder since who-knows-when. Exceptions now noted for one file from 2012, still no checking beyond that.
 
 Pat files...
 * Always have one number or string per line
 * Lines end with a CRLF
 * Last line is always a 0 (+ CRLF)
-* always start with "6 - - - - ", where space means CRLF to conserve space in this file. 
+* always start with "6 - - - - ", where a space in these notes is shorthand for a CRLF in the patfile.
 * When empty, consist of "6 - - - - 0"
 * Known possible values for one line:
 	non-negative integers
@@ -39,6 +39,7 @@ R<n>
 <2 lines decimal>
 	these look like they're probably PxSizeH pixel dimensions -- in this directory the first line is either "0.024064" or "0.024161", same as 5-27 and 5-28 PxSizeH values, and second line is either "0.025157" or "0.025424", ditto PxSizeV. (follow-up question: Does WinRhizo change these when you load them under a different calibration?)
 <integer "1">
+	...or 0, at least in EF2012_T054_L015_2012.05.23_121224_JNR.pat
 <2 lines decimal, tenths place 0 or 0.5>
 	Most commonly 0.500000 for both lines, but not always, and both lines not always the same.
 	In the 2010-05-28 directory, the possible values are:
@@ -74,6 +75,7 @@ R<n>
 <1 line "7" if another R follows, "0" if not>
 
 This makes 46 lines for each root segment.
+	Not true: at least in EF2012_T054_L015_2012.05.23_121224_JNR.pat, 5 segments have more than 46 lines, with line 46 = "0" and then a variable number of lines integers, probably in same pattern (unknown so far) as those found at end-of-file in 2010 (see next paragraph). The lines seem to go in sets of three: 1 n 0, with long runs of n counting down until interrupted, e.g. EF2012_T054_L015_2012.05.23_121224_JNR.pat lines 1328-1378 are "1 28 0 1 27 0 [...] 1 18 0 1 17 1 5 0 [...] 1 2 0 28 1 7 R2".
 
 After the last root segment, each non-empty contains a variable number of additional lines, all with integers, usually single-digit or low teens. Doesn't seem to be closely related to number of segments in file -- T038 L025 has 32 segments from 11 roots, but only three lines ("1 1 0") beyond the end of the last root, while others with only a segment or two have >20 lines at the end.
 
