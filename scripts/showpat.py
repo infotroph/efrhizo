@@ -1,7 +1,9 @@
-from scipy import misc
-from skimage.color import rgb2grey
-import skimage.draw
-form os.path import basename
+#!/usr/bin/env python3
+
+from skimage import io, draw
+# from skimage.color import rgb2grey
+from os.path import basename
+from sys import argv
 
 class Pat:
     def __init__(self, path):
@@ -9,11 +11,11 @@ class Pat:
         self.header = []
         self.roots = set()
         self.segments = []
-        read_pat(self, path)
+        self.read_pat(path)
 
     def read_pat(self, path):
         '''
-        Reads a traced-root pattern file from the given path, 
+        Reads a traced-root pattern file from the given path,
         populates self with
             self.header (a list), 
             self.roots (a set), 
@@ -22,8 +24,8 @@ class Pat:
         '''
         with open(path) as f:
             line_arr = [line.strip() for line in f.readlines()]
-        
-        self.header = line_arr[:4]
+
+        self.header = line_arr[:5]
         expected_header = ['6', '-', '-', '-', '-']
         if self.header != expected_header:
             raise ValueError("Unexpected headers: expected {}, got {}".format(expected_header, self.header))
@@ -32,30 +34,32 @@ class Pat:
         seg_starts = [i for i,j in enumerate(line_arr) if j[0]=='R']
         if len(seg_starts) == 0:
             return # no roots in this file
-        if seg_starts[1] != '6':
-            raise ValueError("First root not on line 7!")    
-        
+        if seg_starts[0] != 6:
+            raise ValueError("First root found at line {} instead of line 7!".format(seg_starts[0]))
+
         # Segment extends to start of next segment or to EOF.
-        seg_ends = [i-1 for i in seg_starts[1:]]
+        #seg_ends = [i-1 for i in seg_starts[1:]] # <-- should this line be re-added? Test first.
+        seg_ends = seg_starts[1:]
         seg_ends.append(len(line_arr)-1)
-        
+
         # Segments are USUALLY 46 lines long, but sometimes longer.
         seg_lengths = [j-i for i,j in zip(seg_starts, seg_ends)]
         if any(seglen < 46 for seglen in seg_lengths):
-            raise ValueError("Segment missing lines!")
-        
+            raise ValueError("Segment missing lines: lengths {}".format(seg_lengths))
+
         # Break array up and assign each start:end chunk to a new Segment.
-        map(lambda x,y:self.new_segment(line_arr[x:y]), seg_starts, seg_ends)
+        [self.new_segment(line_arr[i:j]) for i,j in zip(seg_starts, seg_ends)]
 
 
     def new_segment(self, list):
-        seg= Segment(list)
+        seg = Segment(list)
         self.roots.add(seg.rootname)
         self.segments.append(seg)
 
     def seg_coords(self):
         # a list of the coordinates for all segments in the file.
-        [s.coords for s in self.segments]        
+        return [s.coords for s in self.segments]
+
 
 class Segment:
     '''
@@ -63,7 +67,7 @@ class Segment:
     Basically a named bag of lists, with usefulness of names directly proportional to how
     much I know what the contents mean.
     '''
-    def __init_(self, l):
+    def __init__(self, l):
         self.rootname = l[0]
         self.coords = l[1:8]
         self.dec_coords = l[9:16]
@@ -86,8 +90,21 @@ class Segment:
         self.remainder = l[45:]
 
 
-img = misc.imread('YR_IMG_PATH_HERE')
-img_grey = rgb2grey(img)
+img = io.imread(argv[1])
+#img_grey = rgb2grey(img)
+pat = Pat(argv[2])
 
-pat = readpat('YR_PAT_PATH_HERE')
+def drawpoint(r,c):
+    rmax,cmax,chans = img.shape
+    ri, ci = draw.circle(r, c, 10)
+    ri = [min(i, rmax) for i in ri] # don't draw outside edges of image
+    ci = [min(i, cmax) for i in ci]
+    img[ci, ri] = [0, 255, 0] # note r/c order flips here!, maybe move it further upstream?
 
+for sc in pat.seg_coords():
+    # convert string->int and 1-indexed->0-indexed
+    sc = [int(i)-1 for i in sc]
+    # sc is [x1 y1 x2 y2 x3 y3 x4 y4], iterate over pairs:
+    [drawpoint(i,j) for i,j in zip(*[iter(sc)]*2)]
+
+io.imsave(argv[3], img)
