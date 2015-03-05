@@ -113,3 +113,5 @@ Started sketching this script out as `showpat.py`. Not very far along yet, but h
 * Grab image data from root area, attempt discriminant analysis to find an RGB classifier that matches hand-tracing results.
 
 Noticed a few places where the 2012 patfiles behave a bit differently from what I jotted down about the 2012 patfiles. In particular, each segment records is NOT always 46 lines long -- sometimes line 46 is 0 instead of 7 even when it's not the end of the file, and a variable number more lines of integers appear before the next segment starts. Updated patfile-notes.txt to reflect this.
+
+Script expanded, first "working" version saved in a WIP branch. Where "working" means "writes 10-px green dots onto the one image I've tested, at what look like the right coordinates"; don't trust it much yet!
