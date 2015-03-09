@@ -98,16 +98,16 @@ class Segment:
         self.remainder = l[45:]
 
 
-img = io.imread(argv[1])
-#img_grey = rgb2grey(img)
-pat = Pat(argv[2])
-
 def drawpoint(r,c):
     rmax,cmax,chans = img.shape
     ri, ci = draw.circle(r, c, 10)
     ri = [min(i, rmax) for i in ri] # don't draw outside edges of image
     ci = [min(i, cmax) for i in ci]
     img[ci, ri] = [0, 255, 0] # note r/c order flips here!, maybe move it further upstream?
+
+img = io.imread(argv[1])
+#img_grey = rgb2grey(img)
+pat = Pat(argv[2])
 
 for sc in pat.seg_coords():
     # convert string->int and 1-indexed->0-indexed
