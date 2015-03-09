@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
 
+'''
+Read traced roots from a WinRhizo .pat file and overlay them on an existing image—hopefully the same one the tracing came from!
+
+Usage: showpat.py input.jpg tracing_of_input.pat output.jpg
+
+Input and output image format are determined by file extension and may be anything recognized by skimage.io.
+'''
+
 from skimage import io, draw
 # from skimage.color import rgb2grey
 from os.path import basename
