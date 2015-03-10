@@ -124,10 +124,17 @@ for s in pat.segments:
     # convert string->int and 1-indexed->0-indexed
     sc = [int(i)-1 for i in s.coords]
     sdc = [int(float(i))-1 for i in s.dec_coords]
+
     # sc is [x1 y1 x2 y2 x3 y3 x4 y4], iterate over pairs:
     # note drawpoint takes row,col; must flip x,y
-    [drawpoint(y, x, 10) for x,y in zip(*[iter(sc)]*2)]
-    [drawpoint(y, x, 5) for x,y in zip(*[iter(sdc)]*2)]
+    [drawpoint(y, x, 2) for x,y in zip(*[iter(sc)]*2)] # segment midline
+    #[drawpoint(y, x, 2) for x,y in zip(*[iter(sdc)]*2)] # segment  corners
+
+    # draw an X over each segment (nice because root edges stay visible)
     [draw_edge(y, x, y2, x2) for x,y,x2,y2 in zip(*[iter(sdc)]*4)]
+
+    # draw lines along root edges (nice because it shows what we're actually looking for)
+    # draw_edge(sdc[1], sdc[0], sdc[7], sdc[6])
+    # draw_edge(sdc[3], sdc[2], sdc[5], sdc[4])
 
 io.imsave(argv[3], img)
