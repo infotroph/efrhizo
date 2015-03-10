@@ -97,11 +97,13 @@ class Segment:
         self.last = l[45]
         self.remainder = l[45:]
 
+def limit_range(arr, lowest, highest):
+    return [max(lowest, min(i, highest)) for i in arr]
 
 def drawpoint(row, col, diam):
     ri, ci = draw.circle(row, col, diam)
-    ri = [max(0, min(i, rmax)) for i in ri] # don't draw outside edges of image
-    ci = [max(0, min(i, cmax)) for i in ci]
+    ri = limit_range(ri, 0, rmax) # don't draw outside edges of image
+    ci = limit_range(ci, 0, cmax)
     img[ri, ci] = [0, 255, 0]
 
 img = io.imread(argv[1])
