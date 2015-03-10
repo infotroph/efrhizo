@@ -106,6 +106,12 @@ def drawpoint(row, col, diam):
     ci = limit_range(ci, 0, cmax)
     img[ri, ci] = [0, 255, 0]
 
+def draw_edge(row1, col1, row2, col2):
+    ri, ci = draw.line(row1, col1, row2, col2)
+    ri = limit_range(ri, 0, rmax) # don't draw outside edges of image
+    ci = limit_range(ci, 0, cmax)
+    img[ri, ci] = [0, 0, 255]
+
 img = io.imread(argv[1])
 rmax,cmax,chans = img.shape
 rmax = rmax -1 # convert to 0-indexed
@@ -114,11 +120,14 @@ cmax = cmax -1
 #img_grey = rgb2grey(img)
 pat = Pat(argv[2])
 
-for sc in pat.seg_coords():
+for s in pat.segments:
     # convert string->int and 1-indexed->0-indexed
-    sc = [int(i)-1 for i in sc]
+    sc = [int(i)-1 for i in s.coords]
+    sdc = [int(float(i))-1 for i in s.dec_coords]
     # sc is [x1 y1 x2 y2 x3 y3 x4 y4], iterate over pairs:
     # note drawpoint takes row,col; must flip x,y
     [drawpoint(y, x, 10) for x,y in zip(*[iter(sc)]*2)]
+    [drawpoint(y, x, 5) for x,y in zip(*[iter(sdc)]*2)]
+    [draw_edge(y, x, y2, x2) for x,y,x2,y2 in zip(*[iter(sdc)]*4)]
 
 io.imsave(argv[3], img)
