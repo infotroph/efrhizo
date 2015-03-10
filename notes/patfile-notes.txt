@@ -1,4 +1,4 @@
-N.B. these obervations written based only on the patfiles from EF2010-04-04, as stored in my desktop folder since who-knows-when. Exceptions now noted for one file from 2012, still no checking beyond that.
+N.B. these obervations written based only on the patfiles from EF2010-04-04, as stored in my desktop folder since who-knows-when. Exceptions now noted for one file from 2012 and from using showpat.py (based on these notes) to plot traced outlines on ~50 2012 images *without* looking directly at the pat files in the process.
 
 Pat files...
 * Always have one number or string per line
@@ -12,6 +12,7 @@ Pat files...
 	"R<integer" (Very likely that this means "root number <integer>")
 	"*"
 	"-"
+	"\"
 * When R<integer> appears, the line above it is always "7".
 * Lines below an R seem to go:
 R<n>
@@ -21,9 +22,11 @@ R<n>
 	<plausible ending x>
 	<plausible ending y>
 	<same four repeated in same order>
+	When plotting these values onto images, they appear to define the root midline; not sure why they're repeated.
 <8 lines decimal> 
 	All digits right of decimal place are zero.
 	Values seem to *usually*, not always, be nearly identical to integer XY values above, with lines in the same order, but sometimes off by one, e.g. integer line is 669 and decimal line is 668.000000. Sometimes differs by more.
+	When plotting these onto images, these appear to define the root edges. "nearly identical" to root midline only because so many roots are tiny. 
 <4 lines integers>:
 	<1 or 0>
 	<1 or 0>

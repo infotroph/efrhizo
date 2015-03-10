@@ -115,3 +115,41 @@ Started sketching this script out as `showpat.py`. Not very far along yet, but h
 Noticed a few places where the 2012 patfiles behave a bit differently from what I jotted down about the 2012 patfiles. In particular, each segment records is NOT always 46 lines long -- sometimes line 46 is 0 instead of 7 even when it's not the end of the file, and a variable number more lines of integers appear before the next segment starts. Updated patfile-notes.txt to reflect this.
 
 Script expanded, first "working" version saved in a WIP branch. Where "working" means "writes 10-px green dots onto the one image I've tested, at what look like the right coordinates"; don't trust it much yet!
+
+2015-03-09:
+
+More work on showpat.py. A quick shell script to test on some 2012 images:
+
+	#!/bin/bash
+
+	# Just wrapping a loop over showpat.py
+	# assumes images and patfiles are in same directory and have matching names
+
+	IMGPATH="/Users/chrisb/rdp-tx/ef2012_t1-t53/"
+	OUTPATH="/Users/chrisb/UI/efrhizo/tmp/"
+
+	FILES=$(find $IMGPATH -name '*.pat' -print0 | xargs -0 basename -s .pat)
+
+	for F in $FILES; do
+		echo $F
+		./scripts/showpat.py "$IMGPATH$F".jpg "$IMGPATH$F".pat "$OUTPATH$F".png
+	done
+
+This takes a very long time to run. Modified to run only the first few interesting ones (images 1-10 had no roots in them):
+
+	# ...
+	FILES=( $(find $IMGPATH -name '*.pat' -print0 | xargs -0 basename -s .pat) )
+	# ...
+	for F in ${FILES[@]:9:50}; do
+	# ...
+
+Still takes > 30 sec to process a few dozen images, but let's see what we have:
+
+Many images have vertical lines at x=510; appears that I'm swapping coordinates somewhere so x coordinates get cut off by the filter that's supposed to affect y coordinates. Found it: I was passing drawpoints(x,y) but defining drawpoints(row, col). Rows should by y, not x! Points were inly drawn in the right location because I was swapping row/col again after applying my out-of-bounds filter. Fixed both.
+
+Added filter for negative indices (circle extends off top/left) as well as out-of-bound positive (extends off bottom/right), and updated positive filter to use maximum index (num rows - 1) rather than pixel dimension. This appears to fix all out-of-bounds errors.
+
+Looks like the first 8 integers of each segment (what I call `coords` in showpat.py) are the root midline at each end of the segment, repeated for unknown reasons. The next 8 decimal-that-always-takes-an-integer-value lines (`dec_coords` in showpat.py) look like they're the edges at each end of the segment. First stab at drawing an outline around the segment produces a diagonal line through it.
+
+Looks like I was miscounting indexes when reading in the pat file --> coords only contain 7 elements -> draw_edge not called for second four coordinates. Now drawing Xs whose ends match up with corners of each segment.
+
