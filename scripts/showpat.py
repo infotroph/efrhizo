@@ -98,9 +98,9 @@ class Segment:
         self.remainder = l[45:]
 
 
-def drawpoint(r,c):
+def drawpoint(row, col, diam):
     rmax,cmax,chans = img.shape
-    ri, ci = draw.circle(r, c, 10)
+    ri, ci = draw.circle(row, col, diam)
     ri = [min(i, rmax) for i in ri] # don't draw outside edges of image
     ci = [min(i, cmax) for i in ci]
     img[ri, ci] = [0, 255, 0]
@@ -114,6 +114,6 @@ for sc in pat.seg_coords():
     sc = [int(i)-1 for i in sc]
     # sc is [x1 y1 x2 y2 x3 y3 x4 y4], iterate over pairs:
     # note drawpoint takes row,col; must flip x,y
-    [drawpoint(y, x) for x,y in zip(*[iter(sc)]*2)]
+    [drawpoint(y, x, 10) for x,y in zip(*[iter(sc)]*2)]
 
 io.imsave(argv[3], img)
