@@ -77,8 +77,8 @@ class Segment:
     '''
     def __init__(self, l):
         self.rootname = l[0]
-        self.coords = l[1:8]
-        self.dec_coords = l[9:16]
+        self.coords = l[1:9]
+        self.dec_coords = l[9:17]
         self.mystery_bool1 = l[17:18]
         self.mystery_int1 = l[19:20]
         self.mystery_reallog = l[21:22]
