@@ -99,13 +99,16 @@ class Segment:
 
 
 def drawpoint(row, col, diam):
-    rmax,cmax,chans = img.shape
     ri, ci = draw.circle(row, col, diam)
     ri = [min(i, rmax) for i in ri] # don't draw outside edges of image
     ci = [min(i, cmax) for i in ci]
     img[ri, ci] = [0, 255, 0]
 
 img = io.imread(argv[1])
+rmax,cmax,chans = img.shape
+rmax = rmax -1 # convert to 0-indexed
+cmax = cmax -1 
+
 #img_grey = rgb2grey(img)
 pat = Pat(argv[2])
 
