@@ -100,8 +100,8 @@ class Segment:
 
 def drawpoint(row, col, diam):
     ri, ci = draw.circle(row, col, diam)
-    ri = [min(i, rmax) for i in ri] # don't draw outside edges of image
-    ci = [min(i, cmax) for i in ci]
+    ri = [max(0, min(i, rmax)) for i in ri] # don't draw outside edges of image
+    ci = [max(0, min(i, cmax)) for i in ci]
     img[ri, ci] = [0, 255, 0]
 
 img = io.imread(argv[1])
