@@ -103,7 +103,7 @@ def drawpoint(r,c):
     ri, ci = draw.circle(r, c, 10)
     ri = [min(i, rmax) for i in ri] # don't draw outside edges of image
     ci = [min(i, cmax) for i in ci]
-    img[ci, ri] = [0, 255, 0] # note r/c order flips here!, maybe move it further upstream?
+    img[ri, ci] = [0, 255, 0]
 
 img = io.imread(argv[1])
 #img_grey = rgb2grey(img)
@@ -113,6 +113,7 @@ for sc in pat.seg_coords():
     # convert string->int and 1-indexed->0-indexed
     sc = [int(i)-1 for i in sc]
     # sc is [x1 y1 x2 y2 x3 y3 x4 y4], iterate over pairs:
-    [drawpoint(i,j) for i,j in zip(*[iter(sc)]*2)]
+    # note drawpoint takes row,col; must flip x,y
+    [drawpoint(y, x) for x,y in zip(*[iter(sc)]*2)]
 
 io.imsave(argv[3], img)
