@@ -66,7 +66,7 @@ class Pat:
 
     def seg_coords(self):
         # a list of the coordinates for all segments in the file.
-        return [s.coords for s in self.segments]
+        return [s.midline for s in self.segments]
 
 
 class Segment:
@@ -76,25 +76,25 @@ class Segment:
     much I know what the contents mean.
     '''
     def __init__(self, l):
-        self.rootname = l[0]
-        self.coords = l[1:9]
-        self.dec_coords = l[9:17]
+        self.rootname = l[0] # "R<n>"
+        self.midline = l[1:9] # [x1 y1 x2 y2] * 2, both repeats identical
+        self.edges = l[9:17] # [x1L y1L x2R y2R x1R y1R x2L y2L]
         self.mystery_bool1 = l[17:18]
         self.mystery_int1 = l[19:20]
         self.mystery_reallog = l[21:22]
         self.mystery_nonneglog = l[23:24]
-        self.mystery_bool2 = l[25]
-        self.rootnum = l[26]
+        self.tip_valid = l[25] # 1 = root ends at visible tip, 0 = root extends out of view
+        self.rootnum = l[26] # same as <n> in rootname
         self.zeros = l[27:29]
         self.px_size = l[30:31]
         self.mystery_bool3 = l[32]
         self.size_classes = l[33:34]
         self.mystery_real1 = l[35]
-        self.mystery_int2 = l[36]
-        self.mystery_bool4 = l[37:38]
-        self.strs = l[39:43]
-        self.one = l[44]
-        self.last = l[45]
+        self.live_status = l[36] # 300="alive", 301="dead", 302="gone"
+        self.mystery_bool4 = l[37:38] # probably related to live vs. dead
+        self.defined_observations = l[39:43] # each one may be "-", "Y", "N", or arbitrary string
+        self.mystery_bool5 = l[44] 
+        self.last = l[45] # 0 if EOF or any remainder, 7 if another segment follows immediately.
         self.remainder = l[45:]
 
 def limit_range(arr, lowest, highest):
@@ -122,19 +122,19 @@ pat = Pat(argv[2])
 
 for s in pat.segments:
     # convert string->int and 1-indexed->0-indexed
-    sc = [int(i)-1 for i in s.coords]
-    sdc = [int(float(i))-1 for i in s.dec_coords]
+    s_mid = [int(i)-1 for i in s.midline]
+    s_edge = [int(float(i))-1 for i in s.edges]
 
-    # sc is [x1 y1 x2 y2 x3 y3 x4 y4], iterate over pairs:
+    # s_mid is [x1 y1 x2 y2 x3 y3 x4 y4], iterate over pairs:
     # note drawpoint takes row,col; must flip x,y
-    [drawpoint(y, x, 2) for x,y in zip(*[iter(sc)]*2)] # segment midline
-    #[drawpoint(y, x, 2) for x,y in zip(*[iter(sdc)]*2)] # segment  corners
+    [drawpoint(y, x, 2) for x,y in zip(*[iter(s_mid)]*2)] # segment midline
+    #[drawpoint(y, x, 2) for x,y in zip(*[iter(s_edge)]*2)] # segment  corners
 
     # draw an X over each segment (nice because root edges stay visible)
-    [draw_edge(y, x, y2, x2) for x,y,x2,y2 in zip(*[iter(sdc)]*4)]
+    [draw_edge(y, x, y2, x2) for x,y,x2,y2 in zip(*[iter(s_edge)]*4)]
 
     # draw lines along root edges (nice because it shows what we're actually looking for)
-    # draw_edge(sdc[1], sdc[0], sdc[7], sdc[6])
-    # draw_edge(sdc[3], sdc[2], sdc[5], sdc[4])
+    # draw_edge(s_edge[1], s_edge[0], s_edge[7], s_edge[6])
+    # draw_edge(s_edge[3], s_edge[2], s_edge[5], s_edge[4])
 
 io.imsave(argv[3], img)

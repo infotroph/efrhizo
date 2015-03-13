@@ -1,10 +1,9 @@
-N.B. these obervations written based only on the patfiles from EF2010-04-04, as stored in my desktop folder since who-knows-when. Exceptions now noted for one file from 2012 and from using showpat.py (based on these notes) to plot traced outlines on ~50 2012 images *without* looking directly at the pat files in the process.
-
 Pat files...
 * Always have one number or string per line
 * Lines end with a CRLF
 * Last line is always a 0 (+ CRLF)
 * always start with "6 - - - - ", where a space in these notes is shorthand for a CRLF in the patfile.
+	Actually only "always" with our current tracing protocol. These are the whole-image values for the 4 predefined observations, may be '-', 'Y', 'N', or a user-entered string. Note that nothing in the pat file seems to show the NAMES you're using for these at observation time; but line 2 is the first predefined value, line 3 the second, etc. Names _are_ written to the data file, though.
 * When empty, consist of "6 - - - - 0"
 * Known possible values for one line:
 	non-negative integers
@@ -37,6 +36,7 @@ R<n>
 	second two lines none <0, ~log-distributed 0 to ~20000, occasional overflows to 1e6
 <5 lines integer>:
 	<0 or 1>
+		Probably a boolean "root ends in a valid tip" flag, appears to be set for all segments not just final one.
 	<integer between 0 and 13>, this is probably the root number -- matches the <n> of most recent "R<n>".
 	<three lines "0">
 <2 lines decimal>
@@ -69,12 +69,17 @@ R<n>
 	Values mostly 0.5-2, min 0.14 max 11.07.
 <3 lines integer>:
 	<nearly always "300", occasionally "301" or "302">
+		Probably root living/dead/gone status.
 	<"1">
 	<nearly always "0", a very few "1">
+		Changing a segment from "living" to "gone" flips this 0->1. "Dead" flag, maybe? Need to check if 1's here are always 301 or 302 2 lines up.
 <5 lines character>: 
 	<nearly always "*" except one case where it is "\">
+		This is the "note" field for a given root. TODO: Does this appear in every segment, or just the first one?
 	<4 lines nearly always "-" except a very few "*">
+		These are the predefined observations 1-4 for this segment. May be "-", "Y", "N", or an arbitrary string.
 <1 line "1">
+	(... or apparently "0" at least some but not all the times segment has an invalid root tip?) 
 <1 line "7" if another R follows, "0" if not>
 
 This makes 46 lines for each root segment.
@@ -84,3 +89,5 @@ After the last root segment, each non-empty contains a variable number of additi
 
 Second-to-last line of the file is always "1", last line is "0".
 
+2015-03-15: Played with WinRhizo a bit and made a few more observations:
+	Lines 2-5, always "-" in our files, 
