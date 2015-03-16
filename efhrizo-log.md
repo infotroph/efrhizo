@@ -164,3 +164,14 @@ Checking correctness of segment attributes in showpat.py -- suspect I may have s
 Now for the index checking I was aiming for yesterday. Fixed a bunch of off-by-one errors in segment line indexes. All errors I *noticed* were underreads, i.e. making me miss the last item of a list, not read the wrong line into any attribute. Note to self: `list[n:n+1]` returns a list of 1 item, not 2. 
 
 Also found one patfile where the "boolean" value on line 38 (always "1" in the files I'd checked before) is "3", so divided `mystery_bool4` (previously line 38 & 39) into `mystery_int2` (line 38) & `mystery_bool4` (line 39).
+
+Possible insight into `remainder` lines (all beyond line 46 of the segment): They only appear after the last segment in a given root, number of lines in remainder seems to *roughly* scale with number of segments in root. Perhaps when `last` is 7 the next segment is also from this root, and when it's 0 this is the end of the root and `remainder` is some whole-root summary: topology analysis, maybe?
+
+... but maybe not! EF2012_T001_L025_2012.08.30_100221_005_MDM.pat is a counterexample: Four segments named R1, then a remainder section, then two more segments also named R1, then another remainder section. Does this means it doesn't have to come at the end of a root (end of an axis, perhaps?), or that root names don't have to be unique?
+
+Some notes from 2013-03-12 that I jotted down while asking Robert Paul to give me a code review, noting here for the record:
+
+* Consider packaging main loop as a main function, then call it from within a `if __name__ == '__main__':` wrapper so file can be called as a module without running main.
+* `draw_edge`: do I need to call `limit_range` if line is 1 px wide? start and end should be guaranteed within range, so everything between should be as well...
+* `limit_range`:  BUGBUG: Can this bite me if I call it on e.g. a method that calculates areas?
+
