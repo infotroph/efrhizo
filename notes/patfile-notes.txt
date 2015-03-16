@@ -71,6 +71,7 @@ R<n>
 	<nearly always "300", occasionally "301" or "302">
 		Probably root living/dead/gone status.
 	<"1">
+		Or apparently sometimes other -- "3" in EF2012_T001_L015_2012.06.22_141328_003_LYF.pat
 	<nearly always "0", a very few "1">
 		Changing a segment from "living" to "gone" flips this 0->1. "Dead" flag, maybe? Need to check if 1's here are always 301 or 302 2 lines up.
 <5 lines character>: 
@@ -89,5 +90,3 @@ After the last root segment, each non-empty contains a variable number of additi
 
 Second-to-last line of the file is always "1", last line is "0".
 
-2015-03-15: Played with WinRhizo a bit and made a few more observations:
-	Lines 2-5, always "-" in our files, 

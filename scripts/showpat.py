@@ -48,7 +48,7 @@ class Pat:
         # Segment extends to start of next segment or to EOF.
         #seg_ends = [i-1 for i in seg_starts[1:]] # <-- should this line be re-added? Test first.
         seg_ends = seg_starts[1:]
-        seg_ends.append(len(line_arr)-1)
+        seg_ends.append(len(line_arr))
 
         # Segments are USUALLY 46 lines long, but sometimes longer.
         seg_lengths = [j-i for i,j in zip(seg_starts, seg_ends)]
@@ -87,23 +87,24 @@ class Segment:
         self.rootname = l[0] # "R<n>"
         self.midline = l[1:9] # [x1 y1 x2 y2] * 2, both repeats identical
         self.edges = l[9:17] # [x1L y1L x2R y2R x1R y1R x2L y2L]
-        self.mystery_bool1 = l[17:18]
-        self.mystery_int1 = l[19:20]
-        self.mystery_reallog = l[21:22]
-        self.mystery_nonneglog = l[23:24]
+        self.mystery_bool1 = l[17:19]
+        self.mystery_int1 = l[19:21]
+        self.mystery_reallog = l[21:23]
+        self.mystery_nonneglog = l[23:25]
         self.tip_valid = l[25] # 1 = root ends at visible tip, 0 = root extends out of view
         self.rootnum = l[26] # same as <n> in rootname
-        self.zeros = l[27:29]
-        self.px_size = l[30:31]
+        self.zeros = l[27:30]
+        self.px_size = l[30:32]
         self.mystery_bool3 = l[32]
-        self.size_classes = l[33:34]
+        self.size_classes = l[33:35]
         self.mystery_real1 = l[35]
         self.live_status = l[36] # 300="alive", 301="dead", 302="gone"
-        self.mystery_bool4 = l[37:38] # probably related to live vs. dead
-        self.defined_observations = l[39:43] # each one may be "-", "Y", "N", or arbitrary string
+        self.mystery_int2 = l[37] 
+        self.mystery_bool4 = l[38] # probably related to live vs. dead
+        self.defined_observations = l[39:44] # each one may be "-", "Y", "N", or arbitrary string
         self.mystery_bool5 = l[44] 
         self.last = l[45] # 0 if EOF or any remainder, 7 if another segment follows immediately.
-        self.remainder = l[45:]
+        self.remainder = l[46:]
 
     def ordered_values(self):
         ''' Return a list of segment values in the order they appear in the pat file.
@@ -132,11 +133,12 @@ class Segment:
             'size_classes':12,
             'mystery_real1':13,
             'live_status':14,
-            'mystery_bool4':15,
-            'defined_observations':16,
-            'mystery_bool5':17,
-            'last':18,
-            'remainder':19}
+            'mystery_int2':15,
+            'mystery_bool4':16,
+            'defined_observations':17,
+            'mystery_bool5':18,
+            'last':19,
+            'remainder':20}
         return sorted(self.__dict__.items(), key=lambda x:order[x[0]])
 
 def limit_range(arr, lowest, highest):
