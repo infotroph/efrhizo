@@ -68,6 +68,14 @@ class Pat:
         # a list of the coordinates for all segments in the file.
         return [s.midline for s in self.segments]
 
+    def print_segs(self, segs=[]):
+        # Takes a list of segments (defaults to all segments in self),
+        # prints a dict of the instance attributes from each one.
+        # probably just for diagnostic use, I hope.
+        if segs==[]:
+            segs=self.segments
+        for s in segs:
+            print(s.ordered_values())
 
 class Segment:
     '''
@@ -97,6 +105,40 @@ class Segment:
         self.last = l[45] # 0 if EOF or any remainder, 7 if another segment follows immediately.
         self.remainder = l[45:]
 
+    def ordered_values(self):
+        ''' Return a list of segment values in the order they appear in the pat file.
+         TODO: add an optional values argument, default to all if empty.
+         probably something like 
+           def print_seg(self, values={}): 
+               if values == {}: 
+                   values = self.__dict__
+               [...]
+            ... but not sure yet if I want to take a dict, 
+            or a list of attribute names, or what.
+        Until values arument is added, this method is probably useless for anything but verbose debugging.
+        '''
+        order={'rootname':0,
+            'midline':1,
+            'edges':2,
+            'mystery_bool1':3,
+            'mystery_int1':4,
+            'mystery_reallog':5,
+            'mystery_nonneglog':6,
+            'tip_valid':7,
+            'rootnum':8,
+            'zeros':9,
+            'px_size':10,
+            'mystery_bool3':11,
+            'size_classes':12,
+            'mystery_real1':13,
+            'live_status':14,
+            'mystery_bool4':15,
+            'defined_observations':16,
+            'mystery_bool5':17,
+            'last':18,
+            'remainder':19}
+        return sorted(self.__dict__.items(), key=lambda x:order[x[0]])
+
 def limit_range(arr, lowest, highest):
     return [max(lowest, min(i, highest)) for i in arr]
 
@@ -119,6 +161,8 @@ cmax = cmax -1
 
 #img_grey = rgb2grey(img)
 pat = Pat(argv[2])
+
+pat.print_segs()
 
 for s in pat.segments:
     # convert string->int and 1-indexed->0-indexed
