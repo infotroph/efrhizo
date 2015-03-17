@@ -175,3 +175,42 @@ Some notes from 2013-03-12 that I jotted down while asking Robert Paul to give m
 * `draw_edge`: do I need to call `limit_range` if line is 1 px wide? start and end should be guaranteed within range, so everything between should be as well...
 * `limit_range`:  BUGBUG: Can this bite me if I call it on e.g. a method that calculates areas?
 
+Putting away patfiles for the moment to address tube offsets: Tubes are *theoretically* installed with 22 cm above ground so that Location 1 is at ground level. In *practice*, most are close to it, but some got stuck during installation and sit much higher, while only a very few are lower. Have a *very* few measurements of tube offsets (there may be more kicking around on paper somewhere?). Looking at histograms from `rawdata/tube-offsets-spring2011.csv`, all 4 crops mostly cluster near 24 cm but have one or two tubes >30 -- near-surface roots from these will be counted as MUCH deeper than they really are! Id I had been consistent about recording tube offsets every time we installed new tubes, we'd be set, but I didn't.
+
+But we have another source: images from shallow-installed tubes have light showing in the aboveground frames. Precision is less good (+/- ~6 cm instead of ~1 cm), because we only save frame 1, 5, 10, 15...), and furthermore "frame 1" is inconsistent: Some operators take the image wherever the camera sits, others unlock the indexing pin and hunt for the best image of the tube number. Not sure how to deal with the precision and concistency issues yet, but for a start I will extract frames listed as "light" or "above ground" or the like from the `censorimage` tables, check them against raw images, and compile these into a spreadsheet of "deepest frame with light showing". 
+
+2015-03-17:
+
+Set out to compile spreadsheet mentioned yesterday, realized I don't have all the correct raw images on my laptop. Assigned TAW to do it at the rhizotron tracing computer: open each tube in WinRhizo, then for the top few frames (until clearly underground) record the offset (as % of image height, counting from top, visually assesed to closest 10%) of: 
+	
+* Bottom of duct tape, 
+* Bottom of light from outside tube
+* Top of soil line
+* sharpie line from measuring 22 cm, if visible
+
+Also recording a yes/no on whether the tube number is visible in the image at all.
+
+How I plan to use this: Assemble all tubes, check that differences through the season look more like camera placement/soil settling/tape peeling than like tube movement or mislabeled images, then take average. light that always appears before the first soil = tube aboveground, light below soil = cracked soil letting light penetrate belowground. When 22-cm mark is visible in same frame as soil line, compute offset directly. 
+
+Question: worry about calibration when computing this offset? All images are 510 px high, so maximum change in image height is
+	
+	> cal10=read.csv("~/UI/efrhizo/data/calibs2010.csv")
+	> cal12=read.csv("~/UI/efrhizo/data/calibs2012.csv")
+	> cal14=read.csv("~/UI/efrhizo/data/calibs2014.csv")
+	> cal10$year=2010
+	> cal12$year=2012
+	> cal14$year=2014
+	> caln=rbind(cal10,cal12,cal14)
+	> range(caln$v*510)
+	[1] 11.13537 13.98734
+	> mean(caln$v*510)
+	[1] 12.22049
+
+So the maximum change across a whole frame is about 3 mm, and most less-than-a-frame measurements will change far less than that. For estimating tube offset to the nearest cm, this is more than good enough. Will assume 12.2 mm/image and convert TAW's percentage-of-frame offsets to distances with `(percent/100)*12.2`. Then in the easy case where the 22 cm line is visible in the same frame as a clean bottom-of-light/top-of-soil front, the tube offset is 
+	
+	# test here that e.g. soil_top >= max(light_bottom, tape_bottom)
+	offset_pct = soil_top - target_line
+	offset_mm = offset_pct/100*12.2
+	offset_cm = 22 + (offset_mm/10)
+
+This doesn't yet account for the less-easy cases, which will probably be most of them... after all, if the soil line is visible in frame 1 beside the target depth line, we're within at most 1.2 cm of the target depth. Still considering how to handle, say, target depth line in frame 1 and light visible in frame 5.
