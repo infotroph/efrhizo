@@ -217,5 +217,8 @@ This doesn't yet account for the less-easy cases, which will probably be most of
 
 2015-03-25:
 
-Checking 2011 tube offset records against paper datasheets. Tube 56 (0s12) was measured as 23.5 cm, I recorded as 23 in electronic version. Changing that to round up to 24.
+Checking 2011 tube offset records against paper datasheets. 
+
+* Tube 56 (0s12) was measured as 23.5 cm, I recorded as 23 in electronic version. Changing that to round up to 24. 
+* `rawdata/tube-offsets-spring2011.csv` is offsets of tubes that were in the ground all winter, i.e. it tells us the offsets for 2010 modulo frost heaving, NOT the offsets to use for 2011. Renamed to `offsets-2010-meas-spring2011.csv` to better reflect that, and moved it into a new `tube_offsets` directory while I'm at it.
 
