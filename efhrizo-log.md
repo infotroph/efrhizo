@@ -214,3 +214,8 @@ So the maximum change across a whole frame is about 3 mm, and most less-than-a-f
 	offset_cm = 22 + (offset_mm/10)
 
 This doesn't yet account for the less-easy cases, which will probably be most of them... after all, if the soil line is visible in frame 1 beside the target depth line, we're within at most 1.2 cm of the target depth. Still considering how to handle, say, target depth line in frame 1 and light visible in frame 5.
+
+2015-03-25:
+
+Checking 2011 tube offset records against paper datasheets. Tube 56 (0s12) was measured as 23.5 cm, I recorded as 23 in electronic version. Changing that to round up to 24.
+
