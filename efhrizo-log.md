@@ -223,5 +223,5 @@ Checking 2011 tube offset records against paper datasheets.
 * `rawdata/tube-offsets-spring2011.csv` is offsets of tubes that were in the ground all winter, i.e. it tells us the offsets for 2010 modulo frost heaving, NOT the offsets to use for 2011. Renamed to `offsets-2010-meas-spring2011.csv` to better reflect that, and moved it into a new `tube_offsets` directory while I'm at it.
 * Changed `offsets-2010-meas-spring2011.csv` line endings from CR to LF. Grr, Excel.
 * Tube offsets for 2011 are currently contained in the "after tube replacement" columns of `rawdata/rhizotube-offsets.xlsx`. Copied these into `rawdata/tube_offset/offsets-2011.csv`. These are just the offsets of tubes that were replaced -- still need to fil in offsets of tubes kept from 2010.
-
+* This means `rawdata/rhizotube-offsets.xlsx` is no longer needed -- everything in it is better formatted in these the 2010 and 2011 offset files. Deleted.
 
