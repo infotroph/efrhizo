@@ -226,4 +226,4 @@ Checking 2011 tube offset records against paper datasheets.
 * This means `rawdata/rhizotube-offsets.xlsx` is no longer needed -- everything in it is better formatted in these the 2010 and 2011 offset files. Deleted.
 * One piece of information that still exists only on paper: row alignment of corn tubes. Added a `rowposition` column. In 2011, this was systematic: odd numbered tubes were in the row, even-numbered tubes were between them.
 * Created a new `rawdata/tube_replacements.csv` datasheet to track all tube replacements in one place: year replaced, offset before replacement, offset after replacement. My records on this are very poor, so will be incomplete, but will collect what I do know. Corn/soy replaced every year; won't include them here.
-
+* OK, now added 2011 offsets for tubes not replaced in 2011. 2010 and 2011 offsets should now, to the extent I trust these measurements, be complete.
