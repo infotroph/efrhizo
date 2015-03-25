@@ -40,7 +40,8 @@ R<n>
 	<integer between 0 and 13>, this is probably the root number -- matches the <n> of most recent "R<n>".
 	<three lines "0">
 <2 lines decimal>
-	these look like they're probably PxSizeH pixel dimensions -- in this directory the first line is either "0.024064" or "0.024161", same as 5-27 and 5-28 PxSizeH values, and second line is either "0.025157" or "0.025424", ditto PxSizeV. (follow-up question: Does WinRhizo change these when you load them under a different calibration?)
+	these look like they're probably PxSizeH pixel dimensions -- in this directory the first line is either "0.024064" or "0.024161", same as 5-27 and 5-28 PxSizeH values, and second line is either "0.025157" or "0.025424", ditto PxSizeV. 
+	(Yes, this means WinRhizo changes these when you load them under a different calibration.)
 <integer "1">
 	...or 0, at least in EF2012_T054_L015_2012.05.23_121224_JNR.pat
 <2 lines decimal, tenths place 0 or 0.5>
@@ -67,6 +68,7 @@ R<n>
 	Maaaaybe these are diameter classes, but in the data file WinRhizo saved by 0.05-mm classes... would expect "35" rather than "32"... unless these are midpoints rounded off, e.g avg(3,3.5)=3.25? but there are still 18 possible values and WinRhizo only writes 10 diameter classes in my currently configured output.
 <1 line decimal>
 	Values mostly 0.5-2, min 0.14 max 11.07.
+	This value changes when the calibration changes, so whatever it is it's expressed in mm not pixels.
 <3 lines integer>:
 	<nearly always "300", occasionally "301" or "302">
 		Probably root living/dead/gone status.
@@ -90,3 +92,15 @@ After the last root segment, each non-empty contains a variable number of additi
 
 Second-to-last line of the file is always "1", last line is "0".
 
+
+2015-03-24: Assigned TAW to take some offset measurements, and had him do it in a way that incidentally happened to change the recorded calibration of a lot of pat files: I told him to use a pixel-for-pixel calibration (i.e. calibration file says units are pixels and x/y multipliers both 1.000000.). Observed that every patfile changes in two places when reloaded under a new calibration:
+
+* The ~0.02 lines ('px_sixe' in showpat.py) change to 1.000000 ==> Yes, those lines report the calibration in use at save time.
+* The value three lines below the ~0.02 lines ('mystery_real1' in showpat.py) changes by an amount that appears to be consistent with pixel rescaling: 
+		{px_size = (0.022255, 0.023148), mystery_real1 = 0.867003} 
+	changes to 
+		{px_size = (1.000000, 1.000000), mystery_real1 = 38.183766}. 
+	Notice that 
+		[38.183766/0.867003 = 44.041100204] ~= [(1/0.022255 +1/ 0.023148)/2 = 44.066999621],
+	so both are rescaled by close to the same amount.
+	==> Some kind of total? Segment length, area, volume...?
