@@ -235,4 +235,7 @@ Changed `loc.to.depth()` by internally subtracting one from the location number;
 
 _*NOTE that this will change all previously calculated depths when I rerun make!*_
 
+2015-03-29:
+
+Recalculated depths in all existing datafiles using the new version of `loc.to.depth`. Since the Makefile doesn't list a dependency on the rhizoFuncs functions (TODO: Should it?), I remade everything from scratch with `make clean; make`.
 
