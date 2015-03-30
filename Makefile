@@ -23,6 +23,12 @@ ALL = data/frametots2010.txt \
 	data/stripped2010.csv \
 	data/stripped2012.csv \
 	data/stripped2014.csv \
+	data/offset2009.csv \
+	data/offset2010.csv \
+	data/offset2011.csv \
+	data/offset2012.csv \
+	data/offset2013.csv \
+	data/offset2014.csv \
 	figures/logvol-cornpoints-2012.png \
 	figures/logvol-cornpointsline-2012.png \
 	figures/logvol-polyfit-2010.png \
@@ -71,35 +77,70 @@ data/calibs2014.csv: \
 	echo "file, h, v, unit" > data/calibs2014.csv
 	scripts/slurpcals.sh rawdata/calibs2014/*.CAL >> data/calibs2014.csv
 
+# offsets for years that have some measurements...
+data/offset2010.csv: \
+		scripts/estimate_offset.r \
+		rawdata/tube_offsets/offsets-2010-meas-spring2011.csv \
+		rawdata/tube_offsets/est-offset2010.csv
+	Rscript $^ data/offset2010.csv
+data/offset2011.csv: \
+		scripts/estimate_offset.r \
+		rawdata/tube_offsets/offsets-2011.csv \
+		rawdata/tube_offsets/est-offset2011.csv
+	Rscript $^ data/offset2011.csv
+data/offset2014.csv: \
+		scripts/estimate_offset.r \
+		rawdata/tube_offsets/offsets-2014.csv \
+		rawdata/tube_offsets/est-offset2014.csv
+	Rscript $^ data/offset2014.csv
+
+# ...and for years with no measurements that I can find.
+data/offset2009.csv: \
+		scripts/estimate_offset.r \
+		rawdata/tube_offsets/est-offset2009.csv
+	Rscript scripts/estimate_offset.r  NULL rawdata/tube_offsets/est-offset2009.csv data/offset2009.csv
+data/offset2012.csv: \
+		scripts/estimate_offset.r \
+		rawdata/tube_offsets/est-offset2012.csv
+	Rscript scripts/estimate_offset.r NULL rawdata/tube_offsets/est-offset2012.csv data/offset2012.csv
+data/offset2013.csv: \
+		scripts/estimate_offset.r \
+		rawdata/tube_offsets/est-offset2013.csv
+	Rscript scripts/estimate_offset.r NULL rawdata/tube_offsets/est-offset2013.csv data/offset2013.csv
+
+
 data/stripped2010.csv: \
+		scripts/cleanup.r \
 		data/frametots2010.txt \
 		rawdata/censorframes2010.csv \
 		rawdata/censorimg2010.csv \
-		scripts/cleanup.r
-	Rscript scripts/cleanup.r \
-		data/frametots2010.txt \
-		rawdata/censorframes2010.csv \
-		rawdata/censorimg2010.csv \
-		data/stripped2010.csv >> tmp/2010-cleanup-log.txt
+		data/offset2010.csv
+	Rscript $^ data/stripped2010.csv >> tmp/2010-cleanup-log.txt
 
 data/stripped2012.csv: \
+		scripts/cleanup.r \
 		data/frametots2012.txt \
 		rawdata/censorframes2012.csv \
-		scripts/cleanup.r
+		\
+		data/offset2012.csv
 	Rscript scripts/cleanup.r \
 		data/frametots2012.txt \
 		rawdata/censorframes2012.csv \
 		"NULL" \
+		data/offset2012.csv \
 		data/stripped2012.csv >> tmp/2012-cleanup-log.txt
 
 data/stripped2014.csv: \
+		scripts/cleanup.r \
 		data/frametots2014.txt \
 		rawdata/censorframes2014.csv \
-		scripts/cleanup.r
+		\
+		data/offset2014.csv
 	Rscript scripts/cleanup.r \
 		data/frametots2014.txt \
 		rawdata/censorframes2014.csv \
 		"NULL" \
+		data/offset2014.csv \
 		data/stripped2014.csv >> tmp/2014-cleanup-log.txt
 
 

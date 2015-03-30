@@ -1,5 +1,5 @@
 
-# Usage: Rscript cleanup.r datafile censorfile imgcensorfile outfile
+# Usage: Rscript cleanup.r datafile censorfile imgcensorfile offsetfile outfile
 # all arguments are mandatory, in this order: 
 #	datafile, tab-separated, as produced by frametot-collect.sh.
 #	censorfile, CSV with columns "date", "tube", "loc", "reason", "notes". 
@@ -9,6 +9,9 @@
 #		location was photographed more than once in a session
 # 		and  you want to completely remove all tracings from one of them.
 #		If no images to be censored, give filename as "NULL."
+#	offsetfile, CSV with columns "tube" and "offset". 
+#		Gives length in cm of the portion of the tube projecting out of the soil. 
+#		Used here to calculate accurate image depths.
 #	outfile, path and filename to which to write the cleaned-up data (as CSV). 
 #		If this points to an existing file, it will be overwritten.
 
@@ -19,7 +22,8 @@ args = commandArgs(trailingOnly = TRUE)
 raw = read.delim(args[1])
 censor = read.csv(args[2])
 if(args[3] == "NULL"){ censorimg=NULL }else{ censorimg = read.csv(args[3], stringsAsFactors=FALSE) }
-outfile = args[4]
+offsets=read.csv(args[4])
+outfile = args[5]
 
 raw = make.datetimes(raw)
 
@@ -54,7 +58,9 @@ rm(stripped.by)
 stripped$Month = months(stripped$Date)
 stripped$Block = assign.block(stripped$Tube)
 stripped$Species = assign.species(stripped$Tube)
-stripped$Depth = loc.to.depth(stripped$Location)
+stripped$Offset = merge(stripped, offsets[,c("tube", "offset")], by.x="Tube", by.y="tube")$offset
+stripped$Offset[is.na(stripped$Offset)] = 22 # If no better info available, assume 22 cm.
+stripped$Depth = loc.to.depth(loc=stripped$Location, offset=stripped$Offset)
 stripped$Tube = factor(stripped$Tube)
 stripped$rootvol.mm3.mm2 = with(stripped, 
  	rootvol.perarea(TotVolume.mm3, PxSizeH, PxSizeV))

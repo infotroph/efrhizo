@@ -239,3 +239,18 @@ _*NOTE that this will change all previously calculated depths when I rerun make!
 
 Recalculated depths in all existing datafiles using the new version of `loc.to.depth`. Since the Makefile doesn't list a dependency on the rhizoFuncs functions (TODO: Should it?), I remade everything from scratch with `make clean; make`.
 
+Now recalculated them again using the image-based offset estimates from TAW (see 2015-03-17 above). When I don't have a current measurement of tube offset, we can estimate it by looking at the top few images and noting for each one how far down we see tape or light, and how far up we see the beginning of visible belowground soil. The basic procedure: 
+
+* Convert location number and "percent from top of image" into distance down the tube (20.04 cm + 1.35*location + (percent/100 * 1.22)). Why these constants? because locations are 1.35 cm apart, images are about 12.2 mm tall (calibration doesn't change this much at all), and the camera is built such that it's 22 cm from the top of the tube to the center of location 1. See the comments in `estimate_offset.r` for a few more notes on this. 
+* Within each tube on a given day, ignore all but the shallowest frame with a "top of soil" and all but the deepest with "bottom of tape" or "bottom of light".
+* Take the maximum of these indicator distances as today's estimated offset for this tube. Many tubes will not have all three observations, but this is OK. If all three are missing, return an NA estimate. 
+* (Note: Technically the soil gives us a point estimate ("we see where the tube enters the soil") and the other two give us lower bounds ("There is light/tape indicating the tube is aboveground to at least here, and we see that we are firmly underground by the top of the next image"), but I'm going to ignore that for now.)
+* Take the mean of estimated offsets across the whole season. This is our offset estimated from image data for this tube this year.
+* Merge these estimated offsets with the measured offsets if they are available, and write out a finished offset file containing columns "tube", "measured", "estimated", "offset" (taken from "measured except when measured is NA, then taken from "estimated"), and "source" (which column the value in "offset" came from).
+
+Edited `Makefile` to to generate all years' offset files, whether with measred AND estimated offsets (2010, 2011, 2014) or just image estimates (2009, 2011, 2013). All generated with `scripts/estimate_offset.r`, passing "NULL" when the measurement file doesn't exist. Note that if I discover a cache of tube offset measurements for 2009, 2012, or 2013, I'll need to rewrite the make rules before it picks up on them.
+
+Edited `cleanup.r` to take an offset file argument and calculate depth accordingly; updated all Make rules for stripped*.csv to use new arguments.
+
+Also note that the offset estimates for 2011 are based on UNCORRECTED tube numbers -- any mislabeled images in the set are still mislabeled here! I suspect there are at least a few here, e.g. plotting out all estimated offsets for 2011 shows a couple that are very different on day 1 than they are the rest of the season. Since I took all the offset measurements at the beginning of the season, I doubt the differences are from tubes moving. REVISIT THIS after correcting 2011 tube images and update numbers as needed.
+

@@ -1,0 +1,97 @@
+tube,Code,date,offset,rowposition,notes,measured,estimated,source
+1,0c1,2014-09-17,38,in,,38,35,measured
+2,0c2,2014-11-10,22,btwn,,22,21,measured
+3,0c3,2014-11-10,25,in,,25,23,measured
+4,0c4,2014-11-10,33,btwn,,33,21,measured
+5,0c5,2014-09-19,21,in,,21,21,measured
+6,0c6,2014-11-10,23,btwn,,23,23,measured
+7,0c7,2014-11-10,19,in,,19,21,measured
+8,0c8,2014-11-10,25,btwn,,25,23,measured
+9,1c1,,NA,,Not present in 2014,NA,NA,image
+10,1c2,,NA,,Not present in 2014,NA,NA,image
+11,1c3,,NA,,Not present in 2014,NA,NA,image
+12,1c4,,NA,,Not present in 2014,NA,NA,image
+13,2c1,,NA,,Not present in 2014,NA,NA,image
+14,2c2,,NA,,Not present in 2014,NA,NA,image
+15,2c3,,NA,,Not present in 2014,NA,NA,image
+16,2c4,,NA,,Not present in 2014,NA,NA,image
+17,3c1,,NA,,Not present in 2014,NA,NA,image
+18,3c2,,NA,,Not present in 2014,NA,NA,image
+19,3c3,,NA,,Not present in 2014,NA,NA,image
+20,3c4,,NA,,Not present in 2014,NA,NA,image
+21,4c1,,NA,,Not present in 2014,NA,NA,image
+22,4c2,,NA,,Not present in 2014,NA,NA,image
+23,4c3,,NA,,Not present in 2014,NA,NA,image
+24,4c4,,NA,,Not present in 2014,NA,NA,image
+25,0m1,,23,,,NA,23,image
+26,0m3,,22,,,NA,22,image
+27,0m5,,23,,,NA,23,image
+28,0m6,,23,,,NA,23,image
+29,0m7,,21,,,NA,21,image
+30,0m9,,23,,,NA,23,image
+31,0m10,,22,,,NA,22,image
+32,0m11,,23,,,NA,23,image
+33,1m1,,23,,,NA,23,image
+34,1m2,,23,,,NA,23,image
+35,1m3,,23,,,NA,23,image
+36,1m4,2014-09-16,24,,,24,23,measured
+37,2m1,,23,,,NA,23,image
+38,2m2,,23,,,NA,23,image
+39,2m3,,35,,,NA,35,image
+40,2m4,,23,,,NA,23,image
+41,3m1,,NA,,,NA,NA,image
+42,3m2,,23,,,NA,23,image
+43,3m3,,28,,,NA,28,image
+44,3m4,,23,,,NA,23,image
+45,4m1,,23,,,NA,23,image
+46,4m2,,NA,,,NA,NA,image
+47,4m3,,22,,,NA,22,image
+48,4m4,,22,,,NA,22,image
+49,0s2,,27,,,NA,27,image
+50,0s3,,23,,,NA,23,image
+51,0s5,,48,,,NA,48,image
+52,0s6,,28,,,NA,28,image
+53,0s8,,23,,,NA,23,image
+54,0s9,,23,,,NA,23,image
+55,0s11,,23,,,NA,23,image
+56,0s12,,23,,,NA,23,image
+57,1s1,,23,,,NA,23,image
+58,1s2,,22,,,NA,22,image
+59,1s3,,NA,,,NA,NA,image
+60,1s4,2014-09-16,28,,,28,NA,measured
+61,2s1,,23,,,NA,23,image
+62,2s2,,28,,,NA,28,image
+63,2s3,,28,,,NA,28,image
+64,2s4,,27,,,NA,27,image
+65,3s1,,23,,,NA,23,image
+66,3s2,,23,,,NA,23,image
+67,3s3,,NA,,,NA,NA,image
+68,3s4,,NA,,,NA,NA,image
+69,4s1,,22,,,NA,22,image
+70,4s2,,23,,,NA,23,image
+71,4s3,,23,,,NA,23,image
+72,4s4,2014-09-19,24,,,24,23,measured
+73,0p2,,23,,,NA,23,image
+74,0p3,,NA,,,NA,NA,image
+75,0p5,,23,,,NA,23,image
+76,0p6,,22,,,NA,22,image
+77,0p7,,NA,,,NA,NA,image
+78,0p9,,28,,,NA,28,image
+79,0p11,,22,,,NA,22,image
+80,0p12,,22,,,NA,22,image
+81,1p1,,28,,,NA,28,image
+82,1p2,,28,,,NA,28,image
+83,1p3,,28,,,NA,28,image
+84,1p4,2014-09-17,35,,,35,35,measured
+85,2p1,,NA,,,NA,NA,image
+86,2p2,,23,,,NA,23,image
+87,2p3,,NA,,,NA,NA,image
+88,2p4,,NA,,,NA,NA,image
+89,3p1,,23,,,NA,23,image
+90,3p2,,22,,,NA,22,image
+91,3p3,,23,,,NA,23,image
+92,3p4,,27,,,NA,27,image
+93,4p1,,23,,,NA,23,image
+94,4p2,,23,,,NA,23,image
+95,4p3,,28,,,NA,28,image
+96,4p4,,35,,,NA,35,image
