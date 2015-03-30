@@ -256,4 +256,6 @@ Also note that the offset estimates for 2011 are based on UNCORRECTED tube numbe
 
 Added data from 2013: all extant 2013 calibrations, data files and analysis logs for S1 (currently in progress) and S5. Made a token start at a `censorframes2013.csv` by copying the first few clearly bad tubes of session 5; not really adequate effort yet, just enough to make the file exist.
 
-Updated Makefile to process all these new 2013 data same as other years.
+Updated Makefile to process all these new 2013 data same as other years, forked plotting script yet again to make `plot-2013.r`. This one-script-per-plot thing is getting untenable; need to refactor this to be more flexible very soon.
+
+Ran make, saved all updated data, went to bed.

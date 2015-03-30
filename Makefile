@@ -39,6 +39,7 @@ ALL = data/frametots2010.txt \
 	figures/logvol-cornpointsline-2012.png \
 	figures/logvol-polyfit-2010.png \
 	figures/logvol-polyfit-2012.png \
+	figures/logvol-polyfit-2013.png \
 	figures/logvol-polyfit-2014.png
 
 all: $(ALL)
@@ -195,6 +196,11 @@ figures/logvol-polyfit-2012.png: \
 		data/stripped2012.csv \
 		scripts/plot-ebireportspring2014.r
 	Rscript scripts/plot-ebireportspring2014.r
+
+figures/logvol-polyfit-2013.png: \
+		data/stripped2013.csv \
+		scripts/plot-2013.r
+	Rscript scripts/plot-2013.r
 
 figures/logvol-polyfit-2014.png: \
 		data/stripped2014.csv \
