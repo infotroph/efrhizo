@@ -1,0 +1,97 @@
+Crop,Block,Tube number,Label code,Date imaged,Field Tech,Date Analyzed,Lab tech,Calibration image,Bad frames?,Deepest roots,# frames with roots,Notes
+Corn,0,1,0C1,2014.08.13,TLP,2014.10.27,EA,2014.08.13,no,L110,18,"frame 1, 5, 10 and 15 have tape "
+Corn,0,2,0C2,2014.08.13,TLP,2014.10.29,EA,2014.08.13,No,L110,16,
+Corn,0,3,0C3,2014.08.13,TLP,2014.10.29,EA,2014.08.13,1,L90,16,location 1 has bright lighting that may obscure other roots. 
+Corn,0,4,0C4,2014.08.13,TLP,2014.10.29,EA,2014.08.13,"1,5",L90,16,"location 1,and 5 have bright lighting that may obscure other roots. "
+Corn,0,5,0C5,2014.08.13,TLP,2014.10.31,EA,2014.08.13,no,L110,19,
+Corn,0,6,0C6,2014.08.13,TLP,2014.10.31,EA,2014.08.13,1,L110,13,location 1 has very bad lighting
+Corn,0,7,0C7,2014.08.13,TLP,2014.10.31,EA,2014.08.13,no,L90,15,
+Corn,0,8,0C8,2014.08.13,TLP,2014.10.31,EA,2014.08.13,1,L110,17,location 1 has bad lighting 
+Corn,1,9,1C1,,,,,,,,,
+Corn,1,10,1C2,,,,,,,,,
+Corn,1,11,1C3,,,,,,,,,
+Corn,1,12,1C4,,,,,,,,,
+Corn,2,13,2C1,,,,,,,,,
+Corn,2,14,2C2,,,,,,,,,
+Corn,2,15,2C3,,,,,,,,,
+Corn,2,16,2C4,,,,,,,,,
+Corn,3,17,3C1,,,,,,,,,
+Corn,3,18,3C2,,,,,,,,,
+Corn,3,19,3C3,,,,,,,,,
+Corn,3,20,3C4,,,,,,,,,
+Corn,4,21,4C1,,,,,,,,,
+Corn,4,22,4C1,,,,,,,,,
+Corn,4,23,4C3,,,,,,,,,
+Corn,4,24,4C4,,,,,,,,,
+Miscanthus,0,25,0M1,2014.08.13,TLP,2014.10.31,EA,2014.08.13,1 and 100,L95,14,"1 is a bit blurry, 100 is wet. "
+Miscanthus,0,26,0M3,2014.08.13,TLP,2014.11.03,EA,2014.08.13,no,L120,15,location 1 is numbered 29
+Miscanthus,0,27,0M5,2014.08.13,TLP,2014.11.03,EA,2014.08.13,no,L105,17,location 1 is numbered 30
+Miscanthus,0,28,0M6,2014.08.13,TLP,2014.11.03,EA,2014.08.13,no,L105,17,
+Miscanthus,0,29,0M7,2014.08.13,TLP,2014.11.03,EA,2014.08.13,no,L100,16,
+Miscanthus,0,30,0M9,2014.08.13,TLP,2014.11.03,EA,2014.08.13,115,L110,15,location 115 is blurry due to excess light
+Miscanthus,0,31,0M10,2014.08.13,TLP,2014.11.03,EA,2014.08.13,no,L105,15,
+Miscanthus,0,32,0M11,2014.08.13,TLP,2014.11.03,EA,2014.08.13,no,L95,10,
+Miscanthus,1,33,1M1,2014.08.15,TLP,2014.11.07,EA,2014.08.15,65,L110,19,"Loction 65 is blurry due to camera moving, Location 1 is the label"
+Miscanthus,1,34,1M2,2014.08.15,TLP,2014.11.07,EA,2014.08.15,no,L105,14,location 1 is the label
+Miscanthus,1,35,1M4,2014.08.15,TLP,2014.11.07,EA,2014.08.15,no,L110,13,location 1 is the label
+Miscanthus,1,36,1M4,2014.08.15,TLP,2014.11.07,EA,2014.08.15,no,L75,13,"location 1 is the label, location 115 has different label "
+Miscanthus,2,37,2M1,2014.08.15,TLP,2014.11.07,EA,2014.08.15,no,L105,13,location 1 is the label
+Miscanthus,2,38,2M2,2014.08.15,TLP,2014.11.12,EA,2014.08.15,no,L70,12,location 1 is the label
+Miscanthus,2,39,2M3,2014.08.15,TLP,2014.11.12 ,EA,2014.08.15,no,L110,18,location 1 is the label
+Miscanthus,2,40,2M4,2014.08.15,TLP,2014.11.12,EA,2014.08.15,no,L95,13,location 1 is the label
+Miscanthus,3,41,3M1,,,,,,,,,
+Miscanthus,3,42,3M2,2014.08.15,TLP,2014.11.12,EA,2014.08.15,no,L110,19,location 1 is the label
+Miscanthus,3,43,3M3,2014.08.15,TLP,2014.11.12,EA,2014.08.15,no,L105,17,locaions 1 and 2 are labels
+Miscanthus,3,44,3M4,2014.08.15,TLP,2014.11.12,EA,2014.08.15,no,L105,15,Location 1 is blurry due to excess light 
+Miscanthus,4,45,4M1,2014.08.15,TLP,2014.11.13,EA,2014.08.15,no,L105,17,locaion 1 is the label
+Miscanthus,4,46,4M2,,,,,,,,,
+Miscanthus,4,47,4M3,2014.08.15,TLP,2014.11.13,EA,2014.08.15,no,L110,18,location 1 is the label
+Miscanthus,4,48,4M4,2014.08.15,TLP,2014.11.13,EA,2014.08.15!,"1,80,85",L110,13,"location one has roots but the label is in the way, location 80 and 85 both have water which make the images a little blurry "
+Switch,0,49,0S2,2014.08.15,TLP,2014.11.13,EA,2014.08.15!,"100,120",L115,22,"Loction 100 has a blurry lense that makes obscures the roots, and location 120 is a blue image. "
+Switch,0,50,0S3,2014.08.15,TLP,2014.11.13,EA,2014.08.14,no,L110,13,location 1 is the label
+Switch,0,51,0S5,2014.08.15,TLP,2014.11.17,EA,2014.08.14,L1-20,L65,5,L1-20 has tape marks on all of the pictures
+Switch,0,52,0S6,2014.08.15,TLP,2014.11.17,EA,2014.08.14,no,L105,13,
+Switch,0,53,0S8,2014.08.15,TLP,2014.11.17,EA,2014.08.14,no,L105,15,L1 is the label 
+Switch,0,54,0S9,2014.08.15,TLP,2014.11.17,EA,2014.08.14,no,L110,20,L1 is the label 
+Switch,0,55,0S12,2014.08.15,TLP,2014.11.17,EA,2014.08.14,no,L115,20,L1 is the label 
+Switch,0,56,0S12,2014.08.15,TLP,2014.11.19,EA,2014.08.14,no,L105,18,L1 is the label 
+Switch,1,57,1S1,2014.08.15,TLP,2014.11.19,EA,2014.08.15,no,L100,10,"L90, 95,100  have what looks like web shape roots, but cannot be certain since there are so many "
+Switch,1,58,1S2,2014.08.15,TLP,2014.11.19,EA,2014.08.15,no,L110,20,L1 is the label 
+Switch,1,59,1S3,,,,,,,,,
+Switch,1,60,1S4,,,,,,,,,
+Switch,2,61,2S1,2014.08.15,TLP,2014.11.19,EA,2014.08.15,no,L110,14,L1 is the label 
+Switch,2,62,2S2,2014.08.15,TLP,2014.11.19,EA,2014.08.15,"1, 5",L85,9,L1 and 5 have very bad lighting 
+Switch,2,63,2S3,2014.08.15,TLP,2014.11.19,EA,2014.08.15,5 and 30 ,L105,13,"L5 has bad lighting that hides potential roots, and L30 is blurry do to movement but I could still make out the roots"
+Switch,2,64,2S4,2014.08.15,TLP,2014.11.21,EA,2014.08.15,no,L120,23,L1 is the label 
+Switch,3,65,3S1,2014.08.15,TLP,2014.11.21,EA,2014.08.15,no,L110,18,L1 is the label 
+Switch,3,66,3S2,2014.08.15,TLP,2014.11.21,EA,2014.08.15,no,L100,14,L1 is the label 
+Switch,3,67,3S3,,,,,,,,,
+Switch,3,68,3S4,,,,,,,,,
+Switch,4,69,4S1,2014.08.15,TLP,2014.11.21,EA,2014.08.15,115,L110,19,"L1 is the label, and the image at L115 is total white "
+Switch,4,70,4S2,2014.08.15,TLP,2014.11.21,EA,2014.08.15,no,L80,13,L1 is the label
+Switch,4,71,4S3,2014.08.15,TLP,2014.11.21,EA,2014.08.15,no,L110,20,L1 is the label
+Switch,4,72,4S4,2014.08.15,TLP,2014.11.22,EA,2014.08.15,no,L110,18,L1 is the label
+Prairie,0,73,0P2,2014.08.15,TLP,2014.11.22,EA,2014.08.14,1,L105,15,"L1 has very bad lighting, can't see anything"
+Prairie,0,74,0P3,,,,,,,,,
+Prairie,0,75,0P5,2014.08.14,TLP,2014.12.1,EA,2014.08.14,no,L110,18,
+Prairie,0,76,0P6,2014.08.14,TLP,2014.12.1,EA,2014.08.14,no,L105,17,Most of the images were a bit blurry but I could still make out the roots.
+Prairie,0,77,0P7,,,,,,,,,
+Prairie,0,78,0P9,2014.08.14,TLP,2014.12.1,EA,2014.08.14,no,L80,11,"L1 and 5, are the labels "
+Prairie,0,79,0P11,2014.08.14,TLP,2014.12.1,EA,2014.08.14,"65,95",L110,14,"L65 and 95 are blurry images due to the camera moving, could not get a good image "
+Prairie,0,80,0P12,2014.08.14,TLP,2014.12.1,EA,2014.08.14,no,L96,15,L1 is the label
+Prairie,1,81,1P1,2014.08.15,TLP,2014.12.1,EA,2014.08.15,no,L105,13,L1 and 5 are labels
+Prairie,1,82,1P2,2014.08.15,TLP,2014.12.1,EA,2014.08.15,no,L110,20,L1 is the label 
+Prairie,1,83,1P3,2014.08.15,TLP,2014.12.5,EA,2014.08.15,5,L95,14,"L1 is the label, and L5 has a white light background that obscures the picture"
+Prairie,1,84,1P4,2014.08.15,TLP,2014.12.5,EA,2014.08.15,"1,5,10,40",L110,18,"L1,5,10 have white light reflected at the camera that makes the background hard to see, and L40 is too watery to determine the roots "
+Prairie,2,85,2P1,2014.08.15,TLP,2014.12.5,EA,2014.08.15,no,L110,15,L1 is the label 
+Prairie,2,86,2P2,2014.08.15,TLP,2014.12.5,EA,2014.08.15,no,L75,10,
+Prairie,2,87,2P3,,,,,,,,,
+Prairie,2,88,2P4,,,,,,,,,
+Prairie,3,89,3P1,2014.08.15,TLP,2014.12.5,EA,2014.08.15,30,L100,15,"L1 is the label, L30 has is wet cant see all the roots"
+Prairie,3,90,3P2,2014.08.15,TLP,2014.12.5,EA,2014.08.15,115,L105,20,"L1 is the label, and L115 is blurry due to too much light "
+Prairie,3,91,3P3,2014.08.15,TLP,2014.12.5,EA,2014.08.15,no,110,16,L1 is the label
+Prairie,3,92,3P4,2014.08.15,TLP,2014.12.5 ,EA,2014.08.15,"65,115",110,14,"L1 is the label, and L115 is a blue screen"
+Prairie,4,93,4P1,2014.08.15,TLP,2014.12.8,EA,2014.08.15,no,110,15,L1 is the label 
+Prairie,4,94,4P2,2014.08.15,TLP,2014.12.8,EA,2014.08.15,no,105,19,L1 is the label
+Prairie,4,95,4P3,2014.08.15,TLP,2014.12.8,EA,2014.08.15,110,90,17,"L1 is the label, and L110 has water In it that may block the roots behind."
+Prairie,4,96,4P4,2014.08.15,TLP,2014.12.8,EA,2014.08.15,"5,10,45,50,95,",L100,13,"L1 is the label, 5's image is to bright to see roots, 10's light is is also bright that image cant be seen, 45,50 and 95 have water that obscures images, "

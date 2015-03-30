@@ -259,3 +259,12 @@ Added data from 2013: all extant 2013 calibrations, data files and analysis logs
 Updated Makefile to process all these new 2013 data same as other years, forked plotting script yet again to make `plot-2013.r`. This one-script-per-plot thing is getting untenable; need to refactor this to be more flexible very soon.
 
 Ran make, saved all updated data, went to bed.
+
+OK, I lied, no bed yet. Added calibration and data files from session 1 2014, which was supposed to be the turnover experiment but only consisted of one round through B0. Took images every frame in these, but will for now use the standard cleanup script that throws out all except loc 5-10-15-etc. Updated Makefile, added previously missing analysis log for august (session 5), changed `plot-2014.r` to allow for two sessions.
+
+...script crashes complaining it has three sessions not two. On inspection, there is a stray T43 from S6 2012, with all fields zero, appended to the end of the 2014-S1 datafile. Confirmed that the same images are listed in the 2012-S6 datafile, deleted them from the 2014 file. Scripts all reran without error.
+
+...But all values in S1 are zero -- nobody has actually traced it, I just loaded it up for a quick count of how many frames contained roots. D'oh!
+
+OK, actually going to sleep now. Leaving the empty 2014 datafile as a placeholder -- as soon as it's traced, drop it in for updated graphs.
+
