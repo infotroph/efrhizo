@@ -272,3 +272,16 @@ OK, actually going to sleep now. Leaving the empty 2014 datafile as a placeholde
 2015-03-30:
 
 Found some errors in the descriptions, but not the actual calculation, of depth calculations in `notes/destructive-harvest-2014.txt`. Tubes are 30° from vertical not horizontal, and radians are degrees*2pi/360, not 2pi/260 as claimed in a few places. While I'm editing, added some line breaks and descriptions of the added/subtracted "wedges" for more clarity in the volume calculation section.
+
+Working on analysis of the fall 2014 destructive harvest images. Might as well add it to the 2014 whole-season analysis as well -- it's only a few tubes, but why not.
+
+* Modified `cleanup.r` as `cleanup-destructive.r` to keep all frames instead of censoring everything not in 5,10,15,..., Wound up only changing one line, rest of script is identical to my starting point.
+* Imported analysis log as `rawdata/analysis-log-destructive-2014-09.csv`
+* Added `scripts/destructive-tissue.r` for calculating volume-corrected root masses in harvest weights 
+* Added 2014.9.16.CAL, 2014.9.17.CAL, 2014.9.19.CAL to `rawdata/calibs2014/`
+* Added WinRhizo data file `EFDESTRUCTIVE.TXT` to `rawdata/` and to `RAW2014` list in Makefile.
+* Added all censored frames from `analysis-log-destructive.csv` into `rawdata/censorframes2014.csv`.
+* Note that there is a session numbering collision -- both EFTO (June) and EFDESTRUCTIVE (September) were saved as session 1. Cleanup script shouldn't care, so resetting session number in plotting script.
+* OK, now cleanup-destructive.r is changing a bit more. I'll feed it the full frametots2014.csv, then remove all images whose name doesn't start with "EFDESTRUCTIVE". TODO: see if it's possible to refactor this so they both use the same script.
+
+

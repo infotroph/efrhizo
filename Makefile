@@ -16,7 +16,8 @@ RAW2013 = rawdata/EF2013-S1.TXT \
 	rawdata/EF2013-TAW-s5.TXT
 
 RAW2014 = rawdata/EFTO_S1.TXT \
-	rawdata/EF2014_peak.txt
+	rawdata/EF2014_peak.txt \
+	rawdata/EFDESTRUCTIVE.TXT
 
 ALL = data/frametots2010.txt \
 	data/frametots2012.txt \
