@@ -1,0 +1,97 @@
+Crop,Block,Tube number,Label code,Date imaged,Field Tech,Date Analyzed,Lab tech,Calibration image,Bad frames?,Deepest roots,# frames with roots,Notes
+Corn,0,1,0C1,2013-06-17,LCR,2015-02-20,TAW,EF2013_T097_L001_2013.06.17_113157_001_LCR, ,L085,3,
+Corn,0,2,0C2,2013-06-17,LCR,2015-02-20,TAW,EF2013_T097_L001_2013.06.17_113157_001_LCR,10,L095,4,10=water droplets
+Corn,0,3,0C3,2013-06-17,LCR,2015-02-20,TAW,EF2013_T097_L001_2013.06.17_113157_001_LCR,15,L030,1,15=blury
+Corn,0,4,0C4,,,,,,,,,
+Corn,0,5,0C5,2013-06-17,LCR,2015-02-20,TAW,EF2013_T097_L001_2013.06.17_113157_001_LCR,,L105,7,A lot of frames are covered with water droplets
+Corn,0,6,0C6,2013-06-17,LCR,2015-02-20,TAW,EF2013_T097_L001_2013.06.17_113157_001_LCR, ,L105,6,L05-030 cannot tell if there are roots or scratches
+Corn,0,7,0C7,2013-06-17,LCR,2015-02-20,TAW,EF2013_T097_L001_2013.06.17_113157_001_LCR, ,L105,8,Lot of scratches that might be mistaken as roots
+Corn,0,8,0C8,,,,,,,,,
+Corn,1,9,1C1,2013-06-18,LCR,2015-03-11,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,"25, 40, 45, 65, 70, 80",L110,7,"25, 40, 45, 65, 70, 80=blury"
+Corn,1,10,1C2,,,,,,,,,
+Corn,1,11,1C3,2013-06-18,LCR,2015-03-11,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,,L095,10,
+Corn,1,12,1C4,2013-06-18,LCR,2015-03-11,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,,L105,12,
+Corn,2,13,2C1,2013-06-19,LCR,2015-03-27,TAW,EF2013_T097_L002_2013.06.19_101302_001_LCR,,L110,10,
+Corn,2,14,2C2,,,,,,,,,
+Corn,2,15,2C3,,,,,,,,,
+Corn,2,16,2C4,,,,,,,,,
+Corn,3,17,3C1,,,,,,,,,
+Corn,3,18,3C2,,,,,,,,,
+Corn,3,19,3C3,,,,,,,,,
+Corn,3,20,3C4,,,,,,,,,
+Corn,4,21,4C1,2013-06-17,LCR,2015-02-20,TAW,EF2013_T097_L001_2013.06.17_113157_001_LCR, ,L085,5,Lot of scratches that might be mistaken as roots
+Corn,4,22,4C1,,,,,,,,,
+Corn,4,23,4C3,2013-06-17,LCR,2015-02-20,TAW,EF2013_T097_L001_2013.06.17_113157_001_LCR, ,L110,6,Lot of scratches that might be mistaken as roots
+Corn,4,24,4C4,,,,,,,,,
+Miscanthus,0,25,0M1,,,,,,,,,
+Miscanthus,0,26,0M3,,,,,,,,,
+Miscanthus,0,27,0M5,,,,,,,,,
+Miscanthus,0,28,0M6,,,,,,,,,
+Miscanthus,0,29,0M7,,,,,,,,,
+Miscanthus,0,30,0M9,,,,,,,,,
+Miscanthus,0,31,0M10,2013-06-19,LCR,2015-03-16,TAW,EF2013_T097_L002_2013.06.19_101302_001_LCR,,L110,,Did not finish!
+Miscanthus,0,32,0M11,,,,,,,,,
+Miscanthus,1,33,1M1,,,,,,,,,
+Miscanthus,1,34,1M2,,,,,,,,,
+Miscanthus,1,35,1M4,,,,,,,,,
+Miscanthus,1,36,1M4,,,,,,,,,
+Miscanthus,2,37,2M1,,,,,,,,,
+Miscanthus,2,38,2M2,2013-06-18,LCR,2015-03-11,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,,L110,17,
+Miscanthus,2,39,2M3,2013-06-18,LCR,2015-03-11,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,60,L110,17 (including 60),60= blury (still tried to trace)
+Miscanthus,2,40,2M4,2013-06-18,LCR,2015-03-11,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,,L105,18,L105= last frame
+Miscanthus,3,41,3M1,,,,,,,,,
+Miscanthus,3,42,3M2,2013-06-18,LCR,2015-03-12,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,110,L110,21,110=a bit blury (traced as best I could)
+Miscanthus,3,43,3M3,2013-06-18,LCR,2015-03-12,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,"15, 30, 40, 45",L110,20,"15= blury; 30, 40, 45=a little blury (traced as best I could)"
+Miscanthus,3,44,3M4,2013-06-18,LCR,2015-03-12,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,"15, 90",L110,19,"15, 90= blury"
+Miscanthus,4,45,4M1,2013-06-18,LCR,2015-03-12,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,25,L110,19,25= blury
+Miscanthus,4,46,4M2,,,,,,,,,
+Miscanthus,4,47,4M3,,,,,,,,,
+Miscanthus,4,48,4M4,,,,,,,,,
+Switch,0,49,0S2,,,,,,,,,
+Switch,0,50,0S3,,,,,,,,,
+Switch,0,51,0S5,,,,,,,,,
+Switch,0,52,0S6,,,,,,,,,
+Switch,0,53,0S8,,,,,,,,,
+Switch,0,54,0S9,,,,,,,,,
+Switch,0,55,0S12,,,,,,,,,
+Switch,0,56,0S12,,,,,,,,,
+Switch,1,57,1S1,,,,,,,,,
+Switch,1,58,1S2,,,,,,,,,
+Switch,1,59,1S3,,,,,,,,,
+Switch,1,60,1S4,,,,,,,,,
+Switch,2,61,2S1,2013-06-18,LCR,2015-03-12,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,5,L110,19,5=outside
+Switch,2,62,2S2,,,,,,,,,
+Switch,2,63,2S3,2013-06-18,LCR,2015-03-12,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,"5, 80",L110,18,5= outside; 80=blury
+Switch,2,64,2S4,,,,,,,,,
+Switch,3,65,3S1,2013-06-18,LCR,2015-03-12,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,"40, 50",,20,"40, 50= blury"
+Switch,3,66,3S2,2013-06-18,LCR,2015-03-12,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,"20, 110",L110,16,"20= blury; L110= blury, has roots, just not traceable"
+Switch,3,67,3S3,,,,,,,,,
+Switch,3,68,3S4,2013-06-18,LCR,2015-03-13,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,40,L110,18,40= partially blury (attempted to trace)
+Switch,4,69,4S1,2013-06-18,LCR,2015-03-13,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,,L105,21,
+Switch,4,70,4S2,2013-06-18,LCR,2015-03-13,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,,L110,19,
+Switch,4,71,4S3,2013-06-18,LCR,2015-03-13,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,,L110,20,
+Switch,4,72,4S4,2013-06-18,LCR,2015-03-13,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,,L110,21,
+Prairie,0,73,0P2,,,,,,,,,
+Prairie,0,74,0P3,,,,,,,,,
+Prairie,0,75,0P5,,,,,,,,,
+Prairie,0,76,0P6,,,,,,,,,
+Prairie,0,77,0P7,,,,,,,,,
+Prairie,0,78,0P9,,,,,,,,,
+Prairie,0,79,0P11,,,,,,,,,
+Prairie,0,80,0P12,,,,,,,,,
+Prairie,1,81,1P1,,,,,,,,,
+Prairie,1,82,1P2,,,,,,,,,
+Prairie,1,83,1P3,,,,,,,,,
+Prairie,1,84,1P4,,,,,,,,,
+Prairie,2,85,2P1,2013-06-18,LCR,2015-03-16,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,"25, 90",L110,16,25= slightly blury (traced as best I could); 90= blury
+Prairie,2,86,2P2,2013-06-18,LCR,2015-03-16,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,,L110,18,
+Prairie,2,87,2P3,,,,,,,,,
+Prairie,2,88,2P4,,,,,,,,,
+Prairie,3,89,3P1,2013-06-18,LCR,2015-03-27,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,,L110,22,
+Prairie,3,90,3P2,2013-06-18,LCR,2015-03-27,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,"50, 55 ",L110,20,"50, 55= blury"
+Prairie,3,91,3P3,2013-06-18,LCR,2015-03-27,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,"15, 85",L110,19,15= partially obscured by water droplets; 85= blury (traced as best I could)
+Prairie,3,92,3P4,,,,,,,,,
+Prairie,4,93,4P1,2013-06-18,LCR,2015-03-27,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,"25, 30, 50, 105",L110,21,"25, 30= partially obscured by water droplets; 50, 105= blury (traced as best I can)"
+Prairie,4,94,4P2,2013-06-18,LCR,2015-03-27,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,"20, 65",L110,19,"20, 65= blury (both have roots, not included in total)"
+Prairie,4,95,4P3,2013-06-18,LCR,2015-03-27,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,5,L110,21,5= above ground
+Prairie,4,96,4P4,2013-06-18,LCR,2015-03-27,TAW,EF2013_T097_L001_2013.06.18_131500_001_LCR,"5, 10",L105,17,"Obsctruction (Piece of grass?) on the camera- seen on every frame; 5, 10= aboveground "

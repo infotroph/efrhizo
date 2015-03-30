@@ -12,16 +12,22 @@ RAW2012 = rawdata/EF2012_S1test.TXT \
 	rawdata/EF2012_S6.TXT \
 	rawdata/EF2012_S6_found_in_SoC_notes.txt
 
+RAW2013 = rawdata/EF2013-S1.TXT \
+	rawdata/EF2013-TAW-s5.TXT
+
 RAW2014 = rawdata/EF2014_peak.txt
 
 ALL = data/frametots2010.txt \
 	data/frametots2012.txt \
+	data/frametots2013.txt \
 	data/frametots2014.txt \
 	data/calibs2010.csv \
 	data/calibs2012.csv \
+	data/calibs2013.csv \
 	data/calibs2014.csv \
 	data/stripped2010.csv \
 	data/stripped2012.csv \
+	data/stripped2013.csv \
 	data/stripped2014.csv \
 	data/offset2009.csv \
 	data/offset2010.csv \
@@ -52,6 +58,13 @@ data/frametots2012.txt: \
 	cp scripts/frametot-headers.txt data/frametots2012.txt
 	scripts/frametot-collect.sh $(RAW2012) >> data/frametots2012.txt 
 
+data/frametots2013.txt: \
+		$(RAW2013) \
+		scripts/frametot-headers.txt \
+		scripts/frametot-collect.sh
+	cp scripts/frametot-headers.txt data/frametots2013.txt
+	scripts/frametot-collect.sh $(RAW2013) >> data/frametots2013.txt 
+
 data/frametots2014.txt: \
 		$(RAW2014) \
 		scripts/frametot-headers.txt \
@@ -70,6 +83,12 @@ data/calibs2012.csv: \
 		rawdata/calibs2012/*.CAL
 	echo "file, h, v, unit" > data/calibs2012.csv
 	scripts/slurpcals.sh rawdata/calibs2012/*.CAL >> data/calibs2012.csv
+
+data/calibs2013.csv: \
+		scripts/slurpcals.sh \
+		rawdata/calibs2013/*.CAL
+	echo "file, h, v, unit" > data/calibs2013.csv
+	scripts/slurpcals.sh rawdata/calibs2013/*.CAL >> data/calibs2013.csv
 
 data/calibs2014.csv: \
 		scripts/slurpcals.sh \
@@ -129,6 +148,19 @@ data/stripped2012.csv: \
 		"NULL" \
 		data/offset2012.csv \
 		data/stripped2012.csv >> tmp/2012-cleanup-log.txt
+
+data/stripped2013.csv: \
+		scripts/cleanup.r \
+		data/frametots2013.txt \
+		rawdata/censorframes2013.csv \
+		\
+		data/offset2013.csv
+	Rscript scripts/cleanup.r \
+		data/frametots2013.txt \
+		rawdata/censorframes2013.csv \
+		"NULL" \
+		data/offset2013.csv \
+		data/stripped2013.csv >> tmp/2013-cleanup-log.txt
 
 data/stripped2014.csv: \
 		scripts/cleanup.r \
