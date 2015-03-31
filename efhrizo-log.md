@@ -288,5 +288,6 @@ Not yet ready to add destructive cleanup script to Makefile. Ran it by hand:
 
 	Rscript scripts/cleanup-destructive.r data/frametots2014.txt rawdata/censorframes2014.csv "NULL" data/offset2014.csv data/stripped2014-destructive.csv >> tmp/2014-destructive-cleanup-log.txt 
 
+Results look strange... are there really THAT few shallow roots in the rhizotron images? Went back to tracing computer, rechecked all 6 tubes. Found many untraced roots -- looks like EA was *extremely* conservative about tracing roots that were at all unclear. Updated all 6 tubes myself, re-exported data. 
 
 
