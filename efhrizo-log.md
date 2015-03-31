@@ -292,3 +292,4 @@ Results look strange... are there really THAT few shallow roots in the rhizotron
 
 Added tissue comparison plotting to Makefile.
 
+Comparing plots from old and new versions of data, my corrections make a substantial difference.  Went back and did a partial re-reinspection, found more changes, mostly adding roots but also removing some in the deeper switchgrass frames -- some clusters of roots were traced as one mega-root, waaaay inflating the volume estimate. Probably need to check the rest of these even more carefully than already done, but will leave that for later.
