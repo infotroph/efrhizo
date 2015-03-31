@@ -31,6 +31,7 @@ ALL = data/frametots2010.txt \
 	data/stripped2012.csv \
 	data/stripped2013.csv \
 	data/stripped2014.csv \
+	data/stripped2014-destructive.csv \
 	data/offset2009.csv \
 	data/offset2010.csv \
 	data/offset2011.csv \
@@ -42,7 +43,10 @@ ALL = data/frametots2010.txt \
 	figures/logvol-polyfit-2010.png \
 	figures/logvol-polyfit-2012.png \
 	figures/logvol-polyfit-2013.png \
-	figures/logvol-polyfit-2014.png
+	figures/logvol-polyfit-2014.png \
+	figures/destructive-mass.png \
+	figures/destructive-massvsvol.png \
+	figures/destructive-vol.png
 
 all: $(ALL)
 	#not written yet
@@ -178,6 +182,13 @@ data/stripped2014.csv: \
 		data/offset2014.csv \
 		data/stripped2014.csv >> tmp/2014-cleanup-log.txt
 
+data/stripped2014-destructive.csv: \
+		scripts/cleanup-destructive.r \
+		data/frametots2014.txt \
+		rawdata/censorframes2014.csv \
+		\
+		data/offset2014.csv
+	Rscript scripts/cleanup-destructive.r data/frametots2014.txt rawdata/censorframes2014.csv "NULL" data/offset2014.csv data/stripped2014-destructive.csv >> tmp/2014-destructive-cleanup-log.txt 
 
 figures/logvol-cornpoints-2012.png: \
 		data/stripped2012.csv \
@@ -208,6 +219,12 @@ figures/logvol-polyfit-2014.png: \
 		data/stripped2014.csv \
 		scripts/plot-2014.r
 	Rscript scripts/plot-2014.r
+
+figures/destructive-mass.png figures/destructive-massvsvol.png figures/destructive-vol.png: \
+		scripts/destructive-tissue.r \
+		rawdata/destructive-harvest/rhizo-destructive-belowground.csv \
+		data/stripped2014-destructive.csv
+	Rscript scripts/destructive-tissue.r
 
 clean:
 	rm $(ALL)

@@ -4,7 +4,7 @@ source("~/R/DeLuciatoR/ggthemes.r")
 source("~/R/ggplot-ticks/mirror.ticks.r")
 theme_set(theme_ggEHD())
 
-roots = read.csv("~/UI/efrhizo/rawdata/destructive-harvest/rhizo-destructive-belowground.csv")
+roots = read.csv("rawdata/destructive-harvest/rhizo-destructive-belowground.csv")
 
 samplevolumes = read.csv(text="
 		Position, Depth.bottom.cm, cm.top, cm.bottom, nom.top, nom.bottom, Volume
@@ -27,14 +27,6 @@ roots = merge(roots, samplevolumes)
 roots$wet.bulk = with(roots, whole.fresh.wt.with.bag.g/Volume)
 roots$root.per.cm3 = with(roots, g.root/Volume)
 
-(ggplot(destructive, aes(cm.bottom, root.per.cm3,color=Position))
-+geom_smooth(method="lm", formula=y ~ poly(x,2))
-+geom_point()
-+facet_wrap(~Crop)
-+coord_flip()
-+scale_x_reverse()
-+theme_ggEHD())
-
 imgs = read.csv("~/UI/efrhizo/data/stripped2014-destructive.csv")
 imgs$Crop = imgs$Species
 
@@ -52,7 +44,7 @@ mean.vol = function(tube,depthtop,depthbot){
 		Tube == tube 
 		& Depth >= depthtop
 		& Depth <= depthbot))
-	return(sum(imgs$rootvol.mm3.mm2[ixs]))
+	return(mean(imgs$rootvol.mm3.mm2[ixs], na.rm=TRUE))
 }
 
 roots$Rootvol.seen = mapply(
@@ -61,20 +53,54 @@ roots$Rootvol.seen = mapply(
 	depthtop=roots$nom.top,
 	depthbot=roots$nom.bottom)
 
-
-(ggplot(roots, aes(nom.bottom, root.per.cm3, color=Position))
+png(
+	filename="figures/destructive-mass.png",
+	width=8,
+	height=8,
+	units="in",
+	pointsize=18,
+	res=300)
+plot(mirror.ticks(ggplot(roots, aes(nom.bottom, root.per.cm3, color=Position))
 +geom_smooth(method="lm", formula=y ~ poly(x,2))
 +geom_point()
 +facet_wrap(~Crop)
 +coord_flip()
 +scale_x_reverse()
-+theme_ggEHD())
++theme_ggEHD()
++xlab("Depth (cm)")
++ylab(expression(paste("Root mass (g ", "cm"^"-3", ")")))))
+dev.off()
+
+png(
+	filename="figures/destructive-vol.png",
+	width=8,
+	height=8,
+	units="in",
+	res=300)
+plot(mirror.ticks(ggplot(roots, aes(nom.bottom, Rootvol.seen, color=Position))
++geom_smooth(method="lm", formula=y ~ poly(x,2))
++geom_point()
++facet_wrap(~Crop)
++coord_flip()
++scale_x_reverse()
++theme_ggEHD()
++xlab("Depth (cm)")
++ylab(expression(paste("Visible root volume (", mm^3, " cm"^"-2", ")")))))
+dev.off()
 
 
-(ggplot(roots, 
+png(
+	filename="figures/destructive-massvsvol.png",
+	width=8,
+	height=8,
+	units="in",
+	res=300)
+plot(mirror.ticks(ggplot(roots, 
 	aes(root.per.cm3, Rootvol.seen, color=Position))
 	+geom_point()
 	+facet_wrap(~Crop)
-	+geom_smooth(method="lm"))
-
+	+geom_smooth(method="lm")
+	+xlab(expression(paste("Root mass (g ", "cm"^"-3", ")")))
+	+ylab(expression(paste("Visible root volume (", mm^3, " cm"^"-2", ")")))))
+dev.off()
 

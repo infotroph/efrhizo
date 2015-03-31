@@ -290,4 +290,5 @@ Not yet ready to add destructive cleanup script to Makefile. Ran it by hand:
 
 Results look strange... are there really THAT few shallow roots in the rhizotron images? Went back to tracing computer, rechecked all 6 tubes. Found many untraced roots -- looks like EA was *extremely* conservative about tracing roots that were at all unclear. Updated all 6 tubes myself, re-exported data. 
 
+Added tissue comparison plotting to Makefile.
 
