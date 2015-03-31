@@ -27,7 +27,7 @@ roots = merge(roots, samplevolumes)
 roots$wet.bulk = with(roots, whole.fresh.wt.with.bag.g/Volume)
 roots$root.per.cm3 = with(roots, g.root/Volume)
 
-imgs = read.csv("~/UI/efrhizo/data/stripped2014-destructive.csv")
+imgs = read.csv("data/stripped2014-destructive.csv")
 imgs$Crop = imgs$Species
 
 
