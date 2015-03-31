@@ -189,7 +189,12 @@ data/stripped2014-destructive.csv: \
 		rawdata/censorframes2014.csv \
 		\
 		data/offset2014.csv
-	Rscript scripts/cleanup-destructive.r data/frametots2014.txt rawdata/censorframes2014.csv "NULL" data/offset2014.csv data/stripped2014-destructive.csv >> tmp/2014-destructive-cleanup-log.txt 
+	Rscript scripts/cleanup-destructive.r \
+		data/frametots2014.txt \
+		rawdata/censorframes2014.csv \
+		"NULL" \
+		data/offset2014.csv \
+		data/stripped2014-destructive.csv >> tmp/2014-destructive-cleanup-log.txt 
 
 figures/logvol-cornpoints-2012.png: \
 		data/stripped2012.csv \
