@@ -4,7 +4,7 @@ source("~/UI/daycent/tools/ggthemes.r")
 
 strp13 = read.csv("data/stripped2013.csv")
 
-levels(strp13$Species)[1] = "Maize"
+levels(strp13$Species)[1] = "Soy"
 
 monthcolors= c(
  	"May" = rgb(0.9, 1.0, 0.8),
