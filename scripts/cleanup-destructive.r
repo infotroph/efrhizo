@@ -58,7 +58,8 @@ rm(stripped.by)
 stripped$Month = months(stripped$Date)
 stripped$Block = assign.block(stripped$Tube)
 stripped$Species = assign.species(stripped$Tube)
-stripped$Offset = merge(stripped, offsets[,c("tube", "offset")], by.x="Tube", by.y="tube")$offset
+stripped = merge(stripped, offsets[,c("tube", "offset")], by.x="Tube", by.y="tube")
+names(stripped)[which(names(stripped)=="offset")] = "Offset" # bleh, inconsistent naming conventions
 stripped$Offset[is.na(stripped$Offset)] = 22 # If no better info available, assume 22 cm.
 stripped$Depth = loc.to.depth(loc=stripped$Location, offset=stripped$Offset)
 stripped$Tube = factor(stripped$Tube)

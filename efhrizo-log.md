@@ -297,3 +297,22 @@ Comparing plots from old and new versions of data, my corrections make a substan
 Updated 2013-S1 datafile with newest version from the imaging computer. DID NOT update trace log or check for new calibrations -- will do that when TAW finishes tracing the session.
 
 Added a full-depth plot of the destructive harvest rhizotron images. Good illustration of how much extra noise I've settled for by only taking images every 5 locations.
+
+...Why does the September prairie curve in `figures/logvol-polyfit-2014.png` not extend higher than ~10 cm depth? That should be the same set of numbers as the destructive harvest plots, which look fine and extend up to 0.
+[a bunch of poking around happened here...]
+...Because merge()returns a dataframe that is by default _sorted on the merged columns_, not in the same order as either input. I was doing 
+
+	stripped$Offset = merge(stripped, offsets[,c("tube", "offset")], by.x=Tube, by.y="tube")$offset 
+
+This meant I was adding a _sorted_ vector onto an _unsorted_ dataframe, with consequent wrong offsets all over the place. Why did I only see the effects in one dataset? Probably because the other sets were sorted already! Note that `stripped` is constructed from a call to `by(raw, raw$Img, ...)`, and that `by` sorts by indices as well. For years where the experiment name is the same in every image, the tube number is the first varying component of the image name, so this is eqivalent to a sort by tube then location then date. But in 2014, there was a June experiment named "EFTO", an August experiment named "EF2014", and a September experiment named "EFDESTRUCTIVE". Then sorting on image name would sort first by experiment name = month, _then_ by tube number.
+
+The lesson: Don't just go pulling one vector out of a merge() result and assuming it will match one of the input dataframes.
+
+Fixed by replacing the above line with 
+
+	stripped = merge(stripped, offsets[,c("tube", "offset")], by.x="Tube", by.y="tube")
+	names(stripped)[which(names(stripped)=="offset")] = "Offset" 
+
+The second line is just to keep the column names consistently capitalized.
+
+Reran make, prairie 2014 graph improved all all others stayed the same. Hooray!
