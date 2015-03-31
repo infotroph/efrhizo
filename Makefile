@@ -46,7 +46,8 @@ ALL = data/frametots2010.txt \
 	figures/logvol-polyfit-2014.png \
 	figures/destructive-mass.png \
 	figures/destructive-massvsvol.png \
-	figures/destructive-vol.png
+	figures/destructive-vol.png \
+	figures/destructive-vol-fulldepth.png
 
 all: $(ALL)
 	#not written yet
@@ -220,7 +221,7 @@ figures/logvol-polyfit-2014.png: \
 		scripts/plot-2014.r
 	Rscript scripts/plot-2014.r
 
-figures/destructive-mass.png figures/destructive-massvsvol.png figures/destructive-vol.png: \
+figures/destructive-mass.png figures/destructive-massvsvol.png figures/destructive-vol.png figures/destructive-vol-fulldepth.png: \
 		scripts/destructive-tissue.r \
 		rawdata/destructive-harvest/rhizo-destructive-belowground.csv \
 		data/stripped2014-destructive.csv

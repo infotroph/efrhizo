@@ -77,7 +77,7 @@ png(
 	height=8,
 	units="in",
 	res=300)
-plot(mirror.ticks(ggplot(roots, aes(nom.bottom, Rootvol.seen, color=Position))
+plot(mirror.ticks(ggplot(roots, aes(nom.bottom, Rootvol.seen))
 +geom_smooth(method="lm", formula=y ~ poly(x,2))
 +geom_point()
 +facet_wrap(~Crop)
@@ -88,6 +88,22 @@ plot(mirror.ticks(ggplot(roots, aes(nom.bottom, Rootvol.seen, color=Position))
 +ylab(expression(paste("Visible root volume (", mm^3, " cm"^"-2", ")")))))
 dev.off()
 
+png(
+	filename="figures/destructive-vol-fulldepth.png",
+	width=8,
+	height=8,
+	units="in",
+	res=300)
+plot(mirror.ticks(ggplot(imgs, aes(Depth, rootvol.mm3.mm2))
++geom_smooth(method="lm", formula=y ~ poly(x,2))
++geom_point()
++facet_wrap(~Species)
++coord_flip()
++scale_x_reverse()
++theme_ggEHD()
++xlab("Depth (cm)")
++ylab(expression(paste("Visible root volume (", mm^3, " cm"^"-2", ")")))))
+dev.off()
 
 png(
 	filename="figures/destructive-massvsvol.png",
