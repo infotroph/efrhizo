@@ -284,4 +284,9 @@ Working on analysis of the fall 2014 destructive harvest images. Might as well a
 * Note that there is a session numbering collision -- both EFTO (June) and EFDESTRUCTIVE (September) were saved as session 1. Cleanup script shouldn't care, so resetting session number in plotting script.
 * OK, now cleanup-destructive.r is changing a bit more. I'll feed it the full frametots2014.csv, then remove all images whose name doesn't start with "EFDESTRUCTIVE". TODO: see if it's possible to refactor this so they both use the same script.
 
+Not yet ready to add destructive cleanup script to Makefile. Ran it by hand:
+
+	Rscript scripts/cleanup-destructive.r data/frametots2014.txt rawdata/censorframes2014.csv "NULL" data/offset2014.csv data/stripped2014-destructive.csv >> tmp/2014-destructive-cleanup-log.txt 
+
+
 
