@@ -316,3 +316,27 @@ Fixed by replacing the above line with
 The second line is just to keep the column names consistently capitalized.
 
 Reran make, prairie 2014 graph improved all all others stayed the same. Hooray!
+
+
+Now comparing 2014 peak numbers against 2014 tractor core values.
+
+* Exported Excel spreadsheet `Final Data, 2014 Tractor Core Belowground Biomass.xlsx` (from Mike Masters, 2014-12-02) as CSV. Did NOT commit XLSX version to Git, just the csv.
+* Opened CSV in Sublime Text, removed extra header line before column names, replaced three instances of "N/A" with "NA".
+* Read into R, will save session separately.
+
+
+2014-03-31:
+
+Presented current results to DeLucia lab this morning. Concensus from Evan and others is that existing data are sufficient and we don't need to collect any more images. 
+
+Most interesting findings in current plots: Total root volume seems to be slowly increasing year-over year in all perennials, and perennials show very little seasonality in total root mass through 2012 season, but changes reappear in 2013..
+
+Total root volume: This is cool... _assuming_ it's not just an operator effect; most students who have traced roots traced them in one year only! I have some cross comparison data I can use to check this, both in the opeator agreement training set and from a few tubes from earlier years that I had TAW retrace while he was waiting for me to clean up the 2013 images. 
+
+Perennials show very little seasonality in total root mass through 2012 season, but changes reappear in 2013: Was 2012 a _pause_ in root expansion because of the drought, or was 2013 a _resumption_ of growth that had stopped a while before at "stand maturity" (possibly in delayed response to the drought)? To resolve this, trace several sessions from 2011 and all sessions from 2013.
+
+Destructive harvest: replication is low, but not seeing any particular evidence for differences in root density near tubes. Likely conclusion is that underestimates of near-surface roots are a _detection_ issue, i.e. the roots are present in the soil near the tube, we're just failing to see them for some reason. Put another way, it looks like the tube itself doesn't create a hostile microenvironment. 
+
+Comparing 2014 peak harvest tractor cores vs rhizotron images: surprisingly low correlation even at depth -- when plotting block means by depth horizon, 0-10 (!) is essentially the only horizon with a significant positive slope, and even that is driven by one or two points. None of us were really sure what to make of this, need to think on it more.
+
+A possible angle for further investigation into near-surface underdetection: Is it an artifact of my every-five-locations sampling strategy? Take the few tubes where I did sample all locations (June & September 2014, a few in 2009, borrow images from a Leakey lab project if I need more replicates), simulate estimated root volumes when looking at all frames, every 2, every 5, (...10...etc). Check both systematic (1,5,10,15) and random ("give me 20 frames from this tube of 110") subsamples. N.B. Evan didn't seem very excited about this idea, says "focus on the biology." Point in his favor: Plenty of people see undersampling in shallow depths when they DO collect every frame.
