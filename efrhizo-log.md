@@ -344,3 +344,5 @@ A possible angle for further investigation into near-surface underdetection: Is 
 2015-04-06:
 
 Found two typos in `Tractor-core-biomass-2014.csv`: one 30-50 lower depth "5" where it should be "50", one 100+ lower depth empty where others are "+".
+
+While I'm at it: removed lines of empty fields from end of file, changed line endings to LF.
