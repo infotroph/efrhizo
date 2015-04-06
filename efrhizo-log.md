@@ -340,3 +340,7 @@ Destructive harvest: replication is low, but not seeing any particular evidence 
 Comparing 2014 peak harvest tractor cores vs rhizotron images: surprisingly low correlation even at depth -- when plotting block means by depth horizon, 0-10 (!) is essentially the only horizon with a significant positive slope, and even that is driven by one or two points. None of us were really sure what to make of this, need to think on it more.
 
 A possible angle for further investigation into near-surface underdetection: Is it an artifact of my every-five-locations sampling strategy? Take the few tubes where I did sample all locations (June & September 2014, a few in 2009, borrow images from a Leakey lab project if I need more replicates), simulate estimated root volumes when looking at all frames, every 2, every 5, (...10...etc). Check both systematic (1,5,10,15) and random ("give me 20 frames from this tube of 110") subsamples. N.B. Evan didn't seem very excited about this idea, says "focus on the biology." Point in his favor: Plenty of people see undersampling in shallow depths when they DO collect every frame.
+
+2015-04-06:
+
+Found two typos in `Tractor-core-biomass-2014.csv`: one 30-50 lower depth "5" where it should be "50", one 100+ lower depth empty where others are "+".
