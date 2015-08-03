@@ -15,4 +15,20 @@ Observe every 5 stops = 5*1.35*cos(30*(2*pi/360)) = 5.84 cm vertical spacing.
 
 
 
-To convert estimated root volume to grams root: Have found root density estimates for grasses ranging from 0.1 to 0.4 g/cm^3, but didn't note sources. See several of Joseph Craine's papers, for a start.
+To convert estimated root volume to grams root: Have found root density estimates for grasses ranging from 0.1 to 0.4 g/cm^3:
+
+0.1-0.24 mg mm^-3 (=  0.1-0.24 g / cm3), from 19 perennial grasses. Wahl and Ryser 10.1046/j.1469-8137.2000.00775.x
+
+4 Tree species (Acer, Tilia, Carpinus, Quercus): found differences by root order. Order 1 0.08-0.09 g cm^-3, order 2 0.13-0.25, order 4 0.35-0.47. Rewald et al 2014 10.1104/pp.114.240267
+
+0.26 - 0.6 g/cm3, cheatgrass & crested wheatgrass & bluebunch wheatgrass, Arredondo and Johnson 10.1093/jxb/err240
+
+Poaceae annuals ~0.06, perennials ~0.15. Asteraceae and Fabaceae from same fields show similar pattern. Roumet et al 2006 10.1111/j.1469-8137.2006.01667.x
+
+13 grass species followed through 3 seasons: 1st-order roots ~0.08-0.45, 2nd and 3rd order roots ~0.03-0.20. Picon-Cochard et al 2011, 10.1007/s11104-011-1007-4
+
+11 Poaceae species in common garden, 0.2-0.3. Fort et al, 2013. 10.1093/jpe/rts034
+
+Maize: ~0.8-0.1 [My calculations from combining values reported in two separate graphs of (micrograms per mm length) and (mm diameter).] Pahlavanian and Silk, 1988 10.1104/pp.87.2.529
+Switchgrass: 0.19 Craine et al 10.1034/j.1600-0706.2001.930210.x
+Andropogon gerardii: 0.24  Craine et al 10.1034/j.1600-0706.2001.930210.x
