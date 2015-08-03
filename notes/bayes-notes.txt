@@ -7,3 +7,10 @@ process model:
 	mu_dens ~ lognorm(mu_depth, sig_depth)
 
 	Should length and width be separate distributions? Dependent or independent?
+
+
+2015-07-09: Noting for my future reference that there was some discussion of zero-inflating continuous models on R-sig-ME. Started June 17 under the heading "Building glmms to handle zero-inflated continuous data in R - what options are available? (especially relating to hurdle/mixture models)". One suggestion to try the gamlss package, and one suggestion from Gavin Simpson copied in full below:
+	How complex are the random effects? I they are relatively simple, give the
+	mgcv package a look. Its gam() function can fit Tweedie models optimising
+	over the Tweedie parameter too, and you can include random effects via
+	splines using `bs = "re"`.
