@@ -1,5 +1,6 @@
 library(ggplot2)
 library(grid)
+library(lme4)
 source("~/R/DeLuciatoR/ggthemes.r")
 source("~/R/ggplot-ticks/mirror.ticks.r")
 theme_set(theme_ggEHD())
@@ -26,6 +27,43 @@ roots$Crop = substr(roots$Code, 2, 2)
 roots = merge(roots, samplevolumes)
 roots$wet.bulk = with(roots, whole.fresh.wt.with.bag.g/Volume)
 roots$root.per.cm3 = with(roots, g.root/Volume)
+
+rootsmerge = merge(
+	x = roots[roots$Position=="far",],
+	y = roots[roots$Position=="near",],
+	by = c(
+		"Code",
+		"Tube",
+		"Date.harvested",
+		"Crop",
+		"nom.top",
+		"nom.bottom"),
+	suffixes = c("_far", "_near"))
+
+## some stats on whether root mass differs between positions
+
+#paired t test on all depths at once
+fmt = with(rootsmerge, t.test(root.per.cm3_near, root.per.cm3_far, paired=TRUE))
+
+
+#simple regression
+fmlm = lm(log(root.per.cm3) ~ Position * nom.top, roots)
+
+# linear mixed model with random intercepts for each tube.
+# 20150504: Tried more complex models, found them less well-behaved.
+# Revisit if more data later.
+fmtube = lmer(log(root.per.cm3) ~ Position * nom.top+(1|Tube), roots)
+
+capture.output(
+	print("T-test:"),
+	print(fmt),
+	print("Regression:"),
+	summary(fmlm),
+	confint(fmlm),
+	print("Lmer:"),
+	summary(fmtube),
+	confint(fmtube),
+	file="data/destructive-mass-nearvsfar.txt")
 
 imgs = read.csv("data/stripped2014-destructive.csv")
 imgs$Crop = imgs$Species

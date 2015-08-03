@@ -1,0 +1,76 @@
+[1] "T-test:"
+
+	Paired t-test
+
+data:  root.per.cm3_near and root.per.cm3_far
+t = 2.2798, df = 35, p-value = 0.02882
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 0.0002871895 0.0049564553
+sample estimates:
+mean of the differences 
+            0.002621822 
+
+[1] "Regression:"
+
+Call:
+lm(formula = log(root.per.cm3) ~ Position * nom.top, data = roots)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.68579 -0.41676 -0.08763  0.40220  1.51823 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          -4.98832    0.19768 -25.235  < 2e-16 ***
+Positionnear          0.44384    0.27956   1.588    0.117    
+nom.top              -0.07968    0.01478  -5.393 9.44e-07 ***
+Positionnear:nom.top -0.02009    0.02090  -0.962    0.340    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.6751 on 68 degrees of freedom
+Multiple R-squared:  0.5299,	Adjusted R-squared:  0.5091 
+F-statistic: 25.55 on 3 and 68 DF,  p-value: 3.512e-11
+
+                           2.5 %      97.5 %
+(Intercept)          -5.38278514 -4.59386174
+Positionnear         -0.11400903  1.00169713
+nom.top              -0.10916423 -0.05019733
+Positionnear:nom.top -0.06178862  0.02160317
+[1] "Lmer:"
+Linear mixed model fit by REML ['lmerMod']
+Formula: log(root.per.cm3) ~ Position * nom.top + (1 | Tube)
+   Data: roots
+
+REML criterion at convergence: 151.5
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-2.60189 -0.60709 -0.09212  0.59598  2.13788 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ Tube     (Intercept) 0.1253   0.3540  
+ Residual             0.3452   0.5876  
+Number of obs: 72, groups:  Tube, 6
+
+Fixed effects:
+                     Estimate Std. Error t value
+(Intercept)          -4.98832    0.22469 -22.201
+Positionnear          0.44384    0.24330   1.824
+nom.top              -0.07968    0.01286  -6.197
+Positionnear:nom.top -0.02009    0.01818  -1.105
+
+Correlation of Fixed Effects:
+            (Intr) Pstnnr nom.tp
+Positionner -0.541              
+nom.top     -0.630  0.581       
+Pstnnr:nm.t  0.445 -0.822 -0.707
+                           2.5 %      97.5 %
+.sig01                0.14445049  0.69926122
+.sigma                0.48848853  0.68787359
+(Intercept)          -5.42542785 -4.55121891
+Positionnear         -0.02890611  0.91659421
+nom.top              -0.10466641 -0.05469516
+Positionnear:nom.top -0.05542773  0.01524228
