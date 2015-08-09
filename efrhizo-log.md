@@ -362,3 +362,7 @@ More typos:
 
 2015-08-07: Added peak-season data from August 2011. Also have data from S1 (April), but only tubes 1-8 are traced; not adding these yet.
 	Tube 96 is weird: PxSizeH and PxSizeV are set to 0, which leads to strange volume-per-area calculations (some are NA, others Inf). Additionally, all roots are marked as alive, but TotVolume.mm3 does not match AliveVolume.mm3, e.g. loc 45 shows TotVolume.mm3 as 0.000 but AliveVolume.mm3 as 0.213! Assuming for the moment these are all rounding errors from the zero-sized pixels, will fix that before worrying about the volume mismatches. Added all locations from Tube 96 to censor list for now; making a note to go back and try re-exporting with Aug 4th calibration loaded correctly; hopefully this will resolve all the above weirdnesses.
+
+2015-08-08:
+
+Updated EF2013-S1.TXT with newer version from tracing computer; contains traced data from 15 tubes not present in previous version.
