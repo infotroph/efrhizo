@@ -170,7 +170,12 @@ data/stripped2011.csv: \
 		rawdata/censorframes2011.csv \
 		\
 		data/offset2011.csv
-	Rscript $^ data/stripped2011.csv >> tmp/2011-cleanup-log.txt
+	Rscript scripts/cleanup.r \
+		data/frametots2011.txt \
+		rawdata/censorframes2011.csv \
+		"NULL" \
+		data/offset2011.csv \
+		data/stripped2011.csv >> tmp/2011-cleanup-log.txt
 
 data/stripped2012.csv: \
 		scripts/cleanup.r \
@@ -239,11 +244,10 @@ figures/logvol-polyfit-2010.png: \
 		scripts/plot-ebireportspring2014.r
 	Rscript scripts/plot-ebireportspring2014.r
 
-# Need to edit script before this rule works!
-# figures/logvol-polyfit-2011.png: \
-# 		data/stripped2011.csv \
-# 		scripts/plot-ebireportspring2014.r
-# 	Rscript scripts/plot-ebireportspring2014.r
+figures/logvol-polyfit-2011.png: \
+		data/stripped2011.csv \
+		scripts/plot-ebireportspring2014.r
+	Rscript scripts/plot-ebireportspring2014.r
 
 figures/logvol-polyfit-2012.png: \
 		data/stripped2012.csv \

@@ -3,9 +3,11 @@ require(grid)
 source("~/UI/daycent/tools/ggthemes.r")
 
 strp10 = read.csv("data/stripped2010.csv")
+strp11 = read.csv("data/stripped2011.csv")
 strp12 = read.csv("data/stripped2012.csv")
 
 levels(strp10$Species)[1] = "Soy"
+levels(strp10$Species)[1] = "Maize"
 levels(strp12$Species)[1] = "Maize"
 
 monthcolors= c(
@@ -19,6 +21,8 @@ mc10 = c(
 	"3" = monthcolors[["July"]],
 	"4" = monthcolors[["August"]],
 	"5" = monthcolors[["October"]])
+mc11 = c(
+	"4" = monthcolors[["August"]])
 mc12 = c(
 	"1" = monthcolors[["May"]],
 	"2" = monthcolors[["June"]],
@@ -50,6 +54,30 @@ p10 = (ggplot(strp10,
 			fill=mc10, color=mc10)), 
 		fill= FALSE))
 
+p11 = (ggplot(strp11,
+	aes(Depth,
+		log(rootvol.mm3.mm2+1e-4),
+		color=factor(Session),
+		fill=factor(Session)))
+	+ theme_delucia()
+	+ facet_wrap(~Species)
+	+ coord_flip()
+	+ scale_x_reverse()
+	+ geom_smooth(method="lm", formula=y ~ poly(x,2))
+	+ scale_color_manual(
+		"Month",
+		labels=c("August"),
+		values=mc11)
+	+scale_fill_manual(
+		labels=c("August"),
+		values=mc11)
+	+ylab(expression(paste(
+		"Log root volume (", mm^3, " root ", mm^-2, " image)")))
+	+ggtitle("2011")
+	+guides(
+		color=guide_legend(override.aes=list(
+			fill=mc11, color=mc11)),
+		fill= FALSE))
 
 
 p12 = (ggplot(strp12[strp12$Session<5,],
@@ -100,6 +128,15 @@ png(
 	units="in",
 	res=300)
 plot(p10)
+dev.off()
+
+png(
+	filename="figures/logvol-polyfit-2011.png",
+	width=6.5, # destined for a powerpoint, want low rez
+	height=6.5,
+	units="in",
+	res=300)
+plot(p11)
 dev.off()
 
 png(
