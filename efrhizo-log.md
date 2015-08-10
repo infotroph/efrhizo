@@ -366,3 +366,5 @@ More typos:
 2015-08-08:
 
 Updated EF2013-S1.TXT with newer version from tracing computer; contains traced data from 15 tubes not present in previous version.
+
+2015-08-10: Calculation error in tractor core volumes: I was dividing total root mass by (number of cores * area per core * total core length), but total core length already contains the number of cores! Correct volume correction is (g root / cm^3) = (g root in sample)/(cm^2 per core * cm total core length).

@@ -64,7 +64,8 @@ AreaPerCore = AreaPerCore * 10000 # m^2 to cm^2
 
 # Last, how long were the cores from each layer?
 # N.B. Soil.Length is TOTAL length, in this horizon, of all 2 or 3 cores pooled in this sample, e.g. 10 cm * 3 cores = 30 cm in 0-10 layer.
-tc$Biomass.g.cm3 = tc$Total.Mass/((tc$NumCores * AreaPerCore) * tc$Soil.Length )
+# Thus we DON'T need to include NumCores in this calculation -- Soil.Length accounts for it already.
+tc$Biomass.g.cm3 = tc$Total.Mass/(AreaPerCore * tc$Soil.Length )
 
 # Compute block mean/se of root mas per cm^2 in each horizon
 tc.blockmean = aggregate(
@@ -85,6 +86,7 @@ both.avg = merge(tc.avg, rz.avg, all=TRUE)
 # Scatterplot of block-mean core vs rhizotron estimates,
 # facetting by depth.
 #saved this as ~/UI/efrhizo/static/tractor-vs-rhizo.pdf for lab meeting
+# Current saved version is now NOT the one I showed in lab meeting -- have fixed several calculation errors, looks very different.
 plot(mirror.ticks(
  	ggplot(both.avg, aes(
  		x=CoreMassMean, 
