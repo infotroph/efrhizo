@@ -7,7 +7,7 @@ strp11 = read.csv("data/stripped2011.csv")
 strp12 = read.csv("data/stripped2012.csv")
 
 levels(strp10$Species)[1] = "Soy"
-levels(strp10$Species)[1] = "Maize"
+levels(strp11$Species)[1] = "Maize"
 levels(strp12$Species)[1] = "Maize"
 
 monthcolors= c(
