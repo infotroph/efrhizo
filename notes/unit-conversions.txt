@@ -29,6 +29,41 @@ Poaceae annuals ~0.06, perennials ~0.15. Asteraceae and Fabaceae from same field
 
 11 Poaceae species in common garden, 0.2-0.3. Fort et al, 2013. 10.1093/jpe/rts034
 
-Maize: ~0.8-0.1 [My calculations from combining values reported in two separate graphs of (micrograms per mm length) and (mm diameter).] Pahlavanian and Silk, 1988 10.1104/pp.87.2.529
+Maize: ~0.05-0.14 [My calculations from combining values reported in two separate graphs of (micrograms per mm length) and (mm diameter).]: Pahlavanian and Silk, 1988 10.1104/pp.87.2.529
+Calculation: ((µg root / mm)/(1000 µg/mg)) / (pi*(mm root diameter/2)^2) = (mg root)/(mm^3) = (g root / cm^3).
+(weights and diameters extracted with DataThief)
+> p19 = read.csv("~/Desktop/maizeroot_diam_pahlavanian_19c.txt", skip=1, header=F)
+> p24 = read.csv("~/Desktop/maizeroot_diam_pahlavanian_24c.txt", skip=1, header=F)
+> p29 = read.csv("~/Desktop/maizeroot_diam_pahlavanian_29c.txt", skip=1, header=F)
+> names(p19)=c("mm_from_tip", "diam_mm")
+> names(p24)=c("mm_from_tip", "diam_mm")
+> names(p29)=c("mm_from_tip", "diam_mm")
+> p19$temp=19
+> p24$temp=24
+> p29$temp=29
+> pdiam = rbind(p19,p24,p29)
+> pw19 = read.csv("~/Desktop/maizeroot_wgt_pahlavanian_19c.txt", skip=1, header=F)
+> pw24 = read.csv("~/Desktop/maizeroot_wgt_pahlavanian_24c.txt", skip=1, header=F)
+> pw29 = read.csv("~/Desktop/maizeroot_wgt_pahlavanian_29c.txt", skip=1, header=F)
+> names(pw19)=c("mm_from_tip", "ug_mm")
+> names(pw24)=c("mm_from_tip", "ug_mm")
+> names(pw29)=c("mm_from_tip", "ug_mm")
+> pw19$temp=19
+> pw24$temp=24
+> pw29$temp=29
+> pwt = rbind(pw19,pw24,pw29)
+> p_joint = inner_join(pdiam%>%mutate(mm_from_tip=round(mm_from_tip,1)), pwt%>%mutate(mm_from_tip=round(mm_from_tip,1)))
+> p_joint = p_joint %>% mutate(g_cm3 = (ug_mm/1000)/(pi*(diam_mm/2)^2))
+as.data.frame(p_joint %>% group_by(temp) %>% summarise_each(c("mean", "sd")))
+  temp mm_from_tip_mean diam_mm_mean ug_mm_mean g_cm3_mean mm_from_tip_sd
+1   19         5.105977    0.9778711   70.09406 0.09363182       3.527836
+2   24         4.450618    1.1049975   77.18232 0.08392726       3.428844
+3   29         4.564836    1.1522482   93.63053 0.09691027       3.404804
+  diam_mm_sd ug_mm_sd   g_cm3_sd
+1 0.09864092 11.33160 0.01269972
+2 0.17373956 13.90702 0.02071724
+3 0.18594553  8.95914 0.03059995
+
+
 Switchgrass: 0.19 Craine et al 10.1034/j.1600-0706.2001.930210.x
 Andropogon gerardii: 0.24  Craine et al 10.1034/j.1600-0706.2001.930210.x
