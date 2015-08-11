@@ -372,3 +372,5 @@ Updated EF2013-S1.TXT with newer version from tracing computer; contains traced 
 Calculation error in tractor core volumes: I was dividing total root mass by (number of cores * area per core * total core length), but total core length already contains the number of cores! Correct volume correction is (g root / cm^3) = (g root in sample)/(cm^2 per core * cm total core length).
 
 Typo in unit-conversions.txt: corn root density of "0.8-1.4" should have been "0.08-1.4", but in the process of checking that I stopped eyeballing and did the math for real. New value: 0.06-1.4, with most values around 0.08-0.09. Highest densities are found in small-diameter roots very near apex (<2 mm from tip), decreases to 0.05-0.06 range (or 0.08 at 19C) beyond ~5-6 mm back.
+
+Updated censor file for August 2014 readings. Will need to check a few against images later, as noted.
