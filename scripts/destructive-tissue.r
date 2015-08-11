@@ -54,6 +54,11 @@ fmlm = lm(log(root.per.cm3) ~ Position * nom.top, roots)
 # Revisit if more data later.
 fmtube = lmer(log(root.per.cm3) ~ Position * nom.top+(1|Tube), roots)
 
+predframe = expand.grid(
+	Position=c("near", "far"), 
+	nom.top=c(4, 9, 13, 18, 22, 27),
+	Tube=100)
+
 capture.output(
 	print("T-test:"),
 	print(fmt),
@@ -63,6 +68,7 @@ capture.output(
 	print("Lmer:"),
 	summary(fmtube),
 	confint(fmtube),
+	cbind(predframe, predicted=exp(predict(fmtube, newdata=predframe, allow.new.levels=TRUE))),
 	file="data/destructive-mass-nearvsfar.txt")
 
 imgs = read.csv("data/stripped2014-destructive.csv")
