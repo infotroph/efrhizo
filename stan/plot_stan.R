@@ -23,7 +23,7 @@ plot_pred = function(fit, data, pred_data){
 	pred_cis = data.frame(
 		unique(pred_data$depth),
 		quantile_by(pred$y_pred, pred_data$depth),
-		quantile_by(pred$mu, pred_data$depth),
+		quantile_by(pred$mu_pred, pred_data$depth),
 		check.names=FALSE)
 	names(pred_cis) = c("depth", "y_2.5", "y_97.5", "mu_2.5", "mu_97.5")
 
