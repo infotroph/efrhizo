@@ -5,7 +5,7 @@ library(rstan)
 
 rstan_options(auto_write = TRUE)
 options(mc.cores = 7)
-stanfile = "stan_tubedepth.stan"
+stanfile = "tube_depth.stan"
 
 source("../scripts/simrhizo.R")
 dat = sim_rhizo(
