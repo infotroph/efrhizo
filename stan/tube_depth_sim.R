@@ -33,6 +33,7 @@ standatfit = stan(
 		Tp=length(unique(dat_pred$tube_id)),
 		tube_id_pred=dat_pred$tube_id,
 		depth_pred=dat_pred$depth),
+	par =c("intercept", "b_depth", "tube_sigma", "sigma", "mu_mon", "mu_pred", "y_pred"),
 	warmup=1000,
 	iter=10000,
 	thin=1,
@@ -40,7 +41,7 @@ standatfit = stan(
 save(standatfit, file="stantest_out.Rdata")
 
 sink("stan_test_out.txt", split=TRUE)
-print(standatfit, pars=c("intercept", "b_depth", "tube_sigma", "sigma", "mu[1]", "mu_pred[1]"))
+print(standatfit, pars=c("intercept", "b_depth", "tube_sigma", "sigma", "mu_mon", "mu_pred[1]"))
 sink()
 
 

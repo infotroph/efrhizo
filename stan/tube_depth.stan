@@ -29,6 +29,7 @@ parameters {
 
 transformed parameters {
 	vector[N] mu;
+	vector[3] mu_mon; // monitor a few mu without storing all
 	vector[T] tube_intercept;
 
 	tube_intercept <- intercept + tube_offset;
@@ -36,6 +37,9 @@ transformed parameters {
 	for(n in 1:N){
 		mu[n] <- tube_intercept[tube_id[n]] + b_depth * (log(depth[n])-log(50));
 	}
+	mu_mon[1] <- mu[1];
+	mu_mon[2] <- mu[N/2];
+	mu_mon[3] <- mu[N];
 }
 
 model {

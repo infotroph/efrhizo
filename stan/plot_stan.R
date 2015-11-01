@@ -3,7 +3,7 @@
 # load("stantest_simdata.Rdata")
 # load("stantest_out.Rdata")
 
-plotpars = c("intercept", "b_depth", "tube_sigma", "sigma", "mu[1]", "mu[10]", "tube_offset[1]", "tube_offset[10]")
+plotpars = c("intercept", "b_depth", "tube_sigma", "sigma", "mu_mon", "mu_pred[1]")
 
 quantile_by = function(mat, idx, probs=c(0.025, 0.975)){
 	# combine all rows from columns with the same index,
