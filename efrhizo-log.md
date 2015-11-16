@@ -376,3 +376,8 @@ Typo in unit-conversions.txt: corn root density of "0.8-1.4" should have been "0
 Updated censor file for August 2014 readings. Will need to check a few against images later, as noted.
 
 Updated censor file for August 2013 readings. Will need to check a few of these as well.
+
+2015-11-16:
+
+In S4 2014 (2012-08-06), root length in T17 L85 was recorded as > 1500 mm -- on inspection of traced images, one node from the middle of a root seems to have somehow been moved outside the frame. Fixed that, updated tracing repo, saved updated data file in this repo, remade 2012 datasets.
+
