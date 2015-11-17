@@ -385,4 +385,11 @@ In S4 2014 (2012-08-06), root length in T17 L85 was recorded as > 1500 mm -- on 
 
 Several plotting scripts still use local-script versions of the DeLucia ggplot theme and of mirror.ticks. Edited these to use the R package versions (DeLuciatoR, ggplotTicks). (Noticed because updating 2014 dataset, for the edit I'll note next, triggered a replot of the destructive-tissue analysis. Saving this fix first so all updates from that change are recorded together.)
 
-In peak 2014 (2014-08-15), T71 L60 had three large parallel roots that were traced as one gigantic one. Retraced, tweaked widths in a few nearby frames while I was at it, saved new values for whole tube, rebuilt project with updated 2014 numbers
+In peak 2014 (2014-08-15), T71 L60 had three large parallel roots that were traced as one gigantic one. Retraced, tweaked widths in a few nearby frames while I was at it, saved new values for whole tube, rebuilt project with updated 2014 numbers.
+
+Fixed four outliers in 2012 data:
+
+	* S1 T3: L75 had a large "root" that looks to me like soil color variation. Removed it, but left some smaller roots.
+	* S5 T31: L40 & 45 had large "roots" that look to me like soil color variation. Deleted them, leaving both frames root-free. Adjusted tracing in L110 while I was at it -- traced area was larger than visible root.
+	* S6 T65: L105 had a large "root" that looks to me like soil color variation. Removed it, added a visible but untraced root in L110 while I was at it.
+
