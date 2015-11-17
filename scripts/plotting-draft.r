@@ -1,8 +1,8 @@
 require(ggplot2)
 require(grid)
-source("~/R/ggplot-ticks/mirror.ticks.r")
-source("~/UI/daycent/tools/ggthemes.r") #need a more sensible home for this
-theme_set(theme_delucia())
+library(ggplotTicks)
+library(DeLuciatoR)
+theme_set(theme_ggEHD())
 
 
 

@@ -1,6 +1,6 @@
 require(ggplot2)
 require(grid)
-source("~/UI/daycent/tools/ggthemes.r")
+library(DeLuciatoR)
 
 strp13 = read.csv("data/stripped2013.csv")
 
@@ -21,7 +21,7 @@ p13 = (ggplot(strp13,
 		log(rootvol.mm3.mm2+1e-4), 
 		color=factor(Session), 
 		fill=factor(Session)))
-	+ theme_delucia()
+	+ theme_ggEHD()
 	+ facet_wrap(~Species)
 	+ coord_flip()
 	+ scale_x_reverse()

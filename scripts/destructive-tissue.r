@@ -1,8 +1,8 @@
 library(ggplot2)
 library(grid)
 library(lme4)
-source("~/R/DeLuciatoR/ggthemes.r")
-source("~/R/ggplot-ticks/mirror.ticks.r")
+library(DeLuciatoR)
+library(ggplotTicks)
 theme_set(theme_ggEHD())
 
 roots = read.csv("rawdata/destructive-harvest/rhizo-destructive-belowground.csv")

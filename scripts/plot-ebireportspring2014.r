@@ -1,6 +1,6 @@
 require(ggplot2)
 require(grid)
-source("~/UI/daycent/tools/ggthemes.r")
+library(DeLuciatoR)
 
 strp10 = read.csv("data/stripped2010.csv")
 strp11 = read.csv("data/stripped2011.csv")
@@ -34,7 +34,7 @@ p10 = (ggplot(strp10,
 		log(rootvol.mm3.mm2+1e-4), 
 		color=factor(Session), 
 		fill=factor(Session)))
-	+ theme_delucia()
+	+ theme_ggEHD()
 	+ facet_wrap(~Species)
 	+ coord_flip()
 	+ scale_x_reverse()
@@ -59,7 +59,7 @@ p11 = (ggplot(strp11,
 		log(rootvol.mm3.mm2+1e-4),
 		color=factor(Session),
 		fill=factor(Session)))
-	+ theme_delucia()
+	+ theme_ggEHD()
 	+ facet_wrap(~Species)
 	+ coord_flip()
 	+ scale_x_reverse()
@@ -85,7 +85,7 @@ p12 = (ggplot(strp12[strp12$Session<5,],
 		log(rootvol.mm3.mm2+1e-4), 
 		color=factor(Session),
 		fill=factor(Session)))
-	+ theme_delucia()
+	+ theme_ggEHD()
 	+ facet_wrap(~Species)
 	+ coord_flip()
 	+ scale_x_reverse()
@@ -109,7 +109,7 @@ p12 = (ggplot(strp12[strp12$Session<5,],
 
 points12 = (ggplot(strp12[strp12$Session<5 & strp12$Species == "Maize",],
 	aes(Depth, log(rootvol.mm3.mm2+1e-4), color=factor(Session)))
-	+ theme_delucia()
+	+ theme_ggEHD()
 	+ coord_flip()
 	+ scale_x_reverse()
 	+geom_point()
