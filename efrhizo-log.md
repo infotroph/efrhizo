@@ -385,3 +385,4 @@ In S4 2014 (2012-08-06), root length in T17 L85 was recorded as > 1500 mm -- on 
 
 Several plotting scripts still use local-script versions of the DeLucia ggplot theme and of mirror.ticks. Edited these to use the R package versions (DeLuciatoR, ggplotTicks). (Noticed because updating 2014 dataset, for the edit I'll note next, triggered a replot of the destructive-tissue analysis. Saving this fix first so all updates from that change are recorded together.)
 
+In peak 2014 (2014-08-15), T71 L60 had three large parallel roots that were traced as one gigantic one. Retraced, tweaked widths in a few nearby frames while I was at it, saved new values for whole tube, rebuilt project with updated 2014 numbers
