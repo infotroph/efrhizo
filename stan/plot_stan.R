@@ -44,4 +44,6 @@ plot_logpred(standatfit, dat, dat_pred)
 print(traceplot(standatfit, pars=plotpars))
 # posterior histograms
 print(stan_hist(standatfit, pars=plotpars))
+# paramaters vs. each other
+print(pairs(standatfit, pars=plotpars))
 dev.off()
