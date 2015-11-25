@@ -32,7 +32,7 @@ transformed parameters {
 	vector[3] mu_mon; // monitor a few mu without storing all
 	vector[T] tube_intercept;
 
-	tube_intercept <- intercept + tube_offset;
+	tube_intercept <- intercept + tube_offset * tube_sigma;
 
 	for(n in 1:N){
 		mu[n] <- tube_intercept[tube_id[n]] + b_depth * (log(depth[n])-log(50));
@@ -48,7 +48,7 @@ model {
 	sigma ~ normal(0, 10);
 	tube_sigma ~ normal(0, 10);
 
-	tube_offset ~ normal(0, tube_sigma);
+	tube_offset ~ normal(0, 1);
 	y ~ lognormal(mu, sigma);
 }
 
@@ -59,8 +59,8 @@ generated quantities {
 	vector[Tp] tube_predoffset;
 
 	for(t in 1:Tp){
-		tube_predoffset[t] <- normal_rng(0, tube_sigma);
-		tube_predintercept[t] <- intercept + tube_predoffset[t];
+		tube_predoffset[t] <- normal_rng(0, 1);
+		tube_predintercept[t] <- intercept + tube_predoffset[t] * tube_sigma;
 	}
 	for(n in 1:Np){
 		mu_pred[n] <- tube_predintercept[tube_id_pred[n]] + b_depth * (log(depth_pred[n])-log(50));
