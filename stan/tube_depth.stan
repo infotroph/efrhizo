@@ -35,10 +35,12 @@ transformed parameters {
 	tube_intercept <- intercept + tube_offset * tube_sigma;
 
 	for(n in 1:N){
-		mu[n] <- tube_intercept[tube_id[n]] + b_depth * (log(depth[n])-log(50));
+		mu[n] <- (
+			tube_intercept[tube_id[n]]
+			+ b_depth * (log(depth[n]) - log(50)));
 	}
 	mu_mon[1] <- mu[1];
-	mu_mon[2] <- mu[N/2];
+	mu_mon[2] <- mu[N/2]; // int division warning OK: just want some mu near middle.
 	mu_mon[3] <- mu[N];
 }
 
