@@ -45,7 +45,7 @@ transformed parameters {
 }
 
 model {
-	intercept ~ normal(10, 10);
+	intercept ~ normal(0, 10);
 	b_depth ~ normal(-20, 10);
 	sigma ~ normal(0, 10);
 	tube_sigma ~ normal(0, 10);
