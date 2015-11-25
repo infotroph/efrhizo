@@ -1,6 +1,6 @@
 
 # Simulate some rhizotron data.
-# Arguments:
+# Arguments (all units are log scale):
 # tube_ids, factor or anything like it (psst. stop overthinking and just use 1:n)
 # depths, numeric: *which* depths?
 # sig_tube: sd for random tube offsets
@@ -30,7 +30,7 @@ sim_rhizo = function(
 	dat=expand.grid(tube_id=tube_ids, depth=depths)
 	dat$d_tube = sim_tubes(dat$tube_id, sigma=sig_tube)
 	dat$d_depth = sim_depth_log(dat$depth, int_depth, b_depth)
-	dat$y = with(dat, rlnorm(n=nrow(dat), mean=log(pmax(0, d_depth+d_tube)), sd=log(pmax(1,sig_resid))))
+	dat$y = with(dat, rlnorm(n=nrow(dat), meanlog=d_depth+d_tube, sdlog=sig_resid))
 	return(dat)
 }
 

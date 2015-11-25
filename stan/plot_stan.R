@@ -13,7 +13,7 @@ quantile_by = function(mat, idx, probs=c(0.025, 0.975)){
 		function(x)quantile(mat[,idx==x], probs=probs)))
 }
 
-plot_pred = function(fit, data, pred_data){
+plot_logpred = function(fit, data, pred_data){
 	# Real data vs. CIs of predicted values in *new* tubes:
 	# y = CI on individual new observations at this depth
 	# mu = CI on mean at this depth in a new tube (this is a weird way of thinking about variation!)
@@ -22,12 +22,12 @@ plot_pred = function(fit, data, pred_data){
 		pars = c("mu_pred", "y_pred"))
 	pred_cis = data.frame(
 		unique(pred_data$depth),
-		quantile_by(pred$y_pred, pred_data$depth),
+		quantile_by(log(pred$y_pred), pred_data$depth),
 		quantile_by(pred$mu_pred, pred_data$depth),
 		check.names=FALSE)
 	names(pred_cis) = c("depth", "y_2.5", "y_97.5", "mu_2.5", "mu_97.5")
 
-	plot(y~depth, dat, ylim=range(pred_cis[,c("y_2.5", "y_97.5")]))
+	plot(log(y)~depth, dat, ylim=range(pred_cis[,c("y_2.5", "y_97.5")]))
 	with(pred_cis, {
 		lines(y_2.5 ~ depth, col="green")
 		lines(y_97.5 ~ depth, col="green")
@@ -39,7 +39,7 @@ plot_pred = function(fit, data, pred_data){
 
 png("stan_test_%03d.png", height=800, width=1200, units="px")
 #predictive plot
-plot_pred(standatfit, dat, dat_pred)
+plot_logpred(standatfit, dat, dat_pred)
 # sample traces
 print(traceplot(standatfit, pars=plotpars))
 # posterior histograms

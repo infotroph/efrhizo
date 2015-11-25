@@ -10,7 +10,7 @@ data {
 	int T; // num tubes
 	int tube_id[N];
 	vector[N] depth;
-	real y[N];
+	real<lower=0> y[N];
 
 	// pseudodata for predictive check
 	int Np;
@@ -49,14 +49,11 @@ model {
 	tube_sigma ~ normal(0, 10);
 
 	tube_offset ~ normal(0, tube_sigma);
-
-	for(n in 1:N){
-		y[n] ~ normal(mu[n], sigma);
-	}
+	y ~ lognormal(mu, sigma);
 }
 
 generated quantities {
-	real y_pred[Np];
+	real<lower=0> y_pred[Np];
 	real mu_pred[Np];
 	vector[Tp] tube_predintercept;
 	vector[Tp] tube_predoffset;
@@ -67,6 +64,6 @@ generated quantities {
 	}
 	for(n in 1:Np){
 		mu_pred[n] <- tube_predintercept[tube_id_pred[n]] + b_depth * (log(depth_pred[n])-log(50));
-		y_pred[n] <- normal_rng(mu_pred[n], sigma);
+		y_pred[n] <- lognormal_rng(mu_pred[n], sigma);
 	}
 }
