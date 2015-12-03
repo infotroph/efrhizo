@@ -64,6 +64,7 @@ png(
 	units="px")
 print(plot(rz_mtd))
 print(traceplot(rz_mtd))
+print(traceplot(rz_mtd, inc_warmup=TRUE))
 print(pairs(rz_mtd))
 print(stan_hist(rz_mtd))
 print(stan_dens(rz_mtd))
