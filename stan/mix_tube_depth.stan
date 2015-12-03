@@ -19,10 +19,15 @@ data{
 	int<lower=0> T; 				// number of tubes
 	int<lower=0, upper=T> tube[N]; 	// tube ID
 	real<lower=0> depth[N];			// cm below surface within tube
-	vector<lower=0>[N] y; 			// DV
+	vector<lower=0>[N] y; 			// DV: mm^3 root / mm^2 image area
 	int<lower=0, upper=1> y_logi[N]; // logical: is y > 0?
 	int<lower=0, upper=N> first_pos; // index of the first nonzero y value
 	int<lower=0, upper=N> n_pos;	// how many y are > 0?
+}
+
+transformed data{
+	real depth_logmean;
+	depth_logmean <- log(mean(depth));
 }
 
 parameters{
@@ -41,19 +46,22 @@ parameters{
 	// residual
 	real<lower=0> sigma;
 }
+
 transformed parameters{
 	vector[N] mu;
 	vector[N] detect_odds;
+	real mu_mean;
 
 	for(n in 1:N){
 		// Note centered regression --
 		// intercept here is E[y] at mean depth, not surface!
 		mu[n] <- intercept
 			+ b_tube[tube[n]]
-			+ b_depth*(log(depth[n]) - log(mean(depth)));
+			+ b_depth*(log(depth[n]) - depth_logmean);
 	}
 	// center means for logistic regression, too
-	detect_odds <- a_detect + b_detect*(mu - mean(mu));
+	mu_mean <- mean(mu);
+	detect_odds <- a_detect + b_detect*(mu - mu_mean);
 }
 
 model{
