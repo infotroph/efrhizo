@@ -396,3 +396,61 @@ Fixed four outliers in 2012 data:
 Candidate for deletion: Hand-compiled data file `data/2010/EF2010.05.24-corrected.csv`. Only differs from the script-compiled version in negative ways: It contains 74 frames that should be censored (most are loc 1), dates are stored in parser-unfriendly formats, and my root volume calculations are in per-cm instead of per-mm units. ==> This file has been fully replaced by the whole-season scripts. Deleted.
 
 ==> This means the hand-compiled means alongside it, `data/2010/efrhizo-cropmeans-20100524.csv` and `data/2010efrhizo-cropmeans-noblk-20100524.csv`, are also candidates for deletion: They probably use indiosyncratic units and include values from frames that ought to be censored, and recreating these from the current data would be trivial. Deleted the whole `data/2010/` directory.
+
+2015-12-02:
+
+Working on modeling these data in a Bayesian framework using the Stan probabalistic programming language. Have been throwing thoughts into some scratch files that I will commit soon, but the basic idea is taken from Sonderegger et al. 2013, DOI:10.1111/nph.12128 -- The key idea is to model observed root volume as a mixture of zeros (assumed to be from detection failure, not actually zero roots) and lognormally distributed nonzeros, but with the change of detection increasing as root volume increases. The expectation `mu_i` in turn depends on depth, crop, season, random tube/block effects, and whatever else I add.
+
+	y_i ~ mix of {
+		lognormal(mu_i, sigma) [observed with probability p_i]
+		0 [observed with probability 1-p_i] }
+	p_i ~ logistic(alpha + beta * mu_i)
+	mu_i ~ b_0 + b_tube_i + b_depth * log(depth_i) + b_crop_i [+ ...]
+	b_tube ~ normal(0, sig_tube)
+
+The model I have so far treats tube ID as a random effect and and assumes that root volume drops linearly with the log of depth, and appears to work on simulated one-crop data (more details on this TK below). I plan to try it on real data soon, then add a crop effect if the mixture, depth, and tube effects look like they're working right.
+
+To implement the above model, we need priors on `alpha`, `beta`, `b_0`, `b_depth`, `sig_tube`, and `sigma`. Also, let's give those first three more descriptive names: `a_detect`, `b_detect`, `intercept`, respectively. OK, now let's review what we know and pick values:
+
+* `a_detect`:
+	* This is weirdly parameterized right now because I'm centering the logistic regression at mean(mu) (TODO: change this?). Interpret it as "log odds of detecting roots at whole-experiment mean root density".
+	* I certainly hope our odds are better than even (otherwise we're missing most of the roots that exist!), but I don't have a principled way to constrain it, so let's allow a wide range. 
+	* ==> Allow p(detect | mean(mu)) to vary at least from 1% to 99% 
+	* ==> log(0.01/0.99) = -4.59, log(0.99/0.01) = 4.59
+	* ==> Define prior as `a_detect ~ normal(0, 5)`.
+
+* `b_detect`:
+	* This is the change in log odds of detection for a unit change in mean root volume. Running again with the assumption that the lower detection limit is no less than log(6.28e-6) = -12 and that we'd dang well better hit 100% detection at the ceiling of log(1.28) ~= 0: 
+	* p(detect|mu < -12) << 0.01 ==> log odds << -4.59
+	* p(detect|mu=0) >> 0.99 ==> log odds >> 4.59
+	* ==> Change in log odds is at least (4.59 - -4.59)/12 = 0.76.
+	* But couldn't some zeroes may come from heterogeneity instead of detection failure?
+		* OK, fine. Even if p(detect|mu=0) = 0.1, that's (log(0.1/0.9) - log(0.01/0.99))/12 ~= 0.20.
+	* What if detection is a very sharp threshold function? If p(detect) goes from 0.01 to 0.99 in one log unit, that's (log(0.99/0.01) - log(0.01/0.99))/1 = 9.19. If half a unit, 18.38.
+	* ==> Basically, I expect b_detect to be positive and probably < 10, but am not very confident beyond that.
+	* ==> define prior as `b_detect ~ normal(5, 10)` for a start, and be sure to check whether the posterior is sensitive to my choice.
+
+* `intercept`:
+	* Max root volume observable is < 1 mm^3/mm2 (we can always see SOME soil in the image), or maaaaybe 1.28 (observe 1 mm x 1 mm, ignore cylindrical volume and assume 0.78 mm depth = (1*1)/0.78 = 1.28 mm^3).
+	* Min: 1px x 1px root at typical magnification ~= 0.02 x 0.02 mm = (0.02 mm/2)^2 * pi * 0.02 mm = 6.28e-6 mm^3
+	* ==> log(1.28), log(6.28e-6) ==> expect raw root volumes to round off to between -12 and 0 when working on log scale
+	* ==> Define prior as `intercept ~ normal(-6, 6)`.
+
+* `b_depth`:
+	* plotting log(mass) ~ log(depth) of root core data gives a linear-looking relationship with a slope somewhere near -1 and certainly between -0.5 and -2.
+	* This is slightly cheating: I'm estimating my prior from the same plots as the images I'm analyzing! But the *method* of obtaining the numbers is very different, so I think it's defensible. 
+	* An intuitive argument for the same conclusion:
+		We know root volume approaches zero but is still detectable at 140 cm, so if our intercept is 0.24 (=maximum root volume from intercept calculations) and our detection limit is -12 as above, then 0.24 + slope*log(140) > -12 ==> slope > (-12 + 0.24)/log(140) ==> slope > -2.38.
+	* ==> I do want to allow slope term to be positive if the data support it, but don't expect absolute value to be more than single digits.
+	* ==> Define prior as `b_depth ~ normal(-1,5)`, can probably get away with tightening to (-1,3) if desired.
+
+* `sig_tube`
+	* Range of a normal distribution is roughly four sigmas. Sticking with the same crude range estimate of "-12 up to 0", that implies an sd around 12/4 = 3.
+	* There is a lot of variation between tubes, so let's keep the prior broad enough to include all the variance if necessary.
+	* Variances have to be positive, but Stan can handle this automatically as long as I declare the parameter as `real<lower=0> sig_tube` and will truncate distributions as needed.
+	* ...But on closer examination of the manual, I realize I'm not sure if this holds for *any* truncation (normal(1,3), say, where the peak is positive and then one tail is cut off), or just when it's zero-centered and the distribution can simply be folded in half.
+	* ==> Define prior as `sig_tube ~ normal(0, 3)`, but try a wider distribution if posterior estimate is > 2.
+
+* `sigma`
+	* Same logic as for sig_tube. Let's keep both priors the same for now.
+	* ==> Define prior as `sigma ~ normal(0,3)`.
