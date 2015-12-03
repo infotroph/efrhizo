@@ -15,14 +15,15 @@
 
 
 
-library(dplyr)
-library(lubridate)
+# library(dplyr)
+# library(lubridate)
 
-strp10 = read.csv("../data/stripped2010.csv")
-strp11 = read.csv("../data/stripped2011.csv")
-strp12 = read.csv("../data/stripped2012.csv")
-strp13 = read.csv("../data/stripped2013.csv")
-strp14 = read.csv("../data/stripped2014.csv")
+wzclass = read.csv("../scripts/rhizo_colClasses.csv", as.is=TRUE)
+strp10 = read.csv("../data/stripped2010.csv", colClasses=wzclass$class)
+strp11 = read.csv("../data/stripped2011.csv", colClasses=wzclass$class)
+strp12 = read.csv("../data/stripped2012.csv", colClasses=wzclass$class)
+strp13 = read.csv("../data/stripped2013.csv", colClasses=wzclass$class)
+strp14 = read.csv("../data/stripped2014.csv", colClasses=wzclass$class)
 levels(strp10$Species)[1] = "Soy"
 levels(strp11$Species)[1] = "Maize"
 levels(strp12$Species)[1] = "Maize"
@@ -30,7 +31,12 @@ levels(strp13$Species)[1] = "Soy"
 levels(strp14$Species)[1] = "Maize"
 
 strpall = rbind(strp10, strp11, strp12, strp13, strp14)
-strpall = mutate(strpall, Year=year(DateTime))
+rm(list=c("wzclass", "strp10", "strp11", "strp12", "strp13", "strp14"))
+
+#strpall$Year = year(strpall$DateTime))
+# Or when lubridate's not available...
+# Yes, POSIXlt years really are since 1900. Gross.
+strpall$Year = as.POSIXlt(strpall$DateTime)$year + 1900
 
 # Order species for convenient interpretataion of Helmert contrasts:
 strpall$Species=reorder(strpall$Species, match(strpall$Species, c("Soy", "Maize", "Switchgrass", "Miscanthus", "Prairie")))

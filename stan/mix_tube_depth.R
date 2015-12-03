@@ -17,7 +17,7 @@ strpall = strpall[strpall$Depth > 0,]
 
 rows_used = sample(1:nrow(strpall), n_subsample)
 rzdat = strpall[rows_used,]
-
+rm(strpall)
 print(paste("Subsampling these", n_subsample, "rows from strpall:"))
 print(dput(rows_used))
 
