@@ -13,4 +13,4 @@
 # ----------------Load Modules-------------------- #
 module load R/3.2.0
 # ----------------Your Commands------------------- #
-time Rscript mix_tube_depth.R "PBS_JOBNAME"."$PBS_JOBID"
+time Rscript mix_tube_depth.R "$PBS_JOBNAME"."$PBS_JOBID"
