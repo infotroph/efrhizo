@@ -454,3 +454,63 @@ To implement the above model, we need priors on `alpha`, `beta`, `b_0`, `b_depth
 * `sigma`
 	* Same logic as for sig_tube. Let's keep both priors the same for now.
 	* ==> Define prior as `sigma ~ normal(0,3)`.
+
+2015-12-03:
+
+mixture model appears to be working with depth and tube effects. Synced repository to the IGB computing cluster and ran the following jobs:
+
+* rz_mtd.1567789: Job crashed. Package 'dplyr' is not installed. Deleted output file.
+	* Emailed admins to request installation of dplyr and lubridate, but then edited stat_prep.R to use base functions instead while I was waiting.
+	* In the process, I added a colClasses definition to the read.csv steps -- now skips some columns I never use and requires less downstream format-tweaking in others.
+
+* rz_mtd.1568006: Job crashed. I forgot to commit `scripts/rhizo_colClasses.csv`! Deleted output file.
+
+* rz_mtd.1568007: 1000-row subsample of full rhizotron dataset, 7 chains run for 3000 iterations, 1000 as warmup.
+	* Elapsed time: chains ranged from 17-26 seconds sampling,  2m16s wall time for whole script.
+	* Used 1401732kb ~= 1.4 GB memory (I reserved 7 GB) and ~2.1 GB virtual memory (CHECK: Do I need to worry about this?).
+	* Convergence: Close but not complete. Effective sample size lowest for `b_detect` (293), `sig_tube` (504), `lp__` (308) -- others are in the low hundreds.
+	* `b_detect` and `sig_tube` both show a fair amount of autocorrelation, but may not be enough to need thinning.
+	* Looks like I forgot a dollar sign in the qsub script, so the output files from this run are named `PBS_JOBNAME.1568007.biocluster.igb.illinois.edu*` instead of the intended `rz_mtd.1568007.biocluster.igb.illinois.edu*`. Fixed that. 
+	* Added a second traceplot to the graphing output, with warmup samples included.
+	* ==> This looks promising. Let's take a bigger bite!
+
+* rz_mtd.1568016: 5000-row subset, 7 chains run for 10000 samples, still 1000 warmup.
+	* sampling time 198 - 262 sec, wall time 5m34s.
+	* Used about 1.1 GB memory, 1.8 GB VM.
+	* Rhat=1 for all chains, traceplots look well converged. ESS is 9429 for `lp__`, over 10000 for all other parameters. 
+	* Distributions are still a tad lumpy, especially `sigma`, which also has its posterior mode around 2.05. TODO: Try widening prior to check for sensitivity.
+	* b_depth is estimated to be essentially zero. Will be interesting to see if that holds up in larger datasets.
+	* I should make these filenames shorter. TODO: Truncate my email address off the job ID before passing it in to R, perhaps with something like MYJOBID=`echo $PBS_JOBID | sed 's/\..*//'`.
+
+* rz_mtd.1568055: 10000-row subset (= around 40% of the ~23k rows in this version of the full dataset), 20k iterations. All other settings same as before, none of my TODOs from above done yet.
+	*Another TODO: None the my outputs contain a full date-and-time stamp. Add that to the top or bottom of the script.
+	* Wall time 21:21, sampling times 770-1081 seconds. Memory ~1.3 GB.~2 GB VM.
+	* Traceplots and histograms look good, Rhat=1 for everything, lowest ESS is `lp__` at 32119.
+	* Runtimes so far: 2.25/3000=0.00075, 5.5/5000=0.0011, 21.3/10000 = 0.00213. Looks like it's somewhere in O(n^2) territory.
+	* ==> Expect whole dataset to take something like a couple of hours, maybe? Let's try it.
+
+* rz_mtd.1568182: All rows, 20000 iterations.
+	* Before running: Commented out all subsampling statements in mix_tube_depth.R, but kept the tube-map operation even though it should theoretically not be needed. Also edited qsub script from just 	
+
+		```
+		module load R/3.2.0
+		time Rscript mix_tube_depth.R "$PBS_JOBNAME"."$PBS_JOBID"
+		```
+
+	to 
+
+		```
+		module load R/3.2.0
+		SHORT_JOBID=`echo $PBS_JOBID | sed 's/\..*//'`
+		echo "Starting $PBS_JOBNAME"."$SHORT_JOBID" on `date -u`
+		time Rscript mix_tube_depth.R "$PBS_JOBNAME"."$SHORT_JOBID"
+		```
+
+	* Runtime: 49:46 walltime, sampling 2087-2638 sec. Memory ~1.3 GB, VM ~1.9 GB.
+	* Traceplots all look great, Rhats all 1. intercept ESS is 9175, all others >> 30000.
+	* ==> These estimates seem fairly good for this model, but let's check if sigma is sensitive to its prior.
+
+* rz_mtd.1568239: Adjusted prior on sigma from normal(0, 3) to normal(0,10), all other conditions identical to job 1568182.
+	* Runtime 58:28, sampling time 2964 - 3282 sec. Memory 1.6 GB, VM 2.3 GB.
+	* Traces for all paramets are just a hair wider, but no visible shifts in location. Posterior mean table rounds a few scattered last-digits up by one, but no substantive change in posterior HPD invervals for any parameters.
+	* ==> normal(0, 3) prior seems OK. Maybe do another round of sensitivity analysis once I've settled on the final model.
