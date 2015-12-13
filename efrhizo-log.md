@@ -514,3 +514,43 @@ mixture model appears to be working with depth and tube effects. Synced reposito
 	* Runtime 58:28, sampling time 2964 - 3282 sec. Memory 1.6 GB, VM 2.3 GB.
 	* Traces for all paramets are just a hair wider, but no visible shifts in location. Posterior mean table rounds a few scattered last-digits up by one, but no substantive change in posterior HPD invervals for any parameters.
 	* ==> normal(0, 3) prior seems OK. Maybe do another round of sensitivity analysis once I've settled on the final model.
+
+2015-12-06:
+
+Adding some predictions to the mixture model. I'm modeling visible root volume per unit image area, but the quantity I'm actually interested in is the mass of root C per unit field area. How to convert them?
+
+To find total expected mass per m^2 ground, I'll need to integrate across the soil profile. I'm assuming that area->volume->mass->C conversions are all constant multipliers, so it should be OK to integrate volume and convert afterwards (right?).
+
+Predicted root volume is mean-centered for easier computation, so modeled values are log(volume) ~ a + b*(log(depth) - log(mean(depth))). To make the integral easier, let's convert back to intercept=soil surface:
+
+```
+log(y) 	=  a + b*(log x - log c)
+		= a + b*(log x) - b*(log c)
+		= a - b*(log c) + b*(log x)
+```
+
+a-b*(log(c)) is constant, lump it together for the integral
+
+```
+log(y) 	=  a' + b*log(x)
+y = exp(a' + b*log(x))
+integral(y) = (exp(a') * x^(b+1)) / (b+1) + C
+integral(y, 0,130) = exp(a') * 130^(b+1) / (b+1)
+```
+
+My calculus is terrible, so last two steps are on authority of Wolfram Alpha. But it does seem to match my crude integration-by-small-sums in R, i.e. `exp(a) * 130^(b+1) / (b+1)` comes close to matching `eps * sum(exp(a + b * log(seq(eps, 130, eps))))` for the values of a & b I have tried.
+
+... OK, for the values of b > -1 I have tried. Below that they differ dramatically and Wolfram Alpha reports "integral did not converge." I will (naively?) assume this is a computational issue (float overflow?) and treat the above integral as correct.
+
+==> Added a generated quantities block that simulates newly observed tubes and generates predicted quantities from the posterior for each one:
+
+* tube offset `b_tube_pred`,
+* Expectations for log mean `mu_pred` and log odds of detection `detect_odds_pred` at each depth,
+* Simulated obervation data (including zeroes) `y_pred`,
+* total root volume from the whole soil profile, from surface to the deepest requested prediction depth `pred_tot`.
+
+This also requires adding new inputs: `N_pred`, `T_pred`, `tube_pred`, `depth_pred`.
+
+2015-12-13:
+
+Returning to predictive checks above: Updated `mix_tube_depth.R` to include plotting of generated quantities.

@@ -10,7 +10,38 @@ options(mc.cores=7)
 n_chains = 7
 n_iters = 3000
 n_warm = 1000
-stanpars=c("a_detect", "b_detect", "intercept", "b_depth", "sig_tube", "sigma", "mu_mean")
+n_predtubes = 5
+pred_depths = c(1, 10 , 30, 50, 75, 100, 140)
+savepars=c(
+	"a_detect",
+	"b_detect",
+	"intercept",
+	"b_depth",
+	"sig_tube",
+	"sigma",
+	"mu_mean",
+	"y_pred",
+	"mu_pred",
+	"detect_odds_pred",
+	"pred_tot")
+plotpars=c(
+	"a_detect",
+	"b_detect",
+	"intercept",
+	"b_depth",
+	"sig_tube",
+	"sigma",
+	"mu_mean",
+	"y_pred[1]",
+	"y_pred[15]",
+	"y_pred[35]",
+	"mu_pred[1]",
+	"mu_pred[15]",
+	"mu_pred[35]",
+	"detect_odds_pred[1]",
+	"detect_odds_pred[15]",
+	"detect_odds_pred[35]",
+	"pred_tot")
 
 source("../scripts/stat-prep.R") # creates data frame "strpall"
 strpall = strpall[strpall$Depth > 0,]
@@ -29,6 +60,9 @@ print(dput(tube_map))
 
 rzdat = rzdat[order(rzdat$rootvol.mm3.mm2),]
 
+rz_pred = expand.grid(
+	tube=1:n_predtubes,
+	depth=pred_depths)
 
 rz_mtd = stan(
 	data=list(
@@ -39,12 +73,16 @@ rz_mtd = stan(
 		y=rzdat$rootvol.mm3.mm2,
 		y_logi=as.numeric(rzdat$rootvol.mm3.mm2 > 0),
 		first_pos=which(rzdat$rootvol.mm3.mm2 > 0)[1],
-		n_pos=length(which(rzdat$rootvol.mm3.mm2 > 0))), 
+		n_pos=length(which(rzdat$rootvol.mm3.mm2 > 0)),
+		N_pred=nrow(rz_pred),
+		T_pred=length(unique(rz_pred$tube)),
+		tube_pred=rz_pred$tube,
+		depth_pred=rz_pred$depth),
 	file="mix_tube_depth.stan",
 	iter=n_iters,
 	warmup=n_warm,
 	chains=n_chains,
-	pars=stanpars,
+	pars=savepars,
 	sample_file=paste0(runname, "_samples.txt"),
 	diagnostic_file=paste0(runname, "_info.txt"),
 	verbose=TRUE,
@@ -54,22 +92,71 @@ save(rz_mtd, file=paste0(runname, ".Rdata"))
 warnings()
 stopifnot(rz_mtd@mode == 0) # 1 or 2 = error
 
-print(rz_mtd)
+print(rz_mtd, pars=plotpars)
 print(paste("mean of depth:", mean(rzdat$Depth)))
 
+rz_pred_mu = cbind(
+	rz_pred,
+	summary(rz_mtd, pars="mu_pred")$summary)
+
+# summarize zero and nonzero y values separately
+rz_pred_y = rstan::extract(rz_mtd, pars="y_pred")$y_pred
+rz_pred_y_pos = cbind(
+	rz_pred,
+	t(apply(
+		rz_pred_y,
+		MARGIN=2,
+		FUN=function(x, probs){
+			c(	quantile(log(x[x>0]), probs=c(0.025, 0.5, 0.975)),
+				mean=mean(log(x[x>0]))) })))
+rz_pred_y_det = cbind(
+	rz_pred,
+	p_detect=apply(
+		rz_pred_y,
+		MARGIN=2,
+		FUN=function(x){ length(which(x>0)) / length(x) }))
+
+rz_pred_pdet = cbind(
+	rz_pred,
+	summary(rz_mtd, pars="detect_odds_pred")$summary)
+
+rzdat_pdet = aggregate(
+	formula=rootvol.mm3.mm2 ~ I(round(Depth*2, -1)/2), # rounds to nearest 5 cm
+	data=rzdat,
+	FUN=function(x)length(which(x>0))/length(x))
+names(rzdat_pdet)=c("Depth", "p_detect")
 png(
 	paste0(runname, "_%03d.png"),
 	height=1200,
 	width=1800,
 	units="px")
-print(plot(rz_mtd))
-print(traceplot(rz_mtd))
-print(traceplot(rz_mtd, inc_warmup=TRUE))
-print(pairs(rz_mtd))
-print(stan_hist(rz_mtd))
-print(stan_dens(rz_mtd))
-print(stan_ac(rz_mtd))
+print(plot(rz_mtd, pars=plotpars))
+print(traceplot(rz_mtd, pars=plotpars))
+print(traceplot(rz_mtd, inc_warmup=TRUE, pars=plotpars))
+print(pairs(rz_mtd, pars=plotpars))
+print(stan_hist(rz_mtd, pars=plotpars))
+print(stan_dens(rz_mtd, pars=plotpars))
+print(stan_ac(rz_mtd, pars=plotpars))
 print(stan_diag(rz_mtd))
+print(
+	ggplot(rzdat, aes(Depth, log(rootvol.mm3.mm2)))
+	+geom_point()
+	+geom_line(aes(depth, mean, color="pred_mu"), data=rz_pred_mu)
+	+geom_line(aes(depth, `2.5%`, color="pred_mu"), data=rz_pred_mu)
+	+geom_line(aes(depth, `97.5%`, color="pred_mu"), data=rz_pred_mu)
+	+geom_line(aes(depth, mean, color="pred_y"), data=rz_pred_y_pos)
+	+geom_line(aes(depth, `2.5%`, color="pred_y"), data=rz_pred_y_pos)
+	+geom_line(aes(depth, `50%`, color="pred_y median"), data=rz_pred_y_pos)
+	+geom_line(aes(depth, `97.5%`, color="pred_y"), data=rz_pred_y_pos)
+	+theme_bw(48))
+print(
+	ggplot(rzdat_pdet, aes(Depth, p_detect))
+	+geom_point()
+	+geom_line(aes(depth, mean, color="pred_pdet"), data=rz_pred_pdet)
+	+geom_line(aes(depth, `2.5%`, color="pred_pdet"), data=rz_pred_pdet)
+	+geom_line(aes(depth, `97.5%`, color="pred_pdet"), data=rz_pred_pdet)
+	+geom_line(aes(depth, p_detect, color="pred_y"), data=rz_pred_y_det)
+	+theme_bw(48))
 dev.off()
 
 sessionInfo()

@@ -23,11 +23,20 @@ data{
 	int<lower=0, upper=1> y_logi[N]; // logical: is y > 0?
 	int<lower=0, upper=N> first_pos; // index of the first nonzero y value
 	int<lower=0, upper=N> n_pos;	// how many y are > 0?
+
+	//Pseudodata for predictive check
+	int<lower=0> N_pred;
+	int<lower=0> T_pred;
+	int<lower=0, upper=T> tube_pred[N_pred];
+	real<lower=0> depth_pred[N_pred];
+
 }
 
 transformed data{
 	real depth_logmean;
+	real depth_pred_max;
 	depth_logmean <- log(mean(depth));
+	depth_pred_max <- max(depth_pred);
 }
 
 parameters{
@@ -76,4 +85,37 @@ model{
 	b_tube ~ normal(0, sig_tube);
 	y_logi ~ bernoulli_logit(detect_odds);
 	segment(y, first_pos, n_pos) ~ lognormal(segment(mu, first_pos, n_pos), sigma);
+}
+
+generated quantities{
+	real b_tube_pred[T_pred];
+	real pred_tot[T_pred];
+	real mu_pred[N_pred];
+	real detect_odds_pred[N_pred];
+	real y_pred[N_pred];
+
+	for(t in 1:T_pred){
+		// prediction offset for a random NEWLY OBSERVED tube.
+		b_tube_pred[t] <- normal_rng(0, sig_tube);
+
+		// total root volume in soil profile
+		pred_tot[t] <-
+			exp(intercept
+				- b_depth*depth_logmean
+				+ b_tube_pred[t])
+			* depth_pred_max^(b_depth+1)
+			/ (b_depth+1);
+	}
+
+	for(n in 1:N_pred){
+		mu_pred[n] <-
+			intercept
+			+ b_tube_pred[tube_pred[n]]
+			+ b_depth * (log(depth_pred[n]) - depth_logmean);
+
+		detect_odds_pred[n] <- inv_logit(
+			a_detect + b_detect * (mu_pred[n] - mu_mean));
+
+		y_pred[n] <- lognormal_rng(mu_pred[n], sigma) * bernoulli_rng(detect_odds_pred[n]);
+	}
 }
