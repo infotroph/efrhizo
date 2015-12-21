@@ -13,4 +13,6 @@
 # ----------------Load Modules-------------------- #
 module load R/3.2.0
 # ----------------Your Commands------------------- #
-time Rscript mix_tube_depth.R "$PBS_JOBNAME"."$PBS_JOBID"
+SHORT_JOBID=`echo $PBS_JOBID | sed 's/\..*//'`
+echo "Starting $PBS_JOBNAME"."$SHORT_JOBID" on `date -u`
+time Rscript mix_tube_depth.R "$PBS_JOBNAME"."$SHORT_JOBID"
