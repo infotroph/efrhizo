@@ -162,21 +162,30 @@ print(stan_diag(rz_mtd))
 print(
 	ggplot(rzdat, aes(Depth, log(rootvol.mm3.mm2)))
 	+geom_point()
-	+geom_line(aes(depth, mean, color="pred_mu"), data=rz_pred_mu)
-	+geom_line(aes(depth, `2.5%`, color="pred_mu"), data=rz_pred_mu)
-	+geom_line(aes(depth, `97.5%`, color="pred_mu"), data=rz_pred_mu)
-	+geom_line(aes(depth, mean, color="pred_y"), data=rz_pred_y_pos)
-	+geom_line(aes(depth, `2.5%`, color="pred_y"), data=rz_pred_y_pos)
-	+geom_line(aes(depth, `50%`, color="pred_y median"), data=rz_pred_y_pos)
-	+geom_line(aes(depth, `97.5%`, color="pred_y"), data=rz_pred_y_pos)
+	+geom_smooth(aes(depth, mean, color="pred_mu"), data=rz_pred_mu)
+	+geom_smooth(aes(depth, `2.5%`, color="pred_mu"), data=rz_pred_mu)
+	+geom_smooth(aes(depth, `97.5%`, color="pred_mu"), data=rz_pred_mu)
+	+geom_smooth(
+		aes(depth, mean, color="pred_mu_obs"),
+		data=rz_pred_mu_obs)
+	+geom_smooth(
+		aes(depth, `2.5%`, color="pred_mu_obs"),
+		data=rz_pred_mu_obs)
+	+geom_smooth(
+		aes(depth, `97.5%`, color="pred_mu_obs"),
+		data=rz_pred_mu_obs)
+	+geom_smooth(aes(depth, mean, color="pred_y"), data=rz_pred_y_pos)
+	+geom_smooth(aes(depth, `2.5%`, color="pred_y"), data=rz_pred_y_pos)
+	+geom_smooth(aes(depth, `50%`, color="pred_y median"), data=rz_pred_y_pos)
+	+geom_smooth(aes(depth, `97.5%`, color="pred_y"), data=rz_pred_y_pos)
 	+theme_bw(48))
 print(
 	ggplot(rzdat_pdet, aes(Depth, p_detect))
 	+geom_point()
-	+geom_line(aes(depth, mean, color="pred_pdet"), data=rz_pred_pdet)
-	+geom_line(aes(depth, `2.5%`, color="pred_pdet"), data=rz_pred_pdet)
-	+geom_line(aes(depth, `97.5%`, color="pred_pdet"), data=rz_pred_pdet)
-	+geom_line(aes(depth, p_detect, color="pred_y"), data=rz_pred_y_det)
+	+geom_smooth(aes(depth, mean, color="pred_pdet"), data=rz_pred_pdet)
+	+geom_smooth(aes(depth, `2.5%`, color="pred_pdet"), data=rz_pred_pdet)
+	+geom_smooth(aes(depth, `97.5%`, color="pred_pdet"), data=rz_pred_pdet)
+	+geom_smooth(aes(depth, p_detect, color="pred_y"), data=rz_pred_y_det)
 	+theme_bw(48))
 dev.off()
 

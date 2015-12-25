@@ -601,3 +601,7 @@ which is equivalent to saying `y_observed ~ exp(mu) * surface_effect`.
 N.B. Let's be extra-clear that I'm modeling two separate underdetection processes: First the surface effect that makes us underdetect everything, then the binary detection process AFTER this: If the surface effect makes our mean observed volume very small, then the chance of seeing zero roots is high! It might be reasonable to think of these as two spatial processes: the binary effect says roots are clumpy relative to the scale of sampling, the surface effect makes it hard to see roots regardless of volume.
 
 While implementing this, I also split the parameters into two groups so I could graph latent parameter estimates separately from generated quantities. Should have committed this separately, but oh well.
+
+2015-12-24:
+
+Converted jagged lines into smoothers when overlaying predictive intervals onto data-vs-prediction plots. Looks much nicer.
