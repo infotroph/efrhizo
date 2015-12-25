@@ -554,3 +554,50 @@ This also requires adding new inputs: `N_pred`, `T_pred`, `tube_pred`, `depth_pr
 2015-12-13:
 
 Returning to predictive checks above: Updated `mix_tube_depth.R` to include plotting of generated quantities.
+
+Current predictive plots don't look great because Stan is fitting a positive b_depth, i.e. it thinks root volume is lower near the surface than deeper. Let's try to fix this by telling the model about our near-surface underdetection problem:
+
+* We believe the rhizotron underdetects roots near the surface, probably because of poor soil contact. I can cite a ton of papers to back this up, but I don't know of any offhand that quantified the underdetection or how deep it extends.
+* Our data seem to show that it's only be a problem very near the surface: When I plot mean tractor-core masses vs rhizotron observations at various depth, I get a ~linear relationship everywhere, but the slope is a lot lower for the 0-10 layer than for deeper ones.
+* Using the wild-guess conversion factors I developed for my ESA 2015 talk (root volume/0.78 * density = root mass, density = (0.08 for maize, 0.19 for switch, 0.20 for miscanthus, 0.15 for prairie)), the core-vs-rhizotron plots have a slope whose uncertainty more-or-less-includes 1 for all layers below 0-10, while slope is more like 0.1-0.2 in 0-10 layer.
+* ==> This implies that near the surface we're missing at least 80-90% of roots, then it rises quickly to ~complete detection by say 15 or 20 cm.
+
+So (I think) what I need to do is add a "surface effect" fudge factor to capture this depth-dependent underestimation. To do this, I want a function that
+
+* rises from ~0 at depth=~0 to ~1 at ~30
+* Is well-behaved and doesn't fly off to infinity in either direction
+* Can be estimated without too much trouble
+
+How about a logistic function, i.e. `inv_logit(x) = 1/(1+exp(-(x-location)/scale))`? (Notation seems to be inconsistent; Stan calls this "inverse logit", R calls it plain logistic ('logis').)
+
+* Takes real, returns real in [0,1], with inv_logit(location) = 0.5, `inv_logit(location - 3*scale)` about 0.05 and `inv_logit(location + 3*scale)` is about 0.95. So 90% of the distance from 0 to 1 covers about 6 scale units.
+* What priors to use for location and scale?  I
+	* If we detect ~10% of roots near surface, then surface is -log(1/0.1 - 1) = -2.19 scale units from location.
+	* If we reach "full detection" by 30 cm, let's call 95% "full" and say we're at least -log(1/0.95 - 1) = 2.94 scale units from location
+	* ==> So we've spanned 2.19+2.94 ~= 5 scale units in < 30 cm, so scale is <= 30/5 = 6.
+	* ==> location is around 2.19*6 ~= 13 cm.
+	* Does that work? test the other direction:
+
+```
+> plogis(0, 13, 6)
+[1] 0.102784
+> plogis(30, 13, 6)
+[1] 0.9444507
+```
+
+Yep, close enough.
+
+Let's keep the prior relatively weak: location ~ normal(13, 10), scale ~ normal(6, 5). This allows for enough flexibility to let the surface-effect curve pass through more or less any point in the (0<=x<=30 cm, 0<=y<=1) space while staying within 2 sds of the priors, but should penalize surface effects that extend ridiculously far into the soil (right?)
+
+NOTE: This is another "probably kinda cheating" prior: The idea that we underestimate near the surface comes from elsewhere, but all the numbers are from this dataset! Consider how to support these with evidence from elsewhere.
+
+So, to implement this: leave calculation of `mu` as it is (expected true root volume), then compute `mu_obs`  (expected volume, observed, when we detect roots at all) as a depth-dependent fraction of `mu`. Since we're working on the log scale, that's
+
+```
+mu_obs[n] = mu[n] + log(inv_logit((depth[n]-loc_surface)/scale_surface))
+```
+
+which is equivalent to saying `y_observed ~ exp(mu) * surface_effect`.
+N.B. Let's be extra-clear that I'm modeling two separate underdetection processes: First the surface effect that makes us underdetect everything, then the binary detection process AFTER this: If the surface effect makes our mean observed volume very small, then the chance of seeing zero roots is high! It might be reasonable to think of these as two spatial processes: the binary effect says roots are clumpy relative to the scale of sampling, the surface effect makes it hard to see roots regardless of volume.
+
+While implementing this, I also split the parameters into two groups so I could graph latent parameter estimates separately from generated quantities. Should have committed this separately, but oh well.

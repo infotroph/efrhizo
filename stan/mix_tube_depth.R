@@ -15,33 +15,42 @@ pred_depths = c(1, 10 , 30, 50, 75, 100, 140)
 savepars=c(
 	"a_detect",
 	"b_detect",
+	"loc_surface",
+	"scale_surface",
 	"intercept",
 	"b_depth",
 	"sig_tube",
 	"sigma",
-	"mu_mean",
+	"mu_obs_mean",
 	"y_pred",
 	"mu_pred",
+	"mu_obs_pred",
 	"detect_odds_pred",
 	"pred_tot")
-plotpars=c(
+plotpars_mod=c(
 	"a_detect",
 	"b_detect",
+	"loc_surface",
+	"scale_surface",
 	"intercept",
 	"b_depth",
 	"sig_tube",
 	"sigma",
-	"mu_mean",
+	"mu_obs_mean")
+plotpars_pred=c(
 	"y_pred[1]",
 	"y_pred[15]",
 	"y_pred[35]",
 	"mu_pred[1]",
 	"mu_pred[15]",
 	"mu_pred[35]",
+	"mu_obs_pred[1]",
+	"mu_obs_pred[15]",
+	"mu_obs_pred[35]",
 	"detect_odds_pred[1]",
 	"detect_odds_pred[15]",
 	"detect_odds_pred[35]",
-	"pred_tot")
+	"pred_tot[1]")
 
 source("../scripts/stat-prep.R") # creates data frame "strpall"
 strpall = strpall[strpall$Depth > 0,]
@@ -92,12 +101,17 @@ save(rz_mtd, file=paste0(runname, ".Rdata"))
 warnings()
 stopifnot(rz_mtd@mode == 0) # 1 or 2 = error
 
-print(rz_mtd, pars=plotpars)
+print(rz_mtd, pars=plotpars_mod)
+print(rz_mtd, pars=plotpars_pred)
 print(paste("mean of depth:", mean(rzdat$Depth)))
 
 rz_pred_mu = cbind(
 	rz_pred,
 	summary(rz_mtd, pars="mu_pred")$summary)
+
+rz_pred_mu_obs = cbind(
+	rz_pred,
+	summary(rz_mtd, pars="mu_obs_pred")$summary)
 
 # summarize zero and nonzero y values separately
 rz_pred_y = rstan::extract(rz_mtd, pars="y_pred")$y_pred
@@ -130,13 +144,20 @@ png(
 	height=1200,
 	width=1800,
 	units="px")
-print(plot(rz_mtd, pars=plotpars))
-print(traceplot(rz_mtd, pars=plotpars))
-print(traceplot(rz_mtd, inc_warmup=TRUE, pars=plotpars))
-print(pairs(rz_mtd, pars=plotpars))
-print(stan_hist(rz_mtd, pars=plotpars))
-print(stan_dens(rz_mtd, pars=plotpars))
-print(stan_ac(rz_mtd, pars=plotpars))
+print(plot(rz_mtd, pars=plotpars_mod))
+print(plot(rz_mtd, pars=plotpars_pred))
+print(traceplot(rz_mtd, pars=plotpars_mod))
+print(traceplot(rz_mtd, pars=plotpars_pred))
+print(traceplot(rz_mtd, inc_warmup=TRUE, pars=plotpars_mod))
+print(traceplot(rz_mtd, inc_warmup=TRUE, pars=plotpars_pred))
+print(pairs(rz_mtd, pars=plotpars_mod))
+print(pairs(rz_mtd, pars=plotpars_pred))
+print(stan_hist(rz_mtd, pars=plotpars_mod))
+print(stan_hist(rz_mtd, pars=plotpars_pred))
+print(stan_dens(rz_mtd, pars=plotpars_mod))
+print(stan_dens(rz_mtd, pars=plotpars_pred))
+print(stan_ac(rz_mtd, pars=plotpars_mod))
+print(stan_ac(rz_mtd, pars=plotpars_pred))
 print(stan_diag(rz_mtd))
 print(
 	ggplot(rzdat, aes(Depth, log(rootvol.mm3.mm2)))

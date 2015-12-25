@@ -44,6 +44,10 @@ parameters{
 	real a_detect;
 	real b_detect;
 
+	// Extra underdetection factor for near-surface roots
+	real loc_surface;
+	real<lower=0> scale_surface;
+
 	// for depth regression
 	real intercept;
 	real b_depth;
@@ -57,9 +61,10 @@ parameters{
 }
 
 transformed parameters{
-	vector[N] mu;
+	vector[N] mu; // E[latent mean root volume]
+	vector[N] mu_obs; // E[OBSERVED root volume], including surface effect
 	vector[N] detect_odds;
-	real mu_mean;
+	real mu_obs_mean;
 
 	for(n in 1:N){
 		// Note centered regression --
@@ -67,10 +72,12 @@ transformed parameters{
 		mu[n] <- intercept
 			+ b_tube[tube[n]]
 			+ b_depth*(log(depth[n]) - depth_logmean);
+		mu_obs[n] <- mu[n]
+			+ log(inv_logit((depth[n]-loc_surface)/scale_surface));
 	}
 	// center means for logistic regression, too
-	mu_mean <- mean(mu);
-	detect_odds <- a_detect + b_detect*(mu - mu_mean);
+	mu_obs_mean <- mean(mu_obs);
+	detect_odds <- a_detect + b_detect*(mu_obs - mu_obs_mean);
 }
 
 model{
@@ -81,16 +88,19 @@ model{
 	b_depth ~ normal(-1, 5);
 	a_detect ~ normal(0, 5);
 	b_detect ~ normal(5, 10);
+	loc_surface ~ normal(13, 10);
+	scale_surface ~ normal(6, 5);
 
 	b_tube ~ normal(0, sig_tube);
 	y_logi ~ bernoulli_logit(detect_odds);
-	segment(y, first_pos, n_pos) ~ lognormal(segment(mu, first_pos, n_pos), sigma);
+	segment(y, first_pos, n_pos) ~ lognormal(segment(mu_obs, first_pos, n_pos), sigma);
 }
 
 generated quantities{
 	real b_tube_pred[T_pred];
 	real pred_tot[T_pred];
 	real mu_pred[N_pred];
+	real mu_obs_pred[N_pred];
 	real detect_odds_pred[N_pred];
 	real y_pred[N_pred];
 
@@ -112,10 +122,13 @@ generated quantities{
 			intercept
 			+ b_tube_pred[tube_pred[n]]
 			+ b_depth * (log(depth_pred[n]) - depth_logmean);
+		mu_obs_pred[n] <-
+			mu_pred[n]
+			+ log(inv_logit((depth_pred[n]-loc_surface)/scale_surface));
 
 		detect_odds_pred[n] <- inv_logit(
-			a_detect + b_detect * (mu_pred[n] - mu_mean));
+			a_detect + b_detect * (mu_obs_pred[n] - mu_obs_mean));
 
-		y_pred[n] <- lognormal_rng(mu_pred[n], sigma) * bernoulli_rng(detect_odds_pred[n]);
+		y_pred[n] <- lognormal_rng(mu_obs_pred[n], sigma) * bernoulli_rng(detect_odds_pred[n]);
 	}
 }
