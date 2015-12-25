@@ -1,6 +1,8 @@
 #set.seed(234587)
 library(rstan)
 
+sessionInfo()
+
 runname=commandArgs(trailingOnly=TRUE)[[1]]
 
 n_subsample = 1000 # how many rows to pick from the full dataset?
@@ -189,4 +191,3 @@ print(
 	+theme_bw(48))
 dev.off()
 
-sessionInfo()

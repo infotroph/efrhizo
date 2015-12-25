@@ -605,3 +605,5 @@ While implementing this, I also split the parameters into two groups so I could 
 2015-12-24:
 
 Converted jagged lines into smoothers when overlaying predictive intervals onto data-vs-prediction plots. Looks much nicer.
+
+Moved sessionInfo() from bottom of `mix_tube_depth.R` to top -- it really should have been there all along, because it's intended as a debugging/reproducibility tool, and if it's at the bottom then any error in the script makes it exit without producing the information I might need for debugging!
