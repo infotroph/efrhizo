@@ -3,8 +3,11 @@ Observations are either 0 or lognormal:
 y_i ~ lognormal(mu_i, sigma) with probability pi_i,
 y = 0 with probability 1-phi_i
 
-Detection probability is a function of mu:
+Detection probability is a function of mu_obs:
 phi_i ~ logistic(alpha+beta*mu_i)
+
+mu_obs is a function of mu and depth (near-surface roots are harder to detect for handwavy reasons that probably include poor soil contact)
+mu_obs_i ~ mu_i * inv_logit((depth-loc_surface)/scale_surface)
 
 And mu is a function of depth and tube identity
 (and eventually some other factors I haven't added yet):
