@@ -116,7 +116,7 @@ generated quantities{
 			exp(intercept
 				- b_depth*depth_logmean
 				+ b_tube_pred[t])
-			* depth_pred_max^(b_depth+1)
+			* (depth_pred_max^(b_depth+1) - 0.1*0.1^b_depth)
 			/ (b_depth+1);
 	}
 
