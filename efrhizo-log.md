@@ -694,6 +694,7 @@ Runs as job 1668248 -- mix_tube_depth.sh, seven chains of 3000, subsampling with
 
 OK, but the full run was OK last night... what's going on?
 
-First some administratve changes to make this easier to track down. I didn't notice the wrong-script error above at first, so let's be clearer about that in the output. added lines to `mix_tube_depth.sh` and `mix_crop_tube_depth.sh` to echo script name when they start.
+First some administratve changes to make this easier to track down. I didn't notice the wrong-script error above at first, so let's be clearer about that in the output. added lines to `mix_tube_depth.sh` and `mix_crop_tube_depth.sh` to echo script name when they start. While I'm at it, made crop name-to-number mapping in `mix_crop_tube_depth.R` nicer-looking.
+
 
 

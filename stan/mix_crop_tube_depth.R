@@ -82,7 +82,9 @@ print(dput(tube_map))
 rzdat = rzdat[order(rzdat$rootvol.mm3.mm2),]
 
 print("Crop name-to-number key:")
-dput(unique(rzdat$Species))
+print(data.frame(
+	num=1:nlevels(rzdat$Species),
+	name=levels(rzdat$Species)))
 
 rz_pred = expand.grid(
 	tube=1:n_predtubes,
