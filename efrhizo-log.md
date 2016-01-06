@@ -607,3 +607,51 @@ While implementing this, I also split the parameters into two groups so I could 
 Converted jagged lines into smoothers when overlaying predictive intervals onto data-vs-prediction plots. Looks much nicer.
 
 Moved sessionInfo() from bottom of `mix_tube_depth.R` to top -- it really should have been there all along, because it's intended as a debugging/reproducibility tool, and if it's at the bottom then any error in the script makes it exit without producing the information I might need for debugging!
+
+2015-12-25:
+
+Synced current version to the cluster, ran job rz_mtd.1585115. 7 chains, 20k samples, 1000 samples warmup. Stan took 5134 to 5386 seconds, total wall time for whole script was 98m 3sec. Memory usages ~ 2.1 GB, vmem ~3.1 GB.
+
+Most chain plots look good. Intercept maybe a tad slow-mixing by eye, and ESS for intercept is 4422  (all others >> 10k) ==> Probably should run a bit longer. Visual convergence in << 500 steps,  Rhats all 1.00 ==> Burnin seems long enough.
+
+Merged git branch 'stan' back in to master -- It's time.
+
+2015-12-26:
+
+Current model looks like it produces a reasonable fit to the whole dataset. Now to allow differences between crops. Which parameters should be allowed to vary?
+
+* I believe the detection and surface-effect parameters arise from the minirhizotron method, and should not be expected to differ between crops. What would change my mind about that? 
+
+	- Detection differences could arise from species-specific differences in root visibility OTHER THAN diameter, which we already account for. Say, systematic color differences that make some crops' roots contrast more with their background. My prior belief is that there's not enough difference in root color to worry about ==> use same `a_detect` and `b_detect` estimates for whole model. 
+
+	- Surface-effect differences could come from differences in physical environment: If drying->cracking->poor tube contact->poor visibility, then maybe expect it to be worse in the crop that uses most water... but if tube motion->poor contact->poor visibility, then maybe worst in crops with most tube motion (Corn b/c working around stems for in-row tubes? Switch because trying to work through thick even stand?) Here too, my prior is that the effect is similar in all crops -- e.g. best I can tell, all crops plot on the same line in rhizo-vs-core plots (though this may be circular, because to get them on the same line I'm relying on root density assumptions that were picked partly on same basis). ==> use same `loc_surface` and `scale_surface` terms for whole model, at least at the outset.
+
+* If root mass differs between crops, intercept term will differ nearly by definition ==> Estimate 5 separate terms for `intercept`
+
+* Easy to imagine differences in root depth distribution: switchgrass is famously deep-rooted, corn supposedly pretty shallow ==> allow `b_depth` to differ between crops.
+
+* Variance is likely to differ too -- maize is in rows with tubes both in and between, early miscanthus is clumpy, switchgrass has been thick and even since beginning ==> estimate 5 separate terms for `sigma`.
+
+* Tube offsets (`b_tube`) are nested within crop ==> keep estimating one term per tube. I expect this is the parameter currently soaking up most of the variation between crops, so most `b_tube` magnitudes ought to shrink. 
+
+* Should `sig_tube` vary by crop? Probably yes, by same logic as `sigma`: with vs. between rows is a between-tube variance, clumpy roots may be either within-tube or between-tube. Allowing both to vary gives most flexibility, and I /think/ the heirarchical model will keep both terms identifiable. ==> Estimate 5 separate `sig_tube`.
+
+* `mu`, `mu_obs`, `detect_odds` are already calculated for each frame, will now use crop-specific parameters above ==> no change in number estimated.
+
+2016-01-05:
+
+Copied `mix_tube_depth.stan` to `mix_crop_tube_depth.stan`, edited to let the above parameters vary by crop. 
+
+On first run, estimates of total root volume are very long-tailed, with frequent spikes off toward +/- infinity. Looks like the problem occurs when estimated b_depth is very near -1. To stabilize, integrate from some small depth >0 instead of from exactly 0, so that when f(depth) tends toward infinity at 0 it's harder to take the whole integral along for the ride:
+
+Wolfram Alpha says the integral from p to q of `exp(a + b*log(x))` is 
+`exp(a) * (q^(b+1) - p * p^b) / (b+1)`. So let's integrate expected root volume under crop c from 0.1 to 140 as 
+
+```
+crop_tot[c] <- 
+	(exp(intercept[c] - b_depth[c]*depth_logmean)
+		* (depth_pred_max^(b_depth[c] + 1) - 0.1 * 0.1^b_depth[c]))
+	/ (b_depth[c] + 1);
+```
+
+Also: added `lp__` to tracked parameters, both here and in `mix_tube_depth.R`

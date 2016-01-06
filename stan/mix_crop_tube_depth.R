@@ -28,7 +28,11 @@ savepars=c(
 	"mu_pred",
 	"mu_obs_pred",
 	"detect_odds_pred",
-	"pred_tot", 
+	"pred_tot",
+	"crop_tot",
+	"crop_tot_diff",
+	"crop_int_diff",
+	"crop_bdepth_diff",
 	"lp__")
 plotpars_mod=c(
 	"a_detect",
@@ -40,6 +44,10 @@ plotpars_mod=c(
 	"sig_tube",
 	"sigma",
 	"mu_obs_mean",
+	"crop_tot",
+	"crop_tot_diff",
+	"crop_int_diff",
+	"crop_bdepth_diff",
 	"lp__")
 plotpars_pred=c(
 	"y_pred[1]",
@@ -73,15 +81,22 @@ print(dput(tube_map))
 
 rzdat = rzdat[order(rzdat$rootvol.mm3.mm2),]
 
+print("Crop name-to-number key:")
+dput(unique(rzdat$Species))
+
 rz_pred = expand.grid(
 	tube=1:n_predtubes,
 	depth=pred_depths)
+n_crop = length(unique(rzdat$Species))
+rz_pred$crop = (rz_pred$tube %% n_crop) + 1
 
 rz_mtd = stan(
 	data=list(
 		N=nrow(rzdat), 
 		T=length(unique(rzdat$Tube_alias)),
+		C=length(unique(rzdat$Species)),
 		tube=rzdat$Tube_alias,
+		crop=as.numeric(rzdat$Species),
 		depth=rzdat$Depth,
 		y=rzdat$rootvol.mm3.mm2,
 		y_logi=as.numeric(rzdat$rootvol.mm3.mm2 > 0),
@@ -89,9 +104,11 @@ rz_mtd = stan(
 		n_pos=length(which(rzdat$rootvol.mm3.mm2 > 0)),
 		N_pred=nrow(rz_pred),
 		T_pred=length(unique(rz_pred$tube)),
+		C_pred=length(unique(rz_pred$crop)),
 		tube_pred=rz_pred$tube,
-		depth_pred=rz_pred$depth),
-	file="mix_tube_depth.stan",
+		depth_pred=rz_pred$depth,
+		crop_pred=rz_pred$crop),
+	file="mix_crop_tube_depth.stan",
 	iter=n_iters,
 	warmup=n_warm,
 	chains=n_chains,
@@ -166,6 +183,7 @@ print(stan_diag(rz_mtd))
 print(
 	ggplot(rzdat, aes(Depth, log(rootvol.mm3.mm2)))
 	+geom_point()
+	+facet_wrap(~Species)
 	+geom_smooth(aes(depth, mean, color="pred_mu"), data=rz_pred_mu)
 	+geom_smooth(aes(depth, `2.5%`, color="pred_mu"), data=rz_pred_mu)
 	+geom_smooth(aes(depth, `97.5%`, color="pred_mu"), data=rz_pred_mu)
