@@ -15,4 +15,5 @@ module load R/3.2.0
 # ----------------Your Commands------------------- #
 SHORT_JOBID=`echo $PBS_JOBID | sed 's/\..*//'`
 echo "Starting $PBS_JOBNAME"."$SHORT_JOBID" on `date -u`
+echo "mix_crop_tube_depth.R"
 time Rscript mix_crop_tube_depth.R "$PBS_JOBNAME"."$SHORT_JOBID"

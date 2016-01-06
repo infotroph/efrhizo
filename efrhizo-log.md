@@ -655,3 +655,45 @@ crop_tot[c] <-
 ```
 
 Also: added `lp__` to tracked parameters, both here and in `mix_tube_depth.R`
+
+Uploaded to Biocluster, edited to use all rows instead of a subsample, submitted jobs for both with-crop and without-crop versions:
+
+2015-01-06:
+
+job 1661554 -- mix_tube_depth.sh. 7 chains, 20000 iterations on full dataset. Ran successfully, walltime 01:44:35, 2 GB memory. Sampling time 5365-5658 seconds. n_eff for intercept is only about 5000, others look OK. TODO: Realized while looking at output that I need to change `pred_tot` here to use same intergration-from-0.1 as with-crop version.
+
+job 1661555 -- mix_crop_tube_depth.sh. 7 chains, 20000 iterations on full dataset. All chains finished sampling in 7348-10462 seconds, then exits with error after 2:57:54 walltime:
+
+	```
+	Error in checkForRemoteErrors(val) :
+	  one node produced an error: invalid class "stanfit" object: The following variables have undefined values:  y_pred[3],The following variables have undefined values:  y_pred[8],The following variables have undefined values:  y_pred[12],The following variables have undefined values:  y_pred[13],The following variables have undefined values:  y_pred[16]
+	Calls: stan ... clusterApply -> staticClusterApply -> checkForRemoteErrors
+	Execution halted
+	```
+
+This will be tricky to track down--no stanfit object returned, info file doesn't track state of generated quantities, so I need to dig into samples.txt... which is 16 GB for each chain! 
+
+Examining headers, it looks like sample files contain ~30 lines of run-level diagnostics (Stan version, etc), then a CSV record of all 94158 (!) parameters for each iteration. Looks like the y_preds are near the end of each row, so let's extract those to look at without the rest of the file:
+
+	```
+	sed -e '/#/d' rz_mtd.1661555_samples.txt1| cut -d, -f94107- >> rz_mtd.1661555_samp1_ypred.csv
+	# [repeat for ...txt2, txt3, etc]
+	```
+
+While I wait for those to finish running, let's think harder. Ran OK with a subsample on my laptop... let's see if a subsample runs on the cluster.
+
+	```
+	git stash # rolls us back to use a 1000-observation subset for all scripts.
+	qsub mix_tube_depth.sh 
+	```
+
+(Oops, I meant to type `mix_crop_tube_depth.sh`! Didn't notice this at first until I wondered why the output had so few parameters in it.)
+
+Runs as job 1668248 -- mix_tube_depth.sh, seven chains of 3000, subsampling with n=1000. 
+	This exits with error too! 11 of 35 y_pred are "The following variables have undefined values".
+
+OK, but the full run was OK last night... what's going on?
+
+First some administratve changes to make this easier to track down. I didn't notice the wrong-script error above at first, so let's be clearer about that in the output. added lines to `mix_tube_depth.sh` and `mix_crop_tube_depth.sh` to echo script name when they start.
+
+
