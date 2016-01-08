@@ -1,5 +1,8 @@
 set.seed(2436253)
 library(rstan)
+
+sessionInfo()
+
 source("../../scripts/sim_mixdist.R")
 
 # why yes, I DID write this script before I broke sim_mixdist out into a freestanding function!
@@ -134,5 +137,3 @@ lines(
 		lo2p(cmu, fit_cis$a_detect[[2]], fit_cis$b_detect[[1]]),
 		lo2p(cmu, fit_cis$a_detect[[2]], fit_cis$b_detect[[2]])),
 	col="green")
-
-sessionInfo()
