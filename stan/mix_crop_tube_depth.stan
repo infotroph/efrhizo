@@ -125,12 +125,12 @@ model{
 
 generated quantities{
 	real b_tube_pred[T_pred];
-	real pred_tot[T_pred];
+	real<lower=0> pred_tot[T_pred];
 	real mu_pred[N_pred];
 	real mu_obs_pred[N_pred];
 	real detect_odds_pred[N_pred];
-	real y_pred[N_pred];
-	real crop_tot[C];
+	real<lower=0> y_pred[N_pred];
+	real<lower=0> crop_tot[C];
 	real crop_tot_diff[C-1];
 	real crop_int_diff[C-1];
 	real crop_bdepth_diff[C-1];

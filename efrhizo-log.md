@@ -698,3 +698,61 @@ First some administrative changes to make this easier to track down. I didn't no
 
 Edited `pred_tot` definition in `mix_tube_depth.stan` to integrate from 0.1 cm, so it matches the integration used in `mix_crop_tube_depth.stan`. Hopefully this will stabilize estimates here as well.
 
+Local runs of current version of both `mix_tube_depth.R` and `mix_crop_tube_depth.R` (1000-obs subset, 3000 iterations, 7 chains) complete with no error and look OK.
+
+Submitted runs of both scripts on cluster, should be identical conditions to local runs.
+
+	1668273 `mix_tube_depth.sh`
+		runs with no warnings
+
+	1668274 `mix_crop_tube_depth.sh`
+		Warning messages:
+		1: There were 274 divergent transitions after warmup. Increasing adapt_delta above 0.8 may help.
+		2: Examine the pairs() plot to diagnose sampling problems
+
+Let's do that again.
+1668337 `mix_tube_depth.sh`
+	No warnings
+
+1668338 `mix_crop_tube_depth.sh`
+	Warning messages:
+	1: There were 86 divergent transitions after warmup. Increasing adapt_delta above 0.8 may help.
+	2: Examine the pairs() plot to diagnose sampling problems
+
+1668340 `mix_crop_tube_depth.sh`, 5000 observations, 10000 iterations
+	Warning messages:
+	1: There were 1141 divergent transitions after warmup. Increasing adapt_delta above 0.8 may help.
+	2: Examine the pairs() plot to diagnose sampling problems
+
+1668344 `mix_tube_depth.sh`, 5000 observations, 10000 iterations
+	No warnings
+
+
+Returning to errored job 1661555. Let's look at *ypred.csv: 
+
+	* Read all into R, stitched together into one dataframe, filtered for NAs and Infs.
+	
+	* As expected, each of the y_pred parameters throwing errors (3, 8, 12, 13, 16) contains one sample where value is NaN. All occur at the very beginning of chain 3: 12 & 13 are NA on 3rd sample, 3 & 16 on 4th, 8 on 7th. 
+
+	* Some infinite values in this neighborhood of chain 3 too -- `y_pred[2]` is Inf for samples 1-2-4-5, 13 on 4, 17 on 2, 18 on 2-3-5, 22 on 7, 23 on 2, 28 on 1-4-7, 32 on 6. 
+
+	* No other chain contains any infinite or NaN values. 
+
+	* ==> I'm going to try rerunning the full model again in the hopes that I just got unlucky with starting parameters in that one chain.
+
+Since earlier test runs warned about divergent transitions after warmup, let's see if a longer warmup helps. Increased n_warm from 1000 to 3000.
+
+Submitted job 1668345: all observations, 20k iterations on 7 chains, 3000 samples warmup.
+
+	```
+	Error in checkForRemoteErrors(val) : 
+	  one node produced an error: invalid class "stanfit" object: The following variables have undefined values:  y_pred[4],The following variables have undefined values:  y_pred[9],The following variables have undefined values:  y_pred[19]
+	Calls: stan ... clusterApply -> staticClusterApply -> checkForRemoteErrors
+	Execution halted
+	```
+
+Looks like all the NaNs are, again, at the very beginning of chain 3.
+
+2015-01-07
+
+A shot in the dark: Stan script currently declares no lower bound on `y_pred`, `crop_tot`, or `pred_tot`. These ought to all be nonnegative -- would specifying that in the variable declaration help? Edited these in both `mix_tube_Depth.stan` and `mix_crop_tube_depth.stan`.

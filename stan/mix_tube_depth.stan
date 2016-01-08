@@ -101,11 +101,11 @@ model{
 
 generated quantities{
 	real b_tube_pred[T_pred];
-	real pred_tot[T_pred];
+	real<lower=0> pred_tot[T_pred];
 	real mu_pred[N_pred];
 	real mu_obs_pred[N_pred];
 	real detect_odds_pred[N_pred];
-	real y_pred[N_pred];
+	real<lower=0> y_pred[N_pred];
 
 	for(t in 1:T_pred){
 		// prediction offset for a random NEWLY OBSERVED tube.
