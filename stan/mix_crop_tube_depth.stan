@@ -105,7 +105,7 @@ transformed parameters{
 
 model{
 	// Priors, mostly derived from assuming the range of log(y) is roughly -12 to 0.
-	for(c in 1:5){
+	for(c in 1:C){
 		sig_tube[c] ~ normal(0, 3);
 		sigma[c] ~ normal(0, 3);
 		intercept[c] ~ normal(-6, 6);
