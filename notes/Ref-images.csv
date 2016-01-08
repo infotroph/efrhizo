@@ -1,0 +1,19 @@
+directory,calibration image,use for tubes numbered,notes
+EF2009-06-05,No ref images taken,,Wait for reverse-engineered calibration from other computer.
+,,,
+EF2009-06-17,EF_T097_L001_2009.06.27_173033_001_CKB.jpg,1-24 in directory EF2009-06-05,"But need conversion factor, so wait for other computer."
+,EF_T097_L025_2009.06.25_133803_001_CKB.jpg,25-30,
+,EF_T097_L031_2009.06.25_142609_001_CKB.jpg,31-48,
+,EF_T097_L049_2009.06.27_141040_001_CKB.jpg,49-72,
+,EF_T097_L073_2009.06.17_103047_001_CKB.jpg,73-80,
+,EF_T097_L081_2009.06.17_124158_001_CKB.jpg,81-92,
+,EF_T097_L093_2009.06.17_142841_001_CKB.jpg,93-96,
+,EF_T074_L115_2009.06.17_124013_001_CKB.jpg,None,"Do not use this for any calibrations, but please compare it against image 97-073; if scale differs, leave me a note here."
+,,,
+EF2009-7-24,EF_T097_L001_2009.07.24_102220_001_CKB.jpg,"1-8,21-24 ",
+,EF_T097_L011_2009.07.28_122409_001_CKB.jpg,11 only,
+,EF_T097_L021_2009.07.24_135425_001_CKB.jpg,"9-10, NOT 11, 12-20","Image is only partly on target, but should be enough visible gridlines for a usable calibration."
+,,,
+,,,
+EF2009-8-26,EF_T097_L025_2009.08.26_154828_002_CKB.jpg,25-40,
+,EF_T097_L041_2009.08.27_090647_002_CKB.jpg,41-68,

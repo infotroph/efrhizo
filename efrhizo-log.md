@@ -756,3 +756,88 @@ Looks like all the NaNs are, again, at the very beginning of chain 3.
 2015-01-07
 
 A shot in the dark: Stan script currently declares no lower bound on `y_pred`, `crop_tot`, or `pred_tot`. These ought to all be nonnegative -- would specifying that in the variable declaration help? Edited these in both `mix_tube_Depth.stan` and `mix_crop_tube_depth.stan`.
+
+Let's see if there's any intermittency to the errors from these, without waiting forever for each run to finish. Pushed changes to cluster, started three copies each of `mix_tube_depth.sh` and `mix_crop_tube_depth.sh`. All use full dataset, but only 5000 iterations, warm=1000.
+
+1668696, 1668697, 1668698: `mix_tube_depth.sh`
+1668699, 1668700, 1668701: `mix_crop_tube_depth.sh`
+
+
+A change of pace while I wait: Cleaning up some cruft in the data directory.
+	
+	* `ef20200524-Robjects.Rdata` contains objects from an old preliminary analysis of one day of data from 2010-05-24. Have already deleted all other files from this analysis, and it looks like I may well have committed this one by accident anyway. Oops.
+		==> Deleted.
+
+	* `rhizo laptop listings/` contains listings of what images existed on the field laptop at some unknown data in 2011, and has been here since I first started version-controlling the project. Many of the filenames were changed by the manual-cleanup step, so the only information that might be useful from this is "how many images once existed and did I actually copy them all onto the server?"
+		==> Keeping a copy on my archive drive just in case, but deleting this from the repository.
+
+	* `Ref-images.xls` gives some mappings from tube number to calibration image from 2009, when I hadn't yet settled on a calibration system. These could be useful if I ever want to finish tracing the 2009 images, but not until then.
+		==> Saved a CSV version of this in notes/, deleted XLS version.
+
+	* `analysis log2010-03-25.xlsx` is actually the analysis log for 2009-08-26; I bet 2010-03-25 is when AP started the tracing process. Ought to be in rawdata with the other tracing logs.
+		==> Saved a CSV version as `rawdata/analysis-log-2009-08-26.csv`, deleted XLSX version. Logged in to tracing computer and renamed it there too: from `Desktop/Energy Farm Rhizotron/analysis log2010-03-25.xls` to `Desktop/Energy Farm Rhizotron/EF2009/2009-8-26/analysis-log-2009-08-26.xls`
+
+	* `20090827/EF20090827-frametots.txt` is another leftover from old analyses. It is identical to the result of running `frametot-collect.sh` on `rawdata/winRHIZO\ 2009.8.27.txt`.
+		==> Deleted.
+
+	* `20090827/log.txt`, with some notes from tediously hand-sorting duplicate tracings and from comparing files to restore some from the backup of a crashed hard drive. This looks like information that should have been in this log all along.
+		==> Deleted, but pasting whole file here for reference:
+
+		```
+		17 March 2011, 12:35 AM
+			Analayzing 2009-08-26 EF rhizotron data (NOT NECESSARILY THE RIGHT VERSION -- I didn't check whether this is the same as the version in the restored files). Followed /Users/chrisb/UI/energy farm/rhizotron data/dataprocessing.txt through step 4, am trying to check for duplicates. Have removed "easy" dups, i.e. the ones that differ in MeasDate and MeasTime but nowhere else. Have list of tube/location combinations where dups remain. 
+			Tube 28: location 70 updated, last entry OK
+			Tube 29: Locations 5,10 updated, last entry OK
+				Location 15: Looks identical-except-date-and-time. I'm looking at the raw data rather than the set with the dups removed, so this just means the image was opened and not updated in winRhizo, right?
+				
+		17 March, 5:00 PM:
+			Comparing directory contents of restored and unrestored rhizotron data directories (user rhizotron, directory "Desktop\Energy Farm Rhizotron". For shorthand, "restored" means the version that just came out of the backup file, "orig" means the version that was on the computer before, even though in some cases the "orig" version may be newer. Woo, confusion.
+			 Note that Ahbi reports there are also some 2009 analyses on the imager computer where 2010 analysis is being done; haven't checked those yet.
+			
+			calibration:
+				2 files in restored that weren't in orig. Copied them over and now they match.
+			data:
+				"amdtest.TXT" was in restored but not orig; copied to match. All 4 now files in the directory appear to contain root length data from 2009-06-05:
+				"amdtest.TXT"
+					tubes 1 & 12
+				"EF09.TXT"
+					tubes 1 & 2
+				"eftest.TXT"
+					tube 26 loc 5, several locations form tube 97 
+				"tmp.TXT"
+					tube 1 loc 22
+			EF2009-06-05:
+				Restored version has many more .pat files, but no winrhizo file present in either version. Where is it? In data directory and extremely fragmentary, apparently.
+					pat files are from tubes 1,2, and 12.
+			EF2009-06-17:
+				Restored version has winrhizo data file and many more .pat files. 
+			EF2009-7-24:
+				identical except thumbs.db, no pat files or winrhizo data in either.
+			EF2009-8-26: only in orig
+				contains images from 44 tubes (+calibration). winrhizo file has frames from all of them.
+			EF2010-05-24: only in orig
+			EF2010-7-22: only in orig	
+			Ref-images:
+				identical
+			Session 1:
+				4 pat files differ (T1L8, T1L10, T1L11, T1L12). 99 more pat files in restored version. No winrhizo data file in either.
+			winrhizo files:
+				restored version contains "ef-winrhizo.CFG", orig doesn't. "demotest.TXT" is common to both and contains measurements for WinRhizo sample images plus 2009-06-05 tube 1. 
+			analysis log 2010-03-25: only in orig
+			analysis log.xlt: only in orig
+			calibration images.xls: only in orig
+			README.txt: only in orig
+			efrhizo-2009-06-05.xlsx: only in restored
+			efrhizo-2009-06-17.xlsx: only in restored
+			efrhizo-analysis-template.xltx: only in restored 
+		```
+
+	* `20090827/quickprocess-history-20110328.history` is an R console log from doing a now-outdated analysis. Everything I do in it is hand-rolling things that are now handled by the functions in rhizoFuncs.
+		==> Deleted.
+
+	* `2012/` contains XLS versions of analysis logs for sessions 2-6 2012, plus two XLS spreadsheets from the the ID-correction process before tracing. Most of these need further hand-transcription: Bad frames from sessions 3-6 are not yet added to censorframes2012.csv. Session 2 has been, though.
+		==> Converted `analysis log 2012-S2.xls` to `rawdata/analysis-log-2012-s2.csv`, deleted original.
+		==> Punting on other 4 analysis logs: Keeping them here is a decent reminder that need to be transcribed into censorframes2012.csv at time of moving.
+		==> Punting on preseason cleanup spreadsheets `2012 Tube Corrections with renamer.xls` and `2012 Tube Corrections.xls`. These probably ought to live in `notes/` eventually, but not moving them yet.
+
+	==> `2012/` is now the only thing in `data/` that is NOT generated by the Makefile. Updated the Readme to specify this.
