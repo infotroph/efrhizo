@@ -2,7 +2,7 @@
 
 ## Started 2015-02-25, long after the start of the repository.
 
-# 2015-02-25:
+## 2015-02-25
 
 Cleaning up uncommitted changes left from last time I worked in this directory, which was while preparing a poster for department Fall Welcome in September 2014. 
 
@@ -41,7 +41,7 @@ Manually added updated censoring for session 1; this too needs checking when I'm
 	-- check S1 frame censoring records, add them for other sessions.
 	-- copy in updated analysis logs.
 
-2015-02-26:
+## 2015-02-26
 
 censorframes2010.csv and censorframes2010.csv both had CR-only line endings (Grr, Excel). Changed these to LF and added a final newline for easier diffing later; will make other changes in a separate commit.
 
@@ -97,7 +97,7 @@ Beginning the process of moving analysis logs from Excel binary format to CSV. S
 
 * Now that the trace log is in a format we can actually see changes in, let's update it with the most recent version from the tracing computer! opened imager's version of `analysis-log-2012-s1.xls`, exported as CSV, opened in text editor, changed line endings from Cr to LF. Hooray, the only differences are the places CRS added his tracing remarks for previously untraced tubes!
 
-2015-03-05:
+## 2015-03-05
 
 Thinking more about how to get useful information out of pat files without manually loading them into Winrhizo. Theory: make a script to a Python script that will attempt to take *.pat and draw traced edges over *.jpg for human evaluation. First question will just be whether I understand the pat file format well enough to even extract pixel coordinates and segment diameters!
 
@@ -116,7 +116,7 @@ Noticed a few places where the 2012 patfiles behave a bit differently from what 
 
 Script expanded, first "working" version saved in a WIP branch. Where "working" means "writes 10-px green dots onto the one image I've tested, at what look like the right coordinates"; don't trust it much yet!
 
-2015-03-09:
+## 2015-03-09
 
 More work on showpat.py. A quick shell script to test on some 2012 images:
 
@@ -155,11 +155,11 @@ Looks like I was miscounting indexes when reading in the pat file --> coords onl
 
 Added an alternate line that traces along edges instead of in X across them, but I think I actually like the X's -- good balance between seeing what the tracer did but still being able to pick out where the root edge is in the image. Leaving the edge-trace commented out, running with X's for now.
 
-2015-03-15:
+## 2015-03-15
 
 Checking correctness of segment attributes in showpat.py -- suspect I may have some off-by-one errors hiding in the line indexes of the Segment init method. Added a Segment.ordered_values() method for debugging -- dumps segment attributes in the order they appear in the file. Appears to be working when I temporarily replace whole showpat loop with one "print_segs(pat)", but now bedtime before I've actually checked any indexes.
 
-2015-03-16:
+## 2015-03-16
 
 Now for the index checking I was aiming for yesterday. Fixed a bunch of off-by-one errors in segment line indexes. All errors I *noticed* were underreads, i.e. making me miss the last item of a list, not read the wrong line into any attribute. Note to self: `list[n:n+1]` returns a list of 1 item, not 2. 
 
@@ -179,7 +179,7 @@ Putting away patfiles for the moment to address tube offsets: Tubes are *theoret
 
 But we have another source: images from shallow-installed tubes have light showing in the aboveground frames. Precision is less good (+/- ~6 cm instead of ~1 cm), because we only save frame 1, 5, 10, 15...), and furthermore "frame 1" is inconsistent: Some operators take the image wherever the camera sits, others unlock the indexing pin and hunt for the best image of the tube number. Not sure how to deal with the precision and concistency issues yet, but for a start I will extract frames listed as "light" or "above ground" or the like from the `censorimage` tables, check them against raw images, and compile these into a spreadsheet of "deepest frame with light showing". 
 
-2015-03-17:
+## 2015-03-17
 
 Set out to compile spreadsheet mentioned yesterday, realized I don't have all the correct raw images on my laptop. Assigned TAW to do it at the rhizotron tracing computer: open each tube in WinRhizo, then for the top few frames (until clearly underground) record the offset (as % of image height, counting from top, visually assesed to closest 10%) of: 
 	
@@ -215,7 +215,7 @@ So the maximum change across a whole frame is about 3 mm, and most less-than-a-f
 
 This doesn't yet account for the less-easy cases, which will probably be most of them... after all, if the soil line is visible in frame 1 beside the target depth line, we're within at most 1.2 cm of the target depth. Still considering how to handle, say, target depth line in frame 1 and light visible in frame 5.
 
-2015-03-25:
+## 2015-03-25
 
 Checking 2011 tube offset records against paper datasheets. 
 
@@ -229,13 +229,15 @@ Checking 2011 tube offset records against paper datasheets.
 * OK, now added 2011 offsets for tubes not replaced in 2011. 2010 and 2011 offsets should now, to the extent I trust these measurements, be complete.
 * Copied incomplete 2014 offsets from `rawdata/rhizo-destructive-tubenotes.csv`. These were all measured in fall 2014 and I should go measure the rest, like, tomorrow. Added a "date" column to track this, went back and added that to 2010 and 2011 files as well. Exact measurement dates not known for 2011-03 numbers, but calling it the 14th -- that's the day we started and that's close enough.
 
-2015-03-28: The `loc.to.depth()` function in RhizoFuncs has an error in depth calculation: it is 22 cm from the top of the tube to the *center* of location 1, not to the top of it. That means `loc.to.depth(1, offset=22)` ought to equal zero, but it currently returns 2. I had been thinking of this as "depth at the bottom of the frame", but even that isn't right.
+## 2015-03-28
+
+The `loc.to.depth()` function in RhizoFuncs has an error in depth calculation: it is 22 cm from the top of the tube to the *center* of location 1, not to the top of it. That means `loc.to.depth(1, offset=22)` ought to equal zero, but it currently returns 2. I had been thinking of this as "depth at the bottom of the frame", but even that isn't right.
 
 Changed `loc.to.depth()` by internally subtracting one from the location number; think of it as "how many frames have I moved from the beginning". 
 
 _*NOTE that this will change all previously calculated depths when I rerun make!*_
 
-2015-03-29:
+## 2015-03-29
 
 Recalculated depths in all existing datafiles using the new version of `loc.to.depth`. Since the Makefile doesn't list a dependency on the rhizoFuncs functions (TODO: Should it?), I remade everything from scratch with `make clean; make`.
 
@@ -269,7 +271,7 @@ OK, I lied, no bed yet. Added calibration and data files from session 1 2014, wh
 OK, actually going to sleep now. Leaving the empty 2014 datafile as a placeholder -- as soon as it's traced, drop it in for updated graphs.
 
 
-2015-03-30:
+## 2015-03-30
 
 Found some errors in the descriptions, but not the actual calculation, of depth calculations in `notes/destructive-harvest-2014.txt`. Tubes are 30° from vertical not horizontal, and radians are degrees*2pi/360, not 2pi/260 as claimed in a few places. While I'm editing, added some line breaks and descriptions of the added/subtracted "wedges" for more clarity in the volume calculation section.
 
@@ -341,7 +343,7 @@ Comparing 2014 peak harvest tractor cores vs rhizotron images: surprisingly low 
 
 A possible angle for further investigation into near-surface underdetection: Is it an artifact of my every-five-locations sampling strategy? Take the few tubes where I did sample all locations (June & September 2014, a few in 2009, borrow images from a Leakey lab project if I need more replicates), simulate estimated root volumes when looking at all frames, every 2, every 5, (...10...etc). Check both systematic (1,5,10,15) and random ("give me 20 frames from this tube of 110") subsamples. N.B. Evan didn't seem very excited about this idea, says "focus on the biology." Point in his favor: Plenty of people see undersampling in shallow depths when they DO collect every frame.
 
-2015-04-06:
+## 2015-04-06
 
 Found two typos in `Tractor-core-biomass-2014.csv`: one 30-50 lower depth "5" where it should be "50", one 100+ lower depth empty where others are "+".
 
@@ -352,22 +354,33 @@ More typos:
 * lines 387-388: 0-10 cm and 10-30 cm layers appear to be transposed from their usual order (0-10 is below 10-30), except that the `Soil Length` column has 30 cm (typical for 0-10) above 60 cm (typical for 10-30). Swapped Soil Length, left the rest of the row as found. 
 * line 287: 0-10 cm layer with `Soil Length` listed as 60. All other lines nearby look as expected; changed to 30.
 
-2015-04-29: Did I seriously take no notes about fixing tractor core plots? Shame on me. Will try to reconstruct, but the basic insight is that for lab meeting I was NOT correctly converting tractor cores to per-cm^3 biomass -- what I showed was really (mass in this layer per unit surface area)/100, with no consideration for differing layer thicknesses. Have previously printed plot on my desk and som uncommitted changes in the script in static/, not sure if everything is there or not. I think all the calculations operated directly on columns from the tractor core file?
+## 2015-04-29
 
-2015-04-30: Found the unsaved editor window where I developed the conversion, incorporated what I think are the important parts back into figures/static/tractorcore-vs-rhizo-2014-20150331.r. Not committing changes yet -- check diff and think more about whether to make them permanent.
+Did I seriously take no notes about fixing tractor core plots? Shame on me. Will try to reconstruct, but the basic insight is that for lab meeting I was NOT correctly converting tractor cores to per-cm^3 biomass -- what I showed was really (mass in this layer per unit surface area)/100, with no consideration for differing layer thicknesses. Have previously printed plot on my desk and som uncommitted changes in the script in static/, not sure if everything is there or not. I think all the calculations operated directly on columns from the tractor core file?
 
-2015-05-05: Added some very simple stats on whether destructive harvest soil had more roots near or far from the tube.
+## 2015-04-30
 
-2015-05-06: Started methods section of manuscript in a fresh subrepository. Not sure yet if I want to keep it separate or replay commits into main repo.
+Found the unsaved editor window where I developed the conversion, incorporated what I think are the important parts back into figures/static/tractorcore-vs-rhizo-2014-20150331.r. Not committing changes yet -- check diff and think more about whether to make them permanent.
 
-2015-08-07: Added peak-season data from August 2011. Also have data from S1 (April), but only tubes 1-8 are traced; not adding these yet.
-	Tube 96 is weird: PxSizeH and PxSizeV are set to 0, which leads to strange volume-per-area calculations (some are NA, others Inf). Additionally, all roots are marked as alive, but TotVolume.mm3 does not match AliveVolume.mm3, e.g. loc 45 shows TotVolume.mm3 as 0.000 but AliveVolume.mm3 as 0.213! Assuming for the moment these are all rounding errors from the zero-sized pixels, will fix that before worrying about the volume mismatches. Added all locations from Tube 96 to censor list for now; making a note to go back and try re-exporting with Aug 4th calibration loaded correctly; hopefully this will resolve all the above weirdnesses.
+## 2015-05-05
 
-2015-08-08:
+Added some very simple stats on whether destructive harvest soil had more roots near or far from the tube.
+
+## 2015-05-06
+
+Started methods section of manuscript in a fresh subrepository. Not sure yet if I want to keep it separate or replay commits into main repo.
+
+## 2015-08-07
+
+Added peak-season data from August 2011. Also have data from S1 (April), but only tubes 1-8 are traced; not adding these yet.
+
+Tube 96 is weird: PxSizeH and PxSizeV are set to 0, which leads to strange volume-per-area calculations (some are NA, others Inf). Additionally, all roots are marked as alive, but TotVolume.mm3 does not match AliveVolume.mm3, e.g. loc 45 shows TotVolume.mm3 as 0.000 but AliveVolume.mm3 as 0.213! Assuming for the moment these are all rounding errors from the zero-sized pixels, will fix that before worrying about the volume mismatches. Added all locations from Tube 96 to censor list for now; making a note to go back and try re-exporting with Aug 4th calibration loaded correctly; hopefully this will resolve all the above weirdnesses.
+
+## 2015-08-08
 
 Updated EF2013-S1.TXT with newer version from tracing computer; contains traced data from 15 tubes not present in previous version.
 
-2015-08-10: 
+## 2015-08-10
 
 Calculation error in tractor core volumes: I was dividing total root mass by (number of cores * area per core * total core length), but total core length already contains the number of cores! Correct volume correction is (g root / cm^3) = (g root in sample)/(cm^2 per core * cm total core length).
 
@@ -377,11 +390,11 @@ Updated censor file for August 2014 readings. Will need to check a few against i
 
 Updated censor file for August 2013 readings. Will need to check a few of these as well.
 
-2015-11-16:
+## 2015-11-16
 
 In S4 2014 (2012-08-06), root length in T17 L85 was recorded as > 1500 mm -- on inspection of traced images, one node from the middle of a root seems to have somehow been moved outside the frame. Fixed that, updated tracing repo, saved updated data file in this repo, remade 2012 datasets.
 
-2015-11-17:
+## 2015-11-17
 
 Several plotting scripts still use local-script versions of the DeLucia ggplot theme and of mirror.ticks. Edited these to use the R package versions (DeLuciatoR, ggplotTicks). (Noticed because updating 2014 dataset, for the edit I'll note next, triggered a replot of the destructive-tissue analysis. Saving this fix first so all updates from that change are recorded together.)
 
@@ -389,15 +402,15 @@ In peak 2014 (2014-08-15), T71 L60 had three large parallel roots that were trac
 
 Fixed four outliers in 2012 data:
 
-	* S1 T3: L75 had a large "root" that looks to me like soil color variation. Removed it, but left some smaller roots.
-	* S5 T31: L40 & 45 had large "roots" that look to me like soil color variation. Deleted them, leaving both frames root-free. Adjusted tracing in L110 while I was at it -- traced area was larger than visible root.
-	* S6 T65: L105 had a large "root" that looks to me like soil color variation. Removed it, added a visible but untraced root in L110 while I was at it.
+* S1 T3: L75 had a large "root" that looks to me like soil color variation. Removed it, but left some smaller roots.
+* S5 T31: L40 & 45 had large "roots" that look to me like soil color variation. Deleted them, leaving both frames root-free. Adjusted tracing in L110 while I was at it -- traced area was larger than visible root.
+* S6 T65: L105 had a large "root" that looks to me like soil color variation. Removed it, added a visible but untraced root in L110 while I was at it.
 
 Candidate for deletion: Hand-compiled data file `data/2010/EF2010.05.24-corrected.csv`. Only differs from the script-compiled version in negative ways: It contains 74 frames that should be censored (most are loc 1), dates are stored in parser-unfriendly formats, and my root volume calculations are in per-cm instead of per-mm units. ==> This file has been fully replaced by the whole-season scripts. Deleted.
 
 ==> This means the hand-compiled means alongside it, `data/2010/efrhizo-cropmeans-20100524.csv` and `data/2010efrhizo-cropmeans-noblk-20100524.csv`, are also candidates for deletion: They probably use indiosyncratic units and include values from frames that ought to be censored, and recreating these from the current data would be trivial. Deleted the whole `data/2010/` directory.
 
-2015-12-02:
+## 2015-12-02
 
 Working on modeling these data in a Bayesian framework using the Stan probabalistic programming language. Have been throwing thoughts into some scratch files that I will commit soon, but the basic idea is taken from Sonderegger et al. 2013, DOI:10.1111/nph.12128 -- The key idea is to model observed root volume as a mixture of zeros (assumed to be from detection failure, not actually zero roots) and lognormally distributed nonzeros, but with the change of detection increasing as root volume increases. The expectation `mu_i` in turn depends on depth, crop, season, random tube/block effects, and whatever else I add.
 
@@ -455,7 +468,7 @@ To implement the above model, we need priors on `alpha`, `beta`, `b_0`, `b_depth
 	* Same logic as for sig_tube. Let's keep both priors the same for now.
 	* ==> Define prior as `sigma ~ normal(0,3)`.
 
-2015-12-03:
+## 2015-12-03
 
 mixture model appears to be working with depth and tube effects. Synced repository to the IGB computing cluster and ran the following jobs:
 
@@ -497,7 +510,7 @@ mixture model appears to be working with depth and tube effects. Synced reposito
 		time Rscript mix_tube_depth.R "$PBS_JOBNAME"."$PBS_JOBID"
 		```
 
-	to 
+		to 
 
 		```
 		module load R/3.2.0
@@ -515,7 +528,7 @@ mixture model appears to be working with depth and tube effects. Synced reposito
 	* Traces for all paramets are just a hair wider, but no visible shifts in location. Posterior mean table rounds a few scattered last-digits up by one, but no substantive change in posterior HPD invervals for any parameters.
 	* ==> normal(0, 3) prior seems OK. Maybe do another round of sensitivity analysis once I've settled on the final model.
 
-2015-12-06:
+## 2015-12-06
 
 Adding some predictions to the mixture model. I'm modeling visible root volume per unit image area, but the quantity I'm actually interested in is the mass of root C per unit field area. How to convert them?
 
@@ -551,7 +564,7 @@ My calculus is terrible, so last two steps are on authority of Wolfram Alpha. Bu
 
 This also requires adding new inputs: `N_pred`, `T_pred`, `tube_pred`, `depth_pred`.
 
-2015-12-13:
+## 2015-12-13
 
 Returning to predictive checks above: Updated `mix_tube_depth.R` to include plotting of generated quantities.
 
@@ -571,25 +584,23 @@ So (I think) what I need to do is add a "surface effect" fudge factor to capture
 How about a logistic function, i.e. `inv_logit(x) = 1/(1+exp(-(x-location)/scale))`? (Notation seems to be inconsistent; Stan calls this "inverse logit", R calls it plain logistic ('logis').)
 
 * Takes real, returns real in [0,1], with inv_logit(location) = 0.5, `inv_logit(location - 3*scale)` about 0.05 and `inv_logit(location + 3*scale)` is about 0.95. So 90% of the distance from 0 to 1 covers about 6 scale units.
-* What priors to use for location and scale?  I
+* What priors to use for location and scale?
 	* If we detect ~10% of roots near surface, then surface is -log(1/0.1 - 1) = -2.19 scale units from location.
 	* If we reach "full detection" by 30 cm, let's call 95% "full" and say we're at least -log(1/0.95 - 1) = 2.94 scale units from location
 	* ==> So we've spanned 2.19+2.94 ~= 5 scale units in < 30 cm, so scale is <= 30/5 = 6.
 	* ==> location is around 2.19*6 ~= 13 cm.
 	* Does that work? test the other direction:
 
-```
-> plogis(0, 13, 6)
-[1] 0.102784
-> plogis(30, 13, 6)
-[1] 0.9444507
-```
+		```
+		> plogis(0, 13, 6)
+		[1] 0.102784
+		> plogis(30, 13, 6)
+		[1] 0.9444507
+		```
 
-Yep, close enough.
-
-Let's keep the prior relatively weak: location ~ normal(13, 10), scale ~ normal(6, 5). This allows for enough flexibility to let the surface-effect curve pass through more or less any point in the (0<=x<=30 cm, 0<=y<=1) space while staying within 2 sds of the priors, but should penalize surface effects that extend ridiculously far into the soil (right?)
-
-NOTE: This is another "probably kinda cheating" prior: The idea that we underestimate near the surface comes from elsewhere, but all the numbers are from this dataset! Consider how to support these with evidence from elsewhere.
+		Yep, close enough.
+	* Let's keep the prior relatively weak: location ~ normal(13, 10), scale ~ normal(6, 5). This allows for enough flexibility to let the surface-effect curve pass through more or less any point in the (0<=x<=30 cm, 0<=y<=1) space while staying within 2 sds of the priors, but should penalize surface effects that extend ridiculously far into the soil (right?)
+	* NOTE: This is another "probably kinda cheating" prior: The idea that we underestimate near the surface comes from elsewhere, but all the numbers are from this dataset! Consider how to support these with evidence from elsewhere.
 
 So, to implement this: leave calculation of `mu` as it is (expected true root volume), then compute `mu_obs`  (expected volume, observed, when we detect roots at all) as a depth-dependent fraction of `mu`. Since we're working on the log scale, that's
 
@@ -598,17 +609,18 @@ mu_obs[n] = mu[n] + log(inv_logit((depth[n]-loc_surface)/scale_surface))
 ```
 
 which is equivalent to saying `y_observed ~ exp(mu) * surface_effect`.
+
 N.B. Let's be extra-clear that I'm modeling two separate underdetection processes: First the surface effect that makes us underdetect everything, then the binary detection process AFTER this: If the surface effect makes our mean observed volume very small, then the chance of seeing zero roots is high! It might be reasonable to think of these as two spatial processes: the binary effect says roots are clumpy relative to the scale of sampling, the surface effect makes it hard to see roots regardless of volume.
 
 While implementing this, I also split the parameters into two groups so I could graph latent parameter estimates separately from generated quantities. Should have committed this separately, but oh well.
 
-2015-12-24:
+## 2015-12-24
 
 Converted jagged lines into smoothers when overlaying predictive intervals onto data-vs-prediction plots. Looks much nicer.
 
 Moved sessionInfo() from bottom of `mix_tube_depth.R` to top -- it really should have been there all along, because it's intended as a debugging/reproducibility tool, and if it's at the bottom then any error in the script makes it exit without producing the information I might need for debugging!
 
-2015-12-25:
+## 2015-12-25
 
 Synced current version to the cluster, ran job rz_mtd.1585115. 7 chains, 20k samples, 1000 samples warmup. Stan took 5134 to 5386 seconds, total wall time for whole script was 98m 3sec. Memory usages ~ 2.1 GB, vmem ~3.1 GB.
 
@@ -616,7 +628,7 @@ Most chain plots look good. Intercept maybe a tad slow-mixing by eye, and ESS fo
 
 Merged git branch 'stan' back in to master -- It's time.
 
-2015-12-26:
+## 2015-12-26
 
 Current model looks like it produces a reasonable fit to the whole dataset. Now to allow differences between crops. Which parameters should be allowed to vary?
 
@@ -638,7 +650,7 @@ Current model looks like it produces a reasonable fit to the whole dataset. Now 
 
 * `mu`, `mu_obs`, `detect_odds` are already calculated for each frame, will now use crop-specific parameters above ==> no change in number estimated.
 
-2016-01-05:
+## 2016-01-05
 
 Copied `mix_tube_depth.stan` to `mix_crop_tube_depth.stan`, edited to let the above parameters vary by crop. 
 
@@ -658,11 +670,19 @@ Also: added `lp__` to tracked parameters, both here and in `mix_tube_depth.R`
 
 Uploaded to Biocluster, edited to use all rows instead of a subsample, submitted jobs for both with-crop and without-crop versions:
 
-2015-01-06:
+## 2016-01-06
 
-job 1661554 -- mix_tube_depth.sh. 7 chains, 20000 iterations on full dataset. Ran successfully, walltime 01:44:35, 2 GB memory. Sampling time 5365-5658 seconds. n_eff for intercept is only about 5000, others look OK. TODO: Realized while looking at output that I need to change `pred_tot` here to use same intergration-from-0.1 as with-crop version.
+* job 1661554 -- mix_tube_depth.sh. 
 
-job 1661555 -- mix_crop_tube_depth.sh. 7 chains, 20000 iterations on full dataset. All chains finished sampling in 7348-10462 seconds, then exits with error after 2:57:54 walltime:
+	7 chains, 20000 iterations on full dataset. 
+
+	Ran successfully, walltime 01:44:35, 2 GB memory. Sampling time 5365-5658 seconds. n_eff for intercept is only about 5000, others look OK. TODO: Realized while looking at output that I need to change `pred_tot` here to use same intergration-from-0.1 as with-crop version.
+
+* job 1661555 -- mix_crop_tube_depth.sh. 
+
+	7 chains, 20000 iterations on full dataset. 
+
+	All chains finished sampling in 7348-10462 seconds, then exits with error after 2:57:54 walltime:
 
 	```
 	Error in checkForRemoteErrors(val) :
@@ -689,10 +709,12 @@ While I wait for those to finish running, let's think harder. Ran OK with a subs
 
 (Oops, I meant to type `mix_crop_tube_depth.sh`! Didn't notice this at first until I wondered why the output had so few parameters in it.)
 
-Runs as job 1668248 -- mix_tube_depth.sh, seven chains of 3000, subsampling with n=1000. 
-	This exits with error too! 11 of 35 y_pred are "The following variables have undefined values".
+Runs as job 1668248:
 
-OK, but the full run was OK last night... what's going on?
+* mix_tube_depth.sh, seven chains of 3000, subsampling with n=1000.
+* This exits with error too! 11 of 35 y_pred are "The following variables have undefined values".
+
+OK, but the full run of `mix_tube_depth.sh` was OK last night... what's going on?
 
 First some administrative changes to make this easier to track down. I didn't notice the wrong-script error above at first, so let's be clearer about that in the output. added lines to `mix_tube_depth.sh` and `mix_crop_tube_depth.sh` to echo script name when they start. While I'm at it, made crop name-to-number mapping in `mix_crop_tube_depth.R` nicer-looking.
 
@@ -702,142 +724,167 @@ Local runs of current version of both `mix_tube_depth.R` and `mix_crop_tube_dept
 
 Submitted runs of both scripts on cluster, should be identical conditions to local runs.
 
-	1668273 `mix_tube_depth.sh`
-		runs with no warnings
+* 1668273 `mix_tube_depth.sh`
 
-	1668274 `mix_crop_tube_depth.sh`
-		Warning messages:
-		1: There were 274 divergent transitions after warmup. Increasing adapt_delta above 0.8 may help.
-		2: Examine the pairs() plot to diagnose sampling problems
+	runs with no warnings
+
+* 1668274 `mix_crop_tube_depth.sh`
+
+	```
+	Warning messages:
+	1: There were 274 divergent transitions after warmup. Increasing adapt_delta above 0.8 may help.
+	2: Examine the pairs() plot to diagnose sampling problems
+	```
 
 Let's do that again.
-1668337 `mix_tube_depth.sh`
+
+* 1668337 `mix_tube_depth.sh`
+
 	No warnings
 
-1668338 `mix_crop_tube_depth.sh`
+* 1668338 `mix_crop_tube_depth.sh`
+
+	```
 	Warning messages:
 	1: There were 86 divergent transitions after warmup. Increasing adapt_delta above 0.8 may help.
 	2: Examine the pairs() plot to diagnose sampling problems
+	```
 
-1668340 `mix_crop_tube_depth.sh`, 5000 observations, 10000 iterations
+* 1668340 `mix_crop_tube_depth.sh`
+
+	5000 observations, 10000 iterations
+
+	```
 	Warning messages:
 	1: There were 1141 divergent transitions after warmup. Increasing adapt_delta above 0.8 may help.
 	2: Examine the pairs() plot to diagnose sampling problems
+	```
 
-1668344 `mix_tube_depth.sh`, 5000 observations, 10000 iterations
+* 1668344 `mix_tube_depth.sh`
+
+	5000 observations, 10000 iterations
+
 	No warnings
 
 
-Returning to errored job 1661555. Let's look at *ypred.csv: 
+Returning to errored job 1661555. Let's look at *ypred.csv:
 
-	* Read all into R, stitched together into one dataframe, filtered for NAs and Infs.
-	
-	* As expected, each of the y_pred parameters throwing errors (3, 8, 12, 13, 16) contains one sample where value is NaN. All occur at the very beginning of chain 3: 12 & 13 are NA on 3rd sample, 3 & 16 on 4th, 8 on 7th. 
-
-	* Some infinite values in this neighborhood of chain 3 too -- `y_pred[2]` is Inf for samples 1-2-4-5, 13 on 4, 17 on 2, 18 on 2-3-5, 22 on 7, 23 on 2, 28 on 1-4-7, 32 on 6. 
-
-	* No other chain contains any infinite or NaN values. 
-
-	* ==> I'm going to try rerunning the full model again in the hopes that I just got unlucky with starting parameters in that one chain.
+* Read all into R, stitched together into one dataframe, filtered for NAs and Infs.
+* As expected, each of the y_pred parameters throwing errors (3, 8, 12, 13, 16) contains one sample where value is NaN. All occur at the very beginning of chain 3: 12 & 13 are NA on 3rd sample, 3 & 16 on 4th, 8 on 7th.
+* Some infinite values in this neighborhood of chain 3 too -- `y_pred[2]` is Inf for samples 1-2-4-5, 13 on 4, 17 on 2, 18 on 2-3-5, 22 on 7, 23 on 2, 28 on 1-4-7, 32 on 6.
+* No other chain contains any infinite or NaN values.
+* ==> I'm going to try rerunning the full model again in the hopes that I just got unlucky with starting parameters in that one chain.
 
 Since earlier test runs warned about divergent transitions after warmup, let's see if a longer warmup helps. Increased n_warm from 1000 to 3000.
 
 Submitted job 1668345: all observations, 20k iterations on 7 chains, 3000 samples warmup.
 
-	```
 	Error in checkForRemoteErrors(val) : 
 	  one node produced an error: invalid class "stanfit" object: The following variables have undefined values:  y_pred[4],The following variables have undefined values:  y_pred[9],The following variables have undefined values:  y_pred[19]
 	Calls: stan ... clusterApply -> staticClusterApply -> checkForRemoteErrors
 	Execution halted
-	```
 
 Looks like all the NaNs are, again, at the very beginning of chain 3.
 
-2015-01-07
+## 2016-01-07
 
 A shot in the dark: Stan script currently declares no lower bound on `y_pred`, `crop_tot`, or `pred_tot`. These ought to all be nonnegative -- would specifying that in the variable declaration help? Edited these in both `mix_tube_Depth.stan` and `mix_crop_tube_depth.stan`.
 
 Let's see if there's any intermittency to the errors from these, without waiting forever for each run to finish. Pushed changes to cluster, started three copies each of `mix_tube_depth.sh` and `mix_crop_tube_depth.sh`. All use full dataset, but only 5000 iterations, warm=1000.
 
-1668696, 1668697, 1668698: `mix_tube_depth.sh`
-1668699, 1668700, 1668701: `mix_crop_tube_depth.sh`
+* 1668696, 1668697, 1668698: `mix_tube_depth.sh`
+* 1668699, 1668700, 1668701: `mix_crop_tube_depth.sh`
 
 
 A change of pace while I wait: Cleaning up some cruft in the data directory.
-	
-	* `ef20200524-Robjects.Rdata` contains objects from an old preliminary analysis of one day of data from 2010-05-24. Have already deleted all other files from this analysis, and it looks like I may well have committed this one by accident anyway. Oops.
-		==> Deleted.
 
-	* `rhizo laptop listings/` contains listings of what images existed on the field laptop at some unknown data in 2011, and has been here since I first started version-controlling the project. Many of the filenames were changed by the manual-cleanup step, so the only information that might be useful from this is "how many images once existed and did I actually copy them all onto the server?"
-		==> Keeping a copy on my archive drive just in case, but deleting this from the repository.
+* `ef20200524-Robjects.Rdata` contains objects from an old preliminary analysis of one day of data from 2010-05-24. Have already deleted all other files from this analysis, and it looks like I may well have committed this one by accident anyway. Oops.
 
-	* `Ref-images.xls` gives some mappings from tube number to calibration image from 2009, when I hadn't yet settled on a calibration system. These could be useful if I ever want to finish tracing the 2009 images, but not until then.
-		==> Saved a CSV version of this in notes/, deleted XLS version.
+	==> Deleted.
 
-	* `analysis log2010-03-25.xlsx` is actually the analysis log for 2009-08-26; I bet 2010-03-25 is when AP started the tracing process. Ought to be in rawdata with the other tracing logs.
-		==> Saved a CSV version as `rawdata/analysis-log-2009-08-26.csv`, deleted XLSX version. Logged in to tracing computer and renamed it there too: from `Desktop/Energy Farm Rhizotron/analysis log2010-03-25.xls` to `Desktop/Energy Farm Rhizotron/EF2009/2009-8-26/analysis-log-2009-08-26.xls`
+* `rhizo laptop listings/` contains listings of what images existed on the field laptop at some unknown data in 2011, and has been here since I first started version-controlling the project. Many of the filenames were changed by the manual-cleanup step, so the only information that might be useful from this is "how many images once existed and did I actually copy them all onto the server?"
 
-	* `20090827/EF20090827-frametots.txt` is another leftover from old analyses. It is identical to the result of running `frametot-collect.sh` on `rawdata/winRHIZO\ 2009.8.27.txt`.
-		==> Deleted.
+	==> Keeping a copy on my archive drive just in case, but deleting this from the repository.
 
-	* `20090827/log.txt`, with some notes from tediously hand-sorting duplicate tracings and from comparing files to restore some from the backup of a crashed hard drive. This looks like information that should have been in this log all along.
-		==> Deleted, but pasting whole file here for reference:
+* `Ref-images.xls` gives some mappings from tube number to calibration image from 2009, when I hadn't yet settled on a calibration system. These could be useful if I ever want to finish tracing the 2009 images, but not until then.
 
-		```
-		17 March 2011, 12:35 AM
-			Analayzing 2009-08-26 EF rhizotron data (NOT NECESSARILY THE RIGHT VERSION -- I didn't check whether this is the same as the version in the restored files). Followed /Users/chrisb/UI/energy farm/rhizotron data/dataprocessing.txt through step 4, am trying to check for duplicates. Have removed "easy" dups, i.e. the ones that differ in MeasDate and MeasTime but nowhere else. Have list of tube/location combinations where dups remain. 
-			Tube 28: location 70 updated, last entry OK
-			Tube 29: Locations 5,10 updated, last entry OK
-				Location 15: Looks identical-except-date-and-time. I'm looking at the raw data rather than the set with the dups removed, so this just means the image was opened and not updated in winRhizo, right?
-				
-		17 March, 5:00 PM:
-			Comparing directory contents of restored and unrestored rhizotron data directories (user rhizotron, directory "Desktop\Energy Farm Rhizotron". For shorthand, "restored" means the version that just came out of the backup file, "orig" means the version that was on the computer before, even though in some cases the "orig" version may be newer. Woo, confusion.
-			 Note that Ahbi reports there are also some 2009 analyses on the imager computer where 2010 analysis is being done; haven't checked those yet.
+	==> Saved a CSV version of this in `notes/`, deleted XLS version.
+
+* `analysis log2010-03-25.xlsx` is actually the analysis log for 2009-08-26; I bet 2010-03-25 is when AP started the tracing process. Ought to be in rawdata with the other tracing logs.
+
+	==> Saved a CSV version as `rawdata/analysis-log-2009-08-26.csv`, deleted XLSX version. Logged in to tracing computer and renamed it there too: from `Desktop/Energy Farm Rhizotron/analysis log2010-03-25.xls` to `Desktop/Energy Farm Rhizotron/EF2009/2009-8-26/analysis-log-2009-08-26.xls`
+
+* `20090827/EF20090827-frametots.txt` is another leftover from old analyses. It is identical to the result of running `frametot-collect.sh` on `rawdata/winRHIZO\ 2009.8.27.txt`.
+
+	==> Deleted.
+
+* `20090827/log.txt`, with some notes from tediously hand-sorting duplicate tracings and from comparing files to restore some from the backup of a crashed hard drive. This looks like information that should have been in this log all along.
+
+	==> Deleted, but pasting whole file here for reference:
+
+	```
+	17 March 2011, 12:35 AM
+		Analayzing 2009-08-26 EF rhizotron data (NOT NECESSARILY THE RIGHT VERSION -- I didn't check whether this is the same as the version in the restored files). Followed /Users/chrisb/UI/energy farm/rhizotron data/dataprocessing.txt through step 4, am trying to check for duplicates. Have removed "easy" dups, i.e. the ones that differ in MeasDate and MeasTime but nowhere else. Have list of tube/location combinations where dups remain. 
+		Tube 28: location 70 updated, last entry OK
+		Tube 29: Locations 5,10 updated, last entry OK
+			Location 15: Looks identical-except-date-and-time. I'm looking at the raw data rather than the set with the dups removed, so this just means the image was opened and not updated in winRhizo, right?
 			
-			calibration:
-				2 files in restored that weren't in orig. Copied them over and now they match.
-			data:
-				"amdtest.TXT" was in restored but not orig; copied to match. All 4 now files in the directory appear to contain root length data from 2009-06-05:
-				"amdtest.TXT"
-					tubes 1 & 12
-				"EF09.TXT"
-					tubes 1 & 2
-				"eftest.TXT"
-					tube 26 loc 5, several locations form tube 97 
-				"tmp.TXT"
-					tube 1 loc 22
-			EF2009-06-05:
-				Restored version has many more .pat files, but no winrhizo file present in either version. Where is it? In data directory and extremely fragmentary, apparently.
-					pat files are from tubes 1,2, and 12.
-			EF2009-06-17:
-				Restored version has winrhizo data file and many more .pat files. 
-			EF2009-7-24:
-				identical except thumbs.db, no pat files or winrhizo data in either.
-			EF2009-8-26: only in orig
-				contains images from 44 tubes (+calibration). winrhizo file has frames from all of them.
-			EF2010-05-24: only in orig
-			EF2010-7-22: only in orig	
-			Ref-images:
-				identical
-			Session 1:
-				4 pat files differ (T1L8, T1L10, T1L11, T1L12). 99 more pat files in restored version. No winrhizo data file in either.
-			winrhizo files:
-				restored version contains "ef-winrhizo.CFG", orig doesn't. "demotest.TXT" is common to both and contains measurements for WinRhizo sample images plus 2009-06-05 tube 1. 
-			analysis log 2010-03-25: only in orig
-			analysis log.xlt: only in orig
-			calibration images.xls: only in orig
-			README.txt: only in orig
-			efrhizo-2009-06-05.xlsx: only in restored
-			efrhizo-2009-06-17.xlsx: only in restored
-			efrhizo-analysis-template.xltx: only in restored 
-		```
+	17 March, 5:00 PM:
+		Comparing directory contents of restored and unrestored rhizotron data directories (user rhizotron, directory "Desktop\Energy Farm Rhizotron". For shorthand, "restored" means the version that just came out of the backup file, "orig" means the version that was on the computer before, even though in some cases the "orig" version may be newer. Woo, confusion.
+		 Note that Ahbi reports there are also some 2009 analyses on the imager computer where 2010 analysis is being done; haven't checked those yet.
+		
+		calibration:
+			2 files in restored that weren't in orig. Copied them over and now they match.
+		data:
+			"amdtest.TXT" was in restored but not orig; copied to match. All 4 now files in the directory appear to contain root length data from 2009-06-05:
+			"amdtest.TXT"
+				tubes 1 & 12
+			"EF09.TXT"
+				tubes 1 & 2
+			"eftest.TXT"
+				tube 26 loc 5, several locations form tube 97 
+			"tmp.TXT"
+				tube 1 loc 22
+		EF2009-06-05:
+			Restored version has many more .pat files, but no winrhizo file present in either version. Where is it? In data directory and extremely fragmentary, apparently.
+				pat files are from tubes 1,2, and 12.
+		EF2009-06-17:
+			Restored version has winrhizo data file and many more .pat files. 
+		EF2009-7-24:
+			identical except thumbs.db, no pat files or winrhizo data in either.
+		EF2009-8-26: only in orig
+			contains images from 44 tubes (+calibration). winrhizo file has frames from all of them.
+		EF2010-05-24: only in orig
+		EF2010-7-22: only in orig	
+		Ref-images:
+			identical
+		Session 1:
+			4 pat files differ (T1L8, T1L10, T1L11, T1L12). 99 more pat files in restored version. No winrhizo data file in either.
+		winrhizo files:
+			restored version contains "ef-winrhizo.CFG", orig doesn't. "demotest.TXT" is common to both and contains measurements for WinRhizo sample images plus 2009-06-05 tube 1. 
+		analysis log 2010-03-25: only in orig
+		analysis log.xlt: only in orig
+		calibration images.xls: only in orig
+		README.txt: only in orig
+		efrhizo-2009-06-05.xlsx: only in restored
+		efrhizo-2009-06-17.xlsx: only in restored
+		efrhizo-analysis-template.xltx: only in restored 
+	```
 
-	* `20090827/quickprocess-history-20110328.history` is an R console log from doing a now-outdated analysis. Everything I do in it is hand-rolling things that are now handled by the functions in rhizoFuncs.
-		==> Deleted.
+* `20090827/quickprocess-history-20110328.history` is an R console log from doing a now-outdated analysis. Everything I do in it is hand-rolling things that are now handled by the functions in rhizoFuncs.
 
-	* `2012/` contains XLS versions of analysis logs for sessions 2-6 2012, plus two XLS spreadsheets from the the ID-correction process before tracing. Most of these need further hand-transcription: Bad frames from sessions 3-6 are not yet added to censorframes2012.csv. Session 2 has been, though.
-		==> Converted `analysis log 2012-S2.xls` to `rawdata/analysis-log-2012-s2.csv`, deleted original.
-		==> Punting on other 4 analysis logs: Keeping them here is a decent reminder that need to be transcribed into censorframes2012.csv at time of moving.
-		==> Punting on preseason cleanup spreadsheets `2012 Tube Corrections with renamer.xls` and `2012 Tube Corrections.xls`. These probably ought to live in `notes/` eventually, but not moving them yet.
+	==> Deleted.
 
-	==> `2012/` is now the only thing in `data/` that is NOT generated by the Makefile. Updated the Readme to specify this.
+* `2012/` contains XLS versions of analysis logs for sessions 2-6 2012, plus two XLS spreadsheets from the the ID-correction process before tracing. Most of these need further hand-transcription: Bad frames from sessions 3-6 are not yet added to censorframes2012.csv. Session 2 has been, though.
+
+	==> Converted `analysis log 2012-S2.xls` to `rawdata/analysis-log-2012-s2.csv`, deleted original.
+
+	==> Punting on other 4 analysis logs: Keeping them here is a decent reminder that need to be transcribed into censorframes2012.csv at time of moving.
+
+	==> Punting on preseason cleanup spreadsheets `2012 Tube Corrections with renamer.xls` and `2012 Tube Corrections.xls`. These probably ought to live in `notes/` eventually, but not moving them yet.
+
+==> `2012/` is now the only thing in `data/` that is NOT generated by the Makefile. Updated the Readme to specify this.
+
+## 2016-01-09
+
+Edited this log to correct some Markdown formatting errors: Mostly unifying all datestamps as H2, some list display issues, plus corrected a few 2015/2016 date errors (all from this week) that I found in the process.
