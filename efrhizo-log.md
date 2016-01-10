@@ -888,3 +888,9 @@ A change of pace while I wait: Cleaning up some cruft in the data directory.
 ## 2016-01-09
 
 Edited this log to correct some Markdown formatting errors: Mostly unifying all datestamps as H2, some list display issues, plus corrected a few 2015/2016 date errors (all from this week) that I found in the process.
+
+Added censored frames from 2012-S3 to `rawdata/censorframes2012.csv`, exported analysis log from `data/2012/analysis log 2012-s3.xls` to `rawdata/analysis-log-2012-s3.csv`---No, hold up. 
+
+Actually exported from `~/UI/ef-tracing/EF2012_T1-53/analysis-log-2012-s3.xls`, which is identical to the one in `data/2012/` except that I already converted dates from "yyy.mm.dd" to "yyyy-mm-dd" like I want in the CSV version.
+
+Deleted `data/2012/analysis log 2012-s3.xls`.

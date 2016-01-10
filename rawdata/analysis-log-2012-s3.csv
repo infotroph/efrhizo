@@ -1,0 +1,97 @@
+Crop,Block,Tube number,Label code,Date imaged,Field Tech,Date Analyzed,Lab tech,Calibration image,Bad frames?,Deepest roots,# frames with roots,Notes
+Corn,0,1,0C1,2012-06-22,LYF,2013-07-12,CRS,06_22,L005 above ground,110,17,"All images are black and white, hard to tell scratches and soil texture from roots; L005 above ground; L105 water streak determined to not be a root"
+Corn,0,2,0C2,2012-06-22,LYF,2013-07-12,CRS,06_22,L005 scratched,100,16,"All images are black and white; L005 scratched and multi-textered soil has small, indescernable roots; L065 has tons of root hairs but too blurred to trace (normal roots traced)"
+Corn,0,3,0C3,2012-06-22,LYF,2013-07-12,CRS,06_22,0,95,15,
+Corn,0,4,0C4,2012-06-22,LYF,2013-07-12,CRS,06_22,,65,12,
+Corn,0,5,0C5,2012-06-22,LYF,2013-07-22,CRS,06_22,,60,10,"All images are black and white; L095+ out of focus/watery, but no roots visible"
+Corn,0,6,0C6,2012-06-22,LYF,2013-07-23,CRS,06_22,L070 blur,65,10,All images are black and white
+Corn,0,7,0C7,2012-06-22,LYF,2013-07-23,CRS,06_22,L080 blur,70,10,All images are black and white
+Corn,0,8,0C8,2012-06-22,LYF,2013-07-23,CRS,06_22,L070-80 blur,95,12,L010 is black and white
+Corn,1,9,1C1,2012-06-20,TAW,2013-07-16,JNR,06_20,,85,9,
+Corn,1,10,1C2,2012-06-20,TAW,2013-07-16,JNR,06_20,,75,15,
+Corn,1,11,1C3,2012-06-20,TAW,2013-07-16,JNR,06_20,,90,14,
+Corn,1,12,1C4,2012-06-20,TAW,2013-07-16,JNR,06_20,,75,12,
+Corn,2,13,2C1,2012-06-20,TAW,2013-07-17,JNR,06_20,,90,5,
+Corn,2,14,2C2,2012-06-20,TAW,2013-07-17,JNR,06_20,,95,12,
+Corn,2,15,2C3,2012-06-20,TAW,2013-07-17,JNR,06_20,,80,7,
+Corn,2,16,2C4,2012-06-20,TAW,2013-07-17,JNR,06_20,,85,16,
+Corn,3,17,3C1,2012-06-20,TAW,2013-07-23,CRS,06_20,"L025 blur/covered; L095,105 blur",90,14,L025 is blurred and half the tube is covered by dirt
+Corn,3,18,3C2,2012-06-20,TAW,2013-07-23,CRS,06_20,"L015,60 blur",80,10,Tube is low bat
+Corn,3,19,3C3,2012-06-21,TAW,2013-07-24,CRS,06_21,,70,9,Finally some good tubes!
+Corn,3,20,3C4,2012-06-20,TAW,2013-07-24,CRS,06_20,L005 above ground,90,13,"I spoke too soonÉ tube is low bat; L070 has tons of small roots,  only ones with clear dimensions traced"
+Corn,4,21,4C1,2012-06-21,LYF,2013-07-17,JNR,06_21,L010 too blurry but has roots,95,14,blurry root frame included in frames with roots count.
+Corn,4,22,4C1,2012-06-21,LYF,2013-07-17,JNR,06_21,,85,4,L001 and L005 above ground
+Corn,4,23,4C3,2012-06-21,LYF,2013-07-17,JNR,06_21,L005 is too blurry,90,5,
+Corn,4,24,4C4,2012-06-21,LYF,2013-07-17,JNR,06_21,L001-L015 all blue screen.,95,4,L001-L015 blue screen
+Miscanthus,0,25,0M1,2012-06-22,LYF,2013-07-24,CRS,06_22,"L001 above ground, L005 is label; L040-50, 90-105 water",85,11,All images are black and white; L005 above ground; L090-105 water
+Miscanthus,0,26,0M3,2012-06-22,LYF,2013-07-24,CRS,06_22,"L105,110 scratches",100,12,All images are black and white
+Miscanthus,0,27,0M5,2012-06-22,LYF,2013-07-24,CRS,06_22,"L020,110 root dimensions not clear; L060 blur;",105,14,labeled 30; All images are black and white; L005 some roots behind soil but can't discern dimensions bcus no color (1 traced and image counted as good); L020 has too many textures to trace with black and white
+Miscanthus,0,28,0M6,2012-06-22,LYF,2013-07-25,CRS,06_22,"L005 above ground; L065,75 blur",110,15,"All images are black and white; L080 tube cracked but image good; L060+ has fog or something, reducing ability to find roots by that much more. If the camera were low bat we'd have the trifecta"
+Miscanthus,0,29,0M7,2012-06-22,LYF,2013-07-25,CRS,06_22,L090 water ,100,15,White things at L030 not roots (or atleast not well enough defined to be traced)
+Miscanthus,0,30,0M9,2012-06-22,LYF,2012-07-25,CRS,06_22,,110,17,Water streak L010 looks like root
+Miscanthus,0,31,0M10,2012-06-22,LYF,2012-07-25,CRS,06_22,,110,15,
+Miscanthus,0,32,0M11,2012-06-22,LYF,2012-07-25,CRS,06_22,,110,21,
+Miscanthus,1,33,1M1,2012-06-20,TAW,2013-07-17,JNR,06_20,,100,16,
+Miscanthus,1,34,1M2,2012-06-20,TAW,2013-07-17,JNR,06_20,,100,13,
+Miscanthus,1,35,1M4,2012-06-20,TAW,2013-07-17,JNR,06_20,L040-L045 blurry,95,10,labeled 1m4ÉL001 above ground  (L040 and L045 included in root count)
+Miscanthus,1,36,1M4,2012-06-20,TAW,2013-07-17,JNR,06_20,L035 blurry,90,8,L001 above ground
+Miscanthus,2,37,2M1,2012-06-20,TAW,2013-07-17,JNR,06_20,,100,16,
+Miscanthus,2,38,2M2,2012-06-20,TAW,2013-07-17,JNR,06_20,,80,15,L001 above ground
+Miscanthus,2,39,2M3,2012-06-20,TAW,2013-07-17,JNR,06_20,,85,13,L001-L010 ducktaped
+Miscanthus,2,40,2M4,2012-06-20,TAW,2013-07-17,JNR,06_20,,95,13,
+Miscanthus,3,41,3M1,2012-06-20,TAW,2013-07-25,CRS,06_20,"L005 above ground; L030, 80, 90, 95 ,110 blur",105,13,"Tube is low bat; either bcus of low bat or out of focus, but the whole tube is slightly fuzzy-- still can trace most except for small roots"
+Miscanthus,3,42,3M2,2012-06-20,TAW,2013-07-25,CRS,06_20,"L010, 70-85, 100, 105 blur; L100 barely blurry but can't discern the sides of 50% of the roots (throw out)",110,13,Tube is low bat
+Miscanthus,3,43,3M3,2012-06-20,TAW,2013-07-25,CRS,06_20,"L060-70, 80, 85, blur; 75 blur, but roots underestimated pretty well (decide if bad or not); L090 blur but large white root across screen traced (can't see small roots, decide if bad or not); L110 blur, can't see small root edges (not traced)",90,9,"*** Consider tossing out L060+, most are too blurry to see small roots, but some have big roots (see ""Bad frames"" AND notes >> Tube is low bat; L010 has scratch down middle (not a root, looks to be in the foreground [hah, get it? Ground]); L035 low flash (but nice white root)-- pic still good"
+Miscanthus,3,44,3M4,2012-06-20,TAW,2013-07-25,CRS,06_20,"L005 above ground; L075, 95, 105 blur",110,14," Tube is low bat; again, everything is a little blurry"
+Miscanthus,4,45,4M1,2012-06-21,LYF,2013-07-17,JNR,06_21,,100,16,
+Miscanthus,4,46,4M2,2012-06-21,LYF,2013-07-17,JNR,06_21,L100 is blurry but no roots,90,6,
+Miscanthus,4,47,4M3,2012-06-21,LYF,2013-07-18,JNR,06_21,,95,14,
+Miscanthus,4,48,4M4,2012-06-21,,2013-07-18,JNR,06_21,,100,16,
+Switch,0,49,0S2,2012-06-22,LYF,2013-07-26,CRS,06_22,,110,20,All images are black and white
+Switch,0,50,0S3,2012-06-22,LYF,2013-07-26,CRS,06_22,L090-110 half/whole frames covered in dirt,85,14,All images are black and white
+Switch,0,51,0S5,2012-06-22,LYF,2013-07-26,CRS,06_22,L005 above ground; L010 daylight; L105 blur,110,12,"L020,25 low bat"
+Switch,0,52,0S6,2012-06-22,LYF,2013-07-26,CRS,06_22,"L005 above ground; L025,105 blur",110,16,
+Switch,0,53,0S8,2012-06-22,LYF,2013-07-26,CRS,06_22,,110,22,
+Switch,0,54,0S9,2012-06-22,LYF,2013-07-29,CRS,06_22,"L015 half covered; L080-100 water; L095,100 tube cracked",110,15,"All images are black and white; L060 has some water, but no white roots visible behind it anyways; Medium water damage/vapor L080+, but no small roots can be seen since it's black and white (throw out)"
+Switch,0,55,0S12,2012-06-22,LYF,2013-07-29,CRS,06_22,,105,21,labeled 0s12; L015 large water streak not a root
+Switch,0,56,0S12,2012-06-22,LYF,2013-08-16,CRS,06_22,"L010, 15 fuzzy",100,19,"Top of this tube is pretty fuzzy (ex L020), traced what I could"
+Switch,1,57,1S1,2012-06-20,TAW,2013-07-18,JNR,06_20,,95,15,
+Switch,1,58,1S2,2012-06-20,TAW,2013-07-18,JNR,06_20,L050 and L070 has roots but blurry,100,20,
+Switch,1,59,1S3,2012-06-20,TAW,2013-07-18,JNR,06_20,L045 has roots but is blurry,85,3,L001-L010 above ground
+Switch,1,60,1S4,2012-06-20,TAW,2013-07-19,JNR,06_20,,100,16,
+Switch,2,61,2S1,2012-06-20,TAW,2013-07-19,JNR,06_20,,85,13,
+Switch,2,62,2S2,,,,JNR,,,,,Does not exist
+Switch,2,63,2S3,2012-06-20,TAW,2013-07-19,JNR,06_20,,85,15,
+Switch,2,64,2S4,2012-06-20,TAW,2013-07-19,JNR,06_20,,100,18,L001 above ground (full frame)
+Switch,3,65,3S1,2012-06-20,TAW,2013-08-16,CRS,06_20,L045 water,110,17,
+Switch,3,66,3S2,2012-06-20,TAW,2013-08-16,CRS,06_20,L035 water; L090 too faint; 110 dirt on inside; L060-95 almost no roots (but images good),10,,"Tube is low bat, gets bad after 60"
+Switch,3,67,3S3,2012-06-20,TAW,2013-08-16,CRS,06_20,L005 tape,85,9,Tube is low bat; L060+ are all extremely fuzzy from low bat
+Switch,3,68,3S4,2012-06-20,TAW,2013-08-16,CRS,06_20,L005 tape,90,17,Tube is low bat
+Switch,4,69,4S1,2012-06-21,LYF,2013-07-19,JNR,06_21,,90,17,Black and white pictures
+Switch,4,70,4S2,2012-06-21,LYF,2013-07-22,JNR,06_21,Too blurry due to water dropplets (Multiple locations),100,,Check over tube to see which frames can be recorded
+Switch,4,71,4S3,2012-06-21,LYF,2013-07-22,JNR,06_21,L090 and L100 too blurry,100,15,Black and white pictures
+Switch,4,72,4S4,2012-06-21,LYF,2013-07-22,JNR,06_21,"L040 is half too blurry.  L050 may be too blurry from water, check.",110,22,Check L040 and L050 (have roots and are counted in total roots number)
+Prairie,0,73,0P2,2012-06-21,LYF,2013-08-16,CRS,06_21,L001 bluescreen,105,21,
+Prairie,0,74,0P3,2012-06-21,LYF,2013-08-19,CRS,06_21,,95,14,L080 top half colored bottom half blackandwhite
+Prairie,0,75,0P5,2012-06-21,LYF,2013-08-19,CRS,06_21,,110,18,
+Prairie,0,76,0P6,2012-06-22,LYF,2013-08-19,CRS,06_22,,110,18,
+Prairie,0,77,0P7,2012-06-22,LYF,2013-08-19,CRS,06_22,"L015, 110 water blur; L035 blur",105,18,
+Prairie,0,78,0P9,2012-06-22,LYF,2013-08-20,CRS,06_22,L100 water reflection,110,18,
+Prairie,0,79,0P11,2012-06-22,LYF,2013-08-20,CRS,06_22,,105,18,
+Prairie,0,80,0P12,2012-06-21,LYF,2013-08-26,CRS,06_21,,,19,L115 is a calibration image
+Prairie,1,81,1P1,2012-06-20,TAW,2013-07-23,JNR,06_20,,100,14,"L001 above ground, L005 50% above ground"
+Prairie,1,82,1P2,2012-06-20,TAW,2013-07-23,JNR,06_20,L075 is too wet,95,17,Ground level at L010 (bottom 20%)
+Prairie,1,83,1P3,2012-06-20,TAW,2013-07-23,JNR,06_20,,95,13,L001 and L005 above ground
+Prairie,1,84,1P4,2012-06-20,TAW,2013-07-23,JNR,06_20,,100,20,
+Prairie,2,85,2P1,2012-06-20,TAW,2013-07-25,JNR,06_20,,75,14,
+Prairie,2,86,2P2,2012-06-20,TAW,2013-07-25,JNR,06_20,L020 blurry,100,11,blurry root frame included in frames with roots count.
+Prairie,2,87,2P3,2012-06-20,TAW,2013-07-25,JNR,06_20,,85,15,"L001, L005 above ground"
+Prairie,2,88,2P4,2012-06-20,TAW,2013-07-25,JNR,06_20,,90,18,L025 is too blurry
+Prairie,3,89,3P1,2012-06-20,TAW,2013-08-26,CRS,06_20,"L085-95,110 blurry + low bat",105,16,
+Prairie,3,90,3P2,2012-06-20,TAW,2013-08-26,CRS,06_20,"L010, 95-110 lowbat and blurry",90,15,
+Prairie,3,91,3P3,2012-06-20,TAW,2013-09-23,CRS,06_20,L035 blur,90,14,
+Prairie,3,92,3P4,2012-06-20,TAW,2013-09-30,CRS,06_20,,100,16,L070 watery but traced;
+Prairie,4,93,4P1,2012-06-21,LYF,2013-07-29,JNR,,,110,14,
+Prairie,4,94,4P2,2012-06-21,LYF,2013-07-29,JNR,,,95,17,
+Prairie,4,95,4P3,2012-06-21,LYF,2013-07-29,JNR,,L040 and L080 blurry,100,20,
+Prairie,4,96,4P4,2012-06-21,LYF,2013-07-29,JNR,,,100,16,
