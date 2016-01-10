@@ -896,3 +896,7 @@ Actually exported from `~/UI/ef-tracing/EF2012_T1-53/analysis-log-2012-s3.xls`, 
 Deleted `data/2012/analysis log 2012-s3.xls`.
 
 Looks like I kept yyyy.mm.dd dates when I converted `analysis-log-2012-s2.csv` the other day. Fixed this.
+
+## 2016-01-10
+
+Have been running my Torque scripts with 7 processors, which is really one less than I need -- the dispatching process needs to keep one core while it runs 7 chains! Changed `mix_tube_depth.sh` and mix_crop_tube_depth.sh` from ppn=7 to ppn=8.
