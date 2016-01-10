@@ -894,3 +894,5 @@ Added censored frames from 2012-S3 to `rawdata/censorframes2012.csv`, exported a
 Actually exported from `~/UI/ef-tracing/EF2012_T1-53/analysis-log-2012-s3.xls`, which is identical to the one in `data/2012/` except that I already converted dates from "yyy.mm.dd" to "yyyy-mm-dd" like I want in the CSV version.
 
 Deleted `data/2012/analysis log 2012-s3.xls`.
+
+Looks like I kept yyyy.mm.dd dates when I converted `analysis-log-2012-s2.csv` the other day. Fixed this.
