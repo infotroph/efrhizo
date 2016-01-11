@@ -900,3 +900,12 @@ Looks like I kept yyyy.mm.dd dates when I converted `analysis-log-2012-s2.csv` t
 ## 2016-01-10
 
 Have been running my Torque scripts with 7 processors, which is really one less than I need -- the dispatching process needs to keep one core while it runs 7 chains! Changed `mix_tube_depth.sh` and mix_crop_tube_depth.sh` from ppn=7 to ppn=8.
+
+Neglected to remake datasets after updating censored 2012 images last night. Ran `make`, which generates updated version of: 
+
+* `stripped2012.csv` (all rows change because centered values are recalculated -- TODO: maybe remove these? Was using them when trying to do stats in lme4, but not now.)
+* `logvol-cornpoints-2012.png`
+* `logvol-cornpointsline-2012.png`
+* `logvol-polyfit-2010.png`, `logvol-polyfit-2011.png`, `logvol-polyfit-2012.png` -- 2012 & 2010 only update because they're plotted by the same script, changes not saved.
+
+All updated images now have their numbers overlapping the axis lines and ggplot warns "axis.ticks.margin is deprecated. Please set margin property of axis.text instead." Hypothesis: Something in the DeLuciatoR or ggplotTicks packages is incompatible with ggplot 2.0, which I installed when I upgraded my laptop last month. TODO: fix this and replot these figures, but for now I'm committing the version plotted from the most recent data.
