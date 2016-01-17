@@ -62,7 +62,6 @@ stripped = merge(stripped, offsets[,c("tube", "offset")], by.x="Tube", by.y="tub
 names(stripped)[which(names(stripped)=="offset")] = "Offset" # bleh, inconsistent naming conventions
 stripped$Offset[is.na(stripped$Offset)] = 22 # If no better info available, assume 22 cm.
 stripped$Depth = loc.to.depth(loc=stripped$Location, offset=stripped$Offset)
-stripped$Tube = factor(stripped$Tube)
 stripped$rootvol.mm3.mm2 = with(stripped, 
  	rootvol.perarea(TotVolume.mm3, PxSizeH, PxSizeV))
 # normed = normalize.soilvol(stripped) # normalize.soilvol is unfinished and might stay that way

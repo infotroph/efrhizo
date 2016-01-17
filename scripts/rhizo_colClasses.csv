@@ -1,5 +1,5 @@
 column,class
-Tube,factor
+Tube,integer
 Img,character
 MeasDate,NULL
 MeasTime,NULL

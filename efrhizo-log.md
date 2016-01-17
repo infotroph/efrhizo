@@ -909,3 +909,13 @@ Neglected to remake datasets after updating censored 2012 images last night. Ran
 * `logvol-polyfit-2010.png`, `logvol-polyfit-2011.png`, `logvol-polyfit-2012.png` -- 2012 & 2010 only update because they're plotted by the same script, changes not saved.
 
 All updated images now have their numbers overlapping the axis lines and ggplot warns "axis.ticks.margin is deprecated. Please set margin property of axis.text instead." Hypothesis: Something in the DeLuciatoR or ggplotTicks packages is incompatible with ggplot 2.0, which I installed when I upgraded my laptop last month. TODO: fix this and replot these figures, but for now I'm committing the version plotted from the most recent data.
+
+## 2015-01-11
+
+Doing some input-cleaning on Stan scripts. Tired of dealing with Tube as a factor; let's go scorched-earth and change it way back at the source in `cleanup.r`. Things to note:
+	
+* The only place I might want tubes to be factors instead of numnbers is if passing them to the fixed-factors formula of a linear modeling function, where they should NOT be treated as a continuous covariate. I'm fairly sure all the formulae in this repository use Tube only as a random factor, where lmer converts it to factor anyway. Have not checked exhaustively, but if any stats break from this change this is almost certainly why.
+
+* This change creates a giant diff because Make will remove a whole lot of quotation marks from the stripped datafiles, but the simplification should be worth it.
+
+* Make also rebuilds all the figures with no visible change to data, but ruins their formatting (numbers overlapping axis ticks) for the same reason noted 2016-01-10. NOT committing the updated images -- fix plotting code and redo these correctly!
