@@ -910,7 +910,7 @@ Neglected to remake datasets after updating censored 2012 images last night. Ran
 
 All updated images now have their numbers overlapping the axis lines and ggplot warns "axis.ticks.margin is deprecated. Please set margin property of axis.text instead." Hypothesis: Something in the DeLuciatoR or ggplotTicks packages is incompatible with ggplot 2.0, which I installed when I upgraded my laptop last month. TODO: fix this and replot these figures, but for now I'm committing the version plotted from the most recent data.
 
-## 2015-01-11
+## 2016-01-11
 
 Doing some input-cleaning on Stan scripts. Tired of dealing with Tube as a factor; let's go scorched-earth and change it way back at the source in `cleanup.r`. Things to note:
 	
@@ -919,3 +919,7 @@ Doing some input-cleaning on Stan scripts. Tired of dealing with Tube as a facto
 * This change creates a giant diff because Make will remove a whole lot of quotation marks from the stripped datafiles, but the simplification should be worth it.
 
 * Make also rebuilds all the figures with no visible change to data, but ruins their formatting (numbers overlapping axis ticks) for the same reason noted 2016-01-10. NOT committing the updated images -- fix plotting code and redo these correctly!
+
+## 2016-01-16
+
+Compared `data/2012/analysis log 2012-s4.xls` against version in ef-tracing repository, found this one to be out of date. Deleted it, saved ef-tracing version as `rawdata/analysis-log-2012-s4.csv`, converted four color-encoded notes to text (tubes 21-24 were traced with 8-0-7 calibration instead of 8-06 like they should have been, JNR flagged this with orange cells, so I converted to notes), added bad frames to censorframes2012.csv, reran cleanup scripts. As on 2016-01-11, did *not* commit replotted 2010 & 2011 logvol-polyfit figures, which changed formatting but not underlying data. Still TODO: Fix formatting!

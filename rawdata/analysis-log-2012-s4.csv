@@ -1,0 +1,97 @@
+Crop,Block,Tube number,Label code,Date imaged,Field Tech,Date Analyzed,Lab tech,Calibration file,Bad frames?,Deepest roots,# frames with roots,Notes
+Corn,0,1,0C1,2012-08-07,TAW,2013-06-19,CRS,08_07.cal,4,105,14,L020 is first good underground shot; L045 has large scratch. But roots very obvious
+Corn,0,2,0C2,2012-08-07,TAW,2013-06-24,CRS,08_07.cal,1,110,16,"First frame tape, second above ground; L040 has large scratch that looks like root"
+Corn,0,3,0C3,2012-08-07,TAW,2013-06-24,CRS,08_07.cal,1,105,16,L015 blur
+Corn,0,4,0C4,2012-08-07,TAW,2013-06-25,CRS,08_07.cal,1,105,16,
+Corn,0,5,0C5,2012-08-07,TAW,2013-06-25,CRS,08_07.cal,3,110,11,"L001 is tape; (L050, L090) blur, visible roots but blurred dimensions (not traced)"
+Corn,0,6,0C6,2012-08-07,TAW,2013-06-25,CRS,08_07.cal,1,110,14,L010 is distorted--some roots traced conservatively; L045 blur with one root visible (traced)
+Corn,0,7,0C7,2012-08-07,TAW,2013-06-25,CRS,08_07.cal,0,105,15,L001 is tape 
+Corn,0,8,0C8,2012-08-07,TAW,2013-06-26,CRS,08_07.cal,3,110,13,"L005 is just white; L055, L095 is too blurry to trust dimensions of visible roots"
+Corn,1,9,1C1,2012-08-03,TAW,2013-06-20,JNR,08_02.cal,0,110,14,beware fake roots recorded durimg troubleshooting--L35 use totals wrtten after 11:11 AM
+Corn,1,10,1C2,2012-08-03,TAW,2013-06-20,JNR,08_02.cal,Frame 1 above ground/tape--,100,16,First frame is above ground with tape over most of it---Loc 80 was still traced but somewhat blurry
+Corn,1,11,1C3,2012-08-03,TAW,2013-06-20,JNR,08_02.cal,90 is half too blurry,110,20,Entire tube taken while computer is low on power.  The images are still measurable.
+Corn,1,12,1C4,2012-08-03,TAW,2013-06-21,JNR,08_02.cal,0,100,17,
+Corn,2,13,2C1,2012-08-03,TAW,2013-06-21,JNR,08_02.cal,"locations 5, 10, 15- are blurry and scratched.  Location 45 is blurry on half and location 20's root is too undefined.",100,15,
+Corn,2,14,2C2,2012-08-03,TAW,2013-06-21,JNR,08_02.cal,,100,17,
+Corn,2,15,2C3,2012-08-03,TAW,2013-06-21,JNR,08_02.cal,,95,14,
+Corn,2,16,2C4,2012-08-03,TAW,2013-06-21,JNR,08_02.cal,,100,19,
+Corn,3,17,3C1,2012-08-06,TAW,2013-06-26,CRS,08_06.cal,"L005 is above ground; L025 half of frame has dirt on inside of tube, other half traced; Large ""Fungus"" sploch in L030; Entire tube is slightly ""Fuzzy""",85,8,CKB updated loc 85 2015-11-16: out-of-frame node caused outlier root length
+Corn,3,18,3C2,2012-08-07,TAW,2013-06-27,CRS,08_07.cal,0,90,12,
+Corn,3,19,3C3,2012-08-07,TAW,2013-06-27,CRS,08_07.cal,1,105,14,L010 is blurry but probably no roots anyways
+Corn,3,20,3C4,2012-08-06,TAW,2013-06-27,CRS,08_06.cal,1,105,15,L005 is above ground; L035 and beyond the camera is on low battery; L070 has small roots ALL over the picture (can't trace)
+Corn,4,21,4C1,2012-08-06,TAW,2013-06-24,JNR,08_07.cal,Location 5 has traced roots but they are boaderline too blury.,100,17,Img from 6th but calibration from 7th.
+Corn,4,22,4C1,2012-08-06,TAW,2013-06-25,JNR,08_07.cal,,100,9,Location 1 and 5 are above ground. Img from 6th but calibration from 7th.
+Corn,4,23,4C3,2012-08-06,TAW,2013-06-26,JNR,08_07.cal,"location 1 is tape, location 5 is above ground, location 10 is 75% above ground",95,11,Location 75 has a creepy little face to the upper left of the main root. Img from 6th but calibration from 7th.
+Corn,4,24,4C4,2012-08-06,TAW,2013-06-26,JNR,08_07.cal,,100,13,Img from 6th but calibration from 7th.
+Miscanthus,0,25,0M1,2012-08-07,TAW,2013-06-27,CRS,08_07.cal,6,80,5,"L005 is above ground and has label; L050 is blurry  L095 is blurry; L100,105,110 have water on the inside of the tube"
+Miscanthus,0,26,0M3,2012-08-07,TAW,2013-06-27,CRS,08_07.cal,4,105,10,"L001,5,10,110 are blurry"
+Miscanthus,0,27,0M5,2012-08-07,TAW,2013-06-27,CRS,08_07.cal,1,110,15,labeled 30; L090 blurry; Strange roots at L110
+Miscanthus,0,28,0M6,2012-08-07,TAW,2013-06-27,CRS,08_07.cal,9,70,3,"L065-110 out of focus; L070 out of focus but roots traced; L080,85 tube cracked"
+Miscanthus,0,29,0M7,2012-08-07,TAW,2013-06-27,CRS,08_07.cal,1,110,10,"L001 is underground, no tape, and has a flash reflection"
+Miscanthus,0,30,0M9,2012-08-07,TAW,2013-06-28,CRS,08_07.cal,7,105,12,"Generally a lot of dirt on the inside of the tube. L005 dirty; L010,20 water streak not a root; L015,70,85,100 blur; L035,60 low battery;"
+Miscanthus,0,31,0M10,2012-08-07,TAW,2013-06-28,CRS,08_07.cal,1,105,8,"*L080-110 are slightly out of focus, but only L105 had a visible root"
+Miscanthus,0,32,0M11,2012-08-07,TAW,2013-06-28,CRS,08_07.cal,0,110,10,
+Miscanthus,1,33,1M1,2012-08-03,TAW,2013-06-26,JNR,08_02.cal,,100,15,location 1 and 5 are above ground
+Miscanthus,1,34,1M2,2012-08-03,TAW,2013-06-26,JNR,08_02.cal,,100,13,
+Miscanthus,1,35,1M4,2012-08-03,TAW,2013-06-26,JNR,08_02.cal,,95,4,labeled 1m4
+Miscanthus,1,36,1M4,2012-08-03,TAW,2013-06-26,JNR,08_02.cal,Tube seems to be scraped 80-100.  location 95 is blurry,90,9,
+Miscanthus,2,37,2M1,2012-08-03,TAW,2013-06-26,JNR,08_02.cal,location 75 is blurry,95,16,
+Miscanthus,2,38,2M2,2012-08-03,TAW,2013-06-26,JNR,08_02.cal,,110,15,
+Miscanthus,2,39,2M3,2012-08-03,TAW,2013-06-26,JNR,08_02.cal,"location 10 is untracable (tape in the way) location 15, 20 and 25 are too blurry.",110,15,
+Miscanthus,2,40,2M4,2012-08-02,TAW,2013-06-26,JNR,08_02.cal,,100,14,
+Miscanthus,3,41,3M1,2012-08-06,TAW,2013-06-28,CRS,08_06.cal,1,105,13,L005 is above ground
+Miscanthus,3,42,3M2,2012-08-06,TAW,2013-06-28,CRS,08_06.cal,1,110,13,L105 blur
+Miscanthus,3,43,3M3,2012-08-06,TAW,2013-06-28,CRS,08_06.cal,1,110,16,L075 blur
+Miscanthus,3,44,3M4,2012-08-06,TAW,2013-06-28,CRS,08_06.cal,4,90,11,L095-110 blur
+Miscanthus,4,45,4M1,2012-08-06,TAW,2013-06-26,JNR,08_06.cal,,110,17,
+Miscanthus,4,46,4M2,2012-08-06,TAW,2013-06-27,JNR,08_06.cal,,90,14,
+Miscanthus,4,47,4M3,2012-08-06,TAW,2013-06-27,JNR,08_06.cal,,95,17,
+Miscanthus,4,48,4M4,2012-08-06,TAW,2013-06-27,JNR,08_06.cal,,100,,
+Switch,0,49,0S2,2012-08-06,TAW,2013-07-01,CRS,08_06.cal,1,110,20,L105 dirt on inside of tube
+Switch,0,50,0S3,2012-08-06,TAW,2013-07-01,CRS,08_06.cal,5,85,12,L055 Is blurry; L090 and beyond is blurry
+Switch,0,51,0S5,2012-08-06,TAW,2013-07-02,CRS,08_06.cal,1,110,13,L005 is tape; cute little bug at L090
+Switch,0,52,0S6,2012-08-06,TAW,2013-07-02,CRS,08_06.cal,1,110,15,L005 is above ground
+Switch,0,53,0S8,2012-08-06,TAW,2013-07-02,CRS,08_06.cal,0,105,17,L010+  low bat
+Switch,0,54,0S9,2012-08-06,TAW,2013-07-02,CRS,08_06.cal,7,70,14,L080+ scratched tube/condensation
+Switch,0,55,0S12,2012-08-06,TAW,2013-07-02,CRS,08_06.cal,0,100,18,labeled 0s12; Half tube is low bat--(tube not finished measuring? Location 60 to bottom)
+Switch,0,56,0S12,2012-08-06,TAW,2013-07-08,CRS,08_06.cal,0,100,14,"L105,110 do not exist"
+Switch,1,57,1S1,2012-08-03,TAW,2013-07-01,JNR,08_02.cal,,95,15,
+Switch,1,58,1S2,2012-08-03,TAW,2013-07-01,JNR,08_02.cal,One blurry slide (location 70) with roots (added in to frames with roots section),105,21,
+Switch,1,59,1S3,2012-08-03,TAW,2013-07-01,JNR,08_02.cal,,110,7,location 1 and 5 are above ground
+Switch,1,60,1S4,2012-08-03,TAW,2013-07-01,JNR,08_02.cal,,105,17,
+Switch,2,61,2S1,2012-08-03,TAW,2013-07-02,JNR,08_02.cal,"location 95 has more roots but they are covered by dirt, take a look.",110,14,
+Switch,2,62,2S2,,,,JNR,,,,,Does not exist
+Switch,2,63,2S3,2012-08-03,TAW,2012-07-02,JNR,08_02.cal,Location 25 and 45 are blurry,100,11,only meaured roots are recounted on frames with roots
+Switch,2,64,2S4,2012-08-03,TAW,2012-07-02,JNR,08_02.cal,,110,18,"Root spiral: cool for you, sucks for me."
+Switch,3,65,3S1,2012-08-06,TAW,2013-07-08,CRS,08_06.cal,0,110,16,Cute bug at L055
+Switch,3,66,3S2,2012-08-06,TAW,2013-07-08,CRS,08_06.cal,1,105,6,L030 blur
+Switch,3,67,3S3,2012-08-06,TAW,2013-07-08,CRS,08_06.cal,1,95,11,L005 above ground and tapey;
+Switch,3,68,3S4,2012-08-06,TAW,2013-07-09,CRS,08_06.cal,1,90,13,L005 is tape
+Switch,4,69,4S1,2012-08-06,TAW,2013-07-02,JNR,08_06.cal,location 100 is blurry but it doesn't look like we missed any roots there.,105,17,
+Switch,4,70,4S2,2012-08-06,TAW,2013-07-03,JNR,08_06.cal,"Location: 10-blurry, 95 blurry",100,15,
+Switch,4,71,4S3,2012-08-06,TAW,2013-07-03,JNR,08_06.cal,Too blury 90 to bottom,100,16,all root slides measured including unmeasured ones
+Switch,4,72,4S4,2012-08-06,TAW,2013-07-07,JNR,08_06.cal,Location 10 is blurry,100,21,all root slides measured including unmeasured ones.    Software crashed mid location 65- remeasured but make sure there aren't two recordings of this location.
+Prairie,0,73,0P2,2012-08-07,TAW,2013-07-09,CRS,08_07.cal,0,100,14,
+Prairie,0,74,0P3,2012-08-07,TAW,2013-07-09,CRS,08_07.cal,0*,85,12,"Inside of tube lightly scratched for almost all locations-- very hard to discern small roots; half of L025 is water, but roots traced; scratch at L085 is not a root; -"
+Prairie,0,75,0P5,2012-08-07,TAW,2013-07-09,CRS,08_07.cal,1,100,16,"L080 large root too blurred to determine dimensions, very few other roots (not traced)-- omit; L090 soil around root ball, dimensions not clear-- omit; "
+Prairie,0,76,0P6,2012-08-07,TAW,2013-07-09,CRS,08_07.cal,1,100,14,Spot on right side of every image looks like a root; L095 blur; 
+Prairie,0,77,0P7,2012-08-07,TAW,2013-07-09,CRS,08_07.cal,6,105,15,"Top of tube low bat; L005,010 scratches on tube; L015,020 water and scratches on tube; L025 is first good image; L095,110 blur"
+Prairie,0,78,0P9,2012-08-07,TAW,2013-07-09,CRS,08_07.cal,2,95,16,"Spazzes b/w low bat and clear image; L015 out of focus, scratched, water, low bat; L070 blur"
+Prairie,0,79,0P11,2012-08-07,TAW,2013-07-10,CRS,08_07.cal,1,105,13,L005 above ground; top of tube is low bat; L100 and L105 have tons of roots
+Prairie,0,80,0P12,2012-08-07,TAW,2013-07-10,CRS,08_07.cal,1,105,16,Low bat; L100 blur
+Prairie,1,81,1P1,2012-08-03,TAW,2012-07-08,JNR,08_02.cal,,100,12,Location 1 and 5 above ground
+Prairie,1,82,1P2,2012-08-03,TAW,2012-07-08,JNR,08_02.cal,,95,19,
+Prairie,1,83,1P3,2012-08-03,TAW,2012-07-08,JNR,08_02.cal,location 15 and 20 too blurry,100,13,Location 1 and 5 above ground
+Prairie,1,84,1P4,2012-08-03,TAW,2012-07-08,JNR,08_02.cal,Location 1 and 5 are above ground,100,19,
+Prairie,2,85,2P1,2012-08-03,TAW,2012-07-11,JNR,08_02.cal,L050 is too blurry,65,12,L065 is the deepest location and the same as L060. Unmeasured slide counted in number of slides with roots.
+Prairie,2,86,2P2,2012-08-03,TAW,2012-07-11,JNR,08_02.cal,Location 1 above ground,105,15,L045 has a million roots!
+Prairie,2,87,2P3,2012-08-03,TAW,2013-07-14,JNR,08_02.cal,No L010,85,13,
+Prairie,2,88,2P4,2012-08-03,TAW,2013-07-14,JNR,08_02.cal,,90,17,
+Prairie,3,89,3P1,2012-08-03,TAW,2013-07-14,CRS,08_02.cal,3,105,13,"Dark and Low bat; L080,85,110 blur/lowbat/dark=can't trace; "
+Prairie,3,90,3P2,2012-08-03,TAW,2013-07-14,CRS,08_02.cal,4,75,11,"Low bat; L015 low flash, most roots can't be seen, dimensions blurred and low bat; L060 blur; L085,90 low bat and blur-- not traced"
+Prairie,3,91,3P3,2012-08-03,TAW,2013-07-14,CRS,08_02.cal,0,100,17,Low bat
+Prairie,3,92,3P4,2012-08-03,TAW,2013-07-14,CRS,08_02.cal,0,110,21,"Low bat, black yellow and red soil, lots of voids-- quite hard to discern small roots, indeed."
+Prairie,4,93,4P1,2012-08-03,TAW,2013-07-14,JNR,08_02.cal,,100,13,Location 1 and 5 above ground.
+Prairie,4,94,4P2,2012-08-03,TAW,2013-07-14,JNR,08_02.cal,,85,15,L005 80% underground
+Prairie,4,95,4P3,2012-08-03,TAW,2013-07-14,JNR,08_02.cal,,95,20,Only goes to L095
+Prairie,4,96,4P4,2012-08-03,TAW,2013-07-14,JNR,08_02.cal,L010 has roots but is too blurry,100,16,"L010 is half above ground- L005, L001 above ground L010 counted in frames with roots cell."
