@@ -923,3 +923,9 @@ Doing some input-cleaning on Stan scripts. Tired of dealing with Tube as a facto
 ## 2016-01-16
 
 Compared `data/2012/analysis log 2012-s4.xls` against version in ef-tracing repository, found this one to be out of date. Deleted it, saved ef-tracing version as `rawdata/analysis-log-2012-s4.csv`, converted four color-encoded notes to text (tubes 21-24 were traced with 8-0-7 calibration instead of 8-06 like they should have been, JNR flagged this with orange cells, so I converted to notes), added bad frames to censorframes2012.csv, reran cleanup scripts. As on 2016-01-11, did *not* commit replotted 2010 & 2011 logvol-polyfit figures, which changed formatting but not underlying data. Still TODO: Fix formatting!
+
+## 2016-01-18
+
+Set out to add bad images from S5 (end of August) 2012 to censored images file, realized I'd forgotten this session is only partly traced. All blocks of maize and Miscanthus are traced, but only blocks 1,2,4 of switch and prairie are done -- JNR finished all his assigned tubes, CRS stopped after tube 50. Finished recording bad frames for what is traced; will need to revisit when (if?) these are traced.
+
+Deleted `data/2012/analysis log 2012-s5.xls`; it's out of date. Exported newer version from ef-tracing repository to `rawdata/analysis-log-2012-s5.csv`.

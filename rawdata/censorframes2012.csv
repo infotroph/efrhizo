@@ -443,3 +443,125 @@ date,tube,loc,reason,notes
 2012-08-06,94,5,daylight
 2012-08-06,96,5,tape
 2012-08-06,96,10,daylight
+2012-08-30,1,5,daylight
+2012-08-30,1,10,daylight
+2012-08-30,2,5,tape
+2012-08-30,3,5,daylight
+2012-08-30,4,10,scratches
+2012-08-30,5,5,tape
+2012-08-30,8,5,daylight
+2012-08-30,8,30,blur
+2012-08-31,9,105,water,REVISIT: CKB thinks this can be traced.
+2012-08-31,9,110,water,REVISIT: CKB thinks this can be traced.
+2012-08-31,11,50,blur
+2012-08-31,11,90,blur
+2012-08-31,11,95,blur
+2012-08-31,12,55,water
+2012-08-30,15,5,daylight
+2012-08-30,15,75,blur
+2012-08-30,16,95,water
+2012-08-30,17,5,daylight
+2012-08-30,18,5,daylight
+2012-08-30,20,5,daylight
+2012-08-30,22,5,daylight
+2012-08-30,23,5,daylight
+2012-08-30,23,10,daylight
+2012-08-29,25,5,daylight
+2012-08-29,27,45,blur
+2012-08-31,36,15,mud
+2012-08-31,39,5,tape
+2012-08-31,39,10,tape
+2012-08-30,41,5,daylight
+2012-08-30,43,50,blur
+2012-08-30,46,90,blur
+2012-08-30,46,95,blur
+2012-08-30,46,100,blur
+2012-08-29,51,5,tape
+2012-08-31,58,10,blur
+2012-08-31,59,5,daylight
+2012-08-31,63,50,blur,REVISIT: CKB thinks this can be traced.
+2012-08-31,64,40,blur
+2012-08-30,65,5,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,10,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,15,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,20,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,25,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,30,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,35,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,40,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,45,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,50,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,55,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,60,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,65,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,70,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,75,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,80,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,85,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,90,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,95,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,100,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,105,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,65,110,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-30,69,65,blur
+2012-08-30,71,110,blur,REVISIT: CKB thinks this can be traced.
+2012-08-30,72,10,blur
+2012-08-30,72,25,blur
+2012-08-30,72,65,blur
+2012-08-29,73,5,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,10,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,15,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,20,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,25,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,30,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,35,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,40,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,45,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,50,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,55,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,60,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,65,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,70,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,75,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,80,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,85,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,90,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,95,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,100,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,105,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,73,110,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,5,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,10,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,15,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,20,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,25,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,30,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,35,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,40,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,45,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,50,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,55,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,60,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,65,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,70,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,75,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,80,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,85,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,90,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,95,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,100,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,105,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-29,74,110,not traced,REVISIT: accidentally recorded untraced tube.
+2012-08-31,81,5,daylight
+2012-08-31,83,5,daylight
+2012-08-31,84,5,daylight
+2012-08-30,85,30,water
+2012-08-30,85,55,water
+2012-08-30,87,10,blur,REVISIT: CKB thinks this can be traced.
+2012-08-30,88,10,blur
+2012-08-30,88,55,blur
+2012-08-30,88,60,blur
+2012-08-30,93,5,daylight
+2012-08-30,95,10,blur
+2012-08-30,96,5,daylight
+2012-08-30,96,10,daylight
