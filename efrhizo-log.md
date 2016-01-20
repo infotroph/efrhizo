@@ -929,3 +929,9 @@ Compared `data/2012/analysis log 2012-s4.xls` against version in ef-tracing repo
 Set out to add bad images from S5 (end of August) 2012 to censored images file, realized I'd forgotten this session is only partly traced. All blocks of maize and Miscanthus are traced, but only blocks 1,2,4 of switch and prairie are done -- JNR finished all his assigned tubes, CRS stopped after tube 50. Finished recording bad frames for what is traced; will need to revisit when (if?) these are traced.
 
 Deleted `data/2012/analysis log 2012-s5.xls`; it's out of date. Exported newer version from ef-tracing repository to `rawdata/analysis-log-2012-s5.csv`.
+
+## 2016-01-19
+
+Deleted `data/2012/analysis log 2012-s6.xls`; it's out of date. Exported newer version from ef-tracing repository to `rawdata/analysis-log-2012-s6.csv`, added bad frames to `censorframes2012.csv`. 
+
+NOTE: Bad-frames listing for sessions 4-5-6 of 2012 is based on my visual review of all images while checking log entries, and I did overrule the tracing tech's decision in a fair number of cases -- at least one frame changed in 5-10% of tubes, maybe? For previously entered sessions, I had mostly trusted tech's decisions and simply transcribed the bad frames listed in the analysis log. Possible TODO: revisit all other years/sessions and check censoring decisions.

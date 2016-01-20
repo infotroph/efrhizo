@@ -565,3 +565,90 @@ date,tube,loc,reason,notes
 2012-08-30,95,10,blur
 2012-08-30,96,5,daylight
 2012-08-30,96,10,daylight
+2012-10-26,25,35,water
+2012-10-26,25,45,water
+2012-10-26,25,50,water
+2012-10-26,25,55,water
+2012-10-26,25,60,water
+2012-10-26,26,10,blur
+2012-10-26,28,10,blur
+2012-10-26,28,80,scratches
+2012-10-26,28,105,blur
+2012-10-26,29,10,blur
+2012-10-20,30,5,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,10,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,15,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,20,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,25,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,30,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,35,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,40,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,45,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,50,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,55,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,60,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,65,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,70,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,75,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,80,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,85,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,90,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,95,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,100,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,105,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-20,30,110,mislabeled,REVISIT: This is tube 27 (physical tube label is wrong). Delete these data, retrace as 27.
+2012-10-25,39,5,tape
+2012-10-25,39,10,tape
+2012-10-25,41,5,daylight
+2012-10-25,41,6,wrong location
+2012-10-25,41,7,wrong location
+2012-10-25,41,8,wrong location
+2012-10-25,41,35,blur
+2012-10-25,41,40,blur
+2012-10-22,43,10,blur
+2012-10-25,46,35,blur
+2012-10-22,43,100,blur
+2012-10-25,48,65,blur
+2012-10-26,49,55,blur
+2012-10-26,51,5,tape
+2012-10-26,51,10,blur
+2012-10-26,52,5,daylight
+2012-10-26,52,10,daylight
+2012-10-26,52,40,blur
+2012-10-26,54,90,mud
+2012-10-26,54,95,mud
+2012-10-26,54,100,mud
+2012-10-26,54,105,mud
+2012-10-26,55,65,blur
+2012-10-26,55,115,bluescreen
+2012-10-26,56,10,wrong location,image is duplicate of loc 5
+2012-10-25,59,5,daylight
+2012-10-25,60,10,blur
+2012-10-25,68,5,tape
+2012-10-25,70,35,dark
+2012-10-25,71,100,blur
+2012-10-25,73,20,blur
+2012-10-26,76,10,blur
+2012-10-26,76,85,blur
+2012-10-26,76,90,blur
+2012-10-26,78,50,blur
+2012-10-26,78,60,blur
+2012-10-26,79,10,blur
+2012-10-26,79,70,blur
+2012-10-26,79,110,blur
+2012-10-25,81,25,dark
+2012-10-25,81,55,dark
+2012-10-25,82,50,blur
+2012-10-25,83,5,daylight
+2012-10-25,83,50,blur
+2012-10-25,84,5,daylight
+2012-10-25,83,10,blur
+2012-10-25,83,45,blur
+2012-10-25,86,25,blur
+2012-10-22,89,35,blur
+2012-10-22,89,85,blur
+2012-10-22,89,90,blur
+2012-10-25,93,5,dark
+2012-10-25,93,25,dark, REVISIT: CKB thinks this can be traced
+2012-10-25,96,5,daylight
+2012-10-25,96,10,daylight
