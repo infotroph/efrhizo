@@ -68,7 +68,7 @@ source("../scripts/stat-prep.R") # creates data frame "strpall"
 strpall = strpall[strpall$Depth > 0,]
 
 rows_used = sample(1:nrow(strpall), n_subsample)
-rzdat = strpall[rows_used,]
+rzdat = droplevels(strpall[rows_used,])
 rm(strpall)
 print(paste("Subsampling these", n_subsample, "rows from strpall:"))
 print(dput(rows_used))
@@ -86,11 +86,20 @@ print(data.frame(
 	num=1:nlevels(rzdat$Species),
 	name=levels(rzdat$Species)))
 
+# Simulate data from:
+# `n_predtubes` newly observed tubes,
+# evenly divided between the crops in the observed data,
+#	 (this is a weird approach, maybe change this!),
+# at depths `pred_depths`
 rz_pred = expand.grid(
 	tube=1:n_predtubes,
 	depth=pred_depths)
 n_crop = length(unique(rzdat$Species))
-rz_pred$crop = (rz_pred$tube %% n_crop) + 1
+rz_pred$Species = factor(
+	x=(rz_pred$tube %% n_crop) + 1,
+	labels=levels(rzdat$Species))
+print("conditions for predicted data:")
+print(rz_pred)
 
 rz_mtd = stan(
 	data=list(
@@ -106,10 +115,10 @@ rz_mtd = stan(
 		n_pos=length(which(rzdat$rootvol.mm3.mm2 > 0)),
 		N_pred=nrow(rz_pred),
 		T_pred=length(unique(rz_pred$tube)),
-		C_pred=length(unique(rz_pred$crop)),
+		C_pred=length(unique(rz_pred$Species)),
 		tube_pred=rz_pred$tube,
 		depth_pred=rz_pred$depth,
-		crop_pred=rz_pred$crop),
+		crop_pred=as.numeric(rz_pred$Species)),
 	file="mix_crop_tube_depth.stan",
 	iter=n_iters,
 	warmup=n_warm,
