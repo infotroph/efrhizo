@@ -935,3 +935,17 @@ Deleted `data/2012/analysis log 2012-s5.xls`; it's out of date. Exported newer v
 Deleted `data/2012/analysis log 2012-s6.xls`; it's out of date. Exported newer version from ef-tracing repository to `rawdata/analysis-log-2012-s6.csv`, added bad frames to `censorframes2012.csv`. 
 
 NOTE: Bad-frames listing for sessions 4-5-6 of 2012 is based on my visual review of all images while checking log entries, and I did overrule the tracing tech's decision in a fair number of cases -- at least one frame changed in 5-10% of tubes, maybe? For previously entered sessions, I had mostly trusted tech's decisions and simply transcribed the bad frames listed in the analysis log. Possible TODO: revisit all other years/sessions and check censoring decisions.
+
+## 2016-01-21
+
+Running separate Stan runs for August of each year, by altering the subset of data I pass in, e.g. `rows_used = which(strpall$Year==SUB_YEAR & strpall$Session==SUB_SESSION)`. For 2010, 2011, 2012 SUB_SESSION=4; for 2013 use Session 5, for 2014 use Session 2. Image count for these sessions ranges from 1223 (2013) to 1912 (2012). 
+
+Also tweaked from previous runs: Bumped n_predtubes from 5 up to 8 for better estimation of tube variability in predicted values, turned off writing of sample files (they're huge and haven't been all that helpful for debugging thus far). For all year, 7 chains of 20000, n_warm=1000.
+
+Submitted these jobs with subsets as listed, editing script in between once I see they've started running (I hope this is safe...?)
+
+* 2010 S4: 1697993
+* 2011 S4: 1697994
+* 2012 S4: 1697995
+* 2013 S5: 1697996
+* 2014 S2: 1697997

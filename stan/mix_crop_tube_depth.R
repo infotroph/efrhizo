@@ -12,7 +12,7 @@ options(mc.cores=7)
 n_chains = 7
 n_iters = 3000
 n_warm = 1000
-n_predtubes = 5
+n_predtubes = 8
 pred_depths = c(1, 10 , 30, 50, 75, 100, 140)
 savepars=c(
 	"a_detect",
@@ -124,8 +124,8 @@ rz_mtd = stan(
 	warmup=n_warm,
 	chains=n_chains,
 	pars=savepars,
-	sample_file=paste0(runname, "_samples.txt"),
-	diagnostic_file=paste0(runname, "_info.txt"),
+	# sample_file=paste0(runname, "_samples.txt"),
+	# diagnostic_file=paste0(runname, "_info.txt"),
 	verbose=TRUE,
 	open_progress=FALSE)
 

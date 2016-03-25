@@ -7,7 +7,7 @@
 #PBS -M black11@igb.illinois.edu
 #PBS -m abe
 #PBS -j oe
-#PBS -N rz_mtd
+#PBS -N rz_mctd
 #PBS -d /home/a-m/black11/efrhizo/stan
 #PBS -A rhizotron
 # ----------------Load Modules-------------------- #
