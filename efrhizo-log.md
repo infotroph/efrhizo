@@ -957,3 +957,66 @@ Working on final plots of 2011 and 2014 Giddings core biomass and C/N content. F
 * `rawdata/Tractor-Core-Biomass-2011.csv`: 2013-10-02
 * `rawdata/Tractor-Core-CN-2011.csv`: 2014-10-13
 * `rawdata/Tractor-Core-CN-2014.csv`: 2016-03-21
+
+While working on plot scripts, found some errors in 2011 CN data. Corrected after a few emails with Mike, summarized here. Note date stamps -- this all happened over the course of the last several days while I ignored Git, so I'm committing it separately to keep track.
+
+
+Subject: Re: 2014 tractor core CN   
+From: Chris Black <black11@igb.illinois.edu>   
+Date: Tue, 22 Mar 2016 14:43:50 -0500   
+To: Michael Masters <mmasters@illinois.edu>   
+ 
+> Thanks. These look pretty straightforward --- only two questions about 2014:
+> 
+> * The block 1 & 2 Miscanthus fertilization rates in the CN file disagree with the ones in (the 2014-12-02 version of) the root biomass file. Biomass file says block 1M was N&W 56, E&S 0; while  2M was E&S 56, N&W 0. The CN file reverses this: 1M with N&W 0, E&S 56; 2M with E&S 0, N&W 56. Which is correct?
+> 
+> * The CN file has no row for 0C2 100+, which the biomass file says had only 0.01 g root. Safe to record this as Not Enough Material?
+> 
+> 
+> I’m less sure how to approach the 2011 CN file (version you sent to me on 2014-10-13):
+> 
+> * 1C4 has two lines labeled 50-100, none labeled 100+. Is one of these the 100+ sample?
+> 
+> * 0M5, 2M1, 2M2, 3M2, 4M1 have two 0-10 lines each. The biomass data shows rhizomes present in the 0-10 layer of all these samples. Is one of these CN values root and one rhizome? If so, which is which?
+> 
+> * 3M3 has three 0-10 lines. Rhizomes are present, but would only account for two of them. 
+> 
+> * 3S2 has two 0-10 lines, but the biomass data says no rhizomes.
+> 
+> * 2M2, 3M2, 4M3 are the only samples where the biomass data shows rhizomes in the 10-30 layer, but there is only one CN value from each. Fair to assume the CN values are from roots and that the rhizomes were intentionally skipped?
+> 
+> * Not a data quality issue, just interesting: In both years, 0C shows an exceptionally wide scatter in the %C of its 100+ samples, but %N seems normal. Any ideas why?
+
+From: "Masters, Michael David" <mmasters@illinois.edu>   
+To: Chris Black <black11@igb.illinois.edu>   
+Subject: RE: 2014 tractor core CN   
+Date: Fri, 25 Mar 2016 18:50:01 +0000   
+
+> Hey Chris,
+> I'll go in order.  Sorry it's taken me a few days to get back to you.  Been busy lately in the field.  We harvested miscanthus earlier in the week, and we've been using the Picarro every day for our jars.
+> 
+> 2014
+> 
+> * The initial email Tim sent me back in the spring of 2014 had blocks one and two switched.  It was funny because we spent the whole field season thinking that they were reversed because the biomass looked much bigger on the unfertilized side.  So, many of my early files on this had the wrong information.  The correct fertilizer halves were South for plots 1, 3, and 4, and north for block 2.  This is correct in the final data file I sent you the other day.
+> 
+> * I'm assuming you mean OCNorth1, because that is the only B0 sample in 2014 with no 100+ CN values.  You are correct, there was not enough material for that one.  I will add a NEM note.  Not sure how I missed that.
+> 
+> 2011
+>
+> * The 1C4 that has a %N of 0.58 and a % C of 31.59 is actually 1C4 100+.  Oops, good catch.
+> 
+> * Wow... I can't believe I didn't put those labels in there.  That's embarrassing.  Thank you for catching that.  I added those labels in the notes column.
+> 
+> * 3M3 there was a rhizome run twice, new value is averaged between the two duplicates there previously.
+> 
+> * For 3S2, I had to go back into the original weighing notebook.  Both samples are clearly labeled as 3S2, one with 50% dead, and one with 1% dead.  We couldn't actually have two of the same sample.  The biomass from that 0-10 fraction was 3.5 grams, a nice healthy sample size.  I'm going to assume that the 1% dead sample is correct, and that the 50% dead one was something else that was mislabeled and throw it out.
+> 
+> * Yes, I think that's what happened.  We grind the rhizomes in a different grinder, so we usually separate them from the rest of the roots.  I bet they just somehow slipped through the cracks, probably treated different because the were 10-30's. I've confirmed in data from the runs that those in the sheet are roots.  You want me to try to dig out the rhizome material and run them?  Probably won't be too hard.
+> 
+> * That's pretty strange... it's only with block 0?  I don't know.  I would think it would be the other way around.  Usually the C is really consistent, and the N data is all over the place.  I will think about it and try to come up with an answer.
+> 
+> Let me know if I can do anything else to help.
+> 
+> Mike
+
+Mike attached an updated 2011 CN file: Most of the differences are that root and rhizome are now identified with an annotation in the 'notes' column. Updated `rawdata/Tractor-Core-CN-2011.csv` to incorporate all changes -- this breaks my (still uncommitted) plotting script, will commit all R code separately.
