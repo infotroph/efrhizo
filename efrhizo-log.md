@@ -1020,3 +1020,5 @@ Date: Fri, 25 Mar 2016 18:50:01 +0000
 > Mike
 
 Mike attached an updated 2011 CN file: Most of the differences are that root and rhizome are now identified with an annotation in the 'notes' column. Updated `rawdata/Tractor-Core-CN-2011.csv` to incorporate all changes -- this breaks my (still uncommitted) plotting script, will commit all R code separately.
+
+Hand-corrected fertilization rates in 2014 biomass file to match 2014 CN file: As per Mike's email, Blocks 1 & 2 were swapped. Correct rates for Block 1 are N0 E56 S56 W0, Block 2 N56 E0 S0 W56.
