@@ -949,3 +949,11 @@ Submitted these jobs with subsets as listed, editing script in between once I se
 * 2012 S4: 1697995
 * 2013 S5: 1697996
 * 2014 S2: 1697997
+
+## 2016-03-27
+
+Working on final plots of 2011 and 2014 Giddings core biomass and C/N content. First: Adding data to the Git repo. Root/rhizome biomass from 2011, CN data from 2011 and 2014. 2014 root/rhizome biomass is already present. All are my conversions to CSV from Excel sheets that Mike Masters emailed me on:
+
+* `rawdata/Tractor-Core-Biomass-2011.csv`: 2013-10-02
+* `rawdata/Tractor-Core-CN-2011.csv`: 2014-10-13
+* `rawdata/Tractor-Core-CN-2014.csv`: 2016-03-21

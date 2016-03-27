@@ -1,0 +1,480 @@
+Block,Treatment,Direction,Sample #,Upper,Lower,Root % N,Root % C,Rhizome % N,Rhizome % C,Fertilizer
+0,Corn,East,1,0,10,1.51,27.14,,,180 kg/ha
+0,Corn,East,1,10,30,1.93,36.86,,,180 kg/ha
+0,Corn,East,1,30,50,1.67,38.76,,,180 kg/ha
+0,Corn,East,1,50,100,0.79,20.02,,,180 kg/ha
+0,Corn,East,1,100,+,0.80,19.27,,,180 kg/ha
+0,Corn,East,2,0,10,2.14,44.92,,,180 kg/ha
+0,Corn,East,2,10,30,1.64,37.53,,,180 kg/ha
+0,Corn,East,2,30,50,1.40,40.77,,,180 kg/ha
+0,Corn,East,2,50,100,0.62,26.21,,,180 kg/ha
+0,Corn,East,2,100,+,0.53,37.11,,,180 kg/ha
+0,Corn,North,1,0,10,1.50,29.23,,,180 kg/ha
+0,Corn,North,1,10,30,1.59,36.88,,,180 kg/ha
+0,Corn,North,1,30,50,1.68,37.18,,,180 kg/ha
+0,Corn,North,1,50,100,0.92,32.62,,,180 kg/ha
+0,Corn,North,2,0,10,1.87,39.66,,,180 kg/ha
+0,Corn,North,2,10,30,1.17,35.90,,,180 kg/ha
+0,Corn,North,2,30,50,1.05,33.71,,,180 kg/ha
+0,Corn,North,2,50,100,1.21,35.54,,,180 kg/ha
+0,Corn,North,2,100,+,0.85,41.92,,,180 kg/ha
+0,Corn,South,1,0,10,2.42,43.71,,,180 kg/ha
+0,Corn,South,1,10,30,1.62,35.89,,,180 kg/ha
+0,Corn,South,1,30,50,1.41,38.07,,,180 kg/ha
+0,Corn,South,1,50,100,1.08,35.80,,,180 kg/ha
+0,Corn,South,1,100,+,1.45,37.50,,,180 kg/ha
+0,Corn,South,2,0,10,1.50,43.93,,,180 kg/ha
+0,Corn,South,2,10,30,1.15,38.75,,,180 kg/ha
+0,Corn,South,2,30,50,0.90,33.31,,,180 kg/ha
+0,Corn,South,2,50,100,0.89,30.56,,,180 kg/ha
+0,Corn,South,2,100,+,0.88,31.02,,,180 kg/ha
+0,Corn,West,1,0,10,1.21,38.03,,,180 kg/ha
+0,Corn,West,1,10,30,1.69,31.17,,,180 kg/ha
+0,Corn,West,1,30,50,1.79,38.79,,,180 kg/ha
+0,Corn,West,1,50,100,1.30,36.97,,,180 kg/ha
+0,Corn,West,1,100,+,0.46,41.76,,,180 kg/ha
+0,Corn,West,2,0,10,1.44,34.04,,,180 kg/ha
+0,Corn,West,2,10,30,2.38,36.65,,,180 kg/ha
+0,Corn,West,2,30,50,1.03,33.06,,,180 kg/ha
+0,Corn,West,2,50,100,1.11,36.30,,,180 kg/ha
+0,Corn,West,2,100,+,0.69,28.54,,,180 kg/ha
+1,Corn,East,,0,10,2.06,43.14,,,180 kg/ha
+1,Corn,East,,10,30,1.42,32.24,,,180 kg/ha
+1,Corn,East,,30,50,1.71,37.91,,,180 kg/ha
+1,Corn,East,,50,100,1.13,21.34,,,180 kg/ha
+1,Corn,East,,100,+,2.40,41.16,,,180 kg/ha
+1,Corn,North,,0,10,1.05,42.39,,,180 kg/ha
+1,Corn,North,,10,30,1.59,38.86,,,180 kg/ha
+1,Corn,North,,30,50,1.36,34.65,,,180 kg/ha
+1,Corn,North,,50,100,1.38,31.83,,,180 kg/ha
+1,Corn,North,,100,+,0.75,17.76,,,180 kg/ha
+1,Corn,South,,0,10,2.31,39.86,,,180 kg/ha
+1,Corn,South,,10,30,1.28,34.34,,,180 kg/ha
+1,Corn,South,,30,50,1.40,34.14,,,180 kg/ha
+1,Corn,South,,50,100,1.35,28.53,,,180 kg/ha
+1,Corn,South,,100,+,Not enough ground material for CN analysis,,,,180 kg/ha
+1,Corn,West,,0,10,1.45,41.44,,,180 kg/ha
+1,Corn,West,,10,30,1.70,35.96,,,180 kg/ha
+1,Corn,West,,30,50,0.84,32.57,,,180 kg/ha
+1,Corn,West,,50,100,1.69,39.74,,,180 kg/ha
+1,Corn,West,,100,+,1.23,30.04,,,180 kg/ha
+2,Corn,East,,0,10,1.39,35.13,,,180 kg/ha
+2,Corn,East,,10,30,1.20,36.29,,,180 kg/ha
+2,Corn,East,,30,50,0.70,28.61,,,180 kg/ha
+2,Corn,East,,50,100,1.46,33.46,,,180 kg/ha
+2,Corn,East,,100,+,1.59,34.28,,,180 kg/ha
+2,Corn,North,,0,10,2.34,42.55,,,180 kg/ha
+2,Corn,North,,10,30,1.28,36.32,,,180 kg/ha
+2,Corn,North,,30,50,1.44,37.88,,,180 kg/ha
+2,Corn,North,,50,100,1.22,36.28,,,180 kg/ha
+2,Corn,North,,100,+,No core below 1 meter,,,,180 kg/ha
+2,Corn,South,,0,10,1.81,41.44,,,180 kg/ha
+2,Corn,South,,10,30,1.66,33.40,,,180 kg/ha
+2,Corn,South,,30,50,1.68,40.90,,,180 kg/ha
+2,Corn,South,,50,100,1.50,39.53,,,180 kg/ha
+2,Corn,South,,100,+,1.14,31.96,,,180 kg/ha
+2,Corn,West,,0,10,2.15,42.42,,,180 kg/ha
+2,Corn,West,,10,30,1.18,36.26,,,180 kg/ha
+2,Corn,West,,30,50,1.03,30.42,,,180 kg/ha
+2,Corn,West,,50,100,1.19,37.81,,,180 kg/ha
+2,Corn,West,,100,+,1.29,38.73,,,180 kg/ha
+3,Corn,East,,0,10,1.32,41.31,,,180 kg/ha
+3,Corn,East,,10,30,0.87,29.99,,,180 kg/ha
+3,Corn,East,,30,50,1.05,37.68,,,180 kg/ha
+3,Corn,East,,50,100,1.94,40.33,,,180 kg/ha
+3,Corn,East,,100,+,2.76,32.56,,,180 kg/ha
+3,Corn,North,,0,10,1.92,40.41,,,180 kg/ha
+3,Corn,North,,10,30,1.24,33.81,,,180 kg/ha
+3,Corn,North,,30,50,1.21,33.50,,,180 kg/ha
+3,Corn,North,,50,100,1.39,38.08,,,180 kg/ha
+3,Corn,North,,100,+,Not enough ground material for CN analysis,,,,180 kg/ha
+3,Corn,South,,0,10,1.87,35.59,,,180 kg/ha
+3,Corn,South,,10,30,1.45,36.83,,,180 kg/ha
+3,Corn,South,,30,50,1.21,35.91,,,180 kg/ha
+3,Corn,South,,50,100,1.02,40.38,,,180 kg/ha
+3,Corn,South,,100,+,Not enough ground material for CN analysis,,,,180 kg/ha
+3,Corn,West,,0,10,1.60,36.50,,,180 kg/ha
+3,Corn,West,,10,30,1.78,40.98,,,180 kg/ha
+3,Corn,West,,30,50,0.87,29.97,,,180 kg/ha
+3,Corn,West,,50,100,0.92,35.93,,,180 kg/ha
+3,Corn,West,,100,+,0.91,21.93,,,180 kg/ha
+4,Corn,East,,0,10,2.03,34.81,,,180 kg/ha
+4,Corn,East,,10,30,2.32,38.93,,,180 kg/ha
+4,Corn,East,,30,50,1.21,33.14,,,180 kg/ha
+4,Corn,East,,50,100,2.23,40.58,,,180 kg/ha
+4,Corn,East,,100,+,2.49,42.20,,,180 kg/ha
+4,Corn,North,,0,10,1.58,37.94,,,180 kg/ha
+4,Corn,North,,10,30,1.02,37.52,,,180 kg/ha
+4,Corn,North,,30,50,0.97,38.92,,,180 kg/ha
+4,Corn,North,,50,100,1.17,33.46,,,180 kg/ha
+4,Corn,North,,100,+,2.24,33.07,,,180 kg/ha
+4,Corn,South,,0,10,2.58,43.22,,,180 kg/ha
+4,Corn,South,,10,30,1.41,37.74,,,180 kg/ha
+4,Corn,South,,30,50,1.49,36.98,,,180 kg/ha
+4,Corn,South,,50,100,1.48,33.25,,,180 kg/ha
+4,Corn,South,,100,+,1.84,36.23,,,180 kg/ha
+4,Corn,West,,0,10,1.54,40.32,,,180 kg/ha
+4,Corn,West,,10,30,1.57,36.63,,,180 kg/ha
+4,Corn,West,,30,50,1.39,39.84,,,180 kg/ha
+4,Corn,West,,50,100,1.48,38.02,,,180 kg/ha
+4,Corn,West,,100,+,1.05,38.59,,,180 kg/ha
+0,Miscanthus,East,1,0,10,0.50,39.14,0.39,41.64,56 kg/ha
+0,Miscanthus,East,1,10,30,0.50,37.44,0.11,44.77,56 kg/ha
+0,Miscanthus,East,1,30,50,0.50,36.09,,,56 kg/ha
+0,Miscanthus,East,1,50,100,0.15,21.21,,,56 kg/ha
+0,Miscanthus,East,1,100,+,0.33,30.25,,,56 kg/ha
+0,Miscanthus,East,2,0,10,0.71,38.04,0.47,45.70,56 kg/ha
+0,Miscanthus,East,2,10,30,0.47,32.86,,,56 kg/ha
+0,Miscanthus,East,2,30,50,0.53,36.45,,,56 kg/ha
+0,Miscanthus,East,2,50,100,0.43,34.75,,,56 kg/ha
+0,Miscanthus,East,2,100,+,0.27,28.84,,,56 kg/ha
+0,Miscanthus,North,1,0,10,0.65,31.07,,,56 kg/ha
+0,Miscanthus,North,1,10,30,0.61,36.98,,,56 kg/ha
+0,Miscanthus,North,1,30,50,0.54,38.66,,,56 kg/ha
+0,Miscanthus,North,1,50,100,0.39,33.30,,,56 kg/ha
+0,Miscanthus,North,1,100,+,0.51,36.29,,,56 kg/ha
+0,Miscanthus,North,2,0,10,0.71,42.20,0.16,45.09,56 kg/ha
+0,Miscanthus,North,2,10,30,0.58,36.49,,,56 kg/ha
+0,Miscanthus,North,2,30,50,0.47,34.77,,,56 kg/ha
+0,Miscanthus,North,2,50,100,0.29,35.80,,,56 kg/ha
+0,Miscanthus,North,2,100,+,0.39,35.21,,,56 kg/ha
+0,Miscanthus,South,1,0,10,0.73,29.29,0.28,45.58,56 kg/ha
+0,Miscanthus,South,1,10,30,0.47,21.40,,,56 kg/ha
+0,Miscanthus,South,1,30,50,0.71,36.52,,,56 kg/ha
+0,Miscanthus,South,1,50,100,0.50,36.15,,,56 kg/ha
+0,Miscanthus,South,1,100,+,0.54,37.12,,,56 kg/ha
+0,Miscanthus,South,2,0,10,0.63,38.13,0.24,43.94,56 kg/ha
+0,Miscanthus,South,2,10,30,0.63,37.68,,,56 kg/ha
+0,Miscanthus,South,2,30,50,0.58,34.20,,,56 kg/ha
+0,Miscanthus,South,2,50,100,0.41,35.15,,,56 kg/ha
+0,Miscanthus,South,2,100,+,0.18,32.07,,,56 kg/ha
+0,Miscanthus,West,1,0,10,0.74,31.73,,,56 kg/ha
+0,Miscanthus,West,1,10,30,0.46,33.86,,,56 kg/ha
+0,Miscanthus,West,1,30,50,0.49,35.40,,,56 kg/ha
+0,Miscanthus,West,1,50,100,0.50,35.98,,,56 kg/ha
+0,Miscanthus,West,1,100,+,0.39,41.05,,,56 kg/ha
+0,Miscanthus,West,2,0,10,0.66,37.47,0.39,45.51,56 kg/ha
+0,Miscanthus,West,2,10,30,0.72,36.36,,,56 kg/ha
+0,Miscanthus,West,2,30,50,0.60,33.12,,,56 kg/ha
+0,Miscanthus,West,2,50,100,0.48,32.92,,,56 kg/ha
+0,Miscanthus,West,2,100,+,No core below 1 meter,,,,56 kg/ha
+1,Miscanthus,East,,0,10,0.83,37.33,,,56 kg/ha
+1,Miscanthus,East,,10,30,0.77,28.92,,,56 kg/ha
+1,Miscanthus,East,,30,50,0.47,36.12,,,56 kg/ha
+1,Miscanthus,East,,50,100,0.39,31.93,,,56 kg/ha
+1,Miscanthus,East,,100,+,0.35,31.12,,,56 kg/ha
+1,Miscanthus,North,,0,10,0.55,36.31,0.12,44.09,None
+1,Miscanthus,North,,10,30,0.53,34.72,0.37,45.50,None
+1,Miscanthus,North,,30,50,0.49,33.99,,,None
+1,Miscanthus,North,,50,100,0.37,33.83,,,None
+1,Miscanthus,North,,100,+,0.41,32.33,,,None
+1,Miscanthus,South,,0,10,0.72,39.56,0.16,43.81,56 kg/ha
+1,Miscanthus,South,,10,30,0.57,32.37,0.12,45.37,56 kg/ha
+1,Miscanthus,South,,30,50,0.21,34.65,,,56 kg/ha
+1,Miscanthus,South,,50,100,0.50,36.11,,,56 kg/ha
+1,Miscanthus,South,,100,+,0.30,35.71,,,56 kg/ha
+1,Miscanthus,West,,0,10,0.62,31.37,,,None
+1,Miscanthus,West,,10,30,0.52,35.12,,,None
+1,Miscanthus,West,,30,50,0.40,36.88,,,None
+1,Miscanthus,West,,50,100,0.53,32.29,,,None
+1,Miscanthus,West,,100,+,0.40,32.09,,,None
+2,Miscanthus,East,,0,10,0.92,37.76,0.52,44.97,None
+2,Miscanthus,East,,10,30,0.69,36.97,,,None
+2,Miscanthus,East,,30,50,0.36,30.39,,,None
+2,Miscanthus,East,,50,100,0.54,36.09,,,None
+2,Miscanthus,East,,100,+,0.84,41.70,,,None
+2,Miscanthus,North,,0,10,0.76,42.32,0.48,43.43,56 kg/ha
+2,Miscanthus,North,,10,30,0.61,35.95,,,56 kg/ha
+2,Miscanthus,North,,30,50,0.54,34.16,,,56 kg/ha
+2,Miscanthus,North,,50,100,0.44,32.30,,,56 kg/ha
+2,Miscanthus,North,,100,+,0.38,28.67,,,56 kg/ha
+2,Miscanthus,South,,0,10,0.72,33.53,0.39,44.85,None
+2,Miscanthus,South,,10,30,0.54,34.46,,,None
+2,Miscanthus,South,,30,50,0.42,31.22,,,None
+2,Miscanthus,South,,50,100,0.38,31.94,,,None
+2,Miscanthus,South,,100,+,0.23,32.16,,,None
+2,Miscanthus,West,,0,10,0.97,37.03,,,56 kg/ha
+2,Miscanthus,West,,10,30,0.55,31.94,,,56 kg/ha
+2,Miscanthus,West,,30,50,0.46,39.36,,,56 kg/ha
+2,Miscanthus,West,,50,100,0.25,28.33,,,56 kg/ha
+2,Miscanthus,West,,100,+,0.14,24.22,,,56 kg/ha
+3,Miscanthus,East,,0,10,0.79,32.15,0.33,44.61,None
+3,Miscanthus,East,,10,30,0.68,32.06,,,None
+3,Miscanthus,East,,30,50,0.31,30.92,,,None
+3,Miscanthus,East,,50,100,0.27,35.23,,,None
+3,Miscanthus,East,,100,+,0.35,35.41,,,None
+3,Miscanthus,North,,0,10,0.52,32.41,,,None
+3,Miscanthus,North,,10,30,0.60,31.30,,,None
+3,Miscanthus,North,,30,50,0.48,37.97,,,None
+3,Miscanthus,North,,50,100,0.57,35.36,,,None
+3,Miscanthus,North,,100,+,0.29,25.85,,,None
+3,Miscanthus,South,,0,10,0.63,39.38,0.45,46.23,56 kg/ha
+3,Miscanthus,South,,10,30,0.60,31.04,,,56 kg/ha
+3,Miscanthus,South,,30,50,0.58,37.69,,,56 kg/ha
+3,Miscanthus,South,,50,100,0.43,32.66,,,56 kg/ha
+3,Miscanthus,South,,100,+,0.42,34.75,,,56 kg/ha
+3,Miscanthus,West,,0,10,0.74,38.02,0.41,44.96,56 kg/ha
+3,Miscanthus,West,,10,30,0.78,32.10,,,56 kg/ha
+3,Miscanthus,West,,30,50,0.46,29.67,,,56 kg/ha
+3,Miscanthus,West,,50,100,0.48,32.28,,,56 kg/ha
+3,Miscanthus,West,,100,+,0.34,32.10,,,56 kg/ha
+4,Miscanthus,East,,0,10,0.59,33.30,0.39,44.77,None
+4,Miscanthus,East,,10,30,0.55,34.54,0.21,45.36,None
+4,Miscanthus,East,,30,50,0.56,38.03,,,None
+4,Miscanthus,East,,50,100,0.51,31.53,,,None
+4,Miscanthus,East,,100,+,0.46,30.04,,,None
+4,Miscanthus,North,,0,10,0.74,34.48,0.23,44.64,None
+4,Miscanthus,North,,10,30,0.63,35.41,,,None
+4,Miscanthus,North,,30,50,0.46,35.12,,,None
+4,Miscanthus,North,,50,100,0.40,36.26,,,None
+4,Miscanthus,North,,100,+,0.36,32.33,,,None
+4,Miscanthus,South,,0,10,0.66,40.08,0.15,45.41,56 kg/ha
+4,Miscanthus,South,,10,30,0.78,37.71,,,56 kg/ha
+4,Miscanthus,South,,30,50,0.67,34.92,,,56 kg/ha
+4,Miscanthus,South,,50,100,0.47,36.83,,,56 kg/ha
+4,Miscanthus,South,,100,+,0.44,30.48,,,56 kg/ha
+4,Miscanthus,West,,0,10,0.72,36.72,,,56 kg/ha
+4,Miscanthus,West,,10,30,0.59,26.01,,,56 kg/ha
+4,Miscanthus,West,,30,50,0.60,34.07,,,56 kg/ha
+4,Miscanthus,West,,50,100,0.23,30.53,,,56 kg/ha
+4,Miscanthus,West,,100,+,0.36,31.81,,,56 kg/ha
+0,Prairie,East,1,0,10,0.83,35.78,,,None
+0,Prairie,East,1,10,30,0.63,36.70,,,None
+0,Prairie,East,1,30,50,0.68,40.21,,,None
+0,Prairie,East,1,50,100,0.63,40.59,,,None
+0,Prairie,East,1,100,+,0.74,39.42,,,None
+0,Prairie,East,2,0,10,0.73,40.22,,,None
+0,Prairie,East,2,10,30,0.54,34.00,,,None
+0,Prairie,East,2,30,50,0.52,37.51,,,None
+0,Prairie,East,2,50,100,0.25,31.56,,,None
+0,Prairie,East,2,100,+,0.63,37.31,,,None
+0,Prairie,North,1,0,10,0.81,41.26,,,None
+0,Prairie,North,1,10,30,0.73,39.25,,,None
+0,Prairie,North,1,30,50,0.65,32.98,,,None
+0,Prairie,North,1,50,100,0.72,38.98,,,None
+0,Prairie,North,1,100,+,0.21,25.97,,,None
+0,Prairie,North,2,0,10,1.29,39.89,,,None
+0,Prairie,North,2,10,30,0.99,38.69,,,None
+0,Prairie,North,2,30,50,0.82,32.95,,,None
+0,Prairie,North,2,50,100,0.86,36.17,,,None
+0,Prairie,North,2,100,+,Not enough ground material for CN analysis,,,,None
+0,Prairie,South,1,0,10,0.59,38.23,,,None
+0,Prairie,South,1,10,30,0.56,38.93,,,None
+0,Prairie,South,1,30,50,0.51,36.11,,,None
+0,Prairie,South,1,50,100,0.21,35.99,,,None
+0,Prairie,South,1,100,+,0.22,31.37,,,None
+0,Prairie,South,2,0,10,0.54,42.91,,,None
+0,Prairie,South,2,10,30,0.64,30.42,,,None
+0,Prairie,South,2,30,50,0.37,34.03,,,None
+0,Prairie,South,2,50,100,0.50,39.33,,,None
+0,Prairie,South,2,100,+,0.42,24.66,,,None
+0,Prairie,West,1,0,10,0.71,41.30,,,None
+0,Prairie,West,1,10,30,0.67,36.15,,,None
+0,Prairie,West,1,30,50,0.48,38.24,,,None
+0,Prairie,West,1,50,100,0.53,37.56,,,None
+0,Prairie,West,1,100,+,0.27,34.80,,,None
+0,Prairie,West,2,0,10,0.92,42.36,,,None
+0,Prairie,West,2,10,30,0.68,37.45,,,None
+0,Prairie,West,2,30,50,0.57,34.93,,,None
+0,Prairie,West,2,50,100,0.56,40.30,,,None
+0,Prairie,West,2,100,+,0.68,33.34,,,None
+1,Prairie,East,,0,10,0.56,43.00,,,None
+1,Prairie,East,,10,30,0.41,36.12,,,None
+1,Prairie,East,,30,50,0.37,31.81,,,None
+1,Prairie,East,,50,100,0.24,37.70,,,None
+1,Prairie,East,,100,+,No core below 1 meter,,,,None
+1,Prairie,North,,0,10,0.85,39.77,,,None
+1,Prairie,North,,10,30,0.34,25.75,,,None
+1,Prairie,North,,30,50,0.37,31.58,,,None
+1,Prairie,North,,50,100,0.44,37.00,,,None
+1,Prairie,North,,100,+,0.24,40.82,,,None
+1,Prairie,South,,0,10,0.49,37.14,,,None
+1,Prairie,South,,10,30,0.41,31.39,,,None
+1,Prairie,South,,30,50,0.41,34.75,,,None
+1,Prairie,South,,50,100,0.22,32.43,,,None
+1,Prairie,South,,100,+,1.00,40.81,,,None
+1,Prairie,West,,0,10,0.59,42.29,,,None
+1,Prairie,West,,10,30,0.46,37.98,,,None
+1,Prairie,West,,30,50,0.25,38.26,,,None
+1,Prairie,West,,50,100,0.40,36.38,,,None
+1,Prairie,West,,100,+,0.44,38.65,,,None
+2,Prairie,East,,0,10,0.88,34.14,,,None
+2,Prairie,East,,10,30,0.72,34.74,,,None
+2,Prairie,East,,30,50,0.59,35.42,,,None
+2,Prairie,East,,50,100,0.54,37.52,,,None
+2,Prairie,East,,100,+,0.62,39.10,,,None
+2,Prairie,North,,0,10,0.73,41.31,,,None
+2,Prairie,North,,10,30,0.45,33.57,,,None
+2,Prairie,North,,30,50,0.19,27.90,,,None
+2,Prairie,North,,50,100,0.36,32.67,,,None
+2,Prairie,North,,100,+,0.23,35.64,,,None
+2,Prairie,South,,0,10,0.53,37.44,,,None
+2,Prairie,South,,10,30,0.57,33.90,,,None
+2,Prairie,South,,30,50,0.37,28.58,,,None
+2,Prairie,South,,50,100,0.18,30.30,,,None
+2,Prairie,South,,100,+,0.22,38.03,,,None
+2,Prairie,West,,0,10,0.58,41.22,,,None
+2,Prairie,West,,10,30,0.50,39.69,,,None
+2,Prairie,West,,30,50,0.41,34.99,,,None
+2,Prairie,West,,50,100,0.21,34.64,,,None
+2,Prairie,West,,100,+,0.69,37.93,,,None
+3,Prairie,East,,0,10,0.59,43.65,,,None
+3,Prairie,East,,10,30,0.49,36.47,,,None
+3,Prairie,East,,30,50,0.60,37.61,,,None
+3,Prairie,East,,50,100,0.47,31.28,,,None
+3,Prairie,East,,100,+,0.70,40.80,,,None
+3,Prairie,North,,0,10,0.74,40.39,,,None
+3,Prairie,North,,10,30,0.46,34.52,,,None
+3,Prairie,North,,30,50,0.45,29.37,,,None
+3,Prairie,North,,50,100,0.20,35.81,,,None
+3,Prairie,North,,100,+,0.43,33.10,,,None
+3,Prairie,South,,0,10,0.83,36.50,,,None
+3,Prairie,South,,10,30,0.98,31.76,,,None
+3,Prairie,South,,30,50,0.65,36.71,,,None
+3,Prairie,South,,50,100,0.52,35.07,,,None
+3,Prairie,South,,100,+,0.90,36.35,,,None
+3,Prairie,West,,0,10,0.47,41.60,,,None
+3,Prairie,West,,10,30,1.00,38.22,,,None
+3,Prairie,West,,30,50,0.53,38.80,,,None
+3,Prairie,West,,50,100,0.48,36.25,,,None
+3,Prairie,West,,100,+,0.16,29.13,,,None
+4,Prairie,East,,0,10,0.57,41.58,,,None
+4,Prairie,East,,10,30,0.52,37.42,,,None
+4,Prairie,East,,30,50,0.37,41.03,,,None
+4,Prairie,East,,50,100,0.23,35.49,,,None
+4,Prairie,East,,100,+,0.77,38.38,,,None
+4,Prairie,North,,0,10,0.52,39.60,,,None
+4,Prairie,North,,10,30,0.50,34.40,,,None
+4,Prairie,North,,30,50,0.52,40.21,,,None
+4,Prairie,North,,50,100,0.48,35.23,,,None
+4,Prairie,North,,100,+,0.64,40.05,,,None
+4,Prairie,South,,0,10,0.77,39.31,,,None
+4,Prairie,South,,10,30,0.59,40.06,,,None
+4,Prairie,South,,30,50,0.52,37.91,,,None
+4,Prairie,South,,50,100,0.71,39.55,,,None
+4,Prairie,South,,100,+,0.62,35.01,,,None
+4,Prairie,West,,0,10,0.48,41.99,,,None
+4,Prairie,West,,10,30,0.56,35.60,,,None
+4,Prairie,West,,30,50,0.34,36.16,,,None
+4,Prairie,West,,50,100,0.41,34.07,,,None
+4,Prairie,West,,100,+,0.55,37.45,,,None
+0,Switchgrass,East,1,0,10,0.55,45.00,0.66,46.08,56 kg/ha
+0,Switchgrass,East,1,10,30,0.65,39.98,,,56 kg/ha
+0,Switchgrass,East,1,30,50,0.68,42.72,,,56 kg/ha
+0,Switchgrass,East,1,50,100,0.31,40.14,,,56 kg/ha
+0,Switchgrass,East,1,100,+,0.42,41.42,,,56 kg/ha
+0,Switchgrass,East,2,0,10,0.79,45.22,0.52,48.22,56 kg/ha
+0,Switchgrass,East,2,10,30,0.62,39.41,,,56 kg/ha
+0,Switchgrass,East,2,30,50,0.42,42.17,,,56 kg/ha
+0,Switchgrass,East,2,50,100,0.42,38.27,,,56 kg/ha
+0,Switchgrass,East,2,100,+,0.42,39.06,,,56 kg/ha
+0,Switchgrass,North,1,0,10,0.80,45.05,0.93,46.21,56 kg/ha
+0,Switchgrass,North,1,10,30,0.68,44.43,,,56 kg/ha
+0,Switchgrass,North,1,30,50,0.72,38.40,,,56 kg/ha
+0,Switchgrass,North,1,50,100,0.52,41.72,,,56 kg/ha
+0,Switchgrass,North,1,100,+,0.50,41.47,,,56 kg/ha
+0,Switchgrass,North,2,0,10,0.53,42.38,0.79,45.19,56 kg/ha
+0,Switchgrass,North,2,10,30,0.53,41.37,,,56 kg/ha
+0,Switchgrass,North,2,30,50,0.21,42.09,,,56 kg/ha
+0,Switchgrass,North,2,50,100,0.47,41.16,,,56 kg/ha
+0,Switchgrass,North,2,100,+,0.52,39.11,,,56 kg/ha
+0,Switchgrass,South,1,0,10,0.84,39.80,0.85,45.71,56 kg/ha
+0,Switchgrass,South,1,10,30,0.58,44.41,,,56 kg/ha
+0,Switchgrass,South,1,30,50,0.97,43.30,,,56 kg/ha
+0,Switchgrass,South,1,50,100,0.35,37.15,,,56 kg/ha
+0,Switchgrass,South,1,100,+,0.54,40.42,,,56 kg/ha
+0,Switchgrass,South,2,0,10,0.90,42.52,0.85,45.35,56 kg/ha
+0,Switchgrass,South,2,10,30,0.76,43.04,,,56 kg/ha
+0,Switchgrass,South,2,30,50,0.60,43.81,,,56 kg/ha
+0,Switchgrass,South,2,50,100,0.52,41.92,,,56 kg/ha
+0,Switchgrass,South,2,100,+,0.57,41.95,,,56 kg/ha
+0,Switchgrass,West,1,0,10,0.61,45.53,0.68,44.81,56 kg/ha
+0,Switchgrass,West,1,10,30,0.67,44.40,,,56 kg/ha
+0,Switchgrass,West,1,30,50,0.58,40.35,,,56 kg/ha
+0,Switchgrass,West,1,50,100,0.48,40.57,,,56 kg/ha
+0,Switchgrass,West,1,100,+,0.50,41.65,,,56 kg/ha
+0,Switchgrass,West,2,0,10,0.96,41.73,,,56 kg/ha
+0,Switchgrass,West,2,10,30,0.67,37.06,,,56 kg/ha
+0,Switchgrass,West,2,30,50,0.71,38.75,,,56 kg/ha
+0,Switchgrass,West,2,50,100,0.54,38.82,,,56 kg/ha
+0,Switchgrass,West,2,100,+,0.46,37.63,,,56 kg/ha
+1,Switchgrass,East,,0,10,0.57,43.51,0.47,45.66,56 kg/ha
+1,Switchgrass,East,,10,30,0.38,38.62,,,56 kg/ha
+1,Switchgrass,East,,30,50,0.23,41.56,,,56 kg/ha
+1,Switchgrass,East,,50,100,0.23,37.37,,,56 kg/ha
+1,Switchgrass,East,,100,+,0.35,39.59,,,56 kg/ha
+1,Switchgrass,North,,0,10,0.77,42.50,0.65,44.49,56 kg/ha
+1,Switchgrass,North,,10,30,0.62,39.28,,,56 kg/ha
+1,Switchgrass,North,,30,50,0.45,40.39,,,56 kg/ha
+1,Switchgrass,North,,50,100,0.33,35.12,,,56 kg/ha
+1,Switchgrass,North,,100,+,0.50,41.26,,,56 kg/ha
+1,Switchgrass,South,,0,10,0.49,45.32,0.52,44.43,56 kg/ha
+1,Switchgrass,South,,10,30,0.53,42.88,,,56 kg/ha
+1,Switchgrass,South,,30,50,0.21,41.40,,,56 kg/ha
+1,Switchgrass,South,,50,100,0.46,41.27,,,56 kg/ha
+1,Switchgrass,South,,100,+,0.22,42.75,,,56 kg/ha
+1,Switchgrass,West,,0,10,0.60,42.81,0.80,46.93,56 kg/ha
+1,Switchgrass,West,,10,30,0.58,41.09,,,56 kg/ha
+1,Switchgrass,West,,30,50,0.52,40.16,,,56 kg/ha
+1,Switchgrass,West,,50,100,0.45,39.22,,,56 kg/ha
+1,Switchgrass,West,,100,+,0.44,41.03,,,56 kg/ha
+2,Switchgrass,East,,0,10,0.89,37.47,0.76,44.59,56 kg/ha
+2,Switchgrass,East,,10,30,0.59,42.53,,,56 kg/ha
+2,Switchgrass,East,,30,50,0.52,41.58,,,56 kg/ha
+2,Switchgrass,East,,50,100,0.25,40.97,,,56 kg/ha
+2,Switchgrass,East,,100,+,0.50,40.35,,,56 kg/ha
+2,Switchgrass,North,,0,10,0.64,44.47,0.81,45.38,56 kg/ha
+2,Switchgrass,North,,10,30,0.59,42.41,,,56 kg/ha
+2,Switchgrass,North,,30,50,0.49,43.13,,,56 kg/ha
+2,Switchgrass,North,,50,100,0.46,42.09,,,56 kg/ha
+2,Switchgrass,North,,100,+,0.38,41.82,,,56 kg/ha
+2,Switchgrass,South,,0,10,0.74,41.94,0.61,44.88,56 kg/ha
+2,Switchgrass,South,,10,30,0.59,40.87,,,56 kg/ha
+2,Switchgrass,South,,30,50,0.40,41.24,,,56 kg/ha
+2,Switchgrass,South,,50,100,0.37,39.97,,,56 kg/ha
+2,Switchgrass,South,,100,+,0.54,42.06,,,56 kg/ha
+2,Switchgrass,West,,0,10,0.62,43.67,0.52,44.17,56 kg/ha
+2,Switchgrass,West,,10,30,0.70,40.52,,,56 kg/ha
+2,Switchgrass,West,,30,50,0.55,42.14,,,56 kg/ha
+2,Switchgrass,West,,50,100,0.45,38.58,,,56 kg/ha
+2,Switchgrass,West,,100,+,0.26,37.67,,,56 kg/ha
+3,Switchgrass,East,,0,10,0.86,37.77,0.61,42.84,56 kg/ha
+3,Switchgrass,East,,10,30,0.47,42.30,,,56 kg/ha
+3,Switchgrass,East,,30,50,0.41,42.20,,,56 kg/ha
+3,Switchgrass,East,,50,100,0.32,29.08,,,56 kg/ha
+3,Switchgrass,East,,100,+,0.40,38.21,,,56 kg/ha
+3,Switchgrass,North,,0,10,0.88,42.35,,,56 kg/ha
+3,Switchgrass,North,,10,30,0.41,43.36,,,56 kg/ha
+3,Switchgrass,North,,30,50,0.49,43.69,,,56 kg/ha
+3,Switchgrass,North,,50,100,0.44,41.11,,,56 kg/ha
+3,Switchgrass,North,,100,+,0.48,38.18,,,56 kg/ha
+3,Switchgrass,South,,0,10,1.36,40.35,,,56 kg/ha
+3,Switchgrass,South,,10,30,0.74,40.29,,,56 kg/ha
+3,Switchgrass,South,,30,50,0.47,36.97,,,56 kg/ha
+3,Switchgrass,South,,50,100,0.52,39.28,,,56 kg/ha
+3,Switchgrass,South,,100,+,0.55,41.94,,,56 kg/ha
+3,Switchgrass,West,,0,10,0.64,36.81,0.61,44.86,56 kg/ha
+3,Switchgrass,West,,10,30,0.56,43.58,,,56 kg/ha
+3,Switchgrass,West,,30,50,0.37,40.64,,,56 kg/ha
+3,Switchgrass,West,,50,100,0.41,38.09,,,56 kg/ha
+3,Switchgrass,West,,100,+,0.51,41.88,,,56 kg/ha
+4,Switchgrass,East,,0,10,0.76,41.04,0.65,44.22,56 kg/ha
+4,Switchgrass,East,,10,30,0.45,44.14,,,56 kg/ha
+4,Switchgrass,East,,30,50,0.30,38.56,,,56 kg/ha
+4,Switchgrass,East,,50,100,0.30,36.69,,,56 kg/ha
+4,Switchgrass,East,,100,+,0.50,41.10,,,56 kg/ha
+4,Switchgrass,North,,0,10,0.81,40.83,0.71,45.55,56 kg/ha
+4,Switchgrass,North,,10,30,0.54,38.70,,,56 kg/ha
+4,Switchgrass,North,,30,50,0.49,36.31,,,56 kg/ha
+4,Switchgrass,North,,50,100,0.48,38.97,,,56 kg/ha
+4,Switchgrass,North,,100,+,0.48,40.74,,,56 kg/ha
+4,Switchgrass,South,,0,10,0.60,45.22,0.67,46.78,56 kg/ha
+4,Switchgrass,South,,10,30,0.41,39.29,,,56 kg/ha
+4,Switchgrass,South,,30,50,0.44,40.90,,,56 kg/ha
+4,Switchgrass,South,,50,100,0.39,31.68,,,56 kg/ha
+4,Switchgrass,South,,100,+,0.44,39.34,,,56 kg/ha
+4,Switchgrass,West,,0,10,0.66,41.24,0.58,43.93,56 kg/ha
+4,Switchgrass,West,,10,30,0.58,43.21,,,56 kg/ha
+4,Switchgrass,West,,30,50,0.46,41.47,,,56 kg/ha
+4,Switchgrass,West,,50,100,0.38,40.08,,,56 kg/ha
+4,Switchgrass,West,,100,+,0.43,41.06,,,56 kg/ha
