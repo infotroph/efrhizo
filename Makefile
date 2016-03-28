@@ -21,6 +21,11 @@ RAW2014 = rawdata/EFTO_S1.TXT \
 	rawdata/EF2014_peak.txt \
 	rawdata/EFDESTRUCTIVE.TXT
 
+RAWCORES = rawdata/Tractor-Core-Biomass-2011.csv \
+	rawdata/Tractor-Core-Biomass-2014.csv \
+	rawdata/Tractor-Core-CN-2011.csv \
+	rawdata/Tractor-Core-CN-2014.csv
+
 ALL = data/frametots2010.txt \
 	data/frametots2011.txt \
 	data/frametots2012.txt \
@@ -43,6 +48,7 @@ ALL = data/frametots2010.txt \
 	data/offset2012.csv \
 	data/offset2013.csv \
 	data/offset2014.csv \
+	data/tractorcore.csv \
 	figures/logvol-cornpoints-2012.png \
 	figures/logvol-cornpointsline-2012.png \
 	figures/logvol-polyfit-2010.png \
@@ -54,6 +60,8 @@ ALL = data/frametots2010.txt \
 	figures/destructive-massvsvol.png \
 	figures/destructive-vol.png \
 	figures/destructive-vol-fulldepth.png \
+	figures/tractorcore-bars.png \
+	figures/tractorcore-exp.png \
 	data/destructive-mass-nearvsfar.txt
 
 all: $(ALL)
@@ -229,6 +237,11 @@ data/stripped2014-destructive.csv: \
 		data/offset2014.csv \
 		data/stripped2014-destructive.csv >> tmp/2014-destructive-cleanup-log.txt 
 
+data/tractorcore.csv: \
+		$(RAWCORES) \
+		scripts/tractorcore-cleanup.R
+	Rscript scripts/tractorcore-cleanup.R
+
 figures/logvol-cornpoints-2012.png: \
 		data/stripped2012.csv \
 		scripts/plot-ebireportspring2014.r
@@ -269,6 +282,11 @@ figures/destructive-mass.png figures/destructive-massvsvol.png figures/destructi
 		rawdata/destructive-harvest/rhizo-destructive-belowground.csv \
 		data/stripped2014-destructive.csv
 	Rscript scripts/destructive-tissue.r
+
+figures/tractorcore-bars.png figures/tractorcore-exp.png: \
+		scripts/plot-tractorcores.R \
+		data/tractorcore.csv
+	Rscript scripts/plot-tractorcores.R
 
 clean:
 	rm $(ALL)
