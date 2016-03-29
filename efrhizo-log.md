@@ -1026,3 +1026,15 @@ Hand-corrected fertilization rates in 2014 biomass file to match 2014 CN file: A
 First ~working attempt at a tractor core data cleanup script. Writes all 480 locations/depths for each year to `data/tractorcore.csv`. Note that all C and N contents are for individual samples, so samples that had biomass but no CN data show as missing values here. In downstream plots/tables, I plan to recalculate these from block-averaged %C and %N in order to avoid losing the biomass information (especially important for 2011 10-30 layer, which contained a few rhizomes but they didn't get measured).
 
 First ~working plot script saved, with ouputs and updated Makefile for the while pathway. Used whole-plot average %C and %N of rhizomes, but block/horizon averages for roots. This involved re-doing a bunch of the calculations from tractorcore-cleanup.R in plot-tractorcore.R and I'll probably kick myself for adding the duplicated code later, but this seems to work for now anyway.
+
+## 2016-03-28
+
+Correcting one note in censorframes2014.csv: T92 L065 is censored because of water droplets. This triggers a replot of several figures in new ggplot style:
+	
+	figures/destructive-mass.png
+	figures/destructive-massvsvol.png
+	figures/destructive-vol-fulldepth.png
+	figures/destructive-vol.png
+	figures/logvol-polyfit-2014.png
+
+No changes to data, just linewidth/spacing changes. NOT committing the changed figures!
