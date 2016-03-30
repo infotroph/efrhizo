@@ -9,7 +9,7 @@
 #PBS -j oe
 #PBS -N rz_mctd
 #PBS -d /home/a-m/black11/efrhizo/stan
-#PBS -A rhizotron
+
 # ----------------Load Modules-------------------- #
 module load R/3.2.0
 # ----------------Your Commands------------------- #

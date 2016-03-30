@@ -1091,3 +1091,5 @@ Execution halted
 I vaguely remember messages like this when I first installed ggplot 2.0.0 and was still running a version of Rstan that had been built against an earlier version. Tried switching from R 3.2.0 to R 3.2.3 by updating the `module load` call in Torque script, but Stan is not installed for 3.2.3. Will email David Slater and ask to get all new versions set up in R 3.2.3 (need to check which versions of what I need).
 
 Bigger problem: I coerced the runname to numeric, so all six runs overwrite each other as "NA.Rdata". Gah! Removed as.numeric around runname in mix_crop_tube_depth.R.
+
+Removed project name (`#PBS -A rhizotron`) from Torque scripts -- Biocluster docs say it needs to match a project name you have on file, all mine were set to "rhizotron" but are changed in the records to "black11" because that's the default for me. I'll let it stay default for now.
