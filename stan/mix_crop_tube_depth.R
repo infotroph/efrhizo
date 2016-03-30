@@ -3,9 +3,18 @@ library(rstan)
 
 sessionInfo()
 
-runname=commandArgs(trailingOnly=TRUE)[[1]]
-
-n_subsample = 1000 # how many rows to pick from the full dataset?
+args=commandArgs(trailingOnly=TRUE)
+runname = as.numeric(args[[1]])
+sub_year = as.numeric(args[[2]])
+sub_session = as.numeric(args[[3]])
+if(length(args)==4){
+	# How many rows from WITHIN year and session to subsample?
+	# Will error if n_subsample > n rows where Year==sub_year & Session==sub_session
+	n_subsample = as.numeric(arg2[[4]])
+}else{
+	# If unset, use all rows.
+	n_subsample = NULL
+}
 
 rstan_options(auto_write = TRUE)
 options(mc.cores=7)
@@ -67,11 +76,15 @@ plotpars_pred=c(
 source("../scripts/stat-prep.R") # creates data frame "strpall"
 strpall = strpall[strpall$Depth > 0,]
 
-rows_used = sample(1:nrow(strpall), n_subsample)
-rzdat = droplevels(strpall[rows_used,])
+ys_rows = which(strpall$Year==sub_year & strpall$Session==sub_session)
+if(is.null(n_subsample)){
+	rzdat = droplevels(strpall[ys_rows,])
+}else{
+	rzdat = droplevels(strpall[sample(ys_rows, n_subsample),])
+	print(paste("Subsampling these", n_subsample, "rows from strpall:"))
+	print(dput(rows_used))
+}
 rm(strpall)
-print(paste("Subsampling these", n_subsample, "rows from strpall:"))
-print(dput(rows_used))
 
 # Stan expects tube numbers to be in 1:T. If subsetting, must remap.
 tube_map = data.frame(Tube=sort(unique(rzdat$Tube)))

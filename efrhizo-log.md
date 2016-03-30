@@ -1047,6 +1047,24 @@ More data cleanup! Found a note in an old TODO file reminding me to check 2012 T
 
 TODO: While checking T21 locations, noticed that 2012 T21 L115 S3 is a black image, but does not appear in censorframes-2012.csv. Fixed that, but this lead me to notice that in both sessions, the raw data file contains no entries for frames deeper than 95, even though images do exist for locations 100-110! Long-term, I probably need to do some kind of automated cross-checking of image listings against trace listings. For now, I'm just going to hope this isn't a widespread problem and shrug it off as a couple of missing datapoints that would only contribute zeroes.
 
-## 2016-03-29
+## 2016-03-30
 
 Last night's "black image" for 2012 S3 T21 L115 is actually a blue screen like most other bad images, I just had my laptop screen set to a late-night color balance and couldn't tell. Fixed in censorframes2012.csv.
+
+Now trying to update Biocluster scripts to run Stan  estimates all at once instead of manually editing and resubmitting:
+
+* Modified `mix_crop_tube_depth.R` to accept year and session number as arguments.
+* Run `mix_crop_tube_depth.R` from a Torque script that generates a job array by using the `PBS -t <range>` directive: According to http://help.igb.illinois.edu/Job_Array_Example, this generates as many copies of the script as there are indexes in `<range>`, then dispatches them with `$PBS_ARRAYID` set to each index.
+
+	A wrinkle, though: In my experimental runs, this seems to mostly work, but the script run with the first index (no matter what number I start from) doesn't generate any output! Thought at first it was always exitting with an error, but later it seemed to return 0 and take a normal amount of time to run. Have emailed the Biocluster techs to ask about this, meanwhile I'm going to include a model I don't really care about as the first job in the array.
+* `#PBS -t 0-5` should generate six runs. Let's map their indices to different midsummer rhizotron sessions.
+* Midseasons as run 2016-01-21, plus July 2010 (S3) as the sacrifical first job: 2010-s3, 2010-s4, 2011-s4, 2012-s4, 2013-s5, 2014-s2:
+	```
+	years=(2010 2010 2011 2012 2013 2014)
+	sessions=(3 4 4 4 5 2)
+	y="${years[$PBS_ARRAYID]}"
+	s="${sessions[$PBS_ARRAYID]}"
+	```
+* Now pass each one in to the R script: `time Rscript mix_crop_tube_depth.R "$PBS_JOBNAME"."$SHORT_JOBID" "$y" "$s"`
+
+Assembled all these changes into one file, saved as `mix_crop_tube_depth_midsummers.sh`.
