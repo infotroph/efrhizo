@@ -113,6 +113,14 @@ date,tube,loc,reason,notes
 2012-06-08,19,45,mistraced, "CKB overruled log by checking image thumbnail. CHECK THIS again in winrhizo"
 2012-06-08,20,45,blur, 
 2012-06-08,20,105,water,
+2012-06-07,21,1,wrong location,image is a duplicate of location 40
+2012-06-07,21,45,wrong location,image is a duplicate of location 40
+2012-06-07,21,50,wrong location,image is a duplicate of location 40
+2012-06-07,21,55,wrong location,image is a duplicate of location 40
+2012-06-07,21,60,wrong location,image is a duplicate of location 40
+2012-06-07,21,65,wrong location,image is a duplicate of location 40
+2012-06-07,21,70,wrong location,image is a duplicate of location 40
+2012-06-07,21,75,wrong location,image is a duplicate of location 40
 2012-06-07,24,5,daylight,
 2012-06-08,25,40,water,
 2012-06-08,25,45,water,
@@ -175,6 +183,7 @@ date,tube,loc,reason,notes
 2012-06-20,18,60,blur
 2012-06-20,20,5,daylight
 2012-06-21,21,10,blur
+2012-06-21,21,115,black
 2012-06-21,22,5,daylight
 2012-06-21,23,5,blur
 2012-06-21,24,5,bluescreen

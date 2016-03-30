@@ -1042,3 +1042,7 @@ No changes to data, just linewidth/spacing changes. NOT committing the changed f
 ## 2016-03-29
 
 Cleanup in the operator-agreement directory: renamed many raw data files, imported all remaining data from imager, converted logs from XLS to CSV, moved calibrations into one CSV. Started a readme and the VERY first attempt at a Makefile, but it's not ready to use yet. Beginning to think about analysis plans for the agreement data, but need to think more before writing it down.
+
+More data cleanup! Found a note in an old TODO file reminding me to check 2012 T21 S2 for duplicated images. Inspected images, found that locations 1 and 45-75 all show location 40. Locations 5-40 and 80-110 all look OK: they show the same soil features visible at those locations in sessions 1 and 3. Updated 2012-censorframes.csv, reran Make.
+
+TODO: While checking T21 locations, noticed that 2012 T21 L115 S3 is a black image, but does not appear in censorframes-2012.csv. Fixed that, but this lead me to notice that in both sessions, the raw data file contains no entries for frames deeper than 95, even though images do exist for locations 100-110! Long-term, I probably need to do some kind of automated cross-checking of image listings against trace listings. For now, I'm just going to hope this isn't a widespread problem and shrug it off as a couple of missing datapoints that would only contribute zeroes.
