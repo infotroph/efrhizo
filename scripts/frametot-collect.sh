@@ -4,7 +4,7 @@
 # Cleans up each file given in arguments:
 #	* Deletes first 4 header lines ('1,4d'). Add better headers outside of this script.
 #	* Deletes lines for individual roots ('/ROOT/d'), which are not used in the analysis.
-#	* Deletes lines containing only whitespace ('/^[[:space:]]*$/d'), which are unsightly.	
+#	* Deletes lines containing only whitespace ('/^[[:space:]]*$/d'), which are unsightly.
 #	* Converts line ends from Windows style to UNIX style ("s/$CRLF/$LF/").
 
 CRLF=$(printf '\r\n')
