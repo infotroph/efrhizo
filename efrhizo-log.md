@@ -1038,3 +1038,7 @@ Correcting one note in censorframes2014.csv: T92 L065 is censored because of wat
 	figures/logvol-polyfit-2014.png
 
 No changes to data, just linewidth/spacing changes. NOT committing the changed figures!
+
+## 2016-03-29
+
+Cleanup in the operator-agreement directory: renamed many raw data files, imported all remaining data from imager, converted logs from XLS to CSV, moved calibrations into one CSV. Started a readme and the VERY first attempt at a Makefile, but it's not ready to use yet. Beginning to think about analysis plans for the agreement data, but need to think more before writing it down.
