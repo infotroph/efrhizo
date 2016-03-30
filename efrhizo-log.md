@@ -1068,3 +1068,26 @@ Now trying to update Biocluster scripts to run Stan  estimates all at once inste
 * Now pass each one in to the R script: `time Rscript mix_crop_tube_depth.R "$PBS_JOBNAME"."$SHORT_JOBID" "$y" "$s"`
 
 Assembled all these changes into one file, saved as `mix_crop_tube_depth_midsummers.sh`.
+
+While I'm at it: Changed handling of n_subsample so that's also an *optional* argument to the script. If not provided, use all rows from the chosen year and session.
+
+OK, let's try this. Pushed all changes to IGB cluster, ran all mix_crop_tube_depth for all midsummers as a simple $(qsub stan/mix_crop_tube_depth_midsummers.sh)
+
+* Job ID: 1862884[].biocluster.igb.illinois.edu
+* 7 chains, 20000 iterations each
+* No subset (should run all rows of each year/session)
+* array indexes (#PBS -t) 0-5
+* years=(2010 2010 2011 2012 2013 2014)
+* sessions=(3 4 4 4 5 2)
+
+All jobs run 8-11 minutes, finish Stan sampling but exit with errors at beginning of plotting code:
+
+```
+Error in if (debug) { : argument is of length zero
+Calls: print ... element_grob -> element_grob.element_text -> titleGrob
+Execution halted
+```
+
+I vaguely remember messages like this when I first installed ggplot 2.0.0 and was still running a version of Rstan that had been built against an earlier version. Tried switching from R 3.2.0 to R 3.2.3 by updating the `module load` call in Torque script, but Stan is not installed for 3.2.3. Will email David Slater and ask to get all new versions set up in R 3.2.3 (need to check which versions of what I need).
+
+Bigger problem: I coerced the runname to numeric, so all six runs overwrite each other as "NA.Rdata". Gah! Removed as.numeric around runname in mix_crop_tube_depth.R.

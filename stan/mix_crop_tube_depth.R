@@ -4,7 +4,7 @@ library(rstan)
 sessionInfo()
 
 args=commandArgs(trailingOnly=TRUE)
-runname = as.numeric(args[[1]])
+runname = args[[1]]
 sub_year = as.numeric(args[[2]])
 sub_session = as.numeric(args[[3]])
 if(length(args)==4){
