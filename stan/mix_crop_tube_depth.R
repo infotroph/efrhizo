@@ -19,7 +19,7 @@ if(length(args)==4){
 rstan_options(auto_write = TRUE)
 options(mc.cores=7)
 n_chains = 7
-n_iters = 3000
+n_iters = 20000
 n_warm = 1000
 n_predtubes = 8
 pred_depths = c(1, 10 , 30, 50, 75, 100, 140)
@@ -94,6 +94,7 @@ print(dput(tube_map))
 
 rzdat = rzdat[order(rzdat$rootvol.mm3.mm2),]
 
+print(paste("Using data from", sub_year, ", session", sub_session)) 
 print("Crop name-to-number key:")
 print(data.frame(
 	num=1:nlevels(rzdat$Species),
@@ -195,8 +196,8 @@ print(traceplot(rz_mtd, pars=plotpars_mod))
 print(traceplot(rz_mtd, pars=plotpars_pred))
 print(traceplot(rz_mtd, inc_warmup=TRUE, pars=plotpars_mod))
 print(traceplot(rz_mtd, inc_warmup=TRUE, pars=plotpars_pred))
-print(pairs(rz_mtd, pars=plotpars_mod))
-print(pairs(rz_mtd, pars=plotpars_pred))
+# print(pairs(rz_mtd, pars=plotpars_mod))
+# print(pairs(rz_mtd, pars=plotpars_pred))
 print(stan_hist(rz_mtd, pars=plotpars_mod))
 print(stan_hist(rz_mtd, pars=plotpars_pred))
 print(stan_dens(rz_mtd, pars=plotpars_mod))
