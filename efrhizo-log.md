@@ -1127,3 +1127,18 @@ Reduced chains to 1. full model runs now!
 OK, so if one of the complaints is that the system ggplot2 1.0.1 is masking my local ggplot2 2.1.0, what if I use a different R module? `R/experimental` has ggplot 2.1.0 already.
 
 IT WORKS!!!
+
+* Job 1863305[].biocluster.igb.illinois.edu
+* 7 chains, 20000 iterations each
+* No subset (should run all rows of each year/session)
+* array indexes (#PBS -t) 0-5
+* years=(2010 2010 2011 2012 2013 2014)
+* sessions=(3 4 4 4 5 2)
+* walltime 9:15 - 21:21
+* memory ~2.5 GB each
+
+"sacrificial" 2010-S3 ran normally -- looks like whatever gremlins caused the first-index issue are resolved now. Mixing in 2010-S3 is poor though, not sure why.
+
+Zipped up results in three separate tarballs for copying back to laptop: images as `rz_mctd.1863305-pngs.tar.gz` (~21MB), Rdata as `rz_mctd.1863305-rdata.tar.gz` (~1.5 GB), and log files as `rz_mctd.1863305-logs.tar.gz` (~17KB).
+
+Created run scripts to fit each session of 2010 (`mix_crop_tube_depth_sessions10.sh`, fits sessions 1,3,4,5) & 2012 (`mix_crop_tube_depth_sessions12.sh`, fits sessions 1-6), pushed all changes to Biocluster. Note that none of the Stan output is committed to Git yet, I'm just copying it back and forth by hand thus far.
