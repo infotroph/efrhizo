@@ -1094,6 +1094,36 @@ Bigger problem: I coerced the runname to numeric, so all six runs overwrite each
 
 Removed project name (`#PBS -A rhizotron`) from Torque scripts -- Biocluster docs say it needs to match a project name you have on file, all mine were set to "rhizotron" but are changed in the records to "black11" because that's the default for me. I'll let it stay default for now.
 
-Installed Rstan 2.9.0-3 myself to `~/R/x86_64-pc-linux-gnu-library/3.2/` rather than wait for installation by admins, updated R module calls to 3.2.3.
+Installed Rstan 2.9.0-3 myself to `~/R/x86_64-pc-linux-gnu-library/3.2/`, along with automatically installed dependencies (ggplot2 2.1.0, inline, RccpEigen, StanHeaders) rather than wait for installation by admins. Updated R module calls to 3.2.3.
 
 Current post-stan save calls preserve the Stan samples, but not subsampled data (possible to reconstruct this from logs, but tedious) or simulated rz_pred dataframe (needed for plotting). Added both of these to the saved Rdata object.
+
+Some R environment setup to tell R that it should preferentially use the locally installed rstan. And while I'm at it, let's set some compiler flags, most notably -O3 (Stan howtos report this ~always gives a noticeable speedup in model runtime for only a little increase in compile time).
+
+```
+echo '.libPaths("/home/a-m/black11/R/x86_64-pc-linux-gnu-library/3.2")' >> ~/.Rprofile
+mkdir ~/.R
+echo 'CXXFLAGS=-O3 -Wno-unused-variable -Wno-unused-function -Wno-unused-local-typedefs -march=native' >> ~/.R/Makevars
+```
+
+## 2016-03-31
+
+...Lots of frustrated troubleshooting omitted here, and lots of jobs run and deleted. Key symptom is that all Stan scripts, even very simple ones, were succeeding when run with 1 chain but failing when run with multiple chains:
+
+```
+Error in .Object$initialize(...) : 
+  could not find function "cpp_object_initializer"
+In addition: Warning message:
+version 2.1.0 of 'ggplot2' masked by 1.0.1 in /home/apps/R/R-3.2.3/lib64/R/library 
+failed to create the sampler; sampling not done
+```
+
+Things I tried included: Adding `library(Rcpp)` to top of script, deleting compiled model (*.rda) and recompiling, adding a second trivial model to the middle of the main script... lots of cursing, of course...
+
+Played with a trivial Stan regression on synthetic data. Key insight: this too breaks, but only when I ask for more than one chain --> local R environment is somehow masked by system default environment on worker thread dispatch!
+
+Reduced chains to 1. full model runs now!
+
+OK, so if one of the complaints is that the system ggplot2 1.0.1 is masking my local ggplot2 2.1.0, what if I use a different R module? `R/experimental` has ggplot 2.1.0 already.
+
+IT WORKS!!!

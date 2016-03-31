@@ -10,7 +10,7 @@
 #PBS -d /home/a-m/black11/efrhizo/stan
 #PBS -t 0-5
 
-module load R/3.2.3
+module load R/experimental
 
 SHORT_JOBID=`echo $PBS_JOBID | sed 's/\..*//'`
 echo "Starting $PBS_JOBNAME"."$SHORT_JOBID" on `date -u`
