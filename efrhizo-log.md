@@ -1142,3 +1142,13 @@ IT WORKS!!!
 Zipped up results in three separate tarballs for copying back to laptop: images as `rz_mctd.1863305-pngs.tar.gz` (~21MB), Rdata as `rz_mctd.1863305-rdata.tar.gz` (~1.5 GB), and log files as `rz_mctd.1863305-logs.tar.gz` (~17KB).
 
 Created run scripts to fit each session of 2010 (`mix_crop_tube_depth_sessions10.sh`, fits sessions 1,3,4,5) & 2012 (`mix_crop_tube_depth_sessions12.sh`, fits sessions 1-6), pushed all changes to Biocluster. Note that none of the Stan output is committed to Git yet, I'm just copying it back and forth by hand thus far.
+
+```
+qsub mix_crop_tube_depth_sessions12.sh 
+1863316[].biocluster.igb.illinois.edu
+
+qsub mix_crop_tube_depth_sessions10.sh 
+1863317[].biocluster.igb.illinois.edu
+```
+
+2010 script had wrong year in it! These fits show 2012 again. Deleted all files from job 1863317, fixed script, reran as job 1863349.
