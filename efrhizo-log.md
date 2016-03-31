@@ -1095,3 +1095,5 @@ Bigger problem: I coerced the runname to numeric, so all six runs overwrite each
 Removed project name (`#PBS -A rhizotron`) from Torque scripts -- Biocluster docs say it needs to match a project name you have on file, all mine were set to "rhizotron" but are changed in the records to "black11" because that's the default for me. I'll let it stay default for now.
 
 Installed Rstan 2.9.0-3 myself to `~/R/x86_64-pc-linux-gnu-library/3.2/` rather than wait for installation by admins, updated R module calls to 3.2.3.
+
+Current post-stan save calls preserve the Stan samples, but not subsampled data (possible to reconstruct this from logs, but tedious) or simulated rz_pred dataframe (needed for plotting). Added both of these to the saved Rdata object.

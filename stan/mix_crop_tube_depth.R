@@ -143,7 +143,7 @@ rz_mtd = stan(
 	verbose=TRUE,
 	open_progress=FALSE)
 
-save(rz_mtd, file=paste0(runname, ".Rdata"))
+save(rz_mtd, rzdat, rz_pred, file=paste0(runname, ".Rdata"))
 warnings()
 stopifnot(rz_mtd@mode == 0) # 1 or 2 = error
 
