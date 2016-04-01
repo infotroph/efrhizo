@@ -1,4 +1,5 @@
 .DS_STORE
 notes/git-todo.txt
 Icon
+*.rda
 tmp/*
