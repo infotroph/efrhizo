@@ -1169,3 +1169,10 @@ This workflow is getting a bit ridiculous. Let's review:
 * Finally, plotfits_mctd.R gathers all the fits from the various models and plots them in ways that are, hopfeully, comprehensible to the world.
 
 The model results I plotted for Evan come from job IDs `rz_mctd.1863305` (peak samples from all years), `rz_mctd_2010.1863349` (2010 all sessions), and `rz_mctd_2012.1863316` (2012 all sessions). Note that `extractfits_mctd.R` names files by year and session and overwrites any duplicates, and that I ran it on the peak outputs before the single-year outputs, so the peak 2010 and 2012 values I plotted are the ones from jobs 1863349 and 1863316 respectively, *not* from `1863305[1]` and `1863305[3]`. But they *are* supposedly identical runs or supposedly the same model, so the values ought to be very similar. My squints at the diagnostic plots say this is more or less the case.
+
+## 2016-04-01
+
+Emailed Biocluster staff to ask for rstan upgrade. David Slater upgraded rstan to 2.9.90 in R/3.2.0 module and also installed it in R/experimental, with warning that experimental is bleeding-edge with weekly automated package updates, so it may break at any time. I'll keep using R/experimental for now, but removed my local ~/R/ and .Rprofile so all packages use the system version of rstan.
+
+My "first job in the array does't run" issue from 2016-03-30 seems to have resolved itself with no changes from me. Removed the `sacrificial` job from `mix_crop_tube_depth_midsummers.sh`.
+
