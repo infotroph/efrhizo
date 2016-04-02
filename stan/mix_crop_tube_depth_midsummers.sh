@@ -18,7 +18,7 @@ echo "Starting $PBS_JOBNAME"."$SHORT_JOBID" on `date -u`
 # Want midseason estimates from each year.
 years=(2010 2011 2012 2013 2014)
 sessions=(4 4 4 5 2)
-y="${years:[$PBS_ARRAYID]}"
+y="${years[$PBS_ARRAYID]}"
 s="${sessions[$PBS_ARRAYID]}"
 
 echo "Running mix_crop_tube_depth.R for year " "$y" " session " "$s"
