@@ -1152,3 +1152,20 @@ qsub mix_crop_tube_depth_sessions10.sh
 ```
 
 2010 script had wrong year in it! These fits show 2012 again. Deleted all files from job 1863317, fixed script, reran as job 1863349.
+
+Hastily constructed scripts to assemble/plot results from all fits. Barely finished in time to show results to Evan at 2 PM before committing any changes. Now (11 PM 2016-04-01) committing these scripts after renaming/cleaning them up a bit.
+
+This workflow is getting a bit ridiculous. Let's review:
+
+* Raw data are cleaned up to annual files by a series of two scripts (frametot-collect.sh, then cleanup.R). This process is automated in the Makefile and all the intermediate steps are saved as version-cpntrolled files.
+* The clean annual files are mashed together by stat-prep.R to produce a single master dataset. The master dataset is currently not saved anywhere; instead each model script is responsible for calling stat-prep.R itself.
+* Stan models are run on the IGB computing cluster, by submitting the appropriate Torque script, which calls the appropriate R script, which runs the appropriate Stan model. None of this process is in the Makefile and all the scripts in the sequence are very tightly coupled, i.e. they each rely heavily on the exact format of each others' inputs and utputs, so I usually have to edit them all at once.
+* The model I'm currently using is run by mix_crop_tube_depth.R, which: 
+	* Takes arguments that specify which year and session to fit, and whether to fit all available lines of data from that year or to subsample them. Those arguments are specified in the Torque scripts. 
+	* Assumes a run of one session from one year, and will exit with an error if called otherwise. This assumption was newly added on 2016-03-30 and the underlying Stan model will happily fit data that spans multiple days (but it won't estimate any time-related parameters, either!)
+	* Set
+	* Attempts some diagnostic plotting and prints some summaries, but also save an Rdata file that contains three objects: the fitted model, the subset of the clean rhizotron data that was used to fit it, and the set of crop/depth/tube combinations at which to simulate predicted data.
+* Model results are summarized by calling extractfits_mctd.R to get root volume parameters from each model fit and store them as neatly formatted (or at least *more* neatly formatted) CSVs.
+* Finally, plotfits_mctd.R gathers all the fits from the various models and plots them in ways that are, hopfeully, comprehensible to the world.
+
+The model results I plotted for Evan come from job IDs `rz_mctd.1863305` (peak samples from all years), `rz_mctd_2010.1863349` (2010 all sessions), and `rz_mctd_2012.1863316` (2012 all sessions). Note that `extractfits_mctd.R` names files by year and session and overwrites any duplicates, and that I ran it on the peak outputs before the single-year outputs, so the peak 2010 and 2012 values I plotted are the ones from jobs 1863349 and 1863316 respectively, *not* from `1863305[1]` and `1863305[3]`. But they *are* supposedly identical runs or supposedly the same model, so the values ought to be very similar. My squints at the diagnostic plots say this is more or less the case.
