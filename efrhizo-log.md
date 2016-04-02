@@ -1176,3 +1176,10 @@ Emailed Biocluster staff to ask for rstan upgrade. David Slater upgraded rstan t
 
 My "first job in the array does't run" issue from 2016-03-30 seems to have resolved itself with no changes from me. Removed the `sacrificial` job from `mix_crop_tube_depth_midsummers.sh`.
 
+Submitted updated midsummers script as job 1863731. Theoretically nothing has changed in the model, so I expect output very similar to job 1863305, though with no 2010-S3. 
+
+## 2016-04-02
+
+Conclusion on checking traceplots and output summaries from 1863731: Yes, output is very similar, but in both cases the model seems to have intermittent mixing trouble: One previously-well-mixing chain gets stuck partway through the run, stays fixed at ~same values of nearly all parameters for a while, eventually starts moving again. In run 1863305 this visibly affects the 2014-S2 data, while in run 1863731 the 2014-s2 traces look fine but 2012-s4 has a DRAMATIC freeze from samples ~13k to ~18k. Wonder how many other chains do this but aren't visible because they're overplotted by well-mixing later chains? Probably need to do some test runs with fewer chains and see if I can find where in parameter space it's getting stuck.
+
+Also: Apparently I committed the wrong file yesterday: Deleted gatherfits_mctd.R, which is an unwanted copy of extractfits_mctd.R, and added plotfits_mctd.R, which I thought I was adding in 54a6d8.
