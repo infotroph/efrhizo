@@ -10,7 +10,7 @@ sub_session = as.numeric(args[[3]])
 if(length(args)==4){
 	# How many rows from WITHIN year and session to subsample?
 	# Will error if n_subsample > n rows where Year==sub_year & Session==sub_session
-	n_subsample = as.numeric(arg2[[4]])
+	n_subsample = as.numeric(args[[4]])
 }else{
 	# If unset, use all rows.
 	n_subsample = NULL
@@ -82,7 +82,7 @@ if(is.null(n_subsample)){
 }else{
 	rzdat = droplevels(strpall[sample(ys_rows, n_subsample),])
 	print(paste("Subsampling these", n_subsample, "rows from strpall:"))
-	print(dput(rows_used))
+	print(dput(ys_rows))
 }
 rm(strpall)
 
