@@ -6,7 +6,7 @@ library("cowplot")
 # usage: Rscript plotfit_mctd.R path/to/csvs/ path/to/images/
 args=commandArgs(trailingOnly=TRUE)
 csv_path = file.path(args[[1]])
-img_path = file.path(args[[1]])
+img_path = file.path(args[[2]])
 
 
 cropdiff_csvs = list.files(
