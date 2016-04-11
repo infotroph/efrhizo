@@ -1185,3 +1185,72 @@ Conclusion on checking traceplots and output summaries from 1863731: Yes, output
 Also: Apparently I committed the wrong file yesterday: Deleted gatherfits_mctd.R, which is an unwanted copy of extractfits_mctd.R, and added plotfits_mctd.R, which I thought I was adding in 54a6d8.
 
 Moved last two hand-edited files out of `data/` directory. It is now actually true, with no asterisks, that everything in `data/` is generated, by a scripted process that can be rerun at any time, from something in `rawdata`.
+
+## 2016-04-05
+
+Trying to diagnose occasional "divergent transitions after warmup" warnings -- I had been ignoring these, but I gather from reading the Stan-users mailing list that these often indicate the sampler is having trouble covering the full posterior distribution, and the part-line advice seems to be to treat any divergent transitions as too many. don't know yet whether these are related to the stuck chains noted on 2016-04-02.
+
+In job 1863731 (most recent run of peak samples from all five years), 2010-s4 did not warn and all of 2011-2014 did warn: 82, 1128, 828, 592 divergent transitions after warmup, respectively.
+
+Plan of attack:
+
+* Are the warnings consistent? --> run same job several times, check divergent transition count
+* Take the warning's advice: 2011-s4 output is typical.
+	```
+	Warning messages:
+	1: There were 82 divergent transitions after warmup. Increasing adapt_delta above 0.8 may help.
+	2: Examine the pairs() plot to diagnose sampling problems
+	```
+* ???
+
+Well, one thing at a time. Made the following changes--No I didn't. Biocluster seems very sluggish right now (can't even get a git status without waiting minutes).
+
+## 2016-04-06
+
+OK, *now* making the following changes.
+
+* Uncommented the two `pairs()` plots in `mix_crop_tube_depth.R`. These take forever to run, but if they're the correct diagnostic then they're the correct diagnostic.
+* Submitted mix_drop_tube_depth_midsummers.sh five times. Job numbers:
+	1865013, 1865014, 1865015, 1865016, 1865017
+* Edited mix_crop_tube_depth.R to add `control=list(adapt_delta=0.85)` to the stan call.
+* Edited mix_drop_tube_depth_midsummers.sh to set job name to "rz_mctd_ad85"
+* Submitted mix_drop_tube_depth_midsummers.sh five more times, note job numbers:
+	1865019, 1865020, 1865021, 1865022, 1865023
+* Edited mix_crop_tube_depth.R to set adapt_delta=0.90.
+* Edited mix_drop_tube_depth_midsummers.sh to set job name to "rz_mctd_ad90"
+* Submitted mix_drop_tube_depth_midsummers.sh five more times. Job numbers.
+	1865024, 1865025, 1865026. 1865027, 1865028
+
+...All jobs with adapt_delta edited (1865019 onward) crash in two seconds because I didn't add a comma after the control parameter.
+
+* Edited mix_crop_tube_depth.R to add a comma to the end of line 141: `control=list(adapt_delta=0.90),`
+* Submitted ...midsummers.sh once, waited a minute, no crash. submitted for more. These are all with jobname `rz_mctd_ad90`. Job numbers:
+	1865030, 1865031, 1865032, 1865033, 1865034
+
+
+## 2016-04-10
+
+Looking at output from 2016-04-06. Observations:
+
+* Yes, models with divergent transitions produce them consistently every run. Easiest to see this by grepping for "divergent" in output logs, e.g. `$(grep 'divergent' rz_mctd.o186501*|sed -n '/ $/d; p'|sort)` (the sed call is just because the same warning appears twice in each log, once ending with a space and once without.) 
+	2010: none
+	2011: 146, 209, 11, 16, 30 => mean = 82.4
+	2012: 6, 32, 86, 19, 5 => 29.6
+	2013: 1803, 1120, 909, 689, 4951 => 1894.4
+	2014: 697, 446, 172, 351, 421 => 417.4
+* increasing adapt_delta to 0.9 doesn't seem to change number of divergences. Maaybe a bit fewer on average, but max is 11818!
+	2010: none
+	2011: 99, 24, 10, 18, 62 => 42.6
+	2012: 30, 38, 8, 32, 181 => 57.8
+	2013: 526, 473, 302, 11818, 546 => 2733
+	2014: 328, 204, 1844, 388, 528 => 658.4
+* edited adapt_delta to 0.99, submitted five jobs as rz_mctd_ad99.*:
+	1866691, 1866692, 1866693, 1866694, 1866695
+* `$(grep 'divergent' rz_mctd_ad99*.o186* | sed -E '/ $/d; s/^(.*?-(.)):/\2 \1/' | sort)`
+	2010: none
+	2011: ?, 15, 8, 60, 7 (no log from job 1866691) => 22.5
+	2012: ?, 2, 7, 6, 2 (no log from job 1866691) => 4.25
+	2013: 73, 411, 70, 204, 178 => 187.2
+	2014: 62, 46, 122, 504, 80 => 162.8
+* ==> OK, yes, setting adapt_delta to 0.99 does produce fewer divergent transitions than at 0.8 or 0.9, but models run very slowly (some over 2 hours) and still now completely solved. 
+* Reverted all local Biocluster changes to run scripts. Next: Look at pairs plots, look for high correlation that could be causing sampler trouble.
