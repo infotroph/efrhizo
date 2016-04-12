@@ -41,6 +41,7 @@ data{
 transformed data{
 	real depth_logmean;
 	real depth_pred_max;
+	real ylog_pos_mean;
 	int<lower=1,upper=C> tube_crop[T];
 	int<lower=1,upper=C_pred> tube_crop_pred[T_pred];
 	real log_depth_centered[N];
@@ -48,6 +49,7 @@ transformed data{
 
 	depth_logmean <- log(mean(depth));
 	depth_pred_max <- max(depth_pred);
+	ylog_pos_mean <- mean(log(segment(y, first_pos, n_pos)));
 	for(n in 1:N){
 		tube_crop[tube[n]] <- crop[n];
 		log_depth_centered[n] <- log(depth[n]) - depth_logmean;
@@ -87,7 +89,6 @@ transformed parameters{
 	vector[N] detect_odds;
 	vector[N] sig;
 	vector[T] sigt;
-	real mu_obs_mean;
 
 	for(n in 1:N){
 		// Note centered regression --
@@ -103,8 +104,7 @@ transformed parameters{
 		sigt[t] <- sig_tube[tube_crop[t]];
 	}
 	// center means for logistic regression, too
-	mu_obs_mean <- mean(mu_obs);
-	detect_odds <- a_detect + b_detect*(mu_obs - mu_obs_mean);
+	detect_odds <- a_detect + b_detect*(mu_obs - ylog_pos_mean);
 }
 
 model{
@@ -185,7 +185,7 @@ generated quantities{
 			+ log(inv_logit((depth_pred[n]-loc_surface)/scale_surface));
 
 		detect_odds_pred[n] <- inv_logit(
-			a_detect + b_detect * (mu_obs_pred[n] - mu_obs_mean));
+			a_detect + b_detect * (mu_obs_pred[n] - ylog_pos_mean));
 
 		y_pred[n] <- lognormal_rng(mu_obs_pred[n], sigma[crop_pred[n]]) * bernoulli_rng(detect_odds_pred[n]);
 	}

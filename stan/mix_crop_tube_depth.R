@@ -32,7 +32,6 @@ savepars=c(
 	"b_depth",
 	"sig_tube",
 	"sigma",
-	"mu_obs_mean",
 	"y_pred",
 	"mu_pred",
 	"mu_obs_pred",
@@ -52,7 +51,6 @@ plotpars_mod=c(
 	"b_depth",
 	"sig_tube",
 	"sigma",
-	"mu_obs_mean",
 	"crop_tot",
 	"crop_tot_diff",
 	"crop_int_diff",
@@ -150,6 +148,9 @@ stopifnot(rz_mtd@mode == 0) # 1 or 2 = error
 print(rz_mtd, pars=plotpars_mod)
 print(rz_mtd, pars=plotpars_pred)
 print(paste("mean of depth:", mean(rzdat$Depth)))
+print(paste(
+	"mean of log(nonzero root volume):",
+	mean(log(rzdat$rootvol.mm3.mm2[rzdat$rootvol.mm3.mm2 > 0]))))
 
 rz_pred_mu = cbind(
 	rz_pred,

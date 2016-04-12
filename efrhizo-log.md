@@ -1282,3 +1282,18 @@ Results:
 		2013 209-1359
 		2014 271-507
 * On token inspection, parameter estimates seem identical (but didn't check every one)
+
+Edited Torque scripts to send their informational messages to the same log as the Rscript output, submitted midsummers script as job 1867574[]. Diff reports all five logs are identical between Torque and piped versions.
+
+Now thinking about the other places I center data in the script. To calculate detection probability, I perform a logistic regression that conditions on mu_obs. This is conceptually sound and comes straight from Sonderegger et al. However, I tried to reduce autocorrelation by centering the regression as
+
+```
+mu_obs_mean <- mean(mu_obs);
+detect_odds <- a_detect + b_detect*(mu_obs - mu_obs_mean);
+```
+
+Notice that this means the centering *changes* as my current estimate of mean(mu_obs) changes! This means I'm introducing a new autocorrelation. I'm not 100% sure I can write out the probabilities to prove it right now, but I *think* the inferred mean/median/mode should be unbiased but I'm inflating my estimate of the uncertainty, because `a_detect` moves as the sampling of `mu` updates.
+
+To fix: precompute a centering point from OBSERVED log root volume, and center the regression on that.
+
+* mean(log(y)) should be equal to mean(mu_obs), right? Well, no -- the zeroes in the data complicate this. Let's take the mean of all observations with positive root volume: mean(log(segment(y, first_pos, n_pos))). This will necessarily be a larger number than the old a_detect because mean without zeroes > mean excluding zeroes, and it makes the interpretation of a_detect even weirder ("log odds of detecting roots at the mean volume of roots we detected"??), but I think it should improve sampling and it's still possible to combine a_detect, mean positive root volume, and b_detect to compute the detection probabilities at ANY root volume.
