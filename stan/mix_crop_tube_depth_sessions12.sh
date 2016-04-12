@@ -16,4 +16,4 @@ SHORT_JOBID=`echo $PBS_JOBID | sed 's/\..*//'`
 echo "Starting $PBS_JOBNAME"."$SHORT_JOBID" on `date -u`
 
 echo "Running mix_crop_tube_depth.R for year 2012 " session " "$PBS_ARRAYID
-time Rscript mix_crop_tube_depth.R "$PBS_JOBNAME"."$SHORT_JOBID" "2012" "$PBS_ARRAYID"
+(time Rscript mix_crop_tube_depth.R "$PBS_JOBNAME"."$SHORT_JOBID" "2012" "$PBS_ARRAYID") 2>&1 | tee -a "$PBS_JOBNAME"."$SHORT_JOBID".log

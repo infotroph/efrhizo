@@ -1258,3 +1258,7 @@ Looking at output from 2016-04-06. Observations:
 ## 2016-04-12
 
 Edited mix_crop_tube_depth.stan to precompute centered log depth (log(depth) - log(mean(depth))) in the transformed data block rather than calculate it every iteration. If I did this right, should not change results but ought to produce a small speedup. Considered removing the derived depth_logmean value, but kept it because I use it to calculate predicted totals in teh generated quantities block as well.
+
+Regarding empty log files seen yesterday and earlier: David Slater, cluster admin, says he's not sure what's going on and it "definitely shouldn't do that", but says it might help to explicitly write my output to a log file rather than rely on the `# PBS -j oe` directive, which saves output in the Torque spool and then (supposedly) copies it back to the working directory after the run finishes. Slater says he has occasionally seen this copy time out on very large files (i.e. approaching 1 GB), so it can't hurt to skip it.
+
+Edited currently active Torque scripts (mix_crop_tube_depth_midsummers.sh, mix_crop_tube_depth_sessions10.sh, mix_crop_tube_depth_sessions_12.sh) to write their stdout/stderr output directly to a log file instead of relying on Torque to copy output back from its spool file. I used `2>&1 | tee -a "$PBS_JOBNAME"."$SHORT_JOBID".log`, which ought to copy both stdout and stderr but also still leave them echoed to the console -- so the Torque output file *ought* to exist and be identical to this log. Will see if that's true.

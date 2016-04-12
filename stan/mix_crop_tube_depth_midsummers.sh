@@ -22,4 +22,4 @@ y="${years[$PBS_ARRAYID]}"
 s="${sessions[$PBS_ARRAYID]}"
 
 echo "Running mix_crop_tube_depth.R for year " "$y" " session " "$s"
-time Rscript mix_crop_tube_depth.R "$PBS_JOBNAME"."$SHORT_JOBID" "$y" "$s"
+(time Rscript mix_crop_tube_depth.R "$PBS_JOBNAME"."$SHORT_JOBID" "$y" "$s") 2>&1 | tee -a "$PBS_JOBNAME"."$SHORT_JOBID".log
