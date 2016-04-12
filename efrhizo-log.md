@@ -1254,3 +1254,7 @@ Looking at output from 2016-04-06. Observations:
 	2014: 62, 46, 122, 504, 80 => 162.8
 * ==> OK, yes, setting adapt_delta to 0.99 does produce fewer divergent transitions than at 0.8 or 0.9, but models run very slowly (some over 2 hours) and still now completely solved. 
 * Reverted all local Biocluster changes to run scripts. Next: Look at pairs plots, look for high correlation that could be causing sampler trouble.
+
+## 2016-04-12
+
+Edited mix_crop_tube_depth.stan to precompute centered log depth (log(depth) - log(mean(depth))) in the transformed data block rather than calculate it every iteration. If I did this right, should not change results but ought to produce a small speedup. Considered removing the derived depth_logmean value, but kept it because I use it to calculate predicted totals in teh generated quantities block as well.

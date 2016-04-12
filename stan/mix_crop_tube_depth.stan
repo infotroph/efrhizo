@@ -43,14 +43,18 @@ transformed data{
 	real depth_pred_max;
 	int<lower=1,upper=C> tube_crop[T];
 	int<lower=1,upper=C_pred> tube_crop_pred[T_pred];
+	real log_depth_centered[N];
+	real log_depth_pred_centered[N_pred];
 
 	depth_logmean <- log(mean(depth));
 	depth_pred_max <- max(depth_pred);
 	for(n in 1:N){
 		tube_crop[tube[n]] <- crop[n];
+		log_depth_centered[n] <- log(depth[n]) - depth_logmean;
 	}
 	for(n in 1:N_pred){
 		tube_crop_pred[tube_pred[n]] <- crop_pred[n];
+		log_depth_pred_centered[n] <- log(depth_pred[n]) - depth_logmean;
 	}
 
 }
@@ -90,7 +94,7 @@ transformed parameters{
 		// intercept here is E[y] at mean depth, not surface!
 		mu[n] <- intercept[crop[n]]
 			+ b_tube[tube[n]]
-			+ b_depth[crop[n]] * (log(depth[n]) - depth_logmean);
+			+ b_depth[crop[n]] * log_depth_centered[n];
 		mu_obs[n] <- mu[n]
 			+ log(inv_logit((depth[n]-loc_surface)/scale_surface));
 		sig[n] <- sigma[crop[n]];
@@ -175,7 +179,7 @@ generated quantities{
 		mu_pred[n] <-
 			intercept[crop_pred[n]]
 			+ b_tube_pred[tube_pred[n]]
-			+ b_depth[crop_pred[n]] * (log(depth_pred[n]) - depth_logmean);
+			+ b_depth[crop_pred[n]] * log_depth_pred_centered[n];
 		mu_obs_pred[n] <-
 			mu_pred[n]
 			+ log(inv_logit((depth_pred[n]-loc_surface)/scale_surface));
