@@ -1262,3 +1262,23 @@ Edited mix_crop_tube_depth.stan to precompute centered log depth (log(depth) - l
 Regarding empty log files seen yesterday and earlier: David Slater, cluster admin, says he's not sure what's going on and it "definitely shouldn't do that", but says it might help to explicitly write my output to a log file rather than rely on the `# PBS -j oe` directive, which saves output in the Torque spool and then (supposedly) copies it back to the working directory after the run finishes. Slater says he has occasionally seen this copy time out on very large files (i.e. approaching 1 GB), so it can't hurt to skip it.
 
 Edited currently active Torque scripts (mix_crop_tube_depth_midsummers.sh, mix_crop_tube_depth_sessions10.sh, mix_crop_tube_depth_sessions_12.sh) to write their stdout/stderr output directly to a log file instead of relying on Torque to copy output back from its spool file. I used `2>&1 | tee -a "$PBS_JOBNAME"."$SHORT_JOBID".log`, which ought to copy both stdout and stderr but also still leave them echoed to the console -- so the Torque output file *ought* to exist and be identical to this log. Will see if that's true.
+
+Testing these changes by running midsummers script as job 1867406[]. If I did everything right, the results should be nearly identical to jobs 1865013[] - 1865017[], except with a slightly faster runtime and log files named like 'rz_mctd-*.1867406[*].log' that are character-for-character identical to 'rz_mctd.o1867406-*'.
+
+Results:
+
+* Logs are not identical, because I didn't tee my various `echo` calls. Fixed that.
+* Sampling time per chain doesn't seem much faster:
+	Centering every iteration (1865013[] - 1865017[] combined)
+		2010 275-400ish
+		2011 320-600ish
+		2012 350-620ish (plus one 1120)
+		2013 200-450ish (plus one 750)
+		2014 300-900ish
+	Precentering (just one run, not five as above)
+		2010 258-378
+		2011 302-582
+		2012 324-488
+		2013 209-1359
+		2014 271-507
+* On token inspection, parameter estimates seem identical (but didn't check every one)
