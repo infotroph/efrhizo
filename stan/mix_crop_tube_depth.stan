@@ -87,8 +87,8 @@ transformed parameters{
 	vector[N] mu; // E[latent mean root volume]
 	vector[N] mu_obs; // E[OBSERVED root volume], including surface effect
 	vector[N] detect_odds;
-	vector[N] sig;
-	vector[T] sigt;
+	vector<lower=0>[N] sig;
+	vector<lower=0>[T] sigt;
 
 	for(n in 1:N){
 		// Note centered regression --
