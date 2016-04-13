@@ -1298,5 +1298,6 @@ To fix: precompute a centering point from OBSERVED log root volume, and center t
 
 Tested with midsummers script as job 1867620[]. Seems to do about what I expected. Does not magically fix the divergent transitions.
 
-What if I constrain sig and sigt to be positive? The numbers going into them are already constrained (they're copies of sigma and sig_tube respoectively), but maybe the sampler loses that information somewhere. Changed, tested as job 1867676[].
+What if I constrain sig and sigt to be positive? The numbers going into them are already constrained (they're copies of sigma and sig_tube respoectively), but maybe the sampler loses that information somewhere. Changed, tested as job 1867676[]. No visible effect.
 
+Should not affect sampling, but: With my current setup, n_predtubes does nothing but eat memory: All predicted quantities that contain a tube effect use a random draw from N(0, sig_tube) -- in other words, each step of the chain creates an independed newly observed tube. Replicating with more than one tube per crop does nothing but inflate the model output with multiple tubes/locations within tubes that are guaranteed identical within MCMC error. Changed n_predtubes to 4 (i.e. 1 per crop) in mix_crop_tube_depth and I intend to leave it that way. This means rz_pred is only 28 lines long, so changed `*_pred[35]` to `*_pred[28]` in the plotpars_pred list.

@@ -21,7 +21,7 @@ options(mc.cores=7)
 n_chains = 7
 n_iters = 20000
 n_warm = 1000
-n_predtubes = 8
+n_predtubes = 4
 pred_depths = c(1, 10 , 30, 50, 75, 100, 140)
 savepars=c(
 	"a_detect",
@@ -59,16 +59,16 @@ plotpars_mod=c(
 plotpars_pred=c(
 	"y_pred[1]",
 	"y_pred[15]",
-	"y_pred[35]",
+	"y_pred[28]",
 	"mu_pred[1]",
 	"mu_pred[15]",
-	"mu_pred[35]",
+	"mu_pred[28]",
 	"mu_obs_pred[1]",
 	"mu_obs_pred[15]",
-	"mu_obs_pred[35]",
+	"mu_obs_pred[28]",
 	"detect_odds_pred[1]",
 	"detect_odds_pred[15]",
-	"detect_odds_pred[35]",
+	"detect_odds_pred[28]",
 	"pred_tot[1]")
 
 source("../scripts/stat-prep.R") # creates data frame "strpall"
