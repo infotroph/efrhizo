@@ -1,7 +1,7 @@
 /*
 Observations are either 0 or lognormal:
 y_i ~ lognormal(mu_i, sigma) with probability pi_i,
-y = 0 with probability 1-phi_i
+y_i = 0 with probability 1-phi_i
 
 Detection probability is a function of mu_obs:
 phi_i ~ logistic(alpha+beta*mu_i)
@@ -13,8 +13,8 @@ And mu is a function of crop, depth and tube identity
 (and eventually some other factors I haven't added yet):
 mu_i ~ b_crop + b_tube_i + b_depth * log(depth)
 
- Data is arranged in long format (Stan manual seems to call this "database style"),
- and presorted so that all the nonzeros are in a contiguous block.
+Data is arranged in long format (Stan manual seems to call this "database style"),
+and presorted so that all the nonzeros are in a contiguous block.
 */
 
 data{
