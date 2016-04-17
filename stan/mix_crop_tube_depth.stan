@@ -1,20 +1,22 @@
 /*
-Observations are either 0 or lognormal:
-y_i ~ lognormal(mu_i, sigma) with probability pi_i,
+Observations are either 0 ("none detected") or lognormal:
+y_i ~ lognormal(mu_obs_i, sigma_i) with probability pi_i,
 y_i = 0 with probability 1-phi_i
 
-Detection probability is a function of mu_obs:
-phi_i ~ logistic(alpha+beta*mu_i)
+Detection probability increases with mu_obs_i:
+phi_i ~ logistic(a_detect + b_detect*mu_obs_i)
 
-mu_obs is a function of mu and depth (near-surface roots are harder to detect for handwavy reasons that probably include poor soil contact)
-mu_obs_i ~ mu_i * inv_logit((depth-loc_surface)/scale_surface)
+mu_obs is biased low near surface, but converges to true mu at depth:
+mu_obs_i ~ mu_i * logistic(a_surface + b_surface*depth)
 
 And mu is a function of crop, depth and tube identity
-(and eventually some other factors I haven't added yet):
+(and eventually other factors I haven't added yet, including time):
 mu_i ~ b_crop + b_tube_i + b_depth * log(depth)
 
-Data is arranged in long format (Stan manual seems to call this "database style"),
-and presorted so that all the nonzeros are in a contiguous block.
+Data is arranged in long format ("database style"),
+and presorted by y so that all the zeros are in a contiguous block.
+Only the positive values are passed to the lognormal sampler,
+but zeroes still inform estimated mu through the detection probability.
 */
 
 data{
