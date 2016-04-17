@@ -78,7 +78,8 @@ ys_rows = which(strpall$Year==sub_year & strpall$Session==sub_session)
 if(is.null(n_subsample)){
 	rzdat = droplevels(strpall[ys_rows,])
 }else{
-	rzdat = droplevels(strpall[sample(ys_rows, n_subsample),])
+	ys_rows = sample(ys_rows, n_subsample)
+	rzdat = droplevels(strpall[ys_rows,])
 	print(paste("Subsampling these", n_subsample, "rows from strpall:"))
 	print(dput(ys_rows))
 }
