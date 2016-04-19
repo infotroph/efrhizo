@@ -43,7 +43,6 @@ data{
 transformed data{
 	real depth_logmean;
 	real depth_pred_max;
-	real ylog_pos_mean;
 	int<lower=1,upper=C> tube_crop[T];
 	int<lower=1,upper=C_pred> tube_crop_pred[T_pred];
 	real log_depth_centered[N];
@@ -51,7 +50,6 @@ transformed data{
 
 	depth_logmean <- log(mean(depth));
 	depth_pred_max <- max(depth_pred);
-	ylog_pos_mean <- mean(log(segment(y, first_pos, n_pos)));
 	for(n in 1:N){
 		tube_crop[tube[n]] <- crop[n];
 		log_depth_centered[n] <- log(depth[n]) - depth_logmean;
@@ -65,8 +63,8 @@ transformed data{
 
 parameters{
 	// for logit
-	real a_detect;
-	real b_detect;
+	real loc_detect;
+	real<lower=0> scale_detect;
 
 	// Extra underdetection factor for near-surface roots
 	real loc_surface;
@@ -105,8 +103,9 @@ transformed parameters{
 	for(t in 1:T){
 		sigt[t] <- sig_tube[tube_crop[t]];
 	}
-	// center means for logistic regression, too
-	detect_odds <- a_detect + b_detect*(mu_obs - ylog_pos_mean);
+
+	// logistic regression for probability of detecting roots in a given image
+	detect_odds <- (mu_obs - loc_detect)/scale_detect;
 }
 
 model{
@@ -117,8 +116,8 @@ model{
 		intercept[c] ~ normal(-6, 6);
 		b_depth[c] ~ normal(-1, 5);
 	}
-	a_detect ~ normal(0, 5);
-	b_detect ~ normal(5, 10);
+	loc_detect ~ normal(-8, 10);
+	scale_detect ~ normal(0, 6);
 	loc_surface ~ normal(13, 10);
 	scale_surface ~ normal(6, 5);
 
@@ -186,8 +185,7 @@ generated quantities{
 			mu_pred[n]
 			+ log(inv_logit((depth_pred[n]-loc_surface)/scale_surface));
 
-		detect_odds_pred[n] <- inv_logit(
-			a_detect + b_detect * (mu_obs_pred[n] - ylog_pos_mean));
+		detect_odds_pred[n] <- inv_logit((mu_obs_pred[n] - loc_detect)/scale_detect);
 
 		y_pred[n] <- lognormal_rng(mu_obs_pred[n], sigma[crop_pred[n]]) * bernoulli_rng(detect_odds_pred[n]);
 	}

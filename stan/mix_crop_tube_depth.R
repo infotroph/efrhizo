@@ -24,8 +24,8 @@ n_warm = 1000
 n_predtubes = 4
 pred_depths = c(1, 10 , 30, 50, 75, 100, 140)
 savepars=c(
-	"a_detect",
-	"b_detect",
+	"loc_detect",
+	"scale_detect",
 	"loc_surface",
 	"scale_surface",
 	"intercept",
@@ -43,8 +43,8 @@ savepars=c(
 	"crop_bdepth_diff",
 	"lp__")
 plotpars_mod=c(
-	"a_detect",
-	"b_detect",
+	"loc_detect",
+	"scale_detect",
 	"loc_surface",
 	"scale_surface",
 	"intercept",

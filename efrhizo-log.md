@@ -1305,3 +1305,16 @@ Should not affect sampling, but: With my current setup, n_predtubes does nothing
 Added some easier-to read plots of crop-specific parameters with density estimates, instead of trying to read everything as bars squished onto the same scale as lp__.
 
 Here, finally, is a likely-looking suspect for the cause of the divergent transitions: They only seem to occur in models where sig_tube is pushed way down toward zero in at least one crop, and the parameter-vs-log-prob plots appear to show divergent transitions disproportionately happening when at least sig_tube is exactly on the low boundary of its support. May need to try a hierarchical prior in the hopes of sharing the information that "tube_sig isn't zero" between crops.
+
+## 2016-04-19
+
+Reparameterizing the detection parameters -- I'm tired of them being uninterpretable. Switching from log odds parameters `bernoulli_logit(a_detect + b_detect * (mu_obs - ylog_pos_mean))` to direct specification of the scale and location of the logit: `bernoulli_logit((mu_obs - loc_detect)/scale_detect)`. Interpretation is now simple: We expect to detect roots in half the images when `mu` equals `loc_detect`, dropping to ~5% at loc_detect - 3*scale_detect and rising to ~95% at loc_detect + 3*scale_detect.
+
+Note that I removed the centering on `ylog_pos_mean`. The point of that was to reduce correlation between the intercept and scale terms, and this parameterization already centers itself. There is still some correlation, but seems acceptable to me.
+
+New parameterization calls for updated priors! As before I don't have any solid information about this, so let's keep them very weak.
+
+* For location: We think p(detect | mu < -12) is very low because that's the size of a single pixel in the traced images, and we sure hope that p(detect | mu > 0) is high because that implies the entire soil volume is roots. Let's center our prior somewhere in the bottom half of our detection range, then allow values that more than span it: `loc_detect ~ normal(-8, 10)`.
+* For scale: if "detection is low at -12 and high at zero" means the whole range (> 6 scale units) of detection probabilities fits within 12 log units, then scale < 2, possibly << 2 if it's a sharp detection threshold. On the other hand, if meny of the zeroes we see are from heterogeneity within relatively high mean root volumes, then detection probability might be relatively constant across the rangeI don't know. Let's constrain it to be positive and probably less than 12 (we think there'd better be SOME change in detection probability within the visible range): `scale_detect ~ normal(0, 6)`.
+
+(SPEAKING OF constraining scales to be positive, I didn't have a `<lower=0>` on `b_detect` before. Made sure to add it to `loc_detect`, but that probably should have been there all along!).
