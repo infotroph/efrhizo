@@ -79,7 +79,7 @@ parameters{
 
 	// subject effects
 	vector[T] b_tube;
-	real<lower=0> sig_tube;
+	real<lower=0> sig_tube[C];
 
 	// residual -- allowed to vary by crop
 	real<lower=0> sigma[C];
@@ -108,10 +108,10 @@ transformed parameters{
 
 model{
 	// Priors, mostly derived from assuming the range of log(y) is roughly -12 to 0.
-	sig_tube ~ normal(0, 3);
 	for(c in 1:C){
+		sig_tube[c] ~ normal(0, 3);
+		segment(b_tube, crop_first_tube[c], crop_num_tubes[c]) ~ normal(0, sig_tube[c]);
 		sigma[c] ~ normal(0, 3);
-		segment(b_tube, crop_first_tube[c], crop_num_tubes[c]) ~ normal(0, sig_tube);
 		intercept[c] ~ normal(-6, 6);
 		b_depth[c] ~ normal(-1, 5);
 	}
@@ -122,7 +122,7 @@ model{
 
 	y_logi ~ bernoulli_logit(detect_odds);
 	segment(y, first_pos, n_pos) ~ lognormal(
-		segment(mu_obs, first_pos, n_pos), 
+		segment(mu_obs, first_pos, n_pos),
 		segment(sig, first_pos, n_pos));
 }
 
@@ -138,19 +138,19 @@ generated quantities{
 	real crop_int_diff[C-1];
 	real crop_bdepth_diff[C-1];
 
-	// integral of expected root volume 
+	// integral of expected root volume
 	// from surface to deepest predicted layer.
 	// Starting from depth=0.1 cm instead of 0 to stabilize estimates,
 	// otherwise they run to +/- infinity when b is near -1.
 	for(c in 1:C){
-		crop_tot[c] <- 
+		crop_tot[c] <-
 			(exp(intercept[c] - b_depth[c]*depth_logmean)
 				* (depth_pred_max^(b_depth[c] + 1) - 0.1 * 0.1^b_depth[c]))
 			/ (b_depth[c] + 1);
 	}
-	
+
 	// Tests for differences between crops:
-	// First expected total root volume, 
+	// First expected total root volume,
 	// then the parameters that contribute to it.
 	for(c in 2:C){
 		crop_tot_diff[c-1] <- crop_tot[c] - crop_tot[1];
@@ -163,14 +163,14 @@ generated quantities{
 		tc <- tube_crop_pred[t];
 
 		// prediction offset for a random NEWLY OBSERVED tube.
-		b_tube_pred[t] <- normal_rng(0, sig_tube);
+		b_tube_pred[t] <- normal_rng(0, sig_tube[tc]);
 
 		// total root volume in soil profile
 		pred_tot[t] <-
 			exp(intercept[tc]
 				- b_depth[tc]*depth_logmean
 				+ b_tube_pred[t])
-			* (depth_pred_max^(b_depth[tc]+1) - 0.1 * 0.1^b_depth[tc]) 
+			* (depth_pred_max^(b_depth[tc]+1) - 0.1 * 0.1^b_depth[tc])
 			/ (b_depth[tube_crop_pred[t]]+1);
 	}
 

@@ -79,7 +79,9 @@ parameters{
 
 	// subject effects
 	vector[T] b_tube;
-	real<lower=0> sig_tube;
+	real<lower=0> sig_tube[C];
+	real<lower=0> sig_alltubes; // mean between-tube variation across all crops
+	real<lower=0> sig_tubesig; // sd around mean for each CROP
 
 	// residual -- allowed to vary by crop
 	real<lower=0> sigma[C];
@@ -108,10 +110,12 @@ transformed parameters{
 
 model{
 	// Priors, mostly derived from assuming the range of log(y) is roughly -12 to 0.
-	sig_tube ~ normal(0, 3);
+	sig_alltubes ~ normal(0, 3);
+	sig_tubesig ~ gamma(2, 0.1);
 	for(c in 1:C){
+		sig_tube[c] ~ normal(sig_alltubes, sig_tubesig);
+		segment(b_tube, crop_first_tube[c], crop_num_tubes[c]) ~ normal(0, sig_tube[c]);
 		sigma[c] ~ normal(0, 3);
-		segment(b_tube, crop_first_tube[c], crop_num_tubes[c]) ~ normal(0, sig_tube);
 		intercept[c] ~ normal(-6, 6);
 		b_depth[c] ~ normal(-1, 5);
 	}
@@ -163,7 +167,7 @@ generated quantities{
 		tc <- tube_crop_pred[t];
 
 		// prediction offset for a random NEWLY OBSERVED tube.
-		b_tube_pred[t] <- normal_rng(0, sig_tube);
+		b_tube_pred[t] <- normal_rng(0, sig_tube[tc]);
 
 		// total root volume in soil profile
 		pred_tot[t] <-
