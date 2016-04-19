@@ -95,9 +95,15 @@ rzdat = rzdat[order(rzdat$rootvol.mm3.mm2),]
 
 print(paste("Using data from", sub_year, ", session", sub_session)) 
 print("Crop name-to-number key:")
-print(data.frame(
+cropkey = data.frame(
 	num=1:nlevels(rzdat$Species),
-	name=levels(rzdat$Species)))
+	name=levels(rzdat$Species),
+	first_tube=tapply(rzdat$Tube, rzdat$Species, min),
+	last_tube=tapply(rzdat$Tube, rzdat$Species, max),
+	first_tube_alias=tapply(rzdat$Tube_alias, rzdat$Species, min),
+	last_tube_alias=tapply(rzdat$Tube_alias, rzdat$Species, max),
+	n_tubes=tapply(rzdat$Tube_alias, rzdat$Species, function(x)length(unique(x))))
+print(cropkey)
 
 # Simulate data from:
 # `n_predtubes` newly observed tubes,
@@ -126,6 +132,8 @@ rz_mtd = stan(
 		y_logi=as.numeric(rzdat$rootvol.mm3.mm2 > 0),
 		first_pos=which(rzdat$rootvol.mm3.mm2 > 0)[1],
 		n_pos=length(which(rzdat$rootvol.mm3.mm2 > 0)),
+		crop_first_tube=cropkey$first_tube_alias,
+		crop_num_tubes=cropkey$n_tubes,
 		N_pred=nrow(rz_pred),
 		T_pred=length(unique(rz_pred$tube)),
 		C_pred=length(unique(rz_pred$Species)),
@@ -142,7 +150,7 @@ rz_mtd = stan(
 	verbose=TRUE,
 	open_progress=FALSE)
 
-save(rz_mtd, rzdat, rz_pred, file=paste0(runname, ".Rdata"))
+save(rz_mtd, rzdat, rz_pred, cropkey, file=paste0(runname, ".Rdata"))
 warnings()
 stopifnot(rz_mtd@mode == 0) # 1 or 2 = error
 

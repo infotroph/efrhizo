@@ -1322,3 +1322,11 @@ New parameterization calls for updated priors! As before I don't have any solid 
 Pushed these changes to the cluster (commit 3595a32), submitted midsummers script as job 1873540[].
 
 While that runs: Re-set random seed in mix_crop_tube_depth.R so I can compare model changes with the same data. Why do I keep unsetting this?
+
+Results looks OK in terms of detection parameters and do not change other estimates -- including my previously existing issues with unstable sig_tube estimates and divergent transitions.
+
+Next issue: I'm not convinced my parameterization of tube effects makes sense. Currently modeling `b_tube` as a population with zero mean across ALL crops, but variance around zero differing between crops. This means there's nothing to prevent the model deciding that all tube in Miscanthus are on the positive side of the distribution and all Maize tubes are low -- this would shrink the estimated intercept and slope differences between crops, and could also mess with my `sig_tube` estimates: `sig_tube` becomes the expected distance from zero for all tubes in the crop, not the variance around the crop mean.
+
+Let's change `b_tube` to make it have mean zero within each crop. To do this, I added two new vectors to the data block: crop_first_tube is the index of of the lowest-numbered tube in that crop, and crop_num_tubes is the number of tubes we measured in that crop. Then in the model block, I assign all the `b_tube`s in each crop c to have mean 0 and sd `sig_tube[c]`: segment(b_tube, crop_first_tube, crop_num_tubes) ~ normal(0, sig_tube[c]);` This means I can eliminate the `sigt` intermediate vector entirely. Each `sig_tube[c]` still gets its own independent half-normal(0, 3) prior.
+
+Test run on 2013 peak data looks like it makes only a little difference in estimates, but arguably fewer divergent transitions (double instead of triple digits per chain?) I'll keep it.

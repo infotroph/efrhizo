@@ -30,6 +30,8 @@ data{
 	int<lower=0, upper=1> y_logi[N]; // logical: is y > 0?
 	int<lower=0, upper=N> first_pos; // index of the first nonzero y value
 	int<lower=0, upper=N> n_pos;	// how many y are > 0?
+	int<lower=1, upper=T> crop_first_tube[C]; // Lowest tube number from each crop
+	int<lower=1, upper=T> crop_num_tubes[C]; // How many tubes from each crop
 
 	//Pseudodata for predictive check
 	int<lower=0> N_pred;
@@ -88,7 +90,6 @@ transformed parameters{
 	vector[N] mu_obs; // E[OBSERVED root volume], including surface effect
 	vector[N] detect_odds;
 	vector<lower=0>[N] sig;
-	vector<lower=0>[T] sigt;
 
 	for(n in 1:N){
 		// Note centered regression --
@@ -100,9 +101,6 @@ transformed parameters{
 			+ log(inv_logit((depth[n]-loc_surface)/scale_surface));
 		sig[n] <- sigma[crop[n]];
 	}
-	for(t in 1:T){
-		sigt[t] <- sig_tube[tube_crop[t]];
-	}
 
 	// logistic regression for probability of detecting roots in a given image
 	detect_odds <- (mu_obs - loc_detect)/scale_detect;
@@ -112,6 +110,7 @@ model{
 	// Priors, mostly derived from assuming the range of log(y) is roughly -12 to 0.
 	for(c in 1:C){
 		sig_tube[c] ~ normal(0, 3);
+		segment(b_tube, crop_first_tube[c], crop_num_tubes[c]) ~ normal(0, sig_tube[c]);
 		sigma[c] ~ normal(0, 3);
 		intercept[c] ~ normal(-6, 6);
 		b_depth[c] ~ normal(-1, 5);
@@ -121,7 +120,6 @@ model{
 	loc_surface ~ normal(13, 10);
 	scale_surface ~ normal(6, 5);
 
-	b_tube ~ normal(0, sigt);
 	y_logi ~ bernoulli_logit(detect_odds);
 	segment(y, first_pos, n_pos) ~ lognormal(
 		segment(mu_obs, first_pos, n_pos), 
