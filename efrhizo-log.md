@@ -1318,3 +1318,7 @@ New parameterization calls for updated priors! As before I don't have any solid 
 * For scale: if "detection is low at -12 and high at zero" means the whole range (> 6 scale units) of detection probabilities fits within 12 log units, then scale < 2, possibly << 2 if it's a sharp detection threshold. On the other hand, if meny of the zeroes we see are from heterogeneity within relatively high mean root volumes, then detection probability might be relatively constant across the rangeI don't know. Let's constrain it to be positive and probably less than 12 (we think there'd better be SOME change in detection probability within the visible range): `scale_detect ~ normal(0, 6)`.
 
 (SPEAKING OF constraining scales to be positive, I didn't have a `<lower=0>` on `b_detect` before. Made sure to add it to `loc_detect`, but that probably should have been there all along!).
+
+Pushed these changes to the cluster (commit 3595a32), submitted midsummers script as job 1873540[].
+
+While that runs: Re-set random seed in mix_crop_tube_depth.R so I can compare model changes with the same data. Why do I keep unsetting this?

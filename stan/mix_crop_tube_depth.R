@@ -1,4 +1,4 @@
-#set.seed(234587)
+set.seed(234587)
 library(rstan)
 
 sessionInfo()
