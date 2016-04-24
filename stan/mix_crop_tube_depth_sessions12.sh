@@ -2,7 +2,7 @@
 
 #PBS -S /bin/bash
 #PBS -q default
-#PBS -l nodes=1:ppn=8,mem=7000mb
+#PBS -l nodes=1:ppn=6,mem=4000mb
 #PBS -M black11@igb.illinois.edu
 #PBS -m abe
 #PBS -j oe
