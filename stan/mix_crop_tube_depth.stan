@@ -171,7 +171,7 @@ generated quantities{
 				- b_depth[tc]*depth_logmean
 				+ b_tube_pred[t])
 			* (depth_pred_max^(b_depth[tc]+1) - 0.1 * 0.1^b_depth[tc]) 
-			/ (b_depth[tube_crop_pred[t]]+1);
+			/ (b_depth[tc]+1);
 	}
 
 	for(n in 1:N_pred){
