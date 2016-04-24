@@ -1414,8 +1414,17 @@ Changed seed back to 234587, ran again as job 1874021.
 * 1874021-3 socket failure message but all 7 chains OK
 * 1874021-4 socket failure
 
-## 2106-04-20
+## 2016-04-20
 
 Still a bit puzzled about socket errors, but the Biocluster admins are on it and I *think* I have working model output from every date. Let's try to plot things more sensibly.
 
 * Combine crop names so that "Maize" and "Soy" plot together in multipanel multi-year views. The best place to do this is actually before the model, in stat-prep.R! OK, fine then. I'm rerunning models again.
+
+
+## 2016-04-23
+
+To save some time while rerunning, let's dial back some of the massive overkill. I was running 20k iterations because there used to be some highly autocorrelated terms in the model and the sampler was mixing slowly, but a lot of that was from pathologies in the model that I have now removed. Informal tests suggest that my effective sample size is now around 10% of my actual sample size for even the slowest-mixing terms, and 2000 post-warmup samples * 4 chains is already more than enough. So I really do NOT need the giant files and long wait times from 20k*7 samples. Let's pare back in mix_crop_tube_depth.R: Reduced n_chains from 7 to 5 and n_iters from 20000 to 5000. This is probably still overkill, but I do want to make sure I have stable estimates of my confidence intervals.
+
+How about n_warm? Ran 5 test runs with 200, 500, 1000, 1500, 2000 warmup samples. All used 2014 peak data, with 4 chains and 3000 post-warmup samples each.  Posterior parameter estimates only change in lowest digits, and no detectable change in sampler efficiency: I see maybe a *tiny* increase in ESS and reduction in MCSE with warmup >= 1000, but have to squint hard. Plotting sampler params against n_warm, looks like trend is for a very slight decrease in average speed (more leapfrog steps, smaller stepsize, greater tree depth) but lower between-chain variance (shortest warmup has both the fastest and slowest individual chains) as warmup time increases. ==> Let's keep 1000-sample warmup.
+
+Fewer chains means I don't need to reserve as many cores on the cluster, and while I'm at it I've been reserving around 3 times as much memory as I actually use. Changed Torque directive from `#PBS -l nodes=1:ppn=8,mem=7000mb` to `#PBS -l nodes=1:ppn=6,mem=4000mb` in all three recently-used scripts.
