@@ -1342,3 +1342,80 @@ Saving the previously committed unpooled-sig-tube model as mix_crop_tube_depth_f
 * Parameter block: redefined sig_tube from an array (`real sig_tube[C]`) to a scalar (`real sig_tube`).
 * Model block: Moved prior assigment out of the loop, removed indexing on crop.
 * Generated quantities: removed indexing on crop.
+
+Pushed this to cluster, started three runs:
+
+* job 1873783: ..._midsummers.sh
+* 1873785: ..._sessions10..sh
+* 1873787: ..._sessions12.sh
+
+All jobs exit within 10 minutes, reporting status 0 but many are missing output:
+
+* 1873783-
+	* 0 OK
+	* 1 six chains OK, 1 with errors (appears to be generating NaNs somewhere?)
+	* 2 OK
+	* 3 OK
+	* 4 "Error in socketConnection [...] port 11572 cannot be opened"
+* 1873785-
+	* 1 OK
+	* 2 data frame error -- right, this is the one that's supposed to throw an error.
+	* 3 "Error in socketConnection [...] port 11582 cannot be opened"
+	* 4 "Error in socketConnection [...] port 11582 cannot be opened", but then all 7 chains appear to run successfully.
+	* 5 OK
+* 1873787-
+	* 1 OK
+	* 2 "Error in socketConnection [...] port 11618 cannot be opened"
+	* 3 "Error in socketConnection [...] port 11618 cannot be opened", but all 7 chains seem to run  successfully
+	* 4 "Error in socketConnection [...] port 11628 cannot be opened"
+	* 5 "Error in socketConnection [...] port 11628 cannot be opened", but all 7 chains appear to run successfully.
+	* 6 OK
+
+This looks like a race condition of some kind to me -- multiple jobs competing for the same sockets? Let's try the simplest thing: Resubmit all scripts, waiting a minute in between submissions on the (superstitious) off chance it helps.
+
+Resubmitted: midsummers 1873817, sessions10 1873819, sessions12 1873820.
+
+* 1873817-0 OK
+* 1873817-1 6 chains OK, 1 with errors
+* 1873817-2 OK
+* 1873817-3 OK
+* 1873817-4 OK
+* 873819-1 OK
+* 1873819-2 (bogus session) exits with error as expected
+* 1873819-3 exits with socket error
+* 1873819-4 exits with socket error.
+* 1873819-5 OK
+* 1873820-1 OK
+* 1873820-2 OK
+* 1873820-3 OK
+* 1873820-4 OK
+* 1873820-5 OK
+* 1873820-6 OK
+
+Hmph. Chain errors in midsummer 2011 seem consistent, and socket errors are on same 2010 jobs as before. Let's try once more, submitting 2010 script first: sessions10 1873863, sessions12 1873864, midsummers 1873865.
+
+* 1873863 (2010): -4 fails, -5 contains error messages but seems to run OK, others OK
+* 1873864 (2012): All OK
+* 1873865 (midsummers): -0,2,4 socket failure. -1 6 chains OK but 1 with NaN in y_pred. -3 OK.
+
+Is the NaN in 2011 something RNG-dependent? Changed first line of mix_crop_tube_depth.R from `set.seed(234587)` to `set.seed(134587)`, submitted midsummers as job 1873997.
+
+* 1873997-0 socket failure
+* 1873997-1 socket failure message but all seven chains finish, no NaN errors.
+* 1873997-2 OK
+* 1873997-3 OK
+* 1873997-4 OK
+
+Changed seed back to 234587, ran again as job 1874021.
+
+* 1874021-0 socket failure
+* 1874021-1 one chain NaN, others OK ==> Yes, the seed value matters.
+* 1874021-2 OK
+* 1874021-3 socket failure message but all 7 chains OK
+* 1874021-4 socket failure
+
+## 2106-04-20
+
+Still a bit puzzled about socket errors, but the Biocluster admins are on it and I *think* I have working model output from every date. Let's try to plot things more sensibly.
+
+* Combine crop names so that "Maize" and "Soy" plot together in multipanel multi-year views. The best place to do this is actually before the model, in stat-prep.R! OK, fine then. I'm rerunning models again.

@@ -24,14 +24,10 @@ strp11 = read.csv("../data/stripped2011.csv", colClasses=wzclass$class)
 strp12 = read.csv("../data/stripped2012.csv", colClasses=wzclass$class)
 strp13 = read.csv("../data/stripped2013.csv", colClasses=wzclass$class)
 strp14 = read.csv("../data/stripped2014.csv", colClasses=wzclass$class)
-levels(strp10$Species)[1] = "Soy"
-levels(strp11$Species)[1] = "Maize"
-levels(strp12$Species)[1] = "Maize"
-levels(strp13$Species)[1] = "Soy"
-levels(strp14$Species)[1] = "Maize"
 
 strpall = rbind(strp10, strp11, strp12, strp13, strp14)
 rm(list=c("wzclass", "strp10", "strp11", "strp12", "strp13", "strp14"))
+levels(strpall$Species) = gsub("Cornsoy", "Maize-Soybean", levels(strpall$Species))
 
 #strpall$Year = year(strpall$DateTime))
 # Or when lubridate's not available...
@@ -39,7 +35,7 @@ rm(list=c("wzclass", "strp10", "strp11", "strp12", "strp13", "strp14"))
 strpall$Year = as.POSIXlt(strpall$DateTime)$year + 1900
 
 # Order species for convenient interpretataion of Helmert contrasts:
-strpall$Species=reorder(strpall$Species, match(strpall$Species, c("Soy", "Maize", "Switchgrass", "Miscanthus", "Prairie")))
+strpall$Species=reorder(strpall$Species, match(strpall$Species, c("Maize-Soybean", "Switchgrass", "Miscanthus", "Prairie")))
 
 # unique(data.frame(model.matrix(lm(rootvol.mm3.mm2~Species, strpall, contrasts=list(Species=matrix(
 # 	data=c(
