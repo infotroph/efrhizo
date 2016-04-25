@@ -1,9 +1,10 @@
 library(rstan)
 
-# usage: Rscript extractfits_mctd.R path/to/output.Rdata, path/to/csv_dir/
+# usage: Rscript extractfits_mctd.R path/to/output.Rdata, path/to/csv_dir/, [identifier_to_add_to_filenames]
 args=commandArgs(trailingOnly=TRUE)
 rdata_path = args[[1]]
 csv_path = args[[2]]
+label = if(length(args)==3){ paste0("_", args[[3]]) } else { NULL }
 
 # Assumes the rdata file contains three objects:
 # rz_mtd, a stanfit object fit using mix_crop_tube_depth.stan
@@ -81,13 +82,13 @@ rz_pred_mu$Session = session
 
 write.csv(
 	rz_pred_mu,
-	file=file.path(csv_path, paste0("predmu_", year, "_", session, ".csv")),
+	file=file.path(csv_path, paste0("predmu_", year, "_", session, label, ".csv")),
 	row.names=FALSE)
 write.csv(
 	croptot,
-	file=file.path(csv_path, paste0("croptotals_", year, "_", session, ".csv")),
+	file=file.path(csv_path, paste0("croptotals_", year, "_", session, label, ".csv")),
 	row.names=FALSE)
 write.csv(
 	crop_diff,
-	file=file.path(csv_path, paste0("cropdiffs_", year, "_", session, ".csv")),
+	file=file.path(csv_path, paste0("cropdiffs_", year, "_", session, label, ".csv")),
 	row.names=FALSE)

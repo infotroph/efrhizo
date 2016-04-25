@@ -200,7 +200,7 @@ png(
 	height=1200,
 	width=1800,
 	units="px")
-print(plot(rz_mtd, pars=plotpars_mod))
+print(plot(rz_mtd, pars=plotpars_mod[!grepl("lp__", plotpars_mod)]))
 print(plot(rz_mtd, pars=plotpars_pred))
 print(plot(rz_mtd, pars="crop_tot", show_density=TRUE))
 print(plot(rz_mtd, pars="crop_tot_diff", show_density=TRUE))
@@ -209,17 +209,11 @@ print(plot(rz_mtd, pars="crop_int_diff", show_density=TRUE))
 print(plot(rz_mtd, pars=c("sig_tube", "sigma"), show_density=TRUE))
 print(traceplot(rz_mtd, pars=plotpars_mod))
 print(traceplot(rz_mtd, pars=plotpars_pred))
-print(traceplot(rz_mtd, inc_warmup=TRUE, pars=plotpars_mod))
-print(traceplot(rz_mtd, inc_warmup=TRUE, pars=plotpars_pred))
-# print(pairs(rz_mtd, pars=plotpars_mod))
-# print(pairs(rz_mtd, pars=plotpars_pred))
-print(stan_hist(rz_mtd, pars=plotpars_mod))
-print(stan_hist(rz_mtd, pars=plotpars_pred))
 print(stan_dens(rz_mtd, pars=plotpars_mod))
 print(stan_dens(rz_mtd, pars=plotpars_pred))
 print(stan_ac(rz_mtd, pars=plotpars_mod))
 print(stan_ac(rz_mtd, pars=plotpars_pred))
-print(stan_diag(rz_mtd))
+stan_diag(rz_mtd) # no print call needed -- it plots itself without asking us.
 print(
 	ggplot(rzdat, aes(Depth, log(rootvol.mm3.mm2)))
 	+geom_point()

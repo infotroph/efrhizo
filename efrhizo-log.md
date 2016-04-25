@@ -1448,3 +1448,11 @@ Pushed this version to the cluster, ran midsummers as job 1875344, 2010 as job 1
 1875346-4: socket error
 1875346-5: socket error 
 1875346-6: sampling 46-51 sec, 3:04 total. ESS 4867/20000
+
+## 2016-04-25
+
+I'm tired of waiting for cluster runs that are full of errors. Setting up to run everything on my laptop instead.
+
+* New script 'mctd_looping.sh' run the model for each day separately, rather than as a Torque array job.
+* Removed some of the redundant diagnostic graphs from mix_crop_tube_depth.R: Don't care about posterior mean of lp__, traceplots with inc_warmup=TRUE are mostly uninformative, pairs plots have been commented out for a while, and stan_hist contains pretty much the same information as stan_dens.
+* Also changed (print(stan_diag(...))) to stan_diag(...) -- stan_diag automatically plots its result, so the print call was creating extra PNGs of each subpanel that were duplicates of the single three-panel view.
