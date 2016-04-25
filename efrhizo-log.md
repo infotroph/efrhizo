@@ -1428,3 +1428,23 @@ To save some time while rerunning, let's dial back some of the massive overkill.
 How about n_warm? Ran 5 test runs with 200, 500, 1000, 1500, 2000 warmup samples. All used 2014 peak data, with 4 chains and 3000 post-warmup samples each.  Posterior parameter estimates only change in lowest digits, and no detectable change in sampler efficiency: I see maybe a *tiny* increase in ESS and reduction in MCSE with warmup >= 1000, but have to squint hard. Plotting sampler params against n_warm, looks like trend is for a very slight decrease in average speed (more leapfrog steps, smaller stepsize, greater tree depth) but lower between-chain variance (shortest warmup has both the fastest and slowest individual chains) as warmup time increases. ==> Let's keep 1000-sample warmup.
 
 Fewer chains means I don't need to reserve as many cores on the cluster, and while I'm at it I've been reserving around 3 times as much memory as I actually use. Changed Torque directive from `#PBS -l nodes=1:ppn=8,mem=7000mb` to `#PBS -l nodes=1:ppn=6,mem=4000mb` in all three recently-used scripts.
+
+Pushed this version to the cluster, ran midsummers as job 1875344, 2010 as job 1875345,2012 as job 1875346. All run in less than 5 minutes and use less than 1.5 GB memory -- including compilation. Hey, these would probably work fine on my laptop!
+
+1875344-0: sampling time 52-80 sec, 3:59 total. ESS of lp__: 2079 (out of 20000)
+1875344-1: One chain errors with NaN. Other 4 all within 1 sec of 111 sec sampling time! total runtime 4:39. ESS 4716 (out of 16000)
+1875344-2: sampling 75-117 sec, 4:15 total. ESS 4933/20000
+1875344-3: sampling 49-73 sec, 3:24 total. ESS 3864/20000
+1875344-4: sampling 53-77 sec, 3:30 total. ESS 2497/20000
+
+1875345-1: sampling 47-64 sec, total 3:22. ESS of lp__ 1382/20000 
+1875345-3: socket error
+1875345-4: sampling 52-78 sec, 3:32 total. ESS 2079/20000
+1875345-5: socket error
+
+1875346-1: sampling 56-63 sec, 3:04 total. ESS 3453/20000
+1875346-2: socket error
+1875346-3: socket error but chains run, sampling 104-107 sec, 4:11 total. ESS 1578/20000
+1875346-4: socket error
+1875346-5: socket error 
+1875346-6: sampling 46-51 sec, 3:04 total. ESS 4867/20000
