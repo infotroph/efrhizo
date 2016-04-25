@@ -1453,6 +1453,11 @@ Pushed this version to the cluster, ran midsummers as job 1875344, 2010 as job 1
 
 I'm tired of waiting for cluster runs that are full of errors. Setting up to run everything on my laptop instead.
 
-* New script 'mctd_looping.sh' run the model for each day separately, rather than as a Torque array job.
+* New script 'mctd_looping.sh' run the model for each day separately, rather than as a Torque array job, and extracts result summaries using extractfits_mctd.R.
 * Removed some of the redundant diagnostic graphs from mix_crop_tube_depth.R: Don't care about posterior mean of lp__, traceplots with inc_warmup=TRUE are mostly uninformative, pairs plots have been commented out for a while, and stan_hist contains pretty much the same information as stan_dens.
 * Also changed (print(stan_diag(...))) to stan_diag(...) -- stan_diag automatically plots its result, so the print call was creating extra PNGs of each subpanel that were duplicates of the single three-panel view.
+* This gets us down to "only" 16 diagnostic plots from each run.
+* extractfits_mctd.R gains an identifier argument, so I can collect result sets without overwriting the summary files.
+
+Deleted `mix_crop_tube_depth.sh`, which hasn't been useful in a long time.
+New script `mctd_one_session.sh`, for testing runs of individual days, possibly with subsampling. I've been using an uncommitted version of this for misc. local testing for a while, might as well keep it handy. All input variables are hardcoded -- to use it, change them at will and run it with no arguments.
