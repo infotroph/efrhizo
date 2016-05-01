@@ -14,12 +14,17 @@ RAW2012 = rawdata/EF2012_S1test.TXT \
 	rawdata/EF2012_S6.TXT \
 	rawdata/EF2012_S6_found_in_SoC_notes.txt
 
-RAW2013 = rawdata/EF2013-S1.TXT \
-	rawdata/EF2013-TAW-s5.TXT
+RAW2013 = rawdata/EF2013-TAW-s5.TXT
+	# rawdata/EF2013-S1.TXT also exists,
+	# but do not add it until well checked
+	# and added to censorframes2013.csv
 
-RAW2014 = rawdata/EFTO_S1.TXT \
-	rawdata/EF2014_peak.txt \
+
+RAW2014 = rawdata/EF2014_peak.txt \
 	rawdata/EFDESTRUCTIVE.TXT
+	# rawdata/EFTO_S1.TXT also exists,
+	# but do not add it until well checked
+	# and added to censorframes2014.csv
 
 RAWCORES = rawdata/Tractor-Core-Biomass-2011.csv \
 	rawdata/Tractor-Core-Biomass-2014.csv \

@@ -1461,3 +1461,10 @@ I'm tired of waiting for cluster runs that are full of errors. Setting up to run
 
 Deleted `mix_crop_tube_depth.sh`, which hasn't been useful in a long time.
 New script `mctd_one_session.sh`, for testing runs of individual days, possibly with subsampling. I've been using an uncommitted version of this for misc. local testing for a while, might as well keep it handy. All input variables are hardcoded -- to use it, change them at will and run it with no arguments.
+
+## 2016-04-30
+
+It's misleading to include S1 2013 and S1 2014 in the 'clean' dataset -- I never really checked either one well and bad frames are not yet censored. Commented them out of the Makefile. This causes several side effects: 
+	* Had to adjust labels to remove these sessions from plot-2013.R and plot-2014.R.
+	* All rows of stripped2013.csv and stripped2014.csv change, because centering of date and depth change.
+	* stripped2014-destructive.csv changes its ImgNotes field from "" everywhere to NA everywhere. This happens because it's generated from the whole-season frametots2014.txt, and ImgComments had some non-null values in the removed session 1 data. Now that it's an empty string everywhere, R reads it as NA instead of as "" and passes that change on to stripped2014-destructive.csv.

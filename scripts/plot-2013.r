@@ -13,8 +13,13 @@ monthcolors= c(
  	"August" = rgb(0.1, 0.4, 0.2),
  	"October" = rgb(0.0, 0.2, 0.0))
 mc13 = c(
-	"1" = monthcolors[["June"]],
-	"5" = monthcolors[["August"]])
+	# "1" = monthcolors[["June"]],
+	"5" = monthcolors[["August"]]
+)
+month_labels = c(
+	# "June",
+	"August"
+)
 
 p13 = (ggplot(strp13,
 	aes(Depth, 
@@ -28,10 +33,10 @@ p13 = (ggplot(strp13,
 	+ geom_smooth(method="lm", formula=y ~ poly(x,2))
 	+ scale_color_manual(
 		"Month",
-		labels=c("June", "August"),
+		labels=month_labels,
 		values=mc13)
 	+scale_fill_manual(
-		labels=c("June", "August"),
+		labels=month_labels,
 	 	values=mc13)
 	+ylab(expression(paste(
 		"Log root volume (", mm^3, " root ", mm^-2, " image)")))
