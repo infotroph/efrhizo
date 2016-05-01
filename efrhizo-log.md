@@ -1468,3 +1468,5 @@ It's misleading to include S1 2013 and S1 2014 in the 'clean' dataset -- I never
 	* Had to adjust labels to remove these sessions from plot-2013.R and plot-2014.R.
 	* All rows of stripped2013.csv and stripped2014.csv change, because centering of date and depth change.
 	* stripped2014-destructive.csv changes its ImgNotes field from "" everywhere to NA everywhere. This happens because it's generated from the whole-season frametots2014.txt, and ImgComments had some non-null values in the removed session 1 data. Now that it's an empty string everywhere, R reads it as NA instead of as "" and passes that change on to stripped2014-destructive.csv.
+
+One 2012 calibration file is missing from the compiled calibrations, because the script only recognizes files with uppercase extensions. Renamed '08_07.cal' to '08_07.CAL'.
