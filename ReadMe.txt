@@ -29,8 +29,7 @@ rawdata: Uncleaned data in the form it came to me: WinRhizo files, hand-compiled
 scripts: Tools to automate the rest of the analysis. Mostly written in R, some in bash.
 
 stan: Scripts for hierarchical Bayesian inference on how root volume differs between crops and over time, written in the probabalistic programming language Stan. Also contains R and Bash scripts to handle the process of running the models on the IGB computing cluster; 
-	N.B. 1: These models are NOT yet run automatically by Make, and as of 2016-01-09 the output isn't yet saved in the Git repository. Be sure to rerun the models after any update to the data.
-	N.B. 2: As of 2016-01-09 these scripts produce copious debugging output -- on the order of 120 GB from a single run if using the whole dataset! Seriously, don't try to run these on a laptop unless you're taking a very small subset and/or turning off sample logging.
+	N.B.: These models are NOT yet run automatically by Make, and as of 2016-01-09 the output isn't yet saved in the Git repository. Be sure to rerun the models after any update to the data.
 
 tmp: Things I don't intend to keep but am not deleting just yet, e.g. logged debugging output. This directory is ignored by git.
 
