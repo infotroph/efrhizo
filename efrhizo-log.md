@@ -1470,3 +1470,7 @@ It's misleading to include S1 2013 and S1 2014 in the 'clean' dataset -- I never
 	* stripped2014-destructive.csv changes its ImgNotes field from "" everywhere to NA everywhere. This happens because it's generated from the whole-season frametots2014.txt, and ImgComments had some non-null values in the removed session 1 data. Now that it's an empty string everywhere, R reads it as NA instead of as "" and passes that change on to stripped2014-destructive.csv.
 
 One 2012 calibration file is missing from the compiled calibrations, because the script only recognizes files with uppercase extensions. Renamed '08_07.cal' to '08_07.CAL'.
+
+## 2016-05-01
+
+Predicting root mass to 140 cm depth is a bit of an overreach--average deepest observations are more like 120-130 cm: `by(strpall$Depth, paste(strpall$Tube, strpall$Session, strpall$Year), max) %>% plot` shows a VERY strong horizontal stripe at 127 cm (location 110 with typical ~24-mm tube offset) and another at 115 (location 100). Only a handfull of tubes were ever sampled below 127 cam. Let's do all our prediction to 130 cm , not 140.

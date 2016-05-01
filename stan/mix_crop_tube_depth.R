@@ -22,7 +22,7 @@ n_chains = 5
 n_iters = 5000
 n_warm = 1000
 n_predtubes = 4
-pred_depths = c(1, 10 , 30, 50, 75, 100, 140)
+pred_depths = c(1, 10 , 30, 50, 75, 100, 130)
 savepars=c(
 	"loc_detect",
 	"scale_detect",
