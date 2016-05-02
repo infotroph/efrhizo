@@ -1474,3 +1474,34 @@ One 2012 calibration file is missing from the compiled calibrations, because the
 ## 2016-05-01
 
 Predicting root mass to 140 cm depth is a bit of an overreach--average deepest observations are more like 120-130 cm: `by(strpall$Depth, paste(strpall$Tube, strpall$Session, strpall$Year), max) %>% plot` shows a VERY strong horizontal stripe at 127 cm (location 110 with typical ~24-mm tube offset) and another at 115 (location 100). Only a handfull of tubes were ever sampled below 127 cam. Let's do all our prediction to 130 cm , not 140.
+
+Question: Why is there so much more maize root in 2014?
+
+* Operator difference? Probably no. EA traced all 2014 frames, and his training images are very near mean of all 11 tracers for length, width, volume. Only operator whose average is notably higher is CRS, he isn't logged as working on 2014 at all.
+
+* Calibration difference? Possibly! PxSizeH seems unusually variable.
+	* In most calibrations from 2010-2013, PxSizeH/PxSizeV is around 0.96 ±	0.02, i.e. the images are slightly squished on the Y-axis somewhere in  the optical/image-aquisition/saving/copying-between computers pathway (I don't really know or care where -- that's exactly why we has separate horizontal and vertical calibrations!). There are three outliers in 2012 (0.86, 1.02, 1.03 and one in 2013 (0.93)
+	* In 2014, first session ("traced" by me, though mostly not traced at all) PxSizeH/PxSizeV is normal (0.97), then for the six days traced by EA it drops to ~0.93 ± 1 except for one outlier at 0.86 -- lowest ratio seen the whole experiment! -- because PxSizeH is exceptionally low with no corresponding drop in PxSizeV.
+	* Opened the three calibration images from 2014 S2 in Preview and calculated my own calibrations using the same method I train all tracers to use: Start at furthest-left fully-visible line, count squares to right until furthest right fully-visible line, PxSizeH = (number 1-mm squares traveled)/(number pixels traveled). Ditto for vertical calibration, from top-fully-visible to bottom-fully-visible. Results:
+	```
+		    date       EA_H      CKB_H       EA_V      CBK_V
+	1 2014-08-13 0.02411576 0.02236422 0.02582160 0.02369668
+	2 2014-08-14 0.02161383 0.02011494 0.02341920 0.02093023
+	3 2014-08-15 0.02014388 0.02024922 0.02345416 0.02107728
+	```
+	Hmm. OK, I calculated mine from 14x10 mm = 626x422 px, 14x9 mm = 696x430 px, and 13x9 mm = 642x427 px areas respectively. EA should have used the same -- does ((mm traced)/(mm/px) = px traced) give close to the same pixel dimensions as I traced?
+	```
+	> c(14, 14, 13) / c(0.02411576, 0.02161383, 0.02014388)
+	[1] 580.5332 647.7334 645.3573
+	> c(10, 9, 9) / c(0.02582160, 0.02341920, 0.02345416)
+	[1] 387.2727 384.3001 383.7272
+	```
+	Only for the horizontal dimension of Aug 15. But (mm traced+1)/(mm/px) works for the other five!
+	```
+	> c(15, 15, 14) / c(0.02411576, 0.02161383, 0.02014388)
+	[1] 621.9999 694.0001 645.3573
+	> c(11, 10, 10) / c(0.02582160, 0.02341920, 0.02345416)
+	[1] 425.9999 427.0001 426.3636
+	```
+	==> I suspect EA counted lines instead of squares (with a miscount on one horizontal dimension)!
+	* Let's recheck every calibration image. Copied all 67 calibration images from the whole experiment to my laptopn, opened each in Preview, draw the largest possible rectangle on fully visible gridlines, recorded pixel and mm dimensions, compared my pixel sizes against those used in the current tracing calibrations. Saved this as `notes/cal_check_20160501.csv`. Result: For both horizontal and vertical dimensions, comparing my calibration against the versions as traced gives two distinct lines: Most on the 1:1 line, 8 (horizontal) or 7 (vertical) points above it on a parallel line. My interpretation: Off-by-one errors are the primary source off calibration error. QED.
