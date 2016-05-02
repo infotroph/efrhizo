@@ -46,15 +46,15 @@ Miscanthus,3,44,3M4,2014.08.15,TLP,2014.11.12,EA,2014.08.15,no,L105,15,Location 
 Miscanthus,4,45,4M1,2014.08.15,TLP,2014.11.13,EA,2014.08.15,no,L105,17,locaion 1 is the label
 Miscanthus,4,46,4M2,,,,,,,,,
 Miscanthus,4,47,4M3,2014.08.15,TLP,2014.11.13,EA,2014.08.15,no,L110,18,location 1 is the label
-Miscanthus,4,48,4M4,2014.08.15,TLP,2014.11.13,EA,2014.08.15!,"1,80,85",L110,13,"location one has roots but the label is in the way, location 80 and 85 both have water which make the images a little blurry "
-Switch,0,49,0S2,2014.08.15,TLP,2014.11.13,EA,2014.08.15!,"100,120",L115,22,"Loction 100 has a blurry lense that makes obscures the roots, and location 120 is a blue image. "
-Switch,0,50,0S3,2014.08.15,TLP,2014.11.13,EA,2014.08.14,no,L110,13,location 1 is the label
-Switch,0,51,0S5,2014.08.15,TLP,2014.11.17,EA,2014.08.14,L1-20,L65,5,L1-20 has tape marks on all of the pictures
-Switch,0,52,0S6,2014.08.15,TLP,2014.11.17,EA,2014.08.14,no,L105,13,
-Switch,0,53,0S8,2014.08.15,TLP,2014.11.17,EA,2014.08.14,no,L105,15,L1 is the label 
-Switch,0,54,0S9,2014.08.15,TLP,2014.11.17,EA,2014.08.14,no,L110,20,L1 is the label 
-Switch,0,55,0S12,2014.08.15,TLP,2014.11.17,EA,2014.08.14,no,L115,20,L1 is the label 
-Switch,0,56,0S12,2014.08.15,TLP,2014.11.19,EA,2014.08.14,no,L105,18,L1 is the label 
+Miscanthus,4,48,4M4,2014.08.14,TLP,2014.11.13,EA,2014.08.14,"1,80,85",L110,13,"location one has roots but the label is in the way, location 80 and 85 both have water which make the images a little blurry "
+Switch,0,49,0S2,2014.08.14,TLP,2014.11.13,EA,2014.08.14,"100,120",L115,22,"Loction 100 has a blurry lense that makes obscures the roots, and location 120 is a blue image. "
+Switch,0,50,0S3,2014.08.14,TLP,2014.11.13,EA,2014.08.14,no,L110,13,location 1 is the label
+Switch,0,51,0S5,2014.08.14,TLP,2014.11.17,EA,2014.08.14,L1-20,L65,5,L1-20 has tape marks on all of the pictures
+Switch,0,52,0S6,2014.08.14,TLP,2014.11.17,EA,2014.08.14,no,L105,13,
+Switch,0,53,0S8,2014.08.14,TLP,2014.11.17,EA,2014.08.14,no,L105,15,L1 is the label 
+Switch,0,54,0S9,2014.08.14,TLP,2014.11.17,EA,2014.08.14,no,L110,20,L1 is the label 
+Switch,0,55,0S12,2014.08.14,TLP,2014.11.17,EA,2014.08.14,no,L115,20,L1 is the label 
+Switch,0,56,0S12,2014.08.14,TLP,2014.11.19,EA,2014.08.14,no,L105,18,L1 is the label 
 Switch,1,57,1S1,2014.08.15,TLP,2014.11.19,EA,2014.08.15,no,L100,10,"L90, 95,100  have what looks like web shape roots, but cannot be certain since there are so many "
 Switch,1,58,1S2,2014.08.15,TLP,2014.11.19,EA,2014.08.15,no,L110,20,L1 is the label 
 Switch,1,59,1S3,,,,,,,,,
@@ -71,7 +71,7 @@ Switch,4,69,4S1,2014.08.15,TLP,2014.11.21,EA,2014.08.15,115,L110,19,"L1 is the l
 Switch,4,70,4S2,2014.08.15,TLP,2014.11.21,EA,2014.08.15,no,L80,13,L1 is the label
 Switch,4,71,4S3,2014.08.15,TLP,2014.11.21,EA,2014.08.15,no,L110,20,L1 is the label
 Switch,4,72,4S4,2014.08.15,TLP,2014.11.22,EA,2014.08.15,no,L110,18,L1 is the label
-Prairie,0,73,0P2,2014.08.15,TLP,2014.11.22,EA,2014.08.14,1,L105,15,"L1 has very bad lighting, can't see anything"
+Prairie,0,73,0P2,2014.08.14,TLP,2014.11.22,EA,2014.08.14,1,L105,15,"L1 has very bad lighting, can't see anything"
 Prairie,0,74,0P3,,,,,,,,,
 Prairie,0,75,0P5,2014.08.14,TLP,2014.12.1,EA,2014.08.14,no,L110,18,
 Prairie,0,76,0P6,2014.08.14,TLP,2014.12.1,EA,2014.08.14,no,L105,17,Most of the images were a bit blurry but I could still make out the roots.

@@ -1505,3 +1505,32 @@ Question: Why is there so much more maize root in 2014?
 	```
 	==> I suspect EA counted lines instead of squares (with a miscount on one horizontal dimension)!
 	* Let's recheck every calibration image. Copied all 67 calibration images from the whole experiment to my laptopn, opened each in Preview, draw the largest possible rectangle on fully visible gridlines, recorded pixel and mm dimensions, compared my pixel sizes against those used in the current tracing calibrations. Saved this as `notes/cal_check_20160501.csv`. Result: For both horizontal and vertical dimensions, comparing my calibration against the versions as traced gives two distinct lines: Most on the 1:1 line, 8 (horizontal) or 7 (vertical) points above it on a parallel line. My interpretation: Off-by-one errors are the primary source off calibration error. QED.
+
+OK, so bad calibrations do happen. Now to fix them. My approach: Working on the tracing computer, edit existing calibration files to match my measurement, double-checking as I go, load up each tube in WinRhizo with the correct edited calibration, re-save into a fresh data file. Once all looks good, replace old data file with the new one.
+
+Let's start with 2014 session 2 and see if it makes any difference in model results before going any futher. Logged in remotely to imager and:
+
+* edited 
+	* `2014.08.13 calibration.CAL` from `2.411576E-002`,`2.582160E-002` to `2.2435891E-002`,`2.35849E-002`
+	* `2014.08.14 calibration.CAL` from `2.161383E-002`,`2.341920E-002` to `2.017291E-002`,`2.093023E-002`
+	* `2014.08.15 calibration.CAL` from `2.014388E-002`,`2.345416E-002` to `2.023121E-002`,`2.097902E-002`
+* Opened WinRhizo, loaded config file
+* Calibration > Load Calibration > `2014.08.13 calibration.CAL`
+* Data > New File > EF2014_data_recal.TXT
+* For each tube imaged on 2014-08-13: Loaded, scrolled through, closed.
+	* 1-8, 25-28, 30-32
+* Closed data file, then quit WinRhizo.
+* Checked git, verified that pat files have only changed in the lines that appear to show calibration values.
+* Checked length of `EF2014_data_recal.TXT`. 1193 lines, compared to 1486 lines that contain the string '2012.08.13' in `EF2014_data.TXT`. This seems reasonable, given  the older version contains duplicate lines from some tubes. 
+* OK, let's re-export the other two days. Reopened WinRhizo, loaded configuration.
+* Calibration > Load Calibration > `2014.08.14 calibration.CAL`
+* Data > Open File > `EF2014_data_recal.TXT`
+* Oh hey, here are some tubes mislabeled in the analysis log: 
+	* T48-T56 and T73 all imaged 8-14 not 15 (Yes, 48 included -- apparently we did one tube of block 4 at the very end of our day of Block 0 images). Fixed all in log.
+	* T48 & T49 calibration is listed as "2014.08.15!" Checked current data, T48 shows 08-14 calibration and T49 shows 08-15 calibration. I'm about to replace both of these anyway, so changed both to "2014.08.14".
+* Opened each of the following tubes that were imaged 2014-08-14. Did not scroll around, just waited for loading indicator to finish and then clicked load again.
+	* 48-56, 73, 75, 76, 78-80
+
+Jumping from imager back to local repo for a moment: While doing this, noticed that T75 L001 has a very large "root" that is really tape. Not currently a problem because the cleanup script is stripping all Loc 1 images, but added it to `censorframes2014.csv` to be safe. ==> Hey, tubes 48-56 and 73 are mis-dated in `censorframes2014.csv` too. These frames were probably not being censored correctly! 
+
+Fixed that and committed those changes now. The diff on `stripped2014.csv` looks usually larger at first glance because the lines are sorted differently. This seems weird, but verified that the new output is in fact identical except for changes to centered date and depth columns and the 8 frames now censored that weren't before.
