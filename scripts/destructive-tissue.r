@@ -97,70 +97,66 @@ roots$Rootvol.seen = mapply(
 	depthtop=roots$nom.top,
 	depthbot=roots$nom.bottom)
 
-png(
+ggsave_fitmax(
 	filename="figures/destructive-mass.png",
-	width=8,
-	height=8,
+	plot=mirror_ticks(ggplot(roots, aes(nom.bottom, root.per.cm3, color=Position))
+		+geom_smooth(method="lm", formula=y ~ poly(x,2))
+		+geom_point()
+		+facet_wrap(~Crop)
+		+coord_flip()
+		+scale_x_reverse()
+		+theme_ggEHD()
+		+xlab("Depth (cm)")
+		+ylab(expression(paste("Root mass (g ", "cm"^"-3", ")")))),
+	maxwidth=8,
+	maxheight=8,
 	units="in",
 	pointsize=18,
-	res=300)
-plot(mirror.ticks(ggplot(roots, aes(nom.bottom, root.per.cm3, color=Position))
-+geom_smooth(method="lm", formula=y ~ poly(x,2))
-+geom_point()
-+facet_wrap(~Crop)
-+coord_flip()
-+scale_x_reverse()
-+theme_ggEHD()
-+xlab("Depth (cm)")
-+ylab(expression(paste("Root mass (g ", "cm"^"-3", ")")))))
-dev.off()
+	dpi=300)
 
-png(
+ggsave_fitmax(
 	filename="figures/destructive-vol.png",
-	width=8,
-	height=8,
+	plot=mirror_ticks(ggplot(roots, aes(nom.bottom, Rootvol.seen))
+		+geom_smooth(method="lm", formula=y ~ poly(x,2))
+		+geom_point()
+		+facet_wrap(~Crop)
+		+coord_flip()
+		+scale_x_reverse()
+		+theme_ggEHD()
+		+xlab("Depth (cm)")
+		+ylab(expression(paste("Visible root volume (", mm^3, " cm"^"-2", ")")))),
+	maxwidth=8,
+	maxheight=8,
 	units="in",
-	res=300)
-plot(mirror.ticks(ggplot(roots, aes(nom.bottom, Rootvol.seen))
-+geom_smooth(method="lm", formula=y ~ poly(x,2))
-+geom_point()
-+facet_wrap(~Crop)
-+coord_flip()
-+scale_x_reverse()
-+theme_ggEHD()
-+xlab("Depth (cm)")
-+ylab(expression(paste("Visible root volume (", mm^3, " cm"^"-2", ")")))))
-dev.off()
+	dpi=300)
 
-png(
+ggsave_fitmax(
 	filename="figures/destructive-vol-fulldepth.png",
-	width=8,
-	height=8,
+	plot = mirror_ticks(ggplot(imgs, aes(Depth, rootvol.mm3.mm2))
+		+geom_smooth(method="lm", formula=y ~ poly(x,2))
+		+geom_point()
+		+facet_wrap(~Species)
+		+coord_flip()
+		+scale_x_reverse()
+		+theme_ggEHD()
+		+xlab("Depth (cm)")
+		+ylab(expression(paste("Visible root volume (", mm^3, " cm"^"-2", ")")))),
+	maxwidth=8,
+	maxheight=8,
 	units="in",
-	res=300)
-plot(mirror.ticks(ggplot(imgs, aes(Depth, rootvol.mm3.mm2))
-+geom_smooth(method="lm", formula=y ~ poly(x,2))
-+geom_point()
-+facet_wrap(~Species)
-+coord_flip()
-+scale_x_reverse()
-+theme_ggEHD()
-+xlab("Depth (cm)")
-+ylab(expression(paste("Visible root volume (", mm^3, " cm"^"-2", ")")))))
-dev.off()
+	dpi=300)
 
-png(
+ggsave_fitmax(
 	filename="figures/destructive-massvsvol.png",
-	width=8,
-	height=8,
+	plot=mirror_ticks(ggplot(roots, 
+		aes(root.per.cm3, Rootvol.seen, color=Position))
+		+geom_point()
+		+facet_wrap(~Crop)
+		+geom_smooth(method="lm")
+		+xlab(expression(paste("Root mass (g ", "cm"^"-3", ")")))
+		+ylab(expression(paste("Visible root volume (", mm^3, " cm"^"-2", ")")))),
+	maxwidth=8,
+	maxheight=8,
 	units="in",
-	res=300)
-plot(mirror.ticks(ggplot(roots, 
-	aes(root.per.cm3, Rootvol.seen, color=Position))
-	+geom_point()
-	+facet_wrap(~Crop)
-	+geom_smooth(method="lm")
-	+xlab(expression(paste("Root mass (g ", "cm"^"-3", ")")))
-	+ylab(expression(paste("Visible root volume (", mm^3, " cm"^"-2", ")")))))
-dev.off()
+	dpi=300)
 
