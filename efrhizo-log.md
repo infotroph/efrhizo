@@ -1559,3 +1559,47 @@ On my laptop:
 * Ran mctd_looping.sh as job 1462158986, with updated censoring as in 1462157607 plus new 2014 calibrations.
 * Only tiny differences in depth profiles and maize profile is still predicted to be way more curved than in previous years. Posterior for crop totals barely changes -- tails pull in slightly, but not enough to change interpretation.
 
+(2016-05-27: More notes typed 2016-05-01 and not committed until now.)
+1462201306: All days with updated 2014, so I can compare updated crop total figures
+
+1462205956: All days, simulating 2014 sampling pattern in other years by using *all* tubes from perennials and *only block 0* tubes from Maize-soybean:
+```
+smallblock_cornsoy = which(rzdat$Species=="Maize-Soybean" & rzdat$Block!=0)
+if(any(smallblock_cornsoy)){
+	print("TEST RUN: Dropping all Maize-Soybean tubes not in Block 0.")
+	rzdat = droplevels(rzdat[-smallblock_cornsoy,])
+}
+```
+
+1462212776: All days, picking 8 tubes at random from any block of maize-soybean:
+```
+cornsoy_tubes = unique(rzdat$Tube[rzdat$Species=="Maize-Soybean"])
+if(length(cornsoy_tubes) > 8){
+	print("TEST RUN: Using only 8 tubes from Maize-Soybean, all tubes from others")
+	cornsoy_tubes = sample(cornsoy_tubes, 8)
+	drop_rows = which(rzdat$Species=="Maize-Soybean" & !(rzdat$Tube %in% cornsoy_tubes))
+	rzdat = droplevels(rzdat[-drop_rows,])
+}
+```
+
+1462238053: 2012-2 and 2014-2 only, still picking 8 tubes at random but with a more detailed rz_pred depth profile: seq(1,130,length.out=20)
+1462238611: ditto, plots changed from smooth to line ==> oops, errors on plotting.
+1462239004: Removed "se.fit", rerun
+1462240135: split predictive plot fo p_detect out by species
+1462240518: rerun with no changes ==> identical output ==> oh right, set.seed. 
+1462240855: Commented out set.seed, reran.
+1462241220: rerun.
+1462241671: rerun.
+1462242439: rerun.
+1462245398: rerun.
+1462245972: rerun.
+
+## 2016-05-13
+
+	1463165173: commented 8-tubes code back out; SHOULD be standard model again, just with random seed turned off
+
+## 2016-05-20
+
+	(noted here 2016-05-27 from memory) Met with Evan, discussed results from earlier in the month. Low tube number in 2014 maize seems to produce unstable total volume estimates: simulating in other years by subsampling down to 8 tubes produces (broadly) similar-looking increases. That doesn't explain high maize root volume in S2 2012, though.
+
+	Tentative conclusion: Drop  total volume estimates, focus on presenting depth profiles.
