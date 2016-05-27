@@ -1603,3 +1603,7 @@ if(length(cornsoy_tubes) > 8){
 	(noted here 2016-05-27 from memory) Met with Evan, discussed results from earlier in the month. Low tube number in 2014 maize seems to produce unstable total volume estimates: simulating in other years by subsampling down to 8 tubes produces (broadly) similar-looking increases. That doesn't explain high maize root volume in S2 2012, though.
 
 	Tentative conclusion: Drop  total volume estimates, focus on presenting depth profiles.
+
+## 2016-05-27
+
+	Found another typo in raw 2011 tractorcore CN data: sample 4S2 50-100 has lower depth entered as "10" instead of "100". Edited this by hand in the raw CSV. Dear future self: Please make sure to propagate this correction if updating from an upstream source!
