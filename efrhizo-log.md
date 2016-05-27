@@ -1607,3 +1607,31 @@ if(length(cornsoy_tubes) > 8){
 ## 2016-05-27
 
 	Found another typo in raw 2011 tractorcore CN data: sample 4S2 50-100 has lower depth entered as "10" instead of "100". Edited this by hand in the raw CSV. Dear future self: Please make sure to propagate this correction if updating from an upstream source!
+
+	Changing mass-per-area calculations in the tractorcore dataset. From an email I sent to Ilsa on 2016-04-04:
+
+	```
+		I also see an issue with the calculations of grams per m2, but it applies to both datasets—we’re both calculating it the same way and my values look similar to yours, but I think it’s wrong: we’re dividing (total mass / three_core_area), which treats every value as the total for the whole layer, meaning in the 50-100 and 100+ layers all the short cores get counted as super-low totals. I guess the easiest fix for this would be to scale everything to its expected layer thickness, maybe something like
+
+		BGB_g_m2 = total_mass_g / (area_per_core*soil_length) * ((lower-upper) / (soil_length/num_cores)),
+
+		with lower for the 100+ layer set to some arbitrary value. Mean achieved depth, maybe?
+	```
+
+	The approach still seems sound to me, and mean achieved depth seems like a reasonable value. I'll start by re-adding the `Lower` column (was ignoring it) and setting Lower for the 100+ layer to the mean achieved depth, which I can calculate within the 100+ layer as 100+(soil_length/num_cores)). Calculated one value across all blocks/crops, but separately for each each. Mean maximum depth rounds off to 126 cm in 2011, 128 in 2014. Note that this excludes cores <100 cm deep from the mean of maximum depth, but I feel OK about this -- taking the maximum across all layers gives the same answer:
+
+	```
+	(tc
+		%>% group_by(Year, Treatment, Block, Sample)
+		%>% summarize(deepest=max(Upper + Soil_length/Num_cores))
+		%>% group_by(Year)
+		%>% select(deepest)
+		%>% summarize_each(funs(mean(., na.rm=T), sd(., na.rm=T))))
+		# Source: local data frame [2 x 3]
+		#    Year     mean        sd
+		#   (int)    (dbl)     (dbl)
+		# 1  2011 126.0382  9.192149
+		# 2  2014 127.6299 11.180606
+	```
+
+	Edited tractorcore-cleanup.R to add a Lower column.

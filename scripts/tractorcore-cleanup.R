@@ -28,7 +28,7 @@ tc11 = read.csv(
 		Treatment="factor",
 		Sample="integer",
 		Upper="integer",
-		Lower="NULL", # Skip: Redundant with Upper and messier. 100+ coded as "x" 
+		Lower="character", # will coerce to numeric after cleanup: 100+ is coded as "x"
 		X...Dead="character", # will coerce to numeric after cleanup
 		Root.Weight="character", # will coerce to numeric after cleanup
 		Rhizome.Weight="numeric",
@@ -41,7 +41,7 @@ tc14 = read.csv(
 		Treatment="factor",
 		Sample="character",
 		Upper="integer",
-		Lower="NULL", # Skip: Redundant with Upper and messier. 100+ coded as "+" 
+		Lower="character", # will coerce to numeric after cleanup: 100+ is coded as "+"
 		Root.Mass="character", # will coerce to numeric after cleanup
 		Rhizome.Mass="character",
 		Total.Mass="numeric",
@@ -59,7 +59,7 @@ tc11_cn = read.csv(
 		Treatment="factor",
 		Sample="character",
 		Upper="integer",
-		Lower="NULL",
+		Lower="character", # will coerce to numeric after cleanup: 100+ is coded as "+"
 		X..N="numeric",
 		X..C="numeric",
 		Notes="character"))
@@ -71,7 +71,7 @@ tc14_cn = read.csv(
 		Direction="character",
 		Sample..="character",
 		Upper="integer",
-		Lower="NULL",
+		Lower="character", # will coerce to numeric after cleanup: 100+ is coded as "+"
 		Root...N="character", # will coerce to numeric after removing inline notes
 		Root...C="numeric",
 		Rhizome...N="numeric",
@@ -83,18 +83,18 @@ tc14_cn = read.csv(
 ## Normalize column names
 # Could probably do this inside read.csv by setting col.names, but this works
 names(tc11) = c(
-	"Block", "Treatment", "Sample", "Upper",
+	"Block", "Treatment", "Sample", "Upper", "Lower",
 	"Pct_dead", "Mass_root", "Mass_rhizome",
 	"Soil_length", "Notes")
 names(tc14) = c(
-	"Block", "Treatment", "Sample", "Upper",
+	"Block", "Treatment", "Sample", "Upper", "Lower",
 	"Mass_root", "Mass_rhizome", "Mass_total", "Pct_dead",
 	"Soil_length", "Notes", "Fertilizer", "Biomass_g_m2")
 names(tc11_cn) = c(
-	"Block", "Treatment", "Sample", "Upper",
+	"Block", "Treatment", "Sample", "Upper", "Lower",
 	"Pct_N", "Pct_C", "Notes")
 names(tc14_cn) = c(
-	"Block", "Treatment", "Direction", "Sample", "Upper",
+	"Block", "Treatment", "Direction", "Sample", "Upper", "Lower",
 	"Pct_N_root", "Pct_C_root", "Pct_N_rhizome", "Pct_C_rhizome",
 	"Fertilizer")
 
@@ -130,6 +130,14 @@ tc11$Mass_rhizome[tc11$Mass_root=="Sample DNE"] = NA
 tc11$Num_cores = 3
 
 tc11$Fert_kg_ha = fert_11_bycrop[tc11$Treatment]
+
+# Treat mean achieved depth as bottom of 100+ layer
+mean_depth_tc11 = (tc11
+	%>% filter(Upper==100)
+	%>% summarize(Lower=round(mean(100 + Soil_length/Num_cores, na.rm=TRUE)))
+)$Lower
+tc11$Lower[tc11$Upper == 100] = as.character(mean_depth_tc11)
+tc11$Lower = as.numeric(tc11$Lower)
 
 # If I were being complete here I'd convert Pct_dead to numeric,
 # but I don't have an immediate use for it and it's very messy:
@@ -170,6 +178,14 @@ tc14$Fert_kg_ha = fert_14_fromstring[tc14$Fertilizer]
 
 tc14$Num_cores = ifelse(tc14$Notes == "Only 2 Cores Taken", 2, 3)
 
+# Treat mean achieved depth as bottom of 100+ layer
+mean_depth_tc14 = (tc14
+	%>% filter(Upper==100)
+	%>% summarize(Lower=round(mean(100 + Soil_length/Num_cores, na.rm=TRUE)))
+)$Lower
+tc14$Lower[tc14$Upper == 100] = as.character(mean_depth_tc14)
+tc14$Lower = as.numeric(tc14$Lower)
+
 # Sanity check for 2014 biomass:
 # Total mass and Biomass_g_m2 come precalculated.
 # If we can't reconstruct them from raw values, something's wrong.
@@ -186,6 +202,10 @@ with(tc14, stopifnot(
 
 
 # 2011 CN
+
+tc11_cn$Lower[tc11_cn$Upper==100] = as.character(mean_depth_tc11)
+tc11_cn$Lower = as.numeric(tc11_cn$Lower)
+
 tc11_cn$Pool = "Root"
 tc11_cn$Pool[tc11_cn$Notes =="Rhizome"] = "Rhizome"
 tc11_cn_root = subset(tc11_cn, Pool == "Root") %>% select(-Pool)
@@ -193,13 +213,16 @@ tc11_cn_rhizome = subset(tc11_cn, Pool == "Rhizome") %>% select(-Pool)
 tc11_cn = merge(
 	x=tc11_cn_root,
 	y=tc11_cn_rhizome,
-	by=c("Block", "Treatment", "Sample", "Upper"),
+	by=c("Block", "Treatment", "Sample", "Upper", "Lower"),
 	suffixes=c(x="_root", y="_rhizome"),
 	all=TRUE)
 rm(list=c("tc11_cn_root", "tc11_cn_rhizome"))
 
 
 # 2014 CN
+
+tc14_cn$Lower[tc14_cn$Upper==100] = as.character(mean_depth_tc14)
+tc14_cn$Lower = as.numeric(tc14_cn$Lower)
 
 noterows_cn14 = tc14_cn$Pct_N_root %in% c(
 	"Not enough ground material for CN analysis",
@@ -216,7 +239,7 @@ tc14_cn$Sample = factor(trimws(paste(tc14_cn$Direction, tc14_cn$Sample)))
 tc11 = merge(
 	tc11, 
 	tc11_cn,
-	by=c("Block", "Treatment", "Sample", "Upper")) # but not by Note!
+	by=c("Block", "Treatment", "Sample", "Upper", "Lower")) # but not by Note!
 tc11 = (tc11 
 	%>% rename(
 		Biomass_notes = Notes,
@@ -226,7 +249,7 @@ tc11 = (tc11
 tc14 = merge(
 	tc14 %>% select(-Fertilizer, -Mass_total, -Biomass_g_m2), 
 	tc14_cn %>% select(-Fertilizer, -Direction),
-	by=c("Block", "Treatment", "Sample", "Upper", "Fert_kg_ha"),
+	by=c("Block", "Treatment", "Sample", "Upper", "Lower", "Fert_kg_ha"),
 	all=TRUE)
 tc14 = (tc14 
 	%>% rename(Biomass_notes = Notes)
@@ -244,8 +267,8 @@ coredata = rbind(
 	tc14 %>% mutate(Year=2014))
 # Sort, move sort columns to beginning of row
 coredata = (coredata
-	%>% arrange(Year, Treatment, Block, Sample, Upper)
-	%>% select(Year, Treatment, Block, Sample, Upper, everything()))
+	%>% arrange(Year, Treatment, Block, Sample, Upper, Lower)
+	%>% select(Year, Treatment, Block, Sample, Upper, Lower, everything()))
 
 
 ## Compute biomass and C by volume & area
