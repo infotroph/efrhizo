@@ -1635,3 +1635,5 @@ if(length(cornsoy_tubes) > 8){
 	```
 
 	Edited tractorcore-cleanup.R to add a Lower column.
+
+	Now implementing the biomass correction. Using close to the same formulation I sent Ilsa, but storing the thickness scaling factor as a column in the data and switching it from a multiplier to a fraction (achieved/target instead of target/achieved), which makes no practical difference in the calculation but makes more sense as a freestanding statistic: "We sampled 85% of the target layer" instead of "the target layer is 1.18x as thick as this sample."

@@ -288,19 +288,31 @@ pct_or_zero = function(mass, percent){
 # 	Thus no need to include Num_cores in biomass calculation -- 
 # 	Soil_length accounts for it already.
 #
-# * Top 3 layer midpoints should all be very close to 5, 20, 50. 
+# * Midpoint is the best point estimate of the actual depth of this sample:
+#	Top 3 layer midpoints should all be very close to 5, 20, 50, 
 #	50-100 should mostly = 75 with some shorter. 100+ will be more variable.
+# 
+# * Layer_fraction is the ratio between the depth we achieved and the depth we
+#	were aiming for. Should be 1 everywhere the midpoint is one of
+#	(5, 20, 50, 75, 113), and never >1 except in the 100+ layer.
+#
+# * Biomass_g_m2 is inferred mass per m^2 in the "whole layer", inferred using
+#	Layer_fraction as a multiplier to correct for the fact that some cores 
+#	didn't reach the full depth. This correction assumes mass-per-volume is
+#	constant within a layer, which isn't true but is close enough in the deep
+#	layers where the correction applies.
 #
 # * NAs from missing CN data propagate through anything with nonzero biomass.
-#	For best estimates in layers with many missing readings, probably better to 
-#	recalculate total C/N from block averages --
-#	by layer for roots, all layers together (really just 0-10 and 10-30) for rhizomes
+#	For best estimates in layers with many missing readings, probably better to
+#	recalculate total C/N from block averages -- by layer for roots, all layers
+#	together (really just 0-10 and 10-30) for rhizomes
 #
 coredata = mutate(coredata, 
 	Midpoint = Upper + 0.5*Soil_length/Num_cores,
+	Layer_fraction =  (Soil_length/Num_cores) / (Lower-Upper),
 	Mass_total = Mass_root + Mass_rhizome,
 	Biomass_g_cm3 = Mass_total / (CORE_AREA_CM2 * Soil_length),
-	Biomass_g_m2 = Mass_total / (CORE_AREA_M2 * Num_cores),
+	Biomass_g_m2 = Mass_total / (CORE_AREA_M2 * Num_cores) / Layer_fraction,
 	Mass_root_C = pct_or_zero(Mass_root, Pct_C_root),
 	Mass_root_N = pct_or_zero(Mass_root, Pct_N_root),
 	Mass_rhizome_C = pct_or_zero(Mass_rhizome, Pct_C_rhizome),
@@ -309,8 +321,8 @@ coredata = mutate(coredata,
 	Mass_total_N = Mass_root_N + Mass_rhizome_N,
 	C_g_cm3 = Mass_total_C / (CORE_AREA_CM2 * Soil_length),
 	N_g_cm3 = Mass_total_N / (CORE_AREA_CM2 * Soil_length), 
-	C_g_m2 = Mass_total_C / (CORE_AREA_M2 * Num_cores),
-	N_g_m2 = Mass_total_N / (CORE_AREA_M2 * Num_cores))
+	C_g_m2 = Mass_total_C / (CORE_AREA_M2 * Num_cores) / Layer_fraction,
+	N_g_m2 = Mass_total_N / (CORE_AREA_M2 * Num_cores) / Layer_fraction)
 
 
 write.csv(coredata, file="data/tractorcore.csv", row.names=FALSE)

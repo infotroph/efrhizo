@@ -56,8 +56,8 @@ core_blocks = (coredata
 		Mass_total_N = Mass_root_N + Mass_rhizome_N,
 		C_g_cm3 = Mass_total_C / (CORE_AREA_CM2 * Soil_length),
 		N_g_cm3 = Mass_total_N / (CORE_AREA_CM2 * Soil_length), 
-		C_g_m2 = Mass_total_C / (CORE_AREA_M2 * Num_cores),
-		N_g_m2 = Mass_total_N / (CORE_AREA_M2 * Num_cores))
+		C_g_m2 = Mass_total_C / (CORE_AREA_M2 * Num_cores) / Layer_fraction,
+		N_g_m2 = Mass_total_N / (CORE_AREA_M2 * Num_cores) / Layer_fraction)
 	%>% group_by(Year, Treatment, Upper, Block)
 	%>% summarize_each(
 		funs(mean(., na.rm=TRUE), se(., na.rm=TRUE)),
