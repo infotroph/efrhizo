@@ -1534,3 +1534,28 @@ Let's start with 2014 session 2 and see if it makes any difference in model resu
 Jumping from imager back to local repo for a moment: While doing this, noticed that T75 L001 has a very large "root" that is really tape. Not currently a problem because the cleanup script is stripping all Loc 1 images, but added it to `censorframes2014.csv` to be safe. ==> Hey, tubes 48-56 and 73 are mis-dated in `censorframes2014.csv` too. These frames were probably not being censored correctly! 
 
 Fixed that and committed those changes now. The diff on `stripped2014.csv` looks usually larger at first glance because the lines are sorted differently. This seems weird, but verified that the new output is in fact identical except for changes to centered date and depth columns and the 8 frames now censored that weren't before.
+
+(Lines below were typed 2016-05-01 but left uncommitted until 2016-05-26)
+OK, back to calibration updates. Time to do the 2014-08-15 images, then check how much difference this all actually made.
+
+* Closed WinRhizo, reopened WinRhizo, loaded configuration.
+* Calibration > Load Calibration > `2014.08.15 calibration.CAL`
+* Data > Open File > `EF2014_data_recal.TXT`
+* Opened each tube imaged 2014-08-15. Did not scroll around, just waited for loading indicator to finish and then clicked load again:
+	* 33-40, 42-45, 47, 57-58, 61-66, 69-72, 81-86, 89-96   
+* Closed WinRhizo.
+* Copied `EF2014_data_recal.TXT` and edited calibration files to my laptop for testing.
+
+(2016-05-26: committed all resulting changes from this both here and on the tracing computer)
+
+On my laptop:
+
+* Ran mctd_looping.sh as job 1462157607, With updated censoring but calibrations as before. Only ran a subset of dates: 2013 peak, 2014 peak, 2014 destructive harvest. Really could have just cut it down to 2014 peak alone.
+* Moved all derived 2014 data files aside by adding "_origcal" to their names.
+* Replaced `rawdata/calibs2014/2014.08.13.CAL` with contents of edited version from imager. Ditto with `08.14` and `08.15`
+* Replaced `rawdata/EF2014_peak.txt` with contents of `EF2014_peak_recal.txt`
+* Ran `make` to regenerate derived data files.
+* Looking at the simple polynomial fits, the peak drops a small amount -- maybe a third of a log unit?
+* Ran mctd_looping.sh as job 1462158986, with updated censoring as in 1462157607 plus new 2014 calibrations.
+* Only tiny differences in depth profiles and maize profile is still predicted to be way more curved than in previous years. Posterior for crop totals barely changes -- tails pull in slightly, but not enough to change interpretation.
+
