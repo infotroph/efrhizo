@@ -1643,3 +1643,45 @@ if(length(cornsoy_tubes) > 8){
 		* A rhizotron methods figure of some kind, probably as a Bayesian network diagram of sorts showing the parameters that go into the model. Highlight the importance of correcting for zeroes and surface effects, show how the curve changes when they're added. Key takeaway: Shows that the model is novel.
 		* Rhizotron depth profiles from peak sampling each year. Key takeaway: Roots keep growing, more in perennials, numbers are comparable to core-based methods but higher frequency. Challenge: explain away the discrepancy in 2014 maize profile.
 		* Rhizotron depth profiles through the season in 2010 and 2012. Key takeaway: We capture seasonal variation, but there isn't much of it in a mature perennial crop -- even in a drought year. Challenge: Need to figure out how to make these look good. Evan reserves the right to can 2010, or possibly both of them, if the improved figure isn't adding anything to the story.
+
+## 2016-06-05
+
+	Replotted tractor cores results into four-panel figures (roots vs root+rhizome, 2011 vs 2014) per Evan request.
+
+## 2016-06-06
+
+	Overhauled methods: New section describing Stan model, droppped paragraphs about operator agreement and destructive harvest.
+
+	Edits to plotfits_mctd.R to make Stan output figures more comprehensible. Working fast to show everything to Evan this afternoon; plotting contains at least one temporary shortcut: Manually labeled session months in 2010/2012 figures rather than extract/rename them programmatically. Starting point:
+	```
+	strpall %>% filter(Year==2010) %>% group_by(Session) %>% summarize(min(Date), max(Date))
+	#   Session  min(Date)  max(Date)
+	#     (int)     (date)     (date)
+	# 1       1 2010-05-27 2010-05-28
+	# 2       3 2010-07-22 2010-07-26
+	# 3       4 2010-08-12 2010-08-18
+	# 4       5 2010-10-07 2010-10-15
+
+	strpall %>% filter(Year==2012) %>% group_by(Session) %>% summarize(min(Date), max(Date))
+	#   Session  min(Date)  max(Date)
+	#     (int)     (date)     (date)
+	# 1       1 2012-05-21 2012-05-23
+	# 2       2 2012-06-05 2012-06-08
+	# 3       3 2012-06-20 2012-06-22
+	# 4       4 2012-08-02 2012-08-07
+	# 5       5 2012-08-29 2012-08-31
+	# 6       6 2012-10-22 2012-10-26
+	```
+	Rounded S1 2010 as "June" and S3 2012 as "July"; would probably be better to identify as month-day or as DOY.
+
+	N.B. updated Pandoc to version 1.17.1 and pandoc-crossref 0.2.1.3 at some point in here; did not record whether before or after compiling the version I showed to Evan. Oops. Note that this means I'm now using the stock version of pandoc-crossref, not the hacked-together version (git branch named "supplemental") I was using for my T-FACE paper. This doesn't matter yet, but should make it easier to add supplemental figures if/when I need them.
+
+## 2016-06-10
+
+	Trying a modified Stan model: Rather than assume surface effect is constant for all four crops, estimate four separate loc_surface and scale_surface parameters. Still using the same prior for all, but no pooling -- each one is estimated only from that crop's data.
+
+	rz_mctd_1465577918 runs mix_crop_tube_depth_foursurf.stan, which allows loc_surface and scale_surface to vary between crops. Some divergent transitions in 2010 (S1,4,5) & 2012 (S1,4,5,6), other years OK.
+
+	rz_mctd_1465583014: reran with adapt_delta set to 0.99. Many fewer divergent transitions, but still a few in 2010 (2 in S1, 59 in S5) & 2012 (45 in S1, 1 in S6). Tiny changes in posteriors from previous run -- suspect it's not exploring the tails well? But all midseason sessions are OK, and posteriors all look good even in sessions with divergent transitions.
+
+	In both runs, posterior invervals on loc_surface and scale_surface get MUCH larger than in pooled version, as expected. But estimated density profiles look MUCH more reasonable -- no runaway maize in 2014! -- and uncertainty on predicted depth means is about the same. Keeping this version.
