@@ -2,6 +2,9 @@ library("ggplot2")
 library("DeLuciatoR")
 library("ggplotTicks")
 library("cowplot")
+library("scales")
+library("dplyr")
+library("viridis")
 
 # usage: Rscript plotfit_mctd.R path/to/csvs/ path/to/images/
 args=commandArgs(trailingOnly=TRUE)
@@ -30,25 +33,46 @@ predmu_csvs = list.files(
 predmu = lapply(predmu_csvs, read.csv, check.names=FALSE)
 predmu = do.call("rbind", predmu)
  
+param_csvs = list.files(
+	path=csv_path,
+	pattern="params.*.csv",
+	full.names=TRUE)
+param_ests = lapply(param_csvs, read.csv, check.names=FALSE)
+
+param_ests = do.call("rbind", param_ests)
+
+# Set factor levels, so that panel order doesn't depend on order in file
+predmu$Species=reorder(
+	predmu$Species,
+	match(predmu$Species, c("Maize-Soybean", "Switchgrass", "Miscanthus", "Prairie")))
+croptot$name=reorder(
+	croptot$name,
+	match(croptot$name, c("Maize-Soybean", "Switchgrass", "Miscanthus", "Prairie")))
+
 # To identify which sessions were midsummer "peak biomass" samplings 
 peak = data.frame(
 	Year = c(2010, 2011, 2012, 2013, 2014),
 	Session = c(4,4,4,5,2))
 peakstr = paste(peak$Year, peak$Session)
 
-# Root volume by depth, two ways
-# First as shown to Evan 2016-03-31:
+volume_expr = expression(paste("log(", mm^3, " root ", mm^2, " image)"))
+
+# Root volume by depth
 peak_plot = mirror_ticks(
-	ggplot(predmu[paste(predmu$Year, predmu$Session) %in% peakstr,], aes(depth, mean, fill=factor(Year), color=factor(Year)))
+	ggplot(predmu[paste(predmu$Year, predmu$Session) %in% peakstr,],
+		aes(depth, mean, fill=factor(Year), color=factor(Year)))
 	+facet_wrap(~Species)
-	+geom_smooth(se=FALSE)
+	+geom_line()
  	+geom_ribbon(
- 		aes(x=depth, y=mean, ymin=`2.5%`, ymax=`97.5%`),
+		aes(x=depth, y=mean, ymin=`25%`, ymax=`75%`),
  		alpha=0.3)
 	+coord_flip()
 	+scale_x_reverse()
+	+scale_color_viridis(discrete=TRUE)
+	+scale_fill_viridis(discrete=TRUE)
 	+theme_ggEHD()
 	+ggtitle("peak each year")
+	+ylab(volume_expr)
 	+theme(aspect.ratio=1.2))
 ggsave_fitmax(
 	peak_plot,
@@ -57,76 +81,50 @@ ggsave_fitmax(
 	maxwidth=6.5,
 	units="in")
 
-# Second a quick attempt at implementing a suggestion from Evan
-# (He suggested with emphasis it was experimental and might be a bad idea): 
-# "Each species/year in own panel, with previous year faded out behind it"
-peak_predmu = predmu[paste(predmu$Year, predmu$Session) %in% peakstr,]
-levels(peak_predmu$Species) = list(
-	"Maize/Soybean"="Maize",
-	"Maize/Soybean"="Soy",
-	"Miscanthus"="Miscanthus",
-	"Switchgrass"="Switchgrass",
-	"Prairie"="Prairie")
-prev_predmu = peak_predmu
-prev_predmu$Year = prev_predmu$Year + 1
-prev_predmu = prev_predmu[prev_predmu$Year <= 2014,]
-peakprev_plot = mirror_ticks(
-	ggplot(
-		peak_predmu,
-		aes(depth, mean))
-	+facet_grid(Species~Year)
-	+geom_smooth(
-		se=FALSE,
-		data=prev_predmu,
-		color="yellow",
-		fill="yellow",
-		alpha=0.3)
- 	+geom_ribbon(
- 		aes(x=depth, y=mean, ymin=`2.5%`, ymax=`97.5%`),
- 		alpha=0.3,
- 		fill="red",
- 		data=prev_predmu)
-	+geom_smooth(se=FALSE)
- 	+geom_ribbon(
- 		aes(x=depth, y=mean, ymin=`2.5%`, ymax=`97.5%`),
- 		alpha=0.5)
- 	+coord_flip()
-	+scale_x_reverse()
-	+theme_ggEHD(12)
-	+ggtitle("peak each year")
-	+theme(aspect.ratio=1.2))
-ggsave_fitmax(
-	peakprev_plot,
-	filename=file.path(img_path, "stanfit-peakprev.png"),
-	maxheight=9,
-	maxwidth=6.5,
-	units="in")
-
 # Root volume by depth, across sessions, within 2010 & 2012
-# TODO: Color schemes need work and should match each other
 ses10_plot = mirror_ticks(
-	ggplot(predmu[predmu$Year == 2010,], aes(depth, mean))
+	ggplot(predmu[predmu$Year == 2010,],
+		aes(depth, mean, fill=factor(Session), color=factor(Session)))
 	+facet_wrap(~Species)
-	+geom_smooth(se=FALSE, aes(color=Session))
+	+geom_line()
  	+geom_ribbon(
- 		aes(x=depth, y=mean, ymin=`2.5%`, ymax=`97.5%`, group=Session, fill=Session),
- 		alpha=0.2)
+ 		aes(x=depth, y=mean, ymin=`25%`, ymax=`75%`),
+ 		alpha=0.3)
 	+coord_flip()
+	+ylab(volume_expr)
 	+scale_x_reverse()
+	+scale_color_manual(
+		name="Month", 
+		labels=c(`1`="June", `3`="July", `4`="August", `5`="October"),
+		values=viridis(5)[1:4])
+	+scale_fill_manual(
+		name="Month", 
+		labels=c(`1`="June", `3`="July", `4`="August", `5`="October"),
+		values=viridis(5)[1:4])
 	+theme_ggEHD()
 	+ggtitle("all days 2010")
 	+theme(aspect.ratio=1.2))
 ses12_plot = mirror_ticks(
-	ggplot(predmu[predmu$Year == 2012,], aes(depth, mean, fill=factor(Session), color=factor(Session)))
+	ggplot(predmu[predmu$Year == 2012,],
+		aes(depth, mean, fill=factor(Session), color=factor(Session)))
 	+facet_wrap(~Species)
-	+geom_smooth(se=FALSE)
+	+geom_line()
  	+geom_ribbon(
- 		aes(x=depth, y=mean, ymin=`2.5%`, ymax=`97.5%`),
+ 		aes(x=depth, y=mean, ymin=`25%`, ymax=`75%`),
  		alpha=0.3)
 	+coord_flip()
 	+scale_x_reverse()
+	+scale_color_manual(
+		name="Month", 
+		labels=c(`1`="May", `2`="June", `3`="July", `4`="August", `5`="September", `6`="October"),
+		values=viridis(7)[1:6])
+	+scale_fill_manual(
+		name="Month", 
+		labels=c(`1`="May", `2`="June", `3`="July", `4`="August", `5`="September", `6`="October"),
+		values=viridis(7)[1:6])
 	+theme_ggEHD()
 	+ggtitle("all days 2012")
+	+ylab(volume_expr)
 	+theme(aspect.ratio=1.2))
 ggsave_fitmax(
 	ses10_plot,
@@ -145,10 +143,12 @@ ggsave_fitmax(
 # Somewhat improved from the version I showed Evan.
 # TODO: Do I trust these numbers?
 tots_plot = mirror_ticks(
-	ggplot(croptot, aes(paste(Year, Session), mean, ymin=`2.5%`, ymax=`97.5%`))
+	ggplot(croptot, aes(paste(Year, Session), mean, ymin=`2.5%`, ymax=`97.5%`, color=Run_ID))
 	+facet_wrap(~name)
-	+geom_pointrange()
+	+geom_pointrange(aes(lty="95%"), position=position_dodge(width=0.5))
+	+geom_errorbar(aes(ymin=`25%`, ymax=`75%`, lty="50%"), position=position_dodge(width=0.5))
 	+theme_ggEHD(12)
+	# +coord_cartesian(ylim=c(0,20))
  	+theme(
 		axis.text.x=element_text(angle=45, hjust=1))
  	+ggtitle("Crop totals?"))
@@ -156,7 +156,29 @@ ggsave_fitmax(
 	tots_plot,
 	filename=file.path(img_path, "stanfit-croptots.png"),
 	maxheight=9,
-	maxwidth=6.5,
+	maxwidth=12,
+	units="in")
+
+params_plot = mirror_ticks(
+	ggplot(
+		param_ests[param_ests$parameter != "lp__",], 
+		aes(
+			paste(Year, Session),
+			mean,
+			ymin=`2.5%`,
+			ymax=`97.5%`,
+			color=Run_ID))
+	+facet_wrap(~parameter, scales="free")
+	+geom_pointrange(position=position_dodge(width=0.5))
+	+theme_ggEHD(12)
+ 	+theme(
+		axis.text.x=element_text(angle=45, hjust=1))
+ 	+ggtitle("posterior estimates (mean ± 95% interval)"))
+ggsave_fitmax(
+	params_plot,
+	filename=file.path(img_path, "stanfit-params.png"),
+	maxheight=18,
+	maxwidth=18,
 	units="in")
 
 # Estimated differences between crops in:
