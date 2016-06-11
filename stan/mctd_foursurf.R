@@ -22,7 +22,6 @@ n_chains = 5
 n_iters = 5000
 n_warm = 1000
 n_predtubes = 4
-# pred_depths = c(1, 10 , 30, 50, 75, 100, 130)
 pred_depths = round(seq(from=1,to=130, length.out=20))
 savepars=c(
 	"loc_detect",
@@ -85,14 +84,6 @@ if(is.null(n_subsample)){
 	print(dput(ys_rows))
 }
 rm(strpall)
-
-# cornsoy_tubes = unique(rzdat$Tube[rzdat$Species=="Maize-Soybean"])
-# if(length(cornsoy_tubes) > 8){
-# 	print("TEST RUN: Using only 8 tubes from Maize-Soybean, all tubes from others")
-# 	cornsoy_tubes = sample(cornsoy_tubes, 8)
-# 	drop_rows = which(rzdat$Species=="Maize-Soybean" & !(rzdat$Tube %in% cornsoy_tubes))
-# 	rzdat = droplevels(rzdat[-drop_rows,])
-# }
 
 # Stan expects tube numbers to be in 1:T. If subsetting, must remap.
 tube_map = data.frame(Tube=sort(unique(rzdat$Tube)))
