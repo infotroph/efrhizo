@@ -42,8 +42,23 @@ crop_diff_id = data.frame(
 # Estimated total root volume in the whole soil profile, per crop
 croptot = cbind(crop_id, summary(rz_mtd, pars="crop_tot")$summary)
 croptot$Year = year
+croptot$Run_ID = label
 croptot$Session = session
 
+cropint = cbind(crop_id, summary(rz_mtd, pars="intercept")$summary)
+cropint$Year = year
+cropint$Run_ID = label
+cropint$Session = session
+
+cropb = cbind(crop_id, summary(rz_mtd, pars="b_depth")$summary)
+cropb$Year = year
+cropb$Run_ID = label
+cropb$Session = session
+
+cropsig = cbind(crop_id, summary(rz_mtd, pars="sigma")$summary)
+cropint$Year = year
+cropint$Run_ID = label
+cropint$Session = session
 
 # Estimated differences between crops:
 # intercept (avg log root volume at middle depth)  
@@ -78,7 +93,26 @@ rz_pred_mu = cbind(
 rz_pred_mu$Year = year
 rz_pred_mu$Session = session
 
+rz_pred_pdet = cbind(
+	rz_pred,
+	summary(rz_mtd, pars="mu_pred")$summary)
+rz_pred_mu$Year = year
+rz_pred_mu$Session = session
 
+parnames = c("loc_detect",
+	"scale_detect",
+	"loc_surface",
+	"scale_surface",
+	"sig_tube",
+	"intercept",
+	"b_depth",
+	"sigma",
+	"lp__")
+rz_pars = as.data.frame(summary(rz_mtd, pars=parnames)$summary)
+rz_pars$Year = year
+rz_pars$Session = session
+rz_pars$Run_ID = label
+rz_pars$parameter = rownames(rz_pars)
 
 write.csv(
 	rz_pred_mu,
@@ -91,4 +125,20 @@ write.csv(
 write.csv(
 	crop_diff,
 	file=file.path(csv_path, paste0("cropdiffs_", year, "_", session, label, ".csv")),
+	row.names=FALSE)
+write.csv(
+	cropint,
+	file=file.path(csv_path, paste0("cropintercepts_", year, "_", session, label, ".csv")),
+	row.names=FALSE)
+write.csv(
+	cropb,
+	file=file.path(csv_path, paste0("cropbdepths_", year, "_", session, label, ".csv")),
+	row.names=FALSE)
+write.csv(
+	cropsig,
+	file=file.path(csv_path, paste0("cropsigmas_", year, "_", session, label, ".csv")),
+	row.names=FALSE)
+write.csv(
+	rz_pars,
+	file=file.path(csv_path, paste0("params_", year, "_", session, label, ".csv")),
 	row.names=FALSE)

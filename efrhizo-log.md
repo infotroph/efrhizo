@@ -1689,3 +1689,5 @@ if(length(cornsoy_tubes) > 8){
 ## 2016-06-11
 
 	Found error in the tractorcore plots: I'm plotting root C, not root biomass. Fixed that.
+
+	Committed some changes to extractfits_mctd.R that I apparently made a while ago: Now writes separate CSVs for most parameters that differ between crops (but not for surface effect -- that's still rolled into the same file as the one-value parameters. Maybe change this eventually?)
