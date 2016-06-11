@@ -22,7 +22,7 @@ n_chains = 5
 n_iters = 5000
 n_warm = 1000
 n_predtubes = 4
-pred_depths = c(1, 10 , 30, 50, 75, 100, 130)
+pred_depths = round(seq(from=1,to=130, length.out=20))
 savepars=c(
 	"loc_detect",
 	"scale_detect",
@@ -191,10 +191,10 @@ rz_pred_pdet = cbind(
 	summary(rz_mtd, pars="detect_odds_pred")$summary)
 
 rzdat_pdet = aggregate(
-	formula=rootvol.mm3.mm2 ~ I(round(Depth*2, -1)/2), # rounds to nearest 5 cm
+	formula=rootvol.mm3.mm2 ~ I(round(Depth*2, -1)/2) + Species, # rounds to nearest 5 cm
 	data=rzdat,
 	FUN=function(x)length(which(x>0))/length(x))
-names(rzdat_pdet)=c("Depth", "p_detect")
+names(rzdat_pdet)=c("Depth", "Species", "p_detect")
 png(
 	paste0(runname, "_%03d.png"),
 	height=1200,
@@ -218,46 +218,36 @@ print(
 	ggplot(rzdat, aes(Depth, log(rootvol.mm3.mm2)))
 	+geom_point()
 	+facet_wrap(~Species)
-	+geom_smooth(
+	+geom_line(
 		aes(depth, mean, color="pred_mu"),
-		data=rz_pred_mu,
-		se=FALSE)
-	+geom_smooth(
+		data=rz_pred_mu)
+	+geom_line(
 		aes(depth, `2.5%`, color="pred_mu"),
-		data=rz_pred_mu,
-		se=FALSE)
-	+geom_smooth(
+		data=rz_pred_mu)
+	+geom_line(
 		aes(depth, `97.5%`, color="pred_mu"),
-		data=rz_pred_mu,
-		se=FALSE)
-	+geom_smooth(
+		data=rz_pred_mu)
+	+geom_line(
 		aes(depth, mean, color="pred_mu_obs"),
-		data=rz_pred_mu_obs,
-		se=FALSE)
-	+geom_smooth(
+		data=rz_pred_mu_obs)
+	+geom_line(
 		aes(depth, `2.5%`, color="pred_mu_obs"),
-		data=rz_pred_mu_obs,
-		se=FALSE)
-	+geom_smooth(
+		data=rz_pred_mu_obs)
+	+geom_line(
 		aes(depth, `97.5%`, color="pred_mu_obs"),
-		data=rz_pred_mu_obs,
-		se=FALSE)
-	+geom_smooth(
+		data=rz_pred_mu_obs)
+	+geom_line(
 		aes(depth, mean, color="pred_y"),
-		data=rz_pred_y_pos,
-		se=FALSE)
-	+geom_smooth(
+		data=rz_pred_y_pos)
+	+geom_line(
 		aes(depth, `2.5%`, color="pred_y"),
-		data=rz_pred_y_pos,
-		se=FALSE)
-	+geom_smooth(
+		data=rz_pred_y_pos)
+	+geom_line(
 		aes(depth, `50%`, color="pred_y median"),
-		data=rz_pred_y_pos,
-		se=FALSE)
-	+geom_smooth(
+		data=rz_pred_y_pos)
+	+geom_line(
 		aes(depth, `97.5%`, color="pred_y"),
-		data=rz_pred_y_pos,
-		se=FALSE)
+		data=rz_pred_y_pos)
 	+coord_flip()
 	+scale_x_reverse()
 	+theme_bw(36)
@@ -265,22 +255,19 @@ print(
 print(
 	ggplot(rzdat_pdet, aes(Depth, p_detect))
 	+geom_point()
-	+geom_smooth(
+	+geom_line(
 		aes(depth, mean, color="pred_pdet"),
-		data=rz_pred_pdet,
-		se=FALSE)
-	+geom_smooth(
+		data=rz_pred_pdet)
+	+geom_line(
 		aes(depth, `2.5%`, color="pred_pdet"),
-		data=rz_pred_pdet,
-		se=FALSE)
-	+geom_smooth(
+		data=rz_pred_pdet)
+	+geom_line(
 		aes(depth, `97.5%`, color="pred_pdet"),
-		data=rz_pred_pdet,
-		se=FALSE)
-	+geom_smooth(
+		data=rz_pred_pdet)
+	+geom_line(
 		aes(depth, p_detect, color="pred_y"),
-		data=rz_pred_y_det,
-		se=FALSE)
+		data=rz_pred_y_det)
+	+facet_wrap(~Species)
 	+coord_flip()
 	+scale_x_reverse()
 	+theme_bw(36)

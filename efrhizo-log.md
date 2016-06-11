@@ -1693,3 +1693,9 @@ if(length(cornsoy_tubes) > 8){
 	Committed some changes to extractfits_mctd.R that I apparently made a while ago: Now writes separate CSVs for most parameters that differ between crops (but not for surface effect -- that's still rolled into the same file as the one-value parameters. Maybe change this eventually?)
 
 	Committed the changes I made to plotfits_mctd.R on 2016-06-06, like I thought I had before.
+
+	Committed changes I made to mix_crop_tube_depth.R... long enough ago I'd forgotten I made them? Jeez, Chris. 
+
+		* generate pred_depths as an evenly spaced sequence instead of hardcoded values
+		* break plots of pred_pdet (i.e. chance of detecting >0 roots in an image) out by species
+		* draw predicted depth profiles of root volume and pdet using geom_line, not geom_smooth
