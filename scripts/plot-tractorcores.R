@@ -68,6 +68,8 @@ core_blocks = (coredata
 		funs(mean(., na.rm=TRUE), se(., na.rm=TRUE)),
 		Biomass_g_cm3,
 		Biomass_g_m2,
+		Biomass_root_g_cm3,
+		Biomass_root_g_m2,
 		RootC_g_cm3,
 		RootN_g_cm3,
 		RootC_g_m2,
@@ -83,7 +85,7 @@ core_blocks = (coredata
 core_avg = (core_blocks
 	%>% mutate(
 		Biomass_mg_cm3_mean=Biomass_g_cm3_mean*1000,
-		RootC_mg_cm3_mean=RootC_g_cm3_mean*1000)
+		Biomass_root_mg_cm3_mean=Biomass_root_g_cm3_mean*1000)
 	%>% summarize_each(
 		funs(mean(., na.rm=TRUE), se(., na.rm=TRUE)),
 		ends_with("_mean")))
@@ -103,9 +105,9 @@ coreline_root = (
 		x=Midpoint,
 		xmax=Midpoint+Midpoint_se,
 		xmin=Midpoint-Midpoint_se,
-		y=RootC_mg_cm3,
-		ymax=RootC_mg_cm3+RootC_mg_cm3_se,
-		ymin=RootC_mg_cm3-RootC_mg_cm3_se,
+		y=Biomass_root_mg_cm3,
+		ymax=Biomass_root_mg_cm3+Biomass_root_mg_cm3_se,
+		ymin=Biomass_root_mg_cm3-Biomass_root_mg_cm3_se,
 		shape=Treatment))
 	+ geom_point(size=3)
 	+ geom_errorbar(width=4)

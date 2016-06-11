@@ -1685,3 +1685,7 @@ if(length(cornsoy_tubes) > 8){
 	rz_mctd_1465583014: reran with adapt_delta set to 0.99. Many fewer divergent transitions, but still a few in 2010 (2 in S1, 59 in S5) & 2012 (45 in S1, 1 in S6). Tiny changes in posteriors from previous run -- suspect it's not exploring the tails well? But all midseason sessions are OK, and posteriors all look good even in sessions with divergent transitions.
 
 	In both runs, posterior invervals on loc_surface and scale_surface get MUCH larger than in pooled version, as expected. But estimated density profiles look MUCH more reasonable -- no runaway maize in 2014! -- and uncertainty on predicted depth means is about the same. Keeping this version.
+
+## 2016-06-11
+
+	Found error in the tractorcore plots: I'm plotting root C, not root biomass. Fixed that.
