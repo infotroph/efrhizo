@@ -1699,3 +1699,7 @@ if(length(cornsoy_tubes) > 8){
 		* generate pred_depths as an evenly spaced sequence instead of hardcoded values
 		* break plots of pred_pdet (i.e. chance of detecting >0 roots in an image) out by species
 		* draw predicted depth profiles of root volume and pdet using geom_line, not geom_smooth
+
+## 2016-06-12
+
+	Finally wrote up proper stats on tractorcore results and used them to start manuscript results. Script: `scripts/tractorcore-stats.R`. Output: `data/tractorcore_stats.txt`.
