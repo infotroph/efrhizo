@@ -80,6 +80,15 @@ core_blocks = (coredata
 		N_g_m2,
 		Midpoint))
 
+core_block_tots = (core_blocks
+	%>% group_by(Year, Treatment, Block)
+	%>% summarize_each(funs(sum))
+	%>% select(Year, Treatment, Block, ends_with("m2_mean"))
+	%>% summarize_each(
+		funs(mean(., na.rm=TRUE), se(., na.rm=TRUE)),
+		ends_with("_mean")))
+names(core_block_tots) = sub("_mean_mean", "", names(core_block_tots))
+names(core_block_tots) = sub("_mean_se", "_se", names(core_block_tots))
 
 # mean/se for whole field, disregarding within-block variance
 core_avg = (core_blocks
@@ -158,6 +167,13 @@ corebars_root = (
 		y=RootC_g_m2,
 		fill=factor(Upper)))
 	+ geom_bar(stat="identity", color="black", width=0.8)
+	+ geom_errorbar(
+		data=core_block_tots,
+		aes(
+			ymin=RootC_g_m2-RootC_g_m2_se,
+			ymax=RootC_g_m2+RootC_g_m2_se,
+			fill=NULL),
+		width=0.3)
 	+ scale_fill_grey(name="Depth, cm", start=0, end=1)
 	+ ylab(expression(paste("Root, g C ", m^-2)))
 	+ xlab("")
@@ -177,6 +193,13 @@ corebars_rootrhizo = (
 		y=C_g_m2,
 		fill=factor(Upper)))
 	+ geom_bar(stat="identity", color="black", width=0.8)
+	+ geom_errorbar(
+		data=core_block_tots,
+		aes(
+			ymin=C_g_m2-C_g_m2_se,
+			ymax=C_g_m2+C_g_m2_se,
+			fill=NULL),
+		width=0.3)
 	+ scale_fill_grey(name="Depth, cm", start=0, end=1)
 	+ ylab(expression(paste("Root + rhizome, g C ", m^-2)))
 	+ xlab("")
@@ -189,6 +212,56 @@ corebars_rootrhizo = (
 		axis.text.x=element_text(angle=45, hjust=1))
 )
 
+corebars_root_mass = (
+	ggplot(core_avg, aes(
+		x=Treatment,
+		y=Biomass_root_g_m2,
+		fill=factor(Upper)))
+	+ geom_bar(stat="identity", color="black", width=0.8)
+	+ geom_errorbar(
+		data=core_block_tots,
+		aes(
+			ymin=Biomass_root_g_m2-Biomass_root_g_m2_se,
+			ymax=Biomass_root_g_m2+Biomass_root_g_m2_se,
+			fill=NULL),
+		width=0.3)
+	+ scale_fill_grey(name="Depth, cm", start=0, end=1)
+	+ ylab(expression(paste("Root biomass, g ", m^-2)))
+	+ xlab("")
+	+ facet_wrap(~Year)
+	+ scale_y_continuous(breaks=pretty_breaks(n=5))
+	+ theme_ggEHD(14)
+	+ theme(
+		legend.position=c(0.13, 0.65),
+		legend.key=element_blank(),
+		legend.key.size=unit(0.8, "lines"),
+		axis.ticks.x=element_blank(),
+		axis.text.x=element_blank())
+)
+corebars_rootrhizo_mass = (
+	ggplot(core_avg, aes(
+		x=Treatment,
+		y=Biomass_g_m2,
+		fill=factor(Upper)))
+	+ geom_bar(stat="identity", color="black", width=0.8)
+	+ geom_errorbar(
+		data=core_block_tots,
+		aes(
+			ymin=Biomass_g_m2-Biomass_g_m2_se,
+			ymax=Biomass_g_m2+Biomass_g_m2_se,
+			fill=NULL),
+		width=0.3)
+	+ scale_fill_grey(name="Depth, cm", start=0, end=1)
+	+ ylab(expression(paste("Root + rhizome biomass, g ", m^-2)))
+	+ xlab("")
+	+ facet_wrap(~Year)
+	+ scale_y_continuous(breaks=pretty_breaks(n=5))
+	+ theme_ggEHD(14)
+	+ theme(
+		legend.position="none",
+		axis.ticks.x=element_blank(),
+		axis.text.x=element_text(angle=45, hjust=1))
+)
 
 # note plain ggsave instead of ggsave_fitmax --
 # get_dims doesn't understand plot_grid output,
@@ -197,12 +270,18 @@ dim_lr = get_dims(coreline_root, maxheight=9, maxwidth=6.5)
 dim_lrr = get_dims(coreline_rootrhizo, maxheight=9, maxwidth=6.5)
 dim_br = get_dims(corebars_root, maxheight=9, maxwidth=6.5)
 dim_brr = get_dims(corebars_rootrhizo, maxheight=9, maxwidth=6.5)
+dim_brm = get_dims(corebars_root_mass, maxheight=9, maxwidth=6.5)
+dim_brrm = get_dims(corebars_rootrhizo_mass, maxheight=9, maxwidth=6.5)
 lbardims = list(
 	height = dim_lr$height + dim_lrr$height,
 	width = max(dim_lr$width, dim_lrr$width))
 bbardims = list(
 	height = dim_br$height + dim_brr$height,
 	width = max(dim_br$width, dim_brr$width))
+bbarmdims = list(
+	height = dim_brm$height + dim_brrm$height,
+	width = max(dim_brm$width, dim_brrm$width))
+
 ggsave(
 	"figures/tractorcore-exp.png",
 	plot_grid(
@@ -232,4 +311,19 @@ ggsave(
 		vjust=2),
 	height=bbardims$height,
 	width=bbardims$width,
+	dpi=300)
+ggsave(
+	filename="figures/tractorcore-bars-mass.png",
+	plot=plot_grid(
+		mirror_ticks(corebars_root_mass, allPanels=TRUE),
+		mirror_ticks(corebars_rootrhizo_mass, allPanels=TRUE),
+		ncol=1,
+		align="v",
+		rel_heights=c(dim_brm$height, dim_brrm$height),
+		labels="auto",
+		label_size=18,
+		hjust=-4,
+		vjust=2),
+	height=bbarmdims$height,
+	width=bbarmdims$width,
 	dpi=300)

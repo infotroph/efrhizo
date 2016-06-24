@@ -1711,3 +1711,10 @@ if(length(cornsoy_tubes) > 8){
 		* Michaelis-Menten with intercept offset and redefined half-saturation: y_obs = y * (a + (1-a)x / (b'/(1-2a) + x)), where a is again the fraction detected at the surface and b' is the depth where 50% of roots are detected. I derived this by setting y equal to 0.5 and solving for x = b - ab/0.5 (Algebra not shown, but check my work!). Then b' is b'=b/(1-2a) . Therefore y = a + (1-a)x/(b'/(1-2a)+x) is a Michaelis-Menten curve from 0<a<1 at x=0 to to 0.5 at x=b' to 1 at x=infinity.
 
 	Tried these all in a row without committing the changes; the Stan edits involve scale_surface and loc_surface parameters (horribly misnamed for any of these definitions of a and b, but using these names rather than rewrite downstream code): Lines changed are parameter declarations (change constraints), mu_obs(from mu_obs[n] <- mu[n] + log(inv_logit(...)) to mu_obs[n] <- mu[n] + log(the_formula)), priors, generated quantities (same structure as mu_obs). Basic takeaway: All seem to run OK, produce fewer runaway totals than logistic does, and Michaelis-Menten may possibly have fewer numerical issues than others, but all produce really funky-looking total predicted masses and insist that b_depth is positive in all crops in midsummer 2012. Giving up on these for the moment.
+
+## 2016-06-23
+
+	Just sent Evan a draft of methods/results/figures for the paper from this project. The last few days I was "mostly writing" but wound up making a whole rash of code changes that were supposed to be "quick tweaks: that  I would "commit in a second after I test this", and now my working directory is a trash fire. Time to work through, commit changes, and see if I broke anything :)
+
+	* Added error bars to tractorcore-bars.png.
+	* Added stacked barplots of core biomass (previously only shown as biomass C). Keeping the C plots as well, for now, but not sure I'll need them -- This is really not a carbon paper!
