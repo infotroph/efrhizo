@@ -1718,3 +1718,6 @@ if(length(cornsoy_tubes) > 8){
 
 	* Added error bars to tractorcore-bars.png.
 	* Added stacked barplots of core biomass (previously only shown as biomass C). Keeping the C plots as well, for now, but not sure I'll need them -- This is really not a carbon paper!
+	* Added to plotfits_mctd.R: plots of fit quality for each individusl (session in year) model. Wrote this before adding whole-dataset residual plot (below) and robably won't use these much, but keeping it for now anyway.
+	* Added massive residual plot of observed-vs-predicted for all individual images... OK, all individual images traced as *nonzero*.
+	* Renamed annual crop for single-year 2010 and 2012 plots from "Maize-soybean" to "Soybean" and "Maize" respectively.

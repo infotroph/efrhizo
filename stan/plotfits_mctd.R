@@ -41,6 +41,22 @@ param_ests = lapply(param_csvs, read.csv, check.names=FALSE)
 
 param_ests = do.call("rbind", param_ests)
 
+
+fitstat_csvs = list.files(
+	path=csv_path,
+	pattern="fit.*.csv",
+	full.names=TRUE)
+fitstats = lapply(fitstat_csvs, read.csv, check.names=FALSE)
+fitstats = do.call("rbind", fitstats)
+
+obsvsfit_csvs = list.files(
+	path=csv_path,
+	pattern="obs_vs_pred.*.csv",
+	full.names=TRUE)
+obsvsfit = lapply(obsvsfit_csvs, read.csv, check.names=FALSE)
+obsvsfit = do.call("rbind", obsvsfit)
+
+
 # Set factor levels, so that panel order doesn't depend on order in file
 predmu$Species=reorder(
 	predmu$Species,
@@ -83,7 +99,10 @@ ggsave_fitmax(
 
 # Root volume by depth, across sessions, within 2010 & 2012
 ses10_plot = mirror_ticks(
-	ggplot(predmu[predmu$Year == 2010,],
+	ggplot(data=predmu
+		%>% filter(predmu$Year == 2010)
+		%>% mutate(
+			Species = factor(Species, labels = sub("Maize-Soybean", "Soybean", levels(Species)))),
 		aes(depth, mean, fill=factor(Session), color=factor(Session)))
 	+facet_wrap(~Species)
 	+geom_line()
@@ -105,7 +124,10 @@ ses10_plot = mirror_ticks(
 	+ggtitle("all days 2010")
 	+theme(aspect.ratio=1.2))
 ses12_plot = mirror_ticks(
-	ggplot(predmu[predmu$Year == 2012,],
+	ggplot(data=predmu
+		%>% filter(predmu$Year == 2012)
+		%>% mutate(
+			Species = factor(Species, labels = sub("Maize-Soybean", "Maize", levels(Species)))),
 		aes(depth, mean, fill=factor(Session), color=factor(Session)))
 	+facet_wrap(~Species)
 	+geom_line()
@@ -181,6 +203,27 @@ ggsave_fitmax(
 	maxwidth=18,
 	units="in")
 
+fits_plot = mirror_ticks(
+	ggplot(
+		fitstats,
+		aes(
+			paste(Year, Session),
+			1-FVU,
+			color=Run_ID))
+	+geom_point()
+	+theme_ggEHD(12)
+	+theme(
+		axis.text.x=element_text(angle=45, hjust=1))
+	+ggtitle("fraction of variance explained"))
+ggsave_fitmax(
+	fits_plot,
+	filename=file.path(img_path, "stanfit-fvu.png"),
+	maxheight=8,
+	maxwidth=8,
+	units="in",
+	dpi=300)
+
+
 # Estimated differences between crops in:
 # Total root volume, intercept, beta_depth
 # MUCH improved from version I showed Evan, which version was best forgotten.
@@ -222,3 +265,76 @@ ggsave_fitmax(
 	maxheight=13,
 	maxwidth=18,
 	units="in")	
+
+fitstats_all = (obsvsfit
+	%>% filter(rootvol.mm3.mm2 > 0)
+	%>% mutate(
+		ln_y = log(rootvol.mm3.mm2),
+		pred_lo90 = mu_obs_hat-sig_hat*1.64,
+		pred_hi90 = mu_obs_hat+sig_hat*1.64,
+		pred_lo50 = mu_obs_hat-sig_hat*0.67,
+		pred_hi50 = mu_obs_hat+sig_hat*0.67,
+		sq_res = (mu_obs_hat - ln_y)^2 )
+	%>% summarize(
+		MSE = mean(sq_res, na.rm=TRUE),
+		mean_y = mean(ln_y),
+		var_y = var(ln_y),
+		f_cover90 = (
+			length(which(ln_y >= pred_lo90 & ln_y <= pred_hi90)) / n()),
+		f_cover50 = (
+			length(which(ln_y >= pred_lo50 & ln_y <= pred_hi50)) / n()),
+		lim_lo = min(pred_lo90, ln_y),
+		lim_hi = max(pred_hi90, ln_y))
+	%>% mutate(
+		RMSE = sqrt(MSE),
+		CV_RMSE = RMSE/mean_y,
+		FVU = MSE/var_y,
+		pct_expl = (1-FVU)*100))
+
+allfits_plot = mirror_ticks(
+	ggplot(obsvsfit, aes(
+		x=mu_obs_hat,
+		y=log(rootvol.mm3.mm2)))
+	+geom_errorbarh(
+		aes(xmin=mu_obs_hat-sig_hat*1.64, xmax=mu_obs_hat+sig_hat*1.64),
+		color="grey")
+	+geom_errorbarh(
+		aes(xmin=mu_obs_hat-sig_hat*0.67, xmax=mu_obs_hat+sig_hat*0.67),
+		color=viridis(3)[2],
+		alpha=0.3)
+	+geom_point()
+	+geom_abline(lty="dashed")
+	+geom_smooth(method="lm")
+	+geom_text(
+		data=fitstats_all,
+		aes(x=lim_lo,
+			y=lim_hi,
+			label=paste( # plotmath on multiple lines will always be gross, lol
+				"atop(",
+					"atop(RMSE~", signif(RMSE, 3),
+						", Variance~explained~", signif(pct_expl, 2), "*'%'),",
+					"atop('1:1'~interval~coverage*':',",
+						"90*'%'~", signif(f_cover90, 2),
+						"*','~50*'%'~", signif(f_cover50, 2), ")",
+				")",
+				sep="")),
+		parse=TRUE,
+		inherit.aes=FALSE,
+		size=8,
+		hjust="inward",
+		vjust="inward")
+	+xlab(expression(Predicted~ln(~mm^3~root~mm^-2~image)))
+	+ylab(expression(Observed~ln(~mm^3~root~mm^-2~image)))
+	+theme_ggEHD()
+	+coord_fixed(
+		xlim=c(fitstats_all$lim_lo, fitstats_all$lim_hi),
+		ylim=c(fitstats_all$lim_lo, fitstats_all$lim_hi))
+	+theme(aspect.ratio=1))
+
+ggsave_fitmax(
+	allfits_plot,
+	filename=file.path(img_path, "stanfit-obsvspred.png"),
+	maxheight=9,
+	maxwidth=9,
+	units="in",
+	dpi=300)

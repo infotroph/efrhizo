@@ -114,6 +114,42 @@ rz_pars$Session = session
 rz_pars$Run_ID = label
 rz_pars$parameter = rownames(rz_pars)
 
+
+# Could just do get_posterior_mean(...)[,n_chains+1],
+# but this way works even if result has fewer columns than expected
+# (e.g. when some chains have sampling errors)
+get_postmean_allchains = function(stanobj, ...){
+	x = get_posterior_mean(stanobj, ...)
+	x[,ncol(x)]
+}
+rzdat$mu_hat = get_postmean_allchains(rz_mtd, "mu")
+rzdat$mu_obs_hat = get_postmean_allchains(rz_mtd, "mu_obs")
+rzdat$detect_odds_hat = get_postmean_allchains(rz_mtd, "detect_odds")
+rzdat$sig_hat = get_postmean_allchains(rz_mtd, "sig")
+
+fit_stats = with(
+	rzdat[rzdat$rootvol.mm3.mm2 > 0,],
+	data.frame(
+		MSE=mean((mu_obs_hat - log(rootvol.mm3.mm2))^2, na.rm=TRUE),
+		mean_y = mean(log(rootvol.mm3.mm2)),
+		var_y = var(log(rootvol.mm3.mm2))))
+fit_stats$RMSE = sqrt(fit_stats$MSE)
+fit_stats$CV_RMSE = fit_stats$RMSE / fit_stats$mean_y
+fit_stats$FVU = fit_stats$MSE / fit_stats$var_y
+fit_stats$Year = year
+fit_stats$Session = session
+fit_stats$Run_ID = label
+
+obs_v_pred = rzdat[, c(
+	"Year", "Session", "Tube",
+	"Block", "Species", "Depth",
+	"rootvol.mm3.mm2", "mu_hat", "mu_obs_hat",
+	"detect_odds_hat", "sig_hat")]
+
+write.csv(
+	obs_v_pred,
+	file=file.path(csv_path, paste0("obs_vs_pred_", year, "_", session, label, ".csv")),
+	row.names=FALSE)
 write.csv(
 	rz_pred_mu,
 	file=file.path(csv_path, paste0("predmu_", year, "_", session, label, ".csv")),
@@ -141,4 +177,8 @@ write.csv(
 write.csv(
 	rz_pars,
 	file=file.path(csv_path, paste0("params_", year, "_", session, label, ".csv")),
+	row.names=FALSE)
+write.csv(
+	fit_stats,
+	file=file.path(csv_path, paste0("fit_", year, "_", session, label, ".csv")),
 	row.names=FALSE)
