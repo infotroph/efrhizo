@@ -1724,4 +1724,4 @@ if(length(cornsoy_tubes) > 8){
 	* Replaced log(inv_logit(...)) with Stan's built-in (and suppedly faster/more stable/better tested) log_inv_logit(...). Made this change in all Stan files that use it, but only tested in mctd_foursurf.stan!
 	* Added to mctd_foursurf.R and mix_crop_tube_depth.R: Observed-vs-predicted plots for images within each run, facetted by species.
 	* Edited posterior density plots to show separate lines for each chain. If they disagree substantially, that usually means you have numerical problems.
-	* Cleanup in all the bash scripts: Realized I could put the whole contents of the for-loop inside one single subshell (...\n ...\n ... | tee ...) instead of piping every line out individually.
+	* Cleanup in all the bash scripts: Realized I could put the whole contents of the for-loop inside one single subshell (...\n ...\n ... | tee ...) instead of piping every line out individually ( (...| tee ...); (...|tee ...) ) like I had been doing.
