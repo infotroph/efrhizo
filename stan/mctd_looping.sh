@@ -12,11 +12,12 @@ for i in ${!YEARS[*]}; do
 	Y="${YEARS[$i]}"
 	S="${SESSIONS[$i]}"
 	RUNID="$JOBNAME"_"$JOBID"_"$Y"_s"$S"
-	(echo "Starting $RUNID on " `date -u`) 2>&1 | tee -a "$RUNID".log
+	(
+		echo "Starting $RUNID on " `date -u`
+		echo "Running mix_crop_tube_depth.R for year " "$Y" " session " "$S"
+		time Rscript mix_crop_tube_depth.R "$RUNID" "$Y" "$S"
 
-	(echo "Running mix_crop_tube_depth.R for year " "$Y" " session " "$S") 2>&1 | tee -a "$RUNID".log
-	(time Rscript mix_crop_tube_depth.R "$RUNID" "$Y" "$S") 2>&1 | tee -a "$RUNID".log
-
-	(echo "Extracting fits") 2>&1 | tee -a "$RUNID".log
-	(Rscript extractfits_mctd.R "$RUNID".Rdata . "$RUNID") 2>&1 | tee -a "$RUNID".log
+		echo "Extracting fits"
+		Rscript extractfits_mctd.R "$RUNID".Rdata . "$RUNID"
+	) 2>&1 | tee -a "$RUNID".log
 done
