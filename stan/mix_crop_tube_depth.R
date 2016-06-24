@@ -157,9 +157,8 @@ stopifnot(rz_mtd@mode == 0) # 1 or 2 = error
 print(rz_mtd, pars=plotpars_mod)
 print(rz_mtd, pars=plotpars_pred)
 print(paste("mean of depth:", mean(rzdat$Depth)))
-print(paste(
-	"mean of log(nonzero root volume):",
-	mean(log(rzdat$rootvol.mm3.mm2[rzdat$rootvol.mm3.mm2 > 0]))))
+log_nz_mean = mean(log(rzdat$rootvol.mm3.mm2[rzdat$rootvol.mm3.mm2 > 0]))
+cat("\nmean of log(nonzero root volume):", log_nz_mean, "\n")
 
 rz_pred_mu = cbind(
 	rz_pred,
@@ -195,6 +194,33 @@ rzdat_pdet = aggregate(
 	data=rzdat,
 	FUN=function(x)length(which(x>0))/length(x))
 names(rzdat_pdet)=c("Depth", "Species", "p_detect")
+
+# Could just do get_posterior_mean(...)[,n_chains+1],
+# but this way works even if result has fewer columns than expected
+# (e.g. when some chains have sampling errors)
+get_postmean_allchains = function(stanobj, ...){
+	x = get_posterior_mean(stanobj, ...)
+	x[,ncol(x)]
+}
+rzdat$mu_obs_hat = get_postmean_allchains(rz_mtd, "mu_obs")
+rzdat$detect_odds_hat = get_postmean_allchains(rz_mtd, "detect_odds")
+rzdat$sig_hat = get_postmean_allchains(rz_mtd, "sig")
+
+rmse_log = with(
+	rzdat[rzdat$rootvol.mm3.mm2 > 0,], 
+	sqrt(mean((mu_obs_hat - log(rootvol.mm3.mm2))^2, na.rm=TRUE)))
+var_log = with(
+	rzdat[rzdat$rootvol.mm3.mm2 > 0,], 
+	var(log(rootvol.mm3.mm2)))
+
+cat(
+	"\nRMSE of mu_obs vs log observed (zeroes excluded): ",
+	rmse_log,
+	"\nRMSE/var: ",
+	rmse_log/var_log,
+	"\n\n"
+)
+
 png(
 	paste0(runname, "_%03d.png"),
 	height=1200,
@@ -209,8 +235,8 @@ print(plot(rz_mtd, pars="crop_int_diff", show_density=TRUE))
 print(plot(rz_mtd, pars=c("sig_tube", "sigma"), show_density=TRUE))
 print(traceplot(rz_mtd, pars=plotpars_mod))
 print(traceplot(rz_mtd, pars=plotpars_pred))
-print(stan_dens(rz_mtd, pars=plotpars_mod))
-print(stan_dens(rz_mtd, pars=plotpars_pred))
+print(stan_dens(rz_mtd, pars=plotpars_mod, separate_chains=TRUE))
+print(stan_dens(rz_mtd, pars=plotpars_pred, separate_chains=TRUE))
 print(stan_ac(rz_mtd, pars=plotpars_mod))
 print(stan_ac(rz_mtd, pars=plotpars_pred))
 stan_diag(rz_mtd) # no print call needed -- it plots itself without asking us.
@@ -272,5 +298,20 @@ print(
 	+scale_x_reverse()
 	+theme_bw(36)
 	+theme(aspect.ratio=1.2))
+print(
+	ggplot(rzdat, aes(
+		x=mu_obs_hat,
+		xmin=mu_obs_hat-sig_hat*1.96,
+		xmax=mu_obs_hat+sig_hat*1.96,
+		y=log(rootvol.mm3.mm2)))
+	+geom_abline()
+	+geom_errorbarh(color="grey")
+	+geom_point()
+	+geom_smooth(method="lm")
+	+facet_wrap(~Species)
+	+xlab(expression(Predicted~ln(~mm^3~root~mm^-2~image)))
+	+ylab(expression(Observed~ln(~mm^3~root~mm^-2~image)))
+	+theme_bw(36)
+	+theme(aspect.ratio=1))
 dev.off()
 
