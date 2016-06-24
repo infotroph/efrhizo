@@ -1721,3 +1721,7 @@ if(length(cornsoy_tubes) > 8){
 	* Added to plotfits_mctd.R: plots of fit quality for each individusl (session in year) model. Wrote this before adding whole-dataset residual plot (below) and robably won't use these much, but keeping it for now anyway.
 	* Added massive residual plot of observed-vs-predicted for all individual images... OK, all individual images traced as *nonzero*.
 	* Renamed annual crop for single-year 2010 and 2012 plots from "Maize-soybean" to "Soybean" and "Maize" respectively.
+	* Replaced log(inv_logit(...)) with Stan's built-in (and suppedly faster/more stable/better tested) log_inv_logit(...). Made this change in all Stan files that use it, but only tested in mctd_foursurf.stan!
+	* Added to mctd_foursurf.R and mix_crop_tube_depth.R: Observed-vs-predicted plots for images within each run, facetted by species.
+	* Edited posterior density plots to show separate lines for each chain. If they disagree substantially, that usually means you have numerical problems.
+

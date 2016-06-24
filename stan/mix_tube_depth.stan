@@ -76,7 +76,7 @@ transformed parameters{
 			+ b_tube[tube[n]]
 			+ b_depth*(log(depth[n]) - depth_logmean);
 		mu_obs[n] <- mu[n]
-			+ log(inv_logit((depth[n]-loc_surface)/scale_surface));
+			+ log_inv_logit((depth[n]-loc_surface)/scale_surface);
 	}
 	// center means for logistic regression, too
 	mu_obs_mean <- mean(mu_obs);
@@ -127,7 +127,7 @@ generated quantities{
 			+ b_depth * (log(depth_pred[n]) - depth_logmean);
 		mu_obs_pred[n] <-
 			mu_pred[n]
-			+ log(inv_logit((depth_pred[n]-loc_surface)/scale_surface));
+			+ log_inv_logit((depth_pred[n]-loc_surface)/scale_surface);
 
 		detect_odds_pred[n] <- inv_logit(
 			a_detect + b_detect * (mu_obs_pred[n] - mu_obs_mean));

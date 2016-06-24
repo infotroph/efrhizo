@@ -98,7 +98,7 @@ transformed parameters{
 			+ b_tube[tube[n]]
 			+ b_depth[crop[n]] * log_depth_centered[n];
 		mu_obs[n] <- mu[n]
-			+ log(inv_logit((depth[n]-loc_surface)/scale_surface));
+			+ log_inv_logit((depth[n]-loc_surface)/scale_surface);
 		sig[n] <- sigma[crop[n]];
 	}
 
@@ -181,7 +181,7 @@ generated quantities{
 			+ b_depth[crop_pred[n]] * log_depth_pred_centered[n];
 		mu_obs_pred[n] <-
 			mu_pred[n]
-			+ log(inv_logit((depth_pred[n]-loc_surface)/scale_surface));
+			+ log_inv_logit((depth_pred[n]-loc_surface)/scale_surface);
 
 		detect_odds_pred[n] <- inv_logit((mu_obs_pred[n] - loc_detect)/scale_detect);
 
