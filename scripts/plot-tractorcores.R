@@ -130,8 +130,8 @@ coreline_root = (
 		legend.position=c(0.8,0.25),
 		legend.key=element_blank(),
 		legend.title=element_blank())
-	+ ylab(expression(paste("Root biomass, mg ", cm^-3)))
-	+ xlab("Depth, cm")
+	+ ylab(expression(paste("Root biomass (mg ", cm^-3, ")")))
+	+ xlab("Depth (cm)")
 	+ scale_shape_manual(
 		values=c(Maize=21, Miscanthus=22, Prairie=23, Switchgrass=24))
 )
@@ -155,8 +155,8 @@ coreline_rootrhizo = (
 	+ theme(
 		aspect.ratio=1.5,
 		legend.position="none")
-	+ ylab(expression(paste("Root + rhizome biomass, mg ", cm^-3)))
-	+ xlab("Depth, cm")
+	+ ylab(expression(paste("Root + rhizome biomass (mg ", cm^-3, ")")))
+	+ xlab("Depth (cm)")
 	+ scale_shape_manual(
 		values=c(Maize=21, Miscanthus=22, Prairie=23, Switchgrass=24))
 )
@@ -174,8 +174,8 @@ corebars_root = (
 			ymax=RootC_g_m2+RootC_g_m2_se,
 			fill=NULL),
 		width=0.3)
-	+ scale_fill_grey(name="Depth, cm", start=0, end=1)
-	+ ylab(expression(paste("Root, g C ", m^-2)))
+	+ scale_fill_grey(name="Depth (cm)", start=0, end=1)
+	+ ylab(expression(paste("Root C (g ", m^-2, ")")))
 	+ xlab("")
 	+ facet_wrap(~Year)
 	+ scale_y_continuous(breaks=pretty_breaks(n=5))
@@ -200,8 +200,8 @@ corebars_rootrhizo = (
 			ymax=C_g_m2+C_g_m2_se,
 			fill=NULL),
 		width=0.3)
-	+ scale_fill_grey(name="Depth, cm", start=0, end=1)
-	+ ylab(expression(paste("Root + rhizome, g C ", m^-2)))
+	+ scale_fill_grey(name="Depth (cm)", start=0, end=1)
+	+ ylab(expression(paste("Root + rhizome C (g ", m^-2, ")")))
 	+ xlab("")
 	+ facet_wrap(~Year)
 	+ scale_y_continuous(breaks=pretty_breaks(n=5))
@@ -225,8 +225,8 @@ corebars_root_mass = (
 			ymax=Biomass_root_g_m2+Biomass_root_g_m2_se,
 			fill=NULL),
 		width=0.3)
-	+ scale_fill_grey(name="Depth, cm", start=0, end=1)
-	+ ylab(expression(paste("Root biomass, g ", m^-2)))
+	+ scale_fill_grey(name="Depth (cm)", start=0, end=1)
+	+ ylab(expression(paste("Root biomass (g ", m^-2, ")")))
 	+ xlab("")
 	+ facet_wrap(~Year)
 	+ scale_y_continuous(breaks=pretty_breaks(n=5))
@@ -251,8 +251,8 @@ corebars_rootrhizo_mass = (
 			ymax=Biomass_g_m2+Biomass_g_m2_se,
 			fill=NULL),
 		width=0.3)
-	+ scale_fill_grey(name="Depth, cm", start=0, end=1)
-	+ ylab(expression(paste("Root + rhizome biomass, g ", m^-2)))
+	+ scale_fill_grey(name="Depth (cm)", start=0, end=1)
+	+ ylab(expression(paste("Root + rhizome biomass (g ", m^-2, ")")))
 	+ xlab("")
 	+ facet_wrap(~Year)
 	+ scale_y_continuous(breaks=pretty_breaks(n=5))

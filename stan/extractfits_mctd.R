@@ -27,6 +27,7 @@ if(any(length(year) != 1, length(session) != 1)){
 		" seems to contain several sessions."))
 }
 
+sesdate=mean(rzdat$Date)
 
 # Map numbers back to crop names
 crop_id = data.frame(
@@ -44,21 +45,25 @@ croptot = cbind(crop_id, summary(rz_mtd, pars="crop_tot")$summary)
 croptot$Year = year
 croptot$Run_ID = label
 croptot$Session = session
+croptot$Date = sesdate
 
 cropint = cbind(crop_id, summary(rz_mtd, pars="intercept")$summary)
 cropint$Year = year
 cropint$Run_ID = label
 cropint$Session = session
+cropint$Date = sesdate
 
 cropb = cbind(crop_id, summary(rz_mtd, pars="b_depth")$summary)
 cropb$Year = year
 cropb$Run_ID = label
 cropb$Session = session
+cropb$Date = sesdate
 
 cropsig = cbind(crop_id, summary(rz_mtd, pars="sigma")$summary)
-cropint$Year = year
-cropint$Run_ID = label
-cropint$Session = session
+cropsig$Year = year
+cropsig$Run_ID = label
+cropsig$Session = session
+cropsig$Date = sesdate
 
 # Estimated differences between crops:
 # intercept (avg log root volume at middle depth)  
@@ -82,6 +87,7 @@ crop_diff_total$param = "crop_tot"
 crop_diff = rbind(crop_diff_int, crop_diff_bdepth, crop_diff_total)
 crop_diff$Year = year
 crop_diff$Session = session
+crop_diff$Date = sesdate
 
 
 # Expected root volume at each depth, by crop.
@@ -92,12 +98,14 @@ rz_pred_mu = cbind(
 	summary(rz_mtd, pars="mu_pred")$summary)
 rz_pred_mu$Year = year
 rz_pred_mu$Session = session
+rz_pred_mu$Date = sesdate
 
 rz_pred_pdet = cbind(
 	rz_pred,
 	summary(rz_mtd, pars="mu_pred")$summary)
-rz_pred_mu$Year = year
-rz_pred_mu$Session = session
+rz_pred_pdet$Year = year
+rz_pred_pdet$Session = session
+rz_pred_pdet$Date = sesdate
 
 parnames = c("loc_detect",
 	"scale_detect",
@@ -111,8 +119,16 @@ parnames = c("loc_detect",
 rz_pars = as.data.frame(summary(rz_mtd, pars=parnames)$summary)
 rz_pars$Year = year
 rz_pars$Session = session
+rz_pars$Date = sesdate
 rz_pars$Run_ID = label
-rz_pars$parameter = rownames(rz_pars)
+rz_pars$stan_name = rownames(rz_pars)
+rz_pars$parameter = rz_pars$stan_name
+for(i in 1:nrow(crop_id)){
+	rz_pars$parameter = sub(
+		pattern=crop_id$num[i],
+		replacement=crop_id$name[i],
+		x=rz_pars$parameter)
+}
 
 
 # Could just do get_posterior_mean(...)[,n_chains+1],
@@ -139,9 +155,10 @@ fit_stats$FVU = fit_stats$MSE / fit_stats$var_y
 fit_stats$Year = year
 fit_stats$Session = session
 fit_stats$Run_ID = label
+fit_stats$Date = sesdate
 
 obs_v_pred = rzdat[, c(
-	"Year", "Session", "Tube",
+	"Year", "Session", "Date", "Tube",
 	"Block", "Species", "Depth",
 	"rootvol.mm3.mm2", "mu_hat", "mu_obs_hat",
 	"detect_odds_hat", "sig_hat")]

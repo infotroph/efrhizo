@@ -1732,3 +1732,23 @@ if(length(cornsoy_tubes) > 8){
 		- 0.15 for prairie.
 	See notes/unit-conversions.txt for details and citations.
 	* Script usage for the stan-vs-core plot: $(Rscript scripts/plot-stan-vs-core.R path/to/predmu2011-s4.csv path/to/predmu2011-s2.csv)... which is kinda ridiculous once I think about it because it means the path to the tractorcore data is hard-coded in the file but the path to the Stan data isn't. TODO: decide for real where Stan output lives, and fix this.
+
+## 2016-06-29
+
+	Overhauling manuscript draft. Added skeletons of intro and discussion (Think I like the topic sentences, but all paragraphs need more detail, and no citations at all yet)
+
+	Plotting tweaks:
+		* crop names instead of numbers in parameter plots. This means 2012-s6 error bars are no longer one panel over from their matching crop in other days.
+		* Much simpler legend in parameter plot
+		* Standard axis notation: "variable (units)", not "variable, units"
+		* Standardize on "ln(...)" not "log(...)". Feel ambivalent about this, may revisit it later. But I'll change all of them if I change any!
+		* Removed plot titles.
+		* For depth plots and parameter plot, moved legend inside frame of plot.
+		* Plot parameters by date rather than by paste(Year, Session), and identify sessions in depth plots by date rather than manually assigned month.
+		* N.B. All Stan plots are currently made from run rz_mctd_1466393993. Still no output committed into Git; really need to fix that soon.
+
+	Bunch of typo fixes & rearrangements, not itemized here.
+
+	Edits to to results and discussion per EHD comments on 20160623 draft. Mostly rearranging results to put biology before stats.
+
+	Sent this draft to Evan, asked mostly for his thoughts on whether intro and discussion structure make sense before I expand them.

@@ -18,6 +18,7 @@ cropdiff_csvs = list.files(
 	full.names=TRUE)
 cropdiff = lapply(cropdiff_csvs, read.csv, check.names=FALSE)
 cropdiff = do.call("rbind", cropdiff)
+cropdiff$Date = as.Date(cropdiff$Date)
 
 croptot_csvs = list.files(
 	path=csv_path,
@@ -25,6 +26,7 @@ croptot_csvs = list.files(
 	full.names=TRUE)
 croptot = lapply(croptot_csvs, read.csv, check.names=FALSE)
 croptot = do.call("rbind", croptot)
+croptot$Date = as.Date(croptot$Date)
 
 predmu_csvs = list.files(
 	path=csv_path,
@@ -32,6 +34,7 @@ predmu_csvs = list.files(
 	full.names=TRUE)
 predmu = lapply(predmu_csvs, read.csv, check.names=FALSE)
 predmu = do.call("rbind", predmu)
+predmu$Date = as.Date(predmu$Date)
  
 param_csvs = list.files(
 	path=csv_path,
@@ -40,7 +43,7 @@ param_csvs = list.files(
 param_ests = lapply(param_csvs, read.csv, check.names=FALSE)
 
 param_ests = do.call("rbind", param_ests)
-
+param_ests$Date = as.Date(param_ests$Date)
 
 fitstat_csvs = list.files(
 	path=csv_path,
@@ -48,6 +51,7 @@ fitstat_csvs = list.files(
 	full.names=TRUE)
 fitstats = lapply(fitstat_csvs, read.csv, check.names=FALSE)
 fitstats = do.call("rbind", fitstats)
+fitstats$Date = as.Date(fitstats$Date)
 
 obsvsfit_csvs = list.files(
 	path=csv_path,
@@ -55,7 +59,7 @@ obsvsfit_csvs = list.files(
 	full.names=TRUE)
 obsvsfit = lapply(obsvsfit_csvs, read.csv, check.names=FALSE)
 obsvsfit = do.call("rbind", obsvsfit)
-
+obsvsfit$Date = as.Date(obsvsfit$Date)
 
 # Set factor levels, so that panel order doesn't depend on order in file
 predmu$Species=reorder(
@@ -71,12 +75,12 @@ peak = data.frame(
 	Session = c(4,4,4,5,2))
 peakstr = paste(peak$Year, peak$Session)
 
-volume_expr = expression(paste("log(", mm^3, " root ", mm^2, " image)"))
+volume_expr = expression(paste("ln(", mm^3, " root ", mm^2, " image)"))
 
 # Root volume by depth
 peak_plot = mirror_ticks(
 	ggplot(predmu[paste(predmu$Year, predmu$Session) %in% peakstr,],
-		aes(depth, mean, fill=factor(Year), color=factor(Year)))
+		aes(depth, mean, fill=factor(Date), color=factor(Date)))
 	+facet_wrap(~Species)
 	+geom_line()
  	+geom_ribbon(
@@ -87,9 +91,12 @@ peak_plot = mirror_ticks(
 	+scale_color_viridis(discrete=TRUE)
 	+scale_fill_viridis(discrete=TRUE)
 	+theme_ggEHD()
-	+ggtitle("peak each year")
 	+ylab(volume_expr)
-	+theme(aspect.ratio=1.2))
+	+xlab("Depth (cm)")
+	+theme(
+		aspect.ratio=1.2,
+		legend.title=element_blank(),
+		legend.position=c(0.4,0.7)))
 ggsave_fitmax(
 	peak_plot,
 	filename=file.path(img_path, "stanfit-peak.png"),
@@ -103,7 +110,7 @@ ses10_plot = mirror_ticks(
 		%>% filter(predmu$Year == 2010)
 		%>% mutate(
 			Species = factor(Species, labels = sub("Maize-Soybean", "Soybean", levels(Species)))),
-		aes(depth, mean, fill=factor(Session), color=factor(Session)))
+		aes(depth, mean, fill=factor(Date), color=factor(Date)))
 	+facet_wrap(~Species)
 	+geom_line()
  	+geom_ribbon(
@@ -111,24 +118,21 @@ ses10_plot = mirror_ticks(
  		alpha=0.3)
 	+coord_flip()
 	+ylab(volume_expr)
+	+xlab("Depth (cm)")
 	+scale_x_reverse()
-	+scale_color_manual(
-		name="Month", 
-		labels=c(`1`="June", `3`="July", `4`="August", `5`="October"),
-		values=viridis(5)[1:4])
-	+scale_fill_manual(
-		name="Month", 
-		labels=c(`1`="June", `3`="July", `4`="August", `5`="October"),
-		values=viridis(5)[1:4])
+	+scale_color_viridis(discrete=TRUE)
+	+scale_fill_viridis(discrete=TRUE)
 	+theme_ggEHD()
-	+ggtitle("all days 2010")
-	+theme(aspect.ratio=1.2))
+	+theme(
+		aspect.ratio=1.2,
+		legend.title=element_blank(),
+		legend.position=c(0.4,0.7)))
 ses12_plot = mirror_ticks(
 	ggplot(data=predmu
 		%>% filter(predmu$Year == 2012)
 		%>% mutate(
 			Species = factor(Species, labels = sub("Maize-Soybean", "Maize", levels(Species)))),
-		aes(depth, mean, fill=factor(Session), color=factor(Session)))
+		aes(depth, mean, fill=factor(Date), color=factor(Date)))
 	+facet_wrap(~Species)
 	+geom_line()
  	+geom_ribbon(
@@ -136,18 +140,15 @@ ses12_plot = mirror_ticks(
  		alpha=0.3)
 	+coord_flip()
 	+scale_x_reverse()
-	+scale_color_manual(
-		name="Month", 
-		labels=c(`1`="May", `2`="June", `3`="July", `4`="August", `5`="September", `6`="October"),
-		values=viridis(7)[1:6])
-	+scale_fill_manual(
-		name="Month", 
-		labels=c(`1`="May", `2`="June", `3`="July", `4`="August", `5`="September", `6`="October"),
-		values=viridis(7)[1:6])
+	+scale_color_viridis(discrete=TRUE)
+	+scale_fill_viridis(discrete=TRUE)
 	+theme_ggEHD()
-	+ggtitle("all days 2012")
+	+xlab("Depth (cm)")
 	+ylab(volume_expr)
-	+theme(aspect.ratio=1.2))
+	+theme(
+		aspect.ratio=1.2,
+		legend.title=element_blank(),
+		legend.position=c(0.4,0.7)))
 ggsave_fitmax(
 	ses10_plot,
 	filename=file.path(img_path, "stanfit-2010.png"),
@@ -165,13 +166,14 @@ ggsave_fitmax(
 # Somewhat improved from the version I showed Evan.
 # TODO: Do I trust these numbers?
 tots_plot = mirror_ticks(
-	ggplot(croptot, aes(paste(Year, Session), mean, ymin=`2.5%`, ymax=`97.5%`, color=Run_ID))
+	ggplot(croptot, aes(Date, mean, ymin=`2.5%`, ymax=`97.5%`, color=Run_ID))
 	+facet_wrap(~name)
 	+geom_pointrange(aes(lty="95%"), position=position_dodge(width=0.5))
-	+geom_errorbar(aes(ymin=`25%`, ymax=`75%`, lty="50%"), position=position_dodge(width=0.5))
+	+geom_errorbar(
+		aes(ymin=`25%`, ymax=`75%`, lty="50%"),
+		position=position_dodge(width=0.5))
 	+theme_ggEHD(12)
-	# +coord_cartesian(ylim=c(0,20))
- 	+theme(
+	+theme(
 		axis.text.x=element_text(angle=45, hjust=1))
  	+ggtitle("Crop totals?"))
 ggsave_fitmax(
@@ -185,31 +187,36 @@ params_plot = mirror_ticks(
 	ggplot(
 		param_ests[param_ests$parameter != "lp__",], 
 		aes(
-			paste(Year, Session),
+			Date,
 			mean,
 			ymin=`2.5%`,
 			ymax=`97.5%`,
-			color=Run_ID))
-	+facet_wrap(~parameter, scales="free")
-	+geom_pointrange(position=position_dodge(width=0.5))
-	+theme_ggEHD(12)
- 	+theme(
-		axis.text.x=element_text(angle=45, hjust=1))
- 	+ggtitle("posterior estimates (mean ± 95% interval)"))
+			color=factor(Year)))
+	+facet_wrap(~parameter, scales="free_y")
+	+geom_pointrange(position=position_dodge(width=7), fatten=1)
+	+theme_ggEHD(10	)
+	+theme(
+		legend.position=c(0.7, 0.07),
+		legend.title=element_blank())
+	+labs(
+		title="posterior estimates (mean ± 95% interval)",
+		x="",
+		y=""),
+	allPanels=TRUE)
 ggsave_fitmax(
 	params_plot,
 	filename=file.path(img_path, "stanfit-params.png"),
-	maxheight=18,
-	maxwidth=18,
+	maxheight=12,
+	maxwidth=12,
 	units="in")
 
 fits_plot = mirror_ticks(
 	ggplot(
 		fitstats,
 		aes(
-			paste(Year, Session),
+			Date,
 			1-FVU,
-			color=Run_ID))
+			color=factor(Year)))
 	+geom_point()
 	+theme_ggEHD(12)
 	+theme(
