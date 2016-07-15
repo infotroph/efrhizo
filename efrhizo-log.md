@@ -1752,3 +1752,62 @@ if(length(cornsoy_tubes) > 8){
 	Edits to to results and discussion per EHD comments on 20160623 draft. Mostly rearranging results to put biology before stats.
 
 	Sent this draft to Evan, asked mostly for his thoughts on whether intro and discussion structure make sense before I expand them.
+
+## 2016-07-15
+
+	Expanding intro and discussion into complete paragraphs. Here, have some notes about root masses previously reported for comparable crops:
+
+	Monti 10.1016/j.agee.2009.04.007
+		5 yr old stand, sampled to 1.2 m
+		mxg root 7596 kg ha = 760 g/m2
+		switch 8522	= 852
+	Dohleman 10.1111/j.1757-1707.2011.01153.x
+		5-7th yr stand, sampled to 1 m
+		mxg rhizome 21.5 t ha = 2150 g m2
+		switch rhizome 7.2 t ha = 720
+		both roots 5.6-5.9 t ha = 570
+	Christian 10.1016/j.biombioe.2005.11.002
+		3 yr old stand, shovel to 24 cm, then core to 50
+		mxg rhizome 10 t ha = 1000 g/m2
+		mxg roots 2.2 = 220
+	Neukirchen 10.1016/S1161-0301(99)00031-3
+		4th year stand, measured to 180 cm
+		mxg roots 13898 kg ha = 1390 m/m2
+	Amougou 10.1007/s11104-010-0443-x
+		2-3rd yr stand, sampled top 30 cm
+		mxg rhizome 10-17 t ha = 1000-1700 g/m2
+		mxg root 1.3-1.9 t ha = 130-190
+	Beuch 10.1046/j.1439-037x.2000.00367.x
+		4-8th yr stands, measured to 40 cm, 40 cm assumed to contain 35.9% of roots
+		mxg rhizomes 11-18 t ha = 1100-1800 g/m2
+		mxg roots  2.2-7.4 = 220-740
+	Bransby 10.1016/S0961-9534(97)10074-5
+		4yr old stand, measured to 75 cm
+		switch roots 6242 kg ha = 624 g/m2
+	Collins 10.2136/sssaj2010.0020
+		3 yr old stand, measured to 90 cm
+		switch root 10.2 Mg ha = 1000 g/m2
+	Frank 10.2135/cropsci2004.1391
+		3 yr old stand, to 1.1 m
+		switch root 6540-7670 kg ha = 654-767 g/m2
+	Garten 10.1016/j.agee.2009.12.019
+		4 yr old stand, to 90 cm
+		switch rhizome 299 g/m2
+		switch root 1485
+	Brye and Riley 10.1097/SS.0b013e3181a93daa
+		3,4,5,26 yr old stands + native remnant, sampled to 15 cm
+		Probably not usable because root mass reported in "kg/m3" -- actual reading is probably 0.15 of this?
+		prairie root 3-6.5 kg/m3, no huge differences but 3-yr is lowest, native remnant and 4-yr both at high end, 26-yr more like native and 5-yr more like 3-yr
+	Jelinski 10.1111/j.1526-100X.2009.00551.x
+		to 50 cm
+		prairie root 720 g/m2 restored 7 yr old, 1670 remnant 
+	Kucharik 10.1111/j.1365-2486.2005.01053.x
+		to 50 cm
+		prairie root remnant 1736-3029 g/m2, restored (65 yr) 1690-2141
+	Matamala 10.1890/07-1609.1
+		3, 7, 8, 15, 18, 21, 23, and 25 year old
+		to 1 m
+		hand sorted, "recovered about 60% the root mass that would have been obtained by washing"
+		remnant prairie ~1.2 kg/m2 = 1200 g/m2, restored, ~0.3-0.8 =300-800 g/m2
+
+	Committed ~full, but still rough, drafts of intro and discussion. Lots of new citations, hopefully more biologically intelligible discussion of root mass.
