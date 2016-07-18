@@ -18,12 +18,12 @@
 # library(dplyr)
 # library(lubridate)
 
-wzclass = read.csv("../scripts/rhizo_colClasses.csv", as.is=TRUE)
-strp10 = read.csv("../data/stripped2010.csv", colClasses=wzclass$class)
-strp11 = read.csv("../data/stripped2011.csv", colClasses=wzclass$class)
-strp12 = read.csv("../data/stripped2012.csv", colClasses=wzclass$class)
-strp13 = read.csv("../data/stripped2013.csv", colClasses=wzclass$class)
-strp14 = read.csv("../data/stripped2014.csv", colClasses=wzclass$class)
+wzclass = read.csv("scripts/rhizo_colClasses.csv", as.is=TRUE)
+strp10 = read.csv("data/stripped2010.csv", colClasses=wzclass$class)
+strp11 = read.csv("data/stripped2011.csv", colClasses=wzclass$class)
+strp12 = read.csv("data/stripped2012.csv", colClasses=wzclass$class)
+strp13 = read.csv("data/stripped2013.csv", colClasses=wzclass$class)
+strp14 = read.csv("data/stripped2014.csv", colClasses=wzclass$class)
 
 strpall = rbind(strp10, strp11, strp12, strp13, strp14)
 rm(list=c("wzclass", "strp10", "strp11", "strp12", "strp13", "strp14"))

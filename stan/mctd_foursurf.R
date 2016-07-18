@@ -3,14 +3,18 @@ library(rstan)
 
 sessionInfo()
 
+# Usage: Rscript mctd.foursurf.R runname year session path/to/output/ [n_subsample]
+# if n_subsample is unset, uses all samples.
+
 args=commandArgs(trailingOnly=TRUE)
 runname = args[[1]]
 sub_year = as.numeric(args[[2]])
 sub_session = as.numeric(args[[3]])
-if(length(args)==4){
+output_path = args[[4]]
+if(length(args)==5){
 	# How many rows from WITHIN year and session to subsample?
 	# Will error if n_subsample > n rows where Year==sub_year & Session==sub_session
-	n_subsample = as.numeric(args[[4]])
+	n_subsample = as.numeric(args[[5]])
 }else{
 	# If unset, use all rows.
 	n_subsample = NULL
@@ -71,7 +75,7 @@ plotpars_pred=c(
 	"detect_odds_pred[28]",
 	"pred_tot[1]")
 
-source("../scripts/stat-prep.R") # creates data frame "strpall"
+source("scripts/stat-prep.R") # creates data frame "strpall"
 strpall = strpall[strpall$Depth > 0,]
 
 ys_rows = which(strpall$Year==sub_year & strpall$Session==sub_session)
@@ -140,7 +144,7 @@ rz_mtd = stan(
 		tube_pred=rz_pred$tube,
 		depth_pred=rz_pred$depth,
 		crop_pred=as.numeric(rz_pred$Species)),
-	file="mctd_foursurf.stan",
+	file="stan/mctd_foursurf.stan",
 	iter=n_iters,
 	warmup=n_warm,
 	chains=n_chains,
@@ -151,7 +155,7 @@ rz_mtd = stan(
 	verbose=TRUE,
 	open_progress=FALSE)
 
-save(rz_mtd, rzdat, rz_pred, cropkey, file=paste0(runname, ".Rdata"))
+save(rz_mtd, rzdat, rz_pred, cropkey, file=file.path(output_path, paste0(runname, ".Rdata")))
 warnings()
 stopifnot(rz_mtd@mode == 0) # 1 or 2 = error
 
@@ -223,7 +227,7 @@ cat(
 )
 
 png(
-	paste0(runname, "_%03d.png"),
+	file.path(output_path, paste0(runname, "_%03d.png")),
 	height=1200,
 	width=1800,
 	units="px")

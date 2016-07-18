@@ -1,10 +1,25 @@
 library(rstan)
 
-# usage: Rscript extractfits_mctd.R path/to/output.Rdata, path/to/csv_dir/, [identifier_to_add_to_filenames]
+# usage: Rscript extractfits_mctd.R path/to/standata.Rdata, path/to/output_csv_dir/, [identifier_to_add_to_filenames]
 args=commandArgs(trailingOnly=TRUE)
 rdata_path = args[[1]]
 csv_path = args[[2]]
 label = if(length(args)==3){ paste0("_", args[[3]]) } else { NULL }
+
+extend_csv = function(x, file){
+	# Because write.csv has no append argument :(
+	if(file.exists(file)){
+		write.table(x, file, append=TRUE,
+			col.names=FALSE, row.names=FALSE,
+			quote=FALSE, qmethod="double",
+			sep=",", dec=".", eol="\n")
+	}else{
+		write.table(x, file, append=FALSE,
+			col.names=TRUE, row.names=FALSE,
+			quote=FALSE, qmethod="double",
+			sep=",", dec=".", eol="\n")
+	}
+}
 
 # Assumes the rdata file contains three objects:
 # rz_mtd, a stanfit object fit using mix_crop_tube_depth.stan
@@ -163,39 +178,30 @@ obs_v_pred = rzdat[, c(
 	"rootvol.mm3.mm2", "mu_hat", "mu_obs_hat",
 	"detect_odds_hat", "sig_hat")]
 
-write.csv(
+extend_csv(
 	obs_v_pred,
-	file=file.path(csv_path, paste0("obs_vs_pred_", year, "_", session, label, ".csv")),
-	row.names=FALSE)
-write.csv(
+	file=file.path(csv_path, paste0("obs_vs_pred", label, ".csv")))
+extend_csv(
 	rz_pred_mu,
-	file=file.path(csv_path, paste0("predmu_", year, "_", session, label, ".csv")),
-	row.names=FALSE)
-write.csv(
+	file=file.path(csv_path, paste0("predmu", label, ".csv")))
+extend_csv(
 	croptot,
-	file=file.path(csv_path, paste0("croptotals_", year, "_", session, label, ".csv")),
-	row.names=FALSE)
-write.csv(
+	file=file.path(csv_path, paste0("croptotals", label, ".csv")))
+extend_csv(
 	crop_diff,
-	file=file.path(csv_path, paste0("cropdiffs_", year, "_", session, label, ".csv")),
-	row.names=FALSE)
-write.csv(
+	file=file.path(csv_path, paste0("cropdiffs", label, ".csv")))
+extend_csv(
 	cropint,
-	file=file.path(csv_path, paste0("cropintercepts_", year, "_", session, label, ".csv")),
-	row.names=FALSE)
-write.csv(
+	file=file.path(csv_path, paste0("cropintercepts", label, ".csv")))
+extend_csv(
 	cropb,
-	file=file.path(csv_path, paste0("cropbdepths_", year, "_", session, label, ".csv")),
-	row.names=FALSE)
-write.csv(
+	file=file.path(csv_path, paste0("cropbdepths", label, ".csv")))
+extend_csv(
 	cropsig,
-	file=file.path(csv_path, paste0("cropsigmas_", year, "_", session, label, ".csv")),
-	row.names=FALSE)
-write.csv(
+	file=file.path(csv_path, paste0("cropsigmas", label, ".csv")))
+extend_csv(
 	rz_pars,
-	file=file.path(csv_path, paste0("params_", year, "_", session, label, ".csv")),
-	row.names=FALSE)
-write.csv(
+	file=file.path(csv_path, paste0("params", label, ".csv")))
+extend_csv(
 	fit_stats,
-	file=file.path(csv_path, paste0("fit_", year, "_", session, label, ".csv")),
-	row.names=FALSE)
+	file=file.path(csv_path, paste0("fit", label, ".csv")))

@@ -1811,3 +1811,19 @@ if(length(cornsoy_tubes) > 8){
 		remnant prairie ~1.2 kg/m2 = 1200 g/m2, restored, ~0.3-0.8 =300-800 g/m2
 
 	Committed ~full, but still rough, drafts of intro and discussion. Lots of new citations, hopefully more biologically intelligible discussion of root mass.
+
+## 2016-07-18
+
+Working on (finally!) adding Stan runs to main project Makefile. This will require some script modifications, because right now all output is named by timestamp. Let's work our way forward through the pathway:
+
+	* Modified mctd_foursurf.sh to take two command-line arguments: runname and output directory. If empty, runname defaults to "rz_mctd" plus the current Unix timestamp as before, and output directory defaults to "./stanout". !!Output directory is overwritten if it exists!!
+
+	* Added Make rule with entire data/stan/ directory as a single target and a prerequisite list containing data/stripped*.csv and all scripts called (by scripts called by...) mctd_foursurf.sh. This means every Stan model must be rerun any time I update any of the chain! This whole pipeline needs to be broken up more, but not right now.
+
+	* Paths in scripts/stat-prep.R and stan/mctd_foursurf.* changed to be relative to project root instead of relative to the Stan directory.
+
+	* mctd_foursurf.R gains an output_path argument.
+
+	* extractfits_mctd.R is already directory-agnostic, but renamed arguments to make that clearer.
+
+	* Modified mctd_foursurf.sh to pass output directories in the paths passed to mctd_foursurf.R, extractfits_mctd.R, and to write *.log into output dir instead of cwd.

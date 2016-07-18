@@ -54,6 +54,8 @@ ALL = data/frametots2010.txt \
 	data/offset2013.csv \
 	data/offset2014.csv \
 	data/tractorcore.csv \
+	data/destructive-mass-nearvsfar.txt \
+	data/stan \
 	figures/logvol-cornpoints-2012.png \
 	figures/logvol-cornpointsline-2012.png \
 	figures/logvol-polyfit-2010.png \
@@ -66,8 +68,7 @@ ALL = data/frametots2010.txt \
 	figures/destructive-vol.png \
 	figures/destructive-vol-fulldepth.png \
 	figures/tractorcore-bars.png \
-	figures/tractorcore-exp.png \
-	data/destructive-mass-nearvsfar.txt
+	figures/tractorcore-exp.png
 
 all: $(ALL)
 	#not written yet
@@ -246,6 +247,24 @@ data/tractorcore.csv: \
 		$(RAWCORES) \
 		scripts/tractorcore-cleanup.R
 	Rscript scripts/tractorcore-cleanup.R
+
+
+# Run Stan, extract fits, make some diagnostic plots.
+# Beware: Starts every run by deleting everything in data/stan!
+# TODO: Make this less monolithic so that it's possible to update incremenally.
+data/stan: \
+		stan/mctd_foursurf.sh \
+		stan/mctd_foursurf.R \
+		stan/mctd_foursurf.stan \
+		stan/extractfits_mctd.R \
+		scripts/stat-prep.R \
+		scripts/rhizo_colClasses.csv \
+		data/stripped2010.csv \
+		data/stripped2011.csv \
+		data/stripped2012.csv \
+		data/stripped2013.csv \
+		data/stripped2014.csv
+	./stan/mctd_foursurf.sh "current" data/stan && touch data/stan
 
 figures/logvol-cornpoints-2012.png: \
 		data/stripped2012.csv \
