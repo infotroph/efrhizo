@@ -68,7 +68,16 @@ ALL = data/frametots2010.txt \
 	figures/destructive-vol.png \
 	figures/destructive-vol-fulldepth.png \
 	figures/tractorcore-bars.png \
-	figures/tractorcore-exp.png
+	figures/tractorcore-exp.png \
+	figures/stan-vs-cores.png \
+	figures/stanfit-2010.png \
+	figures/stanfit-2012.png \
+	figures/stanfit-cropdiffs.png \
+	figures/stanfit-croptots.png \
+	figures/stanfit-fvu.png \
+	figures/stanfit-obsvspred.png \
+	figures/stanfit-params.png \
+	figures/stanfit-peak.png
 
 all: $(ALL)
 	#not written yet
@@ -311,6 +320,28 @@ figures/tractorcore-bars.png figures/tractorcore-exp.png: \
 		scripts/plot-tractorcores.R \
 		data/tractorcore.csv
 	Rscript scripts/plot-tractorcores.R
+
+figures/stan-vs-cores.png: \
+		scripts/plot-stan-vs-core.R \
+		data/stan/predmu_current.csv \
+		data/tractorcore.csv
+	Rscript scripts/plot-stan-vs-core.R \
+	data/stan/predmu_current.csv \
+	data/tractorcore.csv \
+	figures/stan-vs-cores.png
+
+figures/stanfit-2010.png figures/stanfit-2012.png figures/stanfit-cropdiffs.png figures/stanfit-croptots.png figures/stanfit-fvu.png figures/stanfit-obsvspred.png figures/stanfit-params.png figures/stanfit-peak.png: \
+		stan/plotfits_mctd.R \
+		data/stan/cropbdepths_current.csv \
+		data/stan/cropdiffs_current.csv \
+		data/stan/cropintercepts_current.csv \
+		data/stan/cropsigmas_current.csv \
+		data/stan/croptotals_current.csv \
+		data/stan/fit_current.csv \
+		data/stan/obs_vs_pred_current.csv \
+		data/stan/params_current.csv \
+		data/stan/predmu_current.csv
+	Rscript stan/plotfits_mctd.R data/stan/ figures/
 
 clean:
 	rm $(ALL)

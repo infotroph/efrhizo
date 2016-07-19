@@ -12,6 +12,10 @@ csv_path = file.path(args[[1]])
 img_path = file.path(args[[2]])
 
 
+# TODO: Upstream scripts now produce a single CSV per run,
+# so all these elaborate list-read-rbind calls could probably
+# be replaced with plain old read.csv calls.
+# But the baroque version still works!
 cropdiff_csvs = list.files(
 	path=csv_path,
 	pattern="cropdiffs.*.csv",

@@ -1827,3 +1827,7 @@ Working on (finally!) adding Stan runs to main project Makefile. This will requi
 	* extractfits_mctd.R is already directory-agnostic, but renamed arguments to make that clearer.
 
 	* Modified mctd_foursurf.sh to pass output directories in the paths passed to mctd_foursurf.R, extractfits_mctd.R, and to write *.log into output dir instead of cwd.
+
+	* Modified scripts/plot-stan-vs-core.R to pass all filenames as arguments instead of hard-coding them, added it to Makefile.
+
+	* Added stan/plotfits_mctd.R to MAkefile. It works with no change! But the CSV read-in section was intended to handle multiple files per run, and is now a set of elaborate list-read-rbind loops each of which iterates over one single CSV. Did not change that, but did add comments for my confused future self who wonders why it's done this way.

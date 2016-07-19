@@ -5,13 +5,17 @@ library("ggplotTicks")
 library("viridis")
 se = plotrix::std.error
 
-# Expects two paths pointing to predmu_<modelname>.csv from S4 2011 and S2 2014
+# Expects three arguments:
+# 1. path to predmu_<modelname>.csv, containing predictions from at least S4 2011 and S2 2014
+# 2. path to tractorcore.csv, containing *only* those sessions,
+# 3. path for output PNG
 # ... But it doesn't check that for you, so be warned :(
 stanpaths = commandArgs(trailingOnly=TRUE)
-stanlist = lapply(stanpaths, function(x){res=read.csv(x); res$sourcefile=x; res})
-stanpred = do.call("rbind", stanlist)
+stanpred = (
+	read.csv(stanpaths[[1]])
+	%>% filter((Year == 2011 & Session == 4) | (Year == 2014 & Session == 2)))
 
-coredata = read.csv("data/tractorcore.csv")
+coredata = read.csv(stanpaths[[2]])
 
 # Assumed root tissue densities. These are VERY crudely estimated,
 # from a pretty token survey of the literature!
@@ -109,7 +113,7 @@ plt = (ggplot(core_blocks,
 
 ggsave_fitmax(
 	mirror_ticks(plt),
-	filename="figures/stan-vs-cores.png",
+	filename=stanpaths[[3]],
 	maxheight=9,
 	maxwidth=6.5,
 	units="in",
