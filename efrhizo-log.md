@@ -1831,3 +1831,7 @@ Working on (finally!) adding Stan runs to main project Makefile. This will requi
 	* Modified scripts/plot-stan-vs-core.R to pass all filenames as arguments instead of hard-coding them, added it to Makefile.
 
 	* Added stan/plotfits_mctd.R to MAkefile. It works with no change! But the CSV read-in section was intended to handle multiple files per run, and is now a set of elaborate list-read-rbind loops each of which iterates over one single CSV. Did not change that, but did add comments for my confused future self who wonders why it's done this way.
+
+I think this now means the selected best-fitting Stan model (but none of the alternative models) is fully incorporated into the Makefile and will update automatically. Current full Stan run takes a bit over an hour on my laptop and produces roughly 770 MB of Rdata files, plus 51 MB of diagnostic PNGs -- do I want this in the Git repo? 
+
+I suspect I will want them saved eventually -- or at least I'll want to save *some* representation of the posterior samples -- but I think I'll punt on that for now. Added the summary figures and extracted CSV output to Git, will think more about when/how to add larger files.

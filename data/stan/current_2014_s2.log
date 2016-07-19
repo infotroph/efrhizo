@@ -1,0 +1,565 @@
+Starting current_2014_s2 on  Tue Jul 19 00:19:39 UTC 2016
+Running mctd_foursurf.R for year  2014  session  2
+Loading required package: ggplot2
+Loading required package: StanHeaders
+rstan (Version 2.10.1, packaged: 2016-06-24 13:22:16 UTC, GitRev: 85f7a56811da)
+For execution on a local, multicore CPU with excess RAM we recommend calling
+rstan_options(auto_write = TRUE)
+options(mc.cores = parallel::detectCores())
+R version 3.3.1 (2016-06-21)
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
+Running under: OS X 10.11.5 (El Capitan)
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  base     
+
+other attached packages:
+[1] rstan_2.10.1         StanHeaders_2.10.0-2 ggplot2_2.1.0       
+
+loaded via a namespace (and not attached):
+ [1] colorspace_1.2-6 scales_0.4.0     plyr_1.8.4       inline_0.3.14   
+ [5] gtable_0.2.0     gridExtra_2.2.1  Rcpp_0.12.5      grid_3.3.1      
+ [9] methods_3.3.1    stats4_3.3.1     munsell_0.4.3   
+structure(list(Tube = c(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 25L, 
+26L, 27L, 28L, 29L, 30L, 31L, 32L, 33L, 34L, 35L, 36L, 37L, 38L, 
+39L, 40L, 42L, 43L, 44L, 45L, 47L, 48L, 49L, 50L, 51L, 52L, 53L, 
+54L, 55L, 56L, 57L, 58L, 61L, 62L, 63L, 64L, 65L, 66L, 69L, 70L, 
+71L, 72L, 73L, 75L, 76L, 78L, 79L, 80L, 81L, 82L, 83L, 84L, 85L, 
+86L, 89L, 90L, 91L, 92L, 93L, 94L, 95L, 96L), Tube_alias = 1:70), .Names = c("Tube", 
+"Tube_alias"), row.names = c(NA, -70L), class = "data.frame")
+   Tube Tube_alias
+1     1          1
+2     2          2
+3     3          3
+4     4          4
+5     5          5
+6     6          6
+7     7          7
+8     8          8
+9    25          9
+10   26         10
+11   27         11
+12   28         12
+13   29         13
+14   30         14
+15   31         15
+16   32         16
+17   33         17
+18   34         18
+19   35         19
+20   36         20
+21   37         21
+22   38         22
+23   39         23
+24   40         24
+25   42         25
+26   43         26
+27   44         27
+28   45         28
+29   47         29
+30   48         30
+31   49         31
+32   50         32
+33   51         33
+34   52         34
+35   53         35
+36   54         36
+37   55         37
+38   56         38
+39   57         39
+40   58         40
+41   61         41
+42   62         42
+43   63         43
+44   64         44
+45   65         45
+46   66         46
+47   69         47
+48   70         48
+49   71         49
+50   72         50
+51   73         51
+52   75         52
+53   76         53
+54   78         54
+55   79         55
+56   80         56
+57   81         57
+58   82         58
+59   83         59
+60   84         60
+61   85         61
+62   86         62
+63   89         63
+64   90         64
+65   91         65
+66   92         66
+67   93         67
+68   94         68
+69   95         69
+70   96         70
+[1] "Using data from 2014 , session 2"
+[1] "Crop name-to-number key:"
+              num          name first_tube last_tube first_tube_alias
+Maize-Soybean   1 Maize-Soybean          1         8                1
+Switchgrass     2   Switchgrass         49        72               31
+Miscanthus      3    Miscanthus         25        48                9
+Prairie         4       Prairie         73        96               51
+              last_tube_alias n_tubes
+Maize-Soybean               8       8
+Switchgrass                50      20
+Miscanthus                 30      22
+Prairie                    70      20
+[1] "conditions for predicted data:"
+   tube depth       Species
+1     1     1   Switchgrass
+2     2     1    Miscanthus
+3     3     1       Prairie
+4     4     1 Maize-Soybean
+5     1     8   Switchgrass
+6     2     8    Miscanthus
+7     3     8       Prairie
+8     4     8 Maize-Soybean
+9     1    15   Switchgrass
+10    2    15    Miscanthus
+11    3    15       Prairie
+12    4    15 Maize-Soybean
+13    1    21   Switchgrass
+14    2    21    Miscanthus
+15    3    21       Prairie
+16    4    21 Maize-Soybean
+17    1    28   Switchgrass
+18    2    28    Miscanthus
+19    3    28       Prairie
+20    4    28 Maize-Soybean
+21    1    35   Switchgrass
+22    2    35    Miscanthus
+23    3    35       Prairie
+24    4    35 Maize-Soybean
+25    1    42   Switchgrass
+26    2    42    Miscanthus
+27    3    42       Prairie
+28    4    42 Maize-Soybean
+29    1    49   Switchgrass
+30    2    49    Miscanthus
+31    3    49       Prairie
+32    4    49 Maize-Soybean
+33    1    55   Switchgrass
+34    2    55    Miscanthus
+35    3    55       Prairie
+36    4    55 Maize-Soybean
+37    1    62   Switchgrass
+38    2    62    Miscanthus
+39    3    62       Prairie
+40    4    62 Maize-Soybean
+41    1    69   Switchgrass
+42    2    69    Miscanthus
+43    3    69       Prairie
+44    4    69 Maize-Soybean
+45    1    76   Switchgrass
+46    2    76    Miscanthus
+47    3    76       Prairie
+48    4    76 Maize-Soybean
+49    1    82   Switchgrass
+50    2    82    Miscanthus
+51    3    82       Prairie
+52    4    82 Maize-Soybean
+53    1    89   Switchgrass
+54    2    89    Miscanthus
+55    3    89       Prairie
+56    4    89 Maize-Soybean
+57    1    96   Switchgrass
+58    2    96    Miscanthus
+59    3    96       Prairie
+60    4    96 Maize-Soybean
+61    1   103   Switchgrass
+62    2   103    Miscanthus
+63    3   103       Prairie
+64    4   103 Maize-Soybean
+65    1   110   Switchgrass
+66    2   110    Miscanthus
+67    3   110       Prairie
+68    4   110 Maize-Soybean
+69    1   116   Switchgrass
+70    2   116    Miscanthus
+71    3   116       Prairie
+72    4   116 Maize-Soybean
+73    1   123   Switchgrass
+74    2   123    Miscanthus
+75    3   123       Prairie
+76    4   123 Maize-Soybean
+77    1   130   Switchgrass
+78    2   130    Miscanthus
+79    3   130       Prairie
+80    4   130 Maize-Soybean
+
+TRANSLATING MODEL 'mctd_foursurf' FROM Stan CODE TO C++ CODE NOW.
+DIAGNOSTIC(S) FROM PARSER:
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
+
+successful in parsing the Stan model 'mctd_foursurf'.
+
+CHECKING DATA AND PREPROCESSING FOR MODEL 'mctd_foursurf' NOW.
+
+COMPILING MODEL 'mctd_foursurf' NOW.
+
+STARTING SAMPLER FOR MODEL 'mctd_foursurf' NOW.
+starting worker pid=51031 on localhost:11954 at 19:19:44.180
+starting worker pid=51039 on localhost:11954 at 19:19:44.347
+starting worker pid=51047 on localhost:11954 at 19:19:44.513
+starting worker pid=51055 on localhost:11954 at 19:19:44.685
+starting worker pid=51063 on localhost:11954 at 19:19:44.852
+
+CHECKING DATA AND PREPROCESSING FOR MODEL 'mctd_foursurf' NOW.
+
+COMPILING MODEL 'mctd_foursurf' NOW.
+
+STARTING SAMPLER FOR MODEL 'mctd_foursurf' NOW.
+
+SAMPLING FOR MODEL 'mctd_foursurf' NOW (CHAIN 1).
+
+Chain 1, Iteration:    1 / 5000 [  0%]  (Warmup)
+CHECKING DATA AND PREPROCESSING FOR MODEL 'mctd_foursurf' NOW.
+
+COMPILING MODEL 'mctd_foursurf' NOW.
+
+STARTING SAMPLER FOR MODEL 'mctd_foursurf' NOW.
+
+SAMPLING FOR MODEL 'mctd_foursurf' NOW (CHAIN 2).
+
+Chain 2, Iteration:    1 / 5000 [  0%]  (Warmup)
+CHECKING DATA AND PREPROCESSING FOR MODEL 'mctd_foursurf' NOW.
+
+COMPILING MODEL 'mctd_foursurf' NOW.
+
+STARTING SAMPLER FOR MODEL 'mctd_foursurf' NOW.
+
+SAMPLING FOR MODEL 'mctd_foursurf' NOW (CHAIN 3).
+
+Chain 3, Iteration:    1 / 5000 [  0%]  (Warmup)
+CHECKING DATA AND PREPROCESSING FOR MODEL 'mctd_foursurf' NOW.
+
+COMPILING MODEL 'mctd_foursurf' NOW.
+
+STARTING SAMPLER FOR MODEL 'mctd_foursurf' NOW.
+
+SAMPLING FOR MODEL 'mctd_foursurf' NOW (CHAIN 4).
+
+Chain 4, Iteration:    1 / 5000 [  0%]  (Warmup)
+CHECKING DATA AND PREPROCESSING FOR MODEL 'mctd_foursurf' NOW.
+
+COMPILING MODEL 'mctd_foursurf' NOW.
+
+STARTING SAMPLER FOR MODEL 'mctd_foursurf' NOW.
+
+SAMPLING FOR MODEL 'mctd_foursurf' NOW (CHAIN 5).
+
+Chain 5, Iteration:    1 / 5000 [  0%]  (Warmup)
+Chain 2, Iteration:  500 / 5000 [ 10%]  (Warmup)
+Chain 3, Iteration:  500 / 5000 [ 10%]  (Warmup)
+Chain 1, Iteration:  500 / 5000 [ 10%]  (Warmup)
+Chain 4, Iteration:  500 / 5000 [ 10%]  (Warmup)
+Chain 5, Iteration:  500 / 5000 [ 10%]  (Warmup)
+Chain 2, Iteration: 1000 / 5000 [ 20%]  (Warmup)
+Chain 2, Iteration: 1001 / 5000 [ 20%]  (Sampling)
+Chain 3, Iteration: 1000 / 5000 [ 20%]  (Warmup)
+Chain 3, Iteration: 1001 / 5000 [ 20%]  (Sampling)
+Chain 1, Iteration: 1000 / 5000 [ 20%]  (Warmup)
+Chain 1, Iteration: 1001 / 5000 [ 20%]  (Sampling)
+Chain 4, Iteration: 1000 / 5000 [ 20%]  (Warmup)
+Chain 4, Iteration: 1001 / 5000 [ 20%]  (Sampling)
+Chain 5, Iteration: 1000 / 5000 [ 20%]  (Warmup)
+Chain 5, Iteration: 1001 / 5000 [ 20%]  (Sampling)
+Chain 3, Iteration: 1500 / 5000 [ 30%]  (Sampling)
+Chain 2, Iteration: 1500 / 5000 [ 30%]  (Sampling)
+Chain 1, Iteration: 1500 / 5000 [ 30%]  (Sampling)
+Chain 4, Iteration: 1500 / 5000 [ 30%]  (Sampling)
+Chain 5, Iteration: 1500 / 5000 [ 30%]  (Sampling)
+Chain 3, Iteration: 2000 / 5000 [ 40%]  (Sampling)
+Chain 2, Iteration: 2000 / 5000 [ 40%]  (Sampling)
+Chain 1, Iteration: 2000 / 5000 [ 40%]  (Sampling)
+Chain 4, Iteration: 2000 / 5000 [ 40%]  (Sampling)
+Chain 5, Iteration: 2000 / 5000 [ 40%]  (Sampling)
+Chain 3, Iteration: 2500 / 5000 [ 50%]  (Sampling)
+Chain 2, Iteration: 2500 / 5000 [ 50%]  (Sampling)
+Chain 1, Iteration: 2500 / 5000 [ 50%]  (Sampling)
+Chain 4, Iteration: 2500 / 5000 [ 50%]  (Sampling)
+Chain 5, Iteration: 2500 / 5000 [ 50%]  (Sampling)
+Chain 3, Iteration: 3000 / 5000 [ 60%]  (Sampling)
+Chain 2, Iteration: 3000 / 5000 [ 60%]  (Sampling)
+Chain 1, Iteration: 3000 / 5000 [ 60%]  (Sampling)
+Chain 4, Iteration: 3000 / 5000 [ 60%]  (Sampling)
+Chain 5, Iteration: 3000 / 5000 [ 60%]  (Sampling)
+Chain 3, Iteration: 3500 / 5000 [ 70%]  (Sampling)
+Chain 2, Iteration: 3500 / 5000 [ 70%]  (Sampling)
+Chain 1, Iteration: 3500 / 5000 [ 70%]  (Sampling)
+Chain 4, Iteration: 3500 / 5000 [ 70%]  (Sampling)
+Chain 5, Iteration: 3500 / 5000 [ 70%]  (Sampling)
+Chain 3, Iteration: 4000 / 5000 [ 80%]  (Sampling)
+Chain 2, Iteration: 4000 / 5000 [ 80%]  (Sampling)
+Chain 1, Iteration: 4000 / 5000 [ 80%]  (Sampling)
+Chain 4, Iteration: 4000 / 5000 [ 80%]  (Sampling)
+Chain 5, Iteration: 4000 / 5000 [ 80%]  (Sampling)
+Chain 3, Iteration: 4500 / 5000 [ 90%]  (Sampling)
+Chain 2, Iteration: 4500 / 5000 [ 90%]  (Sampling)
+Chain 1, Iteration: 4500 / 5000 [ 90%]  (Sampling)
+Chain 4, Iteration: 4500 / 5000 [ 90%]  (Sampling)
+Chain 5, Iteration: 4500 / 5000 [ 90%]  (Sampling)
+Chain 3, Iteration: 5000 / 5000 [100%]  (Sampling)
+ Elapsed Time: 52.0148 seconds (Warm-up)
+               181.013 seconds (Sampling)
+               233.028 seconds (Total)
+
+The following numerical problems occured the indicated number of times after warmup on chain 3
+                                                                                             count
+Exception thrown at line 124: lognormal_log: Scale parameter[1] is inf, but must be finite!      6
+Exception thrown at line 124: lognormal_log: Scale parameter[12] is inf, but must be finite!     1
+Exception thrown at line 124: lognormal_log: Scale parameter[31] is inf, but must be finite!     1
+When a numerical problem occurs, the Metropolis proposal gets rejected.
+However, by design Metropolis proposals sometimes get rejected even when there are no numerical problems.
+Thus, if the number in the 'count' column is small, do not ask about this message on stan-users.
+
+Chain 2, Iteration: 5000 / 5000 [100%]  (Sampling)
+ Elapsed Time: 52.2722 seconds (Warm-up)
+               183.326 seconds (Sampling)
+               235.598 seconds (Total)
+
+The following numerical problems occured the indicated number of times after warmup on chain 2
+                                                                                            count
+Exception thrown at line 124: lognormal_log: Scale parameter[1] is inf, but must be finite!    10
+When a numerical problem occurs, the Metropolis proposal gets rejected.
+However, by design Metropolis proposals sometimes get rejected even when there are no numerical problems.
+Thus, if the number in the 'count' column is small, do not ask about this message on stan-users.
+
+Chain 1, Iteration: 5000 / 5000 [100%]  (Sampling)
+ Elapsed Time: 56.5553 seconds (Warm-up)
+               180.478 seconds (Sampling)
+               237.033 seconds (Total)
+
+The following numerical problems occured the indicated number of times after warmup on chain 1
+                                                                                            count
+Exception thrown at line 124: lognormal_log: Scale parameter[1] is inf, but must be finite!     4
+Exception thrown at line 124: lognormal_log: Scale parameter[2] is inf, but must be finite!     3
+When a numerical problem occurs, the Metropolis proposal gets rejected.
+However, by design Metropolis proposals sometimes get rejected even when there are no numerical problems.
+Thus, if the number in the 'count' column is small, do not ask about this message on stan-users.
+
+Chain 4, Iteration: 5000 / 5000 [100%]  (Sampling)
+ Elapsed Time: 57.0896 seconds (Warm-up)
+               179.248 seconds (Sampling)
+               236.337 seconds (Total)
+
+The following numerical problems occured the indicated number of times after warmup on chain 4
+                                                                                            count
+Exception thrown at line 124: lognormal_log: Scale parameter[1] is inf, but must be finite!     4
+Exception thrown at line 114: normal_log: Scale parameter is 0, but must be > 0!                1
+Exception thrown at line 124: lognormal_log: Scale parameter[2] is inf, but must be finite!     1
+When a numerical problem occurs, the Metropolis proposal gets rejected.
+However, by design Metropolis proposals sometimes get rejected even when there are no numerical problems.
+Thus, if the number in the 'count' column is small, do not ask about this message on stan-users.
+
+Chain 5, Iteration: 5000 / 5000 [100%]  (Sampling)
+ Elapsed Time: 63.5274 seconds (Warm-up)
+               181.601 seconds (Sampling)
+               245.129 seconds (Total)
+
+The following numerical problems occured the indicated number of times after warmup on chain 5
+                                                                                             count
+Exception thrown at line 124: lognormal_log: Scale parameter[1] is inf, but must be finite!      2
+Exception thrown at line 124: lognormal_log: Scale parameter[12] is inf, but must be finite!     2
+Exception thrown at line 114: normal_log: Scale parameter is 0, but must be > 0!                 1
+Exception thrown at line 124: lognormal_log: Scale parameter[1] is 0, but must be > 0!           1
+Exception thrown at line 124: lognormal_log: Scale parameter[12] is 0, but must be > 0!          1
+When a numerical problem occurs, the Metropolis proposal gets rejected.
+However, by design Metropolis proposals sometimes get rejected even when there are no numerical problems.
+Thus, if the number in the 'count' column is small, do not ask about this message on stan-users.
+NULL
+Inference for Stan model: mctd_foursurf.
+5 chains, each with iter=5000; warmup=1000; thin=1; 
+post-warmup draws per chain=4000, total post-warmup draws=20000.
+
+                        mean se_mean    sd     2.5%      25%      50%      75%
+loc_detect             -5.67    0.00  0.11    -5.90    -5.75    -5.67    -5.60
+scale_detect            0.59    0.00  0.08     0.44     0.53     0.58     0.64
+loc_surface[1]         18.22    0.06  5.99     6.84    14.23    18.15    22.18
+loc_surface[2]         27.59    0.02  2.49    22.67    25.93    27.61    29.27
+loc_surface[3]         17.55    0.03  3.05    11.74    15.48    17.47    19.54
+loc_surface[4]         26.20    0.02  2.33    21.63    24.62    26.20    27.76
+scale_surface[1]        6.79    0.02  2.27     3.09     5.19     6.54     8.11
+scale_surface[2]        5.24    0.01  0.66     4.09     4.79     5.19     5.64
+scale_surface[3]        5.25    0.01  0.99     3.52     4.57     5.17     5.85
+scale_surface[4]        5.39    0.01  0.59     4.34     4.98     5.35     5.76
+intercept[1]           -4.91    0.00  0.19    -5.29    -5.04    -4.91    -4.78
+intercept[2]           -4.63    0.00  0.13    -4.88    -4.72    -4.63    -4.54
+intercept[3]           -5.09    0.00  0.12    -5.33    -5.17    -5.09    -5.01
+intercept[4]           -4.84    0.00  0.12    -5.08    -4.92    -4.84    -4.76
+b_depth[1]             -0.44    0.00  0.24    -0.94    -0.60    -0.43    -0.28
+b_depth[2]             -1.40    0.00  0.20    -1.81    -1.53    -1.39    -1.26
+b_depth[3]             -0.82    0.00  0.16    -1.15    -0.92    -0.81    -0.71
+b_depth[4]             -1.21    0.00  0.17    -1.56    -1.32    -1.20    -1.09
+sig_tube                0.42    0.00  0.06     0.30     0.37     0.42     0.46
+sigma[1]                1.95    0.00  0.13     1.72     1.86     1.95     2.04
+sigma[2]                1.76    0.00  0.07     1.63     1.71     1.76     1.81
+sigma[3]                1.99    0.00  0.08     1.84     1.93     1.99     2.04
+sigma[4]                1.25    0.00  0.05     1.16     1.22     1.25     1.29
+crop_tot[1]             1.30    0.00  0.49     0.74     1.00     1.19     1.47
+crop_tot[2]             8.79    0.06  6.17     2.86     4.99     7.10    10.55
+crop_tot[3]             1.57    0.01  0.48     0.96     1.25     1.46     1.77
+crop_tot[4]             4.20    0.02  2.01     1.90     2.88     3.70     4.95
+crop_tot_diff[1]        7.49    0.06  6.18     1.44     3.71     5.81     9.21
+crop_tot_diff[2]        0.27    0.01  0.68    -1.08    -0.07     0.26     0.61
+crop_tot_diff[3]        2.90    0.02  2.06     0.34     1.58     2.44     3.71
+crop_int_diff[1]        0.28    0.00  0.22    -0.16     0.13     0.28     0.43
+crop_int_diff[2]       -0.18    0.00  0.22    -0.62    -0.32    -0.18    -0.03
+crop_int_diff[3]        0.07    0.00  0.22    -0.38    -0.08     0.07     0.21
+crop_bdepth_diff[1]    -0.95    0.00  0.31    -1.57    -1.17    -0.96    -0.74
+crop_bdepth_diff[2]    -0.38    0.00  0.29    -0.94    -0.57    -0.38    -0.18
+crop_bdepth_diff[3]    -0.77    0.00  0.29    -1.33    -0.96    -0.77    -0.57
+lp__                -1847.06    0.18 10.10 -1867.51 -1853.71 -1846.89 -1840.13
+                       97.5% n_eff Rhat
+loc_detect             -5.47  4131    1
+scale_detect            0.77  3663    1
+loc_surface[1]         30.14 11516    1
+loc_surface[2]         32.42 14032    1
+loc_surface[3]         23.79 10915    1
+loc_surface[4]         30.76 13855    1
+scale_surface[1]       11.95 20000    1
+scale_surface[2]        6.69  7887    1
+scale_surface[3]        7.43 20000    1
+scale_surface[4]        6.66 11211    1
+intercept[1]           -4.52  7177    1
+intercept[2]           -4.36  6887    1
+intercept[3]           -4.85  6628    1
+intercept[4]           -4.60  5300    1
+b_depth[1]              0.00 13044    1
+b_depth[2]             -1.02  8211    1
+b_depth[3]             -0.53  9159    1
+b_depth[4]             -0.88  9170    1
+sig_tube                0.56  3909    1
+sigma[1]                2.23 20000    1
+sigma[2]                1.91 20000    1
+sigma[3]                2.15 20000    1
+sigma[4]                1.36 20000    1
+crop_tot[1]             2.49  9623    1
+crop_tot[2]            24.93  9119    1
+crop_tot[3]             2.79  9013    1
+crop_tot[4]             9.37  9154    1
+crop_tot_diff[1]       23.81  9162    1
+crop_tot_diff[2]        1.62  9630    1
+crop_tot_diff[3]        8.07  9241    1
+crop_int_diff[1]        0.73  6845    1
+crop_int_diff[2]        0.24  6912    1
+crop_int_diff[3]        0.50  6345    1
+crop_bdepth_diff[1]    -0.35  9823    1
+crop_bdepth_diff[2]     0.18 10970    1
+crop_bdepth_diff[3]    -0.18 11248    1
+lp__                -1827.82  2991    1
+
+Samples were drawn using NUTS(diag_e) at Mon Jul 18 19:24:01 2016.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+ The estimated Bayesian Fraction of Missing Information is a measure of
+ the efficiency of the sampler with values close to 1 being ideal.
+ For each chain, these estimates are
+ 0.6 0.7 0.6 0.6 0.6Inference for Stan model: mctd_foursurf.
+5 chains, each with iter=5000; warmup=1000; thin=1; 
+post-warmup draws per chain=4000, total post-warmup draws=20000.
+
+                      mean se_mean   sd  2.5%   25%   50%   75% 97.5% n_eff
+y_pred[1]             0.10    0.00 0.47  0.00  0.00  0.02  0.06  0.69 20000
+y_pred[15]            0.02    0.00 0.04  0.00  0.00  0.01  0.02  0.11 19609
+y_pred[28]            0.06    0.00 0.36  0.00  0.00  0.00  0.02  0.39 19637
+mu_pred[1]            1.21    0.01 0.99 -0.67  0.52  1.19  1.86  3.21  9387
+mu_pred[15]          -3.48    0.00 0.49 -4.43 -3.80 -3.48 -3.15 -2.49 14768
+mu_pred[28]          -4.71    0.00 0.49 -5.68 -5.03 -4.72 -4.39 -3.76 13795
+mu_obs_pred[1]       -3.93    0.00 0.60 -5.12 -4.33 -3.93 -3.53 -2.73 15238
+mu_obs_pred[15]      -4.78    0.00 0.46 -5.69 -5.08 -4.77 -4.47 -3.88 17372
+mu_obs_pred[28]      -4.77    0.00 0.48 -5.72 -5.08 -4.77 -4.45 -3.82 14379
+detect_odds_pred[1]   0.93    0.00 0.07  0.72  0.91  0.95  0.98  0.99 14419
+detect_odds_pred[15]  0.80    0.00 0.12  0.50  0.73  0.82  0.89  0.96 17576
+detect_odds_pred[28]  0.80    0.00 0.12  0.49  0.73  0.82  0.89  0.96 15301
+pred_tot[1]           9.74    0.09 8.94  2.10  4.56  7.25 11.70 32.31 11010
+                     Rhat
+y_pred[1]               1
+y_pred[15]              1
+y_pred[28]              1
+mu_pred[1]              1
+mu_pred[15]             1
+mu_pred[28]             1
+mu_obs_pred[1]          1
+mu_obs_pred[15]         1
+mu_obs_pred[28]         1
+detect_odds_pred[1]     1
+detect_odds_pred[15]    1
+detect_odds_pred[28]    1
+pred_tot[1]             1
+
+Samples were drawn using NUTS(diag_e) at Mon Jul 18 19:24:01 2016.
+For each parameter, n_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+ The estimated Bayesian Fraction of Missing Information is a measure of
+ the efficiency of the sampler with values close to 1 being ideal.
+ For each chain, these estimates are
+ 0.6 0.7 0.6 0.6 0.6[1] "mean of depth: 64.9721115537849"
+
+mean of log(nonzero root volume): -4.865198 
+
+RMSE of mu_obs vs log observed (zeroes excluded):  1.712086 
+RMSE/var:  0.5155988 
+
+ci_level: 0.8 (80% intervals)
+outer_level: 0.95 (95% intervals)
+ci_level: 0.8 (80% intervals)
+outer_level: 0.95 (95% intervals)
+ci_level: 0.8 (80% intervals)
+outer_level: 0.95 (95% intervals)
+ci_level: 0.8 (80% intervals)
+outer_level: 0.95 (95% intervals)
+ci_level: 0.8 (80% intervals)
+outer_level: 0.95 (95% intervals)
+ci_level: 0.8 (80% intervals)
+outer_level: 0.95 (95% intervals)
+ci_level: 0.8 (80% intervals)
+outer_level: 0.95 (95% intervals)
+Warning message:
+Removed 429 rows containing non-finite values (stat_smooth). 
+null device 
+          1 
+
+real	5m18.643s
+user	0m55.324s
+sys	0m5.056s
+Extracting fits
+Loading required package: ggplot2
+Loading required package: StanHeaders
+rstan (Version 2.10.1, packaged: 2016-06-24 13:22:16 UTC, GitRev: 85f7a56811da)
+For execution on a local, multicore CPU with excess RAM we recommend calling
+rstan_options(auto_write = TRUE)
+options(mc.cores = parallel::detectCores())
