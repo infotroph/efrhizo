@@ -1835,3 +1835,46 @@ Working on (finally!) adding Stan runs to main project Makefile. This will requi
 I think this now means the selected best-fitting Stan model (but none of the alternative models) is fully incorporated into the Makefile and will update automatically. Current full Stan run takes a bit over an hour on my laptop and produces roughly 770 MB of Rdata files, plus 51 MB of diagnostic PNGs -- do I want this in the Git repo? 
 
 I suspect I will want them saved eventually -- or at least I'll want to save *some* representation of the posterior samples -- but I think I'll punt on that for now. Added the summary figures and extracted CSV output to Git, will think more about when/how to add larger files.
+
+## 2016-07-19
+
+Committing an old experiment I've had lying around for a while: My calculation of total root volume takes the integral of expected root volume across the whole depth profile, in the form
+
+	```
+	integral[p,q](exp(a+b*log(x))) dx = exp(a) * (q^(b+1) - p^(b+1))/(b+1),
+	```
+
+which is undefined (division by zero) when b == -1. Since -1 is within the estimated range of b_depth in most fits, this generates occasional NaN warnings from the generated quantities block when the sampler hits within float error of 1.0. To avoid this, note that when b = -1 the integrand reduces to
+
+	```
+	exp(a + b*log(x))
+	= exp(a + -1*log(x))
+	= exp(a - log(x))
+	= exp(a) / exp(log(x))
+	= exp(a) / x
+	==> integral[p,q](exp(a)/x)) dx
+		= exp(a) * integral[p,q](1/x)) dx
+		= exp(a) * (log(q) - log(p)).
+	```
+
+Let's take this a step further and switch our integration starting point from 0.1 cm to 1 cm (= 0 on the log scale). Then log(p) is zero and this further simplifies to `exp(a) * log(q)`.
+
+Edited the generated quantities section of mctd_foursurf.stan to put both `crop_tot` and `pred_tot` inside if statements to compute the expectation as
+
+	```
+	crop_tot[c] <- exp(intercept[c] - b_depth[c]*depth_logmean) * log(depth_pred_max);
+	```
+
+for individual posterior draws where `b_depth == -1.0` and
+
+	```
+	crop_tot[c] <- exp(intercept[c] - b_depth[c]*depth_logmean)
+				* (pow(depth_pred_max, b_depth[c] + 1.0) - 1.0)
+				/ (b_depth[c] + 1.0);
+	```
+
+otherwise. Recall that `intercept[c] - b_depth[c]*depth_logmean` is just to recover the intercept from "expectation at mean depth" to "expectation at log(depth) = zero", i.e. 1 cm.
+
+Test runs confirm that the if statement itself makes no difference in inference: Most chains are binary indentical, as you'd hope given the NaNs were relatively rare in the first place. May slow runs down a tiny bit (6-8 seconds per chain in runs that take 3-5 minutes), but not enough to matter.
+
+Switching the integration start point DOES make a difference, though -- many fewer ridiculously-large total values when integrating from 1 cm than when integrating from 0.1 cm. This is a bit of a judgement call given that I'm fundamentally modeling a function that goes to infinity at zero, but 1 cm seems like the "most natural" cutoff. Keeping these changes.

@@ -140,13 +140,19 @@ generated quantities{
 
 	// integral of expected root volume 
 	// from surface to deepest predicted layer.
-	// Starting from depth=0.1 cm instead of 0 to stabilize estimates,
+	// Starting from depth=1 cm instead of 0 to stabilize estimates,
 	// otherwise they run to +/- infinity when b is near -1.
 	for(c in 1:C){
-		crop_tot[c] <- 
-			(exp(intercept[c] - b_depth[c]*depth_logmean)
-				* (depth_pred_max^(b_depth[c] + 1) - 0.1 * 0.1^b_depth[c]))
-			/ (b_depth[c] + 1);
+		if(b_depth[c] == -1.0){
+			// integral below gives NaN when b+1==0, but is equal to:
+			crop_tot[c] <- exp(intercept[c] - b_depth[c]*depth_logmean)
+			* log(depth_pred_max);
+		}else{
+			crop_tot[c] <-
+				exp(intercept[c] - b_depth[c]*depth_logmean)
+				* (pow(depth_pred_max, b_depth[c] + 1.0) - 1.0)
+				/ (b_depth[c] + 1.0);
+		}
 	}
 	
 	// Tests for differences between crops:
@@ -165,13 +171,18 @@ generated quantities{
 		// prediction offset for a random NEWLY OBSERVED tube.
 		b_tube_pred[t] <- normal_rng(0, sig_tube);
 
-		// total root volume in soil profile
-		pred_tot[t] <-
-			exp(intercept[tc]
-				- b_depth[tc]*depth_logmean
-				+ b_tube_pred[t])
-			* (depth_pred_max^(b_depth[tc]+1) - 0.1 * 0.1^b_depth[tc]) 
-			/ (b_depth[tc]+1);
+		// total root volume in soil profile (from 1 cm to deepest pred depth)
+		if(b_depth[tc] == -1.0){
+			// integral below gives NaN when b+1==0, but is equal to:
+			pred_tot[t] <-
+				exp(intercept[tc] - b_depth[tc]*depth_logmean + b_tube_pred[t])
+				* log(depth_pred_max);
+		}else{
+			pred_tot[t] <-
+				exp(intercept[tc] - b_depth[tc]*depth_logmean + b_tube_pred[t])
+				* (pow(depth_pred_max, b_depth[tc]+1) - 1)
+				/ (b_depth[tc]+1);
+		}
 	}
 
 	for(n in 1:N_pred){
