@@ -150,8 +150,8 @@ rz_mtd = stan(
 	chains=n_chains,
 	pars=savepars,
 	control=list(adapt_delta=0.99),
-	# sample_file=paste0(runname, "_samples.txt"),
-	# diagnostic_file=paste0(runname, "_info.txt"),
+	# sample_file=file.path(output_path, paste0(runname, "_samples.txt")),
+	# diagnostic_file=file.path(output_path, paste0(runname, "_info.txt")),
 	verbose=TRUE,
 	open_progress=FALSE)
 
