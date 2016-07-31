@@ -1,4 +1,4 @@
-Starting current_2010_s4 on  Sun Jul 31 16:36:40 UTC 2016
+Starting current_2010_s4 on  Sun Jul 31 22:23:48 UTC 2016
 Running mctd_foursurf.R for year  2010  session  4
 Loading required package: ggplot2
 Loading required package: StanHeaders
@@ -212,31 +212,6 @@ Prairie                    84      23
 80    4   130 Maize-Soybean
 
 TRANSLATING MODEL 'mctd_foursurf' FROM Stan CODE TO C++ CODE NOW.
-DIAGNOSTIC(S) FROM PARSER:
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-
 successful in parsing the Stan model 'mctd_foursurf'.
 
 CHECKING DATA AND PREPROCESSING FOR MODEL 'mctd_foursurf' NOW.
@@ -244,11 +219,11 @@ CHECKING DATA AND PREPROCESSING FOR MODEL 'mctd_foursurf' NOW.
 COMPILING MODEL 'mctd_foursurf' NOW.
 
 STARTING SAMPLER FOR MODEL 'mctd_foursurf' NOW.
-starting worker pid=26683 on localhost:11359 at 11:36:45.752
-starting worker pid=26691 on localhost:11359 at 11:36:45.968
-starting worker pid=26699 on localhost:11359 at 11:36:46.176
-starting worker pid=26707 on localhost:11359 at 11:36:46.391
-starting worker pid=26715 on localhost:11359 at 11:36:46.603
+starting worker pid=29398 on localhost:11786 at 17:23:53.730
+starting worker pid=29406 on localhost:11786 at 17:23:53.918
+starting worker pid=29414 on localhost:11786 at 17:23:54.117
+starting worker pid=29422 on localhost:11786 at 17:23:54.303
+starting worker pid=29430 on localhost:11786 at 17:23:54.495
 
 CHECKING DATA AND PREPROCESSING FOR MODEL 'mctd_foursurf' NOW.
 
@@ -304,10 +279,10 @@ Chain 2, Iteration: 1000 / 5000 [ 20%]  (Warmup)
 Chain 2, Iteration: 1001 / 5000 [ 20%]  (Sampling)
 Chain 1, Iteration: 1000 / 5000 [ 20%]  (Warmup)
 Chain 1, Iteration: 1001 / 5000 [ 20%]  (Sampling)
-Chain 3, Iteration: 1000 / 5000 [ 20%]  (Warmup)
-Chain 3, Iteration: 1001 / 5000 [ 20%]  (Sampling)
 Chain 4, Iteration: 1000 / 5000 [ 20%]  (Warmup)
 Chain 4, Iteration: 1001 / 5000 [ 20%]  (Sampling)
+Chain 3, Iteration: 1000 / 5000 [ 20%]  (Warmup)
+Chain 3, Iteration: 1001 / 5000 [ 20%]  (Sampling)
 Chain 5, Iteration: 1000 / 5000 [ 20%]  (Warmup)
 Chain 5, Iteration: 1001 / 5000 [ 20%]  (Sampling)
 Chain 2, Iteration: 1500 / 5000 [ 30%]  (Sampling)
@@ -317,38 +292,49 @@ Chain 3, Iteration: 1500 / 5000 [ 30%]  (Sampling)
 Chain 5, Iteration: 1500 / 5000 [ 30%]  (Sampling)
 Chain 2, Iteration: 2000 / 5000 [ 40%]  (Sampling)
 Chain 1, Iteration: 2000 / 5000 [ 40%]  (Sampling)
-Chain 3, Iteration: 2000 / 5000 [ 40%]  (Sampling)
 Chain 4, Iteration: 2000 / 5000 [ 40%]  (Sampling)
+Chain 3, Iteration: 2000 / 5000 [ 40%]  (Sampling)
 Chain 5, Iteration: 2000 / 5000 [ 40%]  (Sampling)
 Chain 2, Iteration: 2500 / 5000 [ 50%]  (Sampling)
 Chain 1, Iteration: 2500 / 5000 [ 50%]  (Sampling)
-Chain 3, Iteration: 2500 / 5000 [ 50%]  (Sampling)
 Chain 4, Iteration: 2500 / 5000 [ 50%]  (Sampling)
+Chain 3, Iteration: 2500 / 5000 [ 50%]  (Sampling)
 Chain 5, Iteration: 2500 / 5000 [ 50%]  (Sampling)
-Chain 2, Iteration: 3000 / 5000 [ 60%]  (Sampling)
 Chain 1, Iteration: 3000 / 5000 [ 60%]  (Sampling)
-Chain 3, Iteration: 3000 / 5000 [ 60%]  (Sampling)
+Chain 2, Iteration: 3000 / 5000 [ 60%]  (Sampling)
 Chain 4, Iteration: 3000 / 5000 [ 60%]  (Sampling)
+Chain 3, Iteration: 3000 / 5000 [ 60%]  (Sampling)
 Chain 5, Iteration: 3000 / 5000 [ 60%]  (Sampling)
-Chain 2, Iteration: 3500 / 5000 [ 70%]  (Sampling)
 Chain 1, Iteration: 3500 / 5000 [ 70%]  (Sampling)
-Chain 3, Iteration: 3500 / 5000 [ 70%]  (Sampling)
+Chain 2, Iteration: 3500 / 5000 [ 70%]  (Sampling)
 Chain 4, Iteration: 3500 / 5000 [ 70%]  (Sampling)
+Chain 3, Iteration: 3500 / 5000 [ 70%]  (Sampling)
 Chain 5, Iteration: 3500 / 5000 [ 70%]  (Sampling)
-Chain 2, Iteration: 4000 / 5000 [ 80%]  (Sampling)
 Chain 1, Iteration: 4000 / 5000 [ 80%]  (Sampling)
-Chain 3, Iteration: 4000 / 5000 [ 80%]  (Sampling)
+Chain 2, Iteration: 4000 / 5000 [ 80%]  (Sampling)
 Chain 4, Iteration: 4000 / 5000 [ 80%]  (Sampling)
+Chain 3, Iteration: 4000 / 5000 [ 80%]  (Sampling)
 Chain 5, Iteration: 4000 / 5000 [ 80%]  (Sampling)
-Chain 2, Iteration: 4500 / 5000 [ 90%]  (Sampling)
 Chain 1, Iteration: 4500 / 5000 [ 90%]  (Sampling)
-Chain 3, Iteration: 4500 / 5000 [ 90%]  (Sampling)
+Chain 2, Iteration: 4500 / 5000 [ 90%]  (Sampling)
 Chain 4, Iteration: 4500 / 5000 [ 90%]  (Sampling)
+Chain 3, Iteration: 4500 / 5000 [ 90%]  (Sampling)
 Chain 5, Iteration: 4500 / 5000 [ 90%]  (Sampling)
+Chain 1, Iteration: 5000 / 5000 [100%]  (Sampling)
+ Elapsed Time: 54.1623 seconds (Warm-up)
+               175.732 seconds (Sampling)
+               229.894 seconds (Total)
+
+The following numerical problems occured the indicated number of times after warmup on chain 1
+                                                                                            count
+Exception thrown at line 124: lognormal_log: Scale parameter[1] is inf, but must be finite!     7
+When a numerical problem occurs, the Hamiltonian proposal gets rejected.
+If the number in the 'count' column is small, do not ask about this message on stan-users.
+
 Chain 2, Iteration: 5000 / 5000 [100%]  (Sampling)
- Elapsed Time: 50.0317 seconds (Warm-up)
-               180.996 seconds (Sampling)
-               231.028 seconds (Total)
+ Elapsed Time: 52.5938 seconds (Warm-up)
+               177.411 seconds (Sampling)
+               230.005 seconds (Total)
 
 The following numerical problems occured the indicated number of times after warmup on chain 2
                                                                                              count
@@ -359,33 +345,10 @@ Exception thrown at line 124: lognormal_log: Scale parameter[4] is inf, but must
 When a numerical problem occurs, the Hamiltonian proposal gets rejected.
 If the number in the 'count' column is small, do not ask about this message on stan-users.
 
-Chain 1, Iteration: 5000 / 5000 [100%]  (Sampling)
- Elapsed Time: 51.8914 seconds (Warm-up)
-               179.997 seconds (Sampling)
-               231.888 seconds (Total)
-
-The following numerical problems occured the indicated number of times after warmup on chain 1
-                                                                                            count
-Exception thrown at line 124: lognormal_log: Scale parameter[1] is inf, but must be finite!     7
-When a numerical problem occurs, the Hamiltonian proposal gets rejected.
-If the number in the 'count' column is small, do not ask about this message on stan-users.
-
-Chain 3, Iteration: 5000 / 5000 [100%]  (Sampling)
- Elapsed Time: 56.0565 seconds (Warm-up)
-               179.296 seconds (Sampling)
-               235.352 seconds (Total)
-
-The following numerical problems occured the indicated number of times after warmup on chain 3
-                                                                                            count
-Exception thrown at line 124: lognormal_log: Scale parameter[4] is inf, but must be finite!     7
-Exception thrown at line 124: lognormal_log: Scale parameter[1] is 0, but must be > 0!          1
-When a numerical problem occurs, the Hamiltonian proposal gets rejected.
-If the number in the 'count' column is small, do not ask about this message on stan-users.
-
 Chain 4, Iteration: 5000 / 5000 [100%]  (Sampling)
- Elapsed Time: 55.6037 seconds (Warm-up)
-               179.173 seconds (Sampling)
-               234.777 seconds (Total)
+ Elapsed Time: 57.5805 seconds (Warm-up)
+               174.559 seconds (Sampling)
+               232.14 seconds (Total)
 
 The following numerical problems occured the indicated number of times after warmup on chain 4
                                                                                             count
@@ -396,10 +359,22 @@ Exception thrown at line 124: lognormal_log: Scale parameter[5] is inf, but must
 When a numerical problem occurs, the Hamiltonian proposal gets rejected.
 If the number in the 'count' column is small, do not ask about this message on stan-users.
 
+Chain 3, Iteration: 5000 / 5000 [100%]  (Sampling)
+ Elapsed Time: 58.2703 seconds (Warm-up)
+               175.163 seconds (Sampling)
+               233.434 seconds (Total)
+
+The following numerical problems occured the indicated number of times after warmup on chain 3
+                                                                                            count
+Exception thrown at line 124: lognormal_log: Scale parameter[4] is inf, but must be finite!     7
+Exception thrown at line 124: lognormal_log: Scale parameter[1] is 0, but must be > 0!          1
+When a numerical problem occurs, the Hamiltonian proposal gets rejected.
+If the number in the 'count' column is small, do not ask about this message on stan-users.
+
 Chain 5, Iteration: 5000 / 5000 [100%]  (Sampling)
- Elapsed Time: 61.2444 seconds (Warm-up)
-               175.883 seconds (Sampling)
-               237.127 seconds (Total)
+ Elapsed Time: 63.6685 seconds (Warm-up)
+               172.824 seconds (Sampling)
+               236.492 seconds (Total)
 
 The following numerical problems occured the indicated number of times after warmup on chain 5
                                                                                              count
@@ -490,7 +465,7 @@ crop_bdepth_diff[2]     0.16  8738    1
 crop_bdepth_diff[3]     0.02  8575    1
 lp__                -1852.82  2823    1
 
-Samples were drawn using NUTS(diag_e) at Sun Jul 31 11:40:52 2016.
+Samples were drawn using NUTS(diag_e) at Sun Jul 31 17:28:00 2016.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).
@@ -527,7 +502,7 @@ detect_odds_pred[15]    1
 detect_odds_pred[28]    1
 pred_tot[1]             1
 
-Samples were drawn using NUTS(diag_e) at Sun Jul 31 11:40:52 2016.
+Samples were drawn using NUTS(diag_e) at Sun Jul 31 17:28:00 2016.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).
@@ -559,9 +534,9 @@ Removed 697 rows containing non-finite values (stat_smooth).
 null device 
           1 
 
-real	5m4.529s
-user	0m52.994s
-sys	0m3.865s
+real	5m6.487s
+user	0m55.334s
+sys	0m3.931s
 Extracting fits
 Loading required package: ggplot2
 Loading required package: StanHeaders

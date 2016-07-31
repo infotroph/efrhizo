@@ -1,4 +1,4 @@
-Starting current_2013_s5 on  Sun Jul 31 17:44:14 UTC 2016
+Starting current_2013_s5 on  Sun Jul 31 23:38:32 UTC 2016
 Running mctd_foursurf.R for year  2013  session  5
 Loading required package: ggplot2
 Loading required package: StanHeaders
@@ -185,31 +185,6 @@ Prairie                    59      18
 80    4   130 Maize-Soybean
 
 TRANSLATING MODEL 'mctd_foursurf' FROM Stan CODE TO C++ CODE NOW.
-DIAGNOSTIC(S) FROM PARSER:
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-Warning (non-fatal): assignment operator <- deprecated in the Stan language; use = instead.
-
 successful in parsing the Stan model 'mctd_foursurf'.
 
 CHECKING DATA AND PREPROCESSING FOR MODEL 'mctd_foursurf' NOW.
@@ -217,11 +192,11 @@ CHECKING DATA AND PREPROCESSING FOR MODEL 'mctd_foursurf' NOW.
 COMPILING MODEL 'mctd_foursurf' NOW.
 
 STARTING SAMPLER FOR MODEL 'mctd_foursurf' NOW.
-starting worker pid=27551 on localhost:11871 at 12:44:19.442
-starting worker pid=27559 on localhost:11871 at 12:44:19.633
-starting worker pid=27567 on localhost:11871 at 12:44:19.821
-starting worker pid=27575 on localhost:11871 at 12:44:20.007
-starting worker pid=27583 on localhost:11871 at 12:44:20.198
+starting worker pid=30155 on localhost:11732 at 18:38:37.654
+starting worker pid=30163 on localhost:11732 at 18:38:37.850
+starting worker pid=30171 on localhost:11732 at 18:38:38.053
+starting worker pid=30179 on localhost:11732 at 18:38:38.254
+starting worker pid=30187 on localhost:11732 at 18:38:38.453
 
 CHECKING DATA AND PREPROCESSING FOR MODEL 'mctd_foursurf' NOW.
 
@@ -276,52 +251,52 @@ Chain 5, Iteration:  500 / 5000 [ 10%]  (Warmup)
 Chain 2, Iteration: 1000 / 5000 [ 20%]  (Warmup)
 Chain 2, Iteration: 1001 / 5000 [ 20%]  (Sampling)
 Chain 1, Iteration: 1000 / 5000 [ 20%]  (Warmup)
-Chain 4, Iteration: 1000 / 5000 [ 20%]  (Warmup)
 Chain 1, Iteration: 1001 / 5000 [ 20%]  (Sampling)
+Chain 4, Iteration: 1000 / 5000 [ 20%]  (Warmup)
 Chain 4, Iteration: 1001 / 5000 [ 20%]  (Sampling)
-Chain 3, Iteration: 1000 / 5000 [ 20%]  (Warmup)
-Chain 3, Iteration: 1001 / 5000 [ 20%]  (Sampling)
 Chain 5, Iteration: 1000 / 5000 [ 20%]  (Warmup)
 Chain 5, Iteration: 1001 / 5000 [ 20%]  (Sampling)
+Chain 3, Iteration: 1000 / 5000 [ 20%]  (Warmup)
+Chain 3, Iteration: 1001 / 5000 [ 20%]  (Sampling)
 Chain 2, Iteration: 1500 / 5000 [ 30%]  (Sampling)
 Chain 1, Iteration: 1500 / 5000 [ 30%]  (Sampling)
 Chain 4, Iteration: 1500 / 5000 [ 30%]  (Sampling)
-Chain 3, Iteration: 1500 / 5000 [ 30%]  (Sampling)
 Chain 5, Iteration: 1500 / 5000 [ 30%]  (Sampling)
+Chain 3, Iteration: 1500 / 5000 [ 30%]  (Sampling)
 Chain 2, Iteration: 2000 / 5000 [ 40%]  (Sampling)
 Chain 1, Iteration: 2000 / 5000 [ 40%]  (Sampling)
 Chain 4, Iteration: 2000 / 5000 [ 40%]  (Sampling)
-Chain 3, Iteration: 2000 / 5000 [ 40%]  (Sampling)
 Chain 5, Iteration: 2000 / 5000 [ 40%]  (Sampling)
+Chain 3, Iteration: 2000 / 5000 [ 40%]  (Sampling)
 Chain 2, Iteration: 2500 / 5000 [ 50%]  (Sampling)
 Chain 1, Iteration: 2500 / 5000 [ 50%]  (Sampling)
 Chain 4, Iteration: 2500 / 5000 [ 50%]  (Sampling)
-Chain 3, Iteration: 2500 / 5000 [ 50%]  (Sampling)
 Chain 5, Iteration: 2500 / 5000 [ 50%]  (Sampling)
+Chain 3, Iteration: 2500 / 5000 [ 50%]  (Sampling)
 Chain 2, Iteration: 3000 / 5000 [ 60%]  (Sampling)
 Chain 1, Iteration: 3000 / 5000 [ 60%]  (Sampling)
 Chain 4, Iteration: 3000 / 5000 [ 60%]  (Sampling)
-Chain 3, Iteration: 3000 / 5000 [ 60%]  (Sampling)
 Chain 5, Iteration: 3000 / 5000 [ 60%]  (Sampling)
+Chain 3, Iteration: 3000 / 5000 [ 60%]  (Sampling)
 Chain 2, Iteration: 3500 / 5000 [ 70%]  (Sampling)
 Chain 1, Iteration: 3500 / 5000 [ 70%]  (Sampling)
 Chain 4, Iteration: 3500 / 5000 [ 70%]  (Sampling)
-Chain 3, Iteration: 3500 / 5000 [ 70%]  (Sampling)
 Chain 5, Iteration: 3500 / 5000 [ 70%]  (Sampling)
+Chain 3, Iteration: 3500 / 5000 [ 70%]  (Sampling)
 Chain 2, Iteration: 4000 / 5000 [ 80%]  (Sampling)
 Chain 1, Iteration: 4000 / 5000 [ 80%]  (Sampling)
 Chain 4, Iteration: 4000 / 5000 [ 80%]  (Sampling)
-Chain 3, Iteration: 4000 / 5000 [ 80%]  (Sampling)
 Chain 5, Iteration: 4000 / 5000 [ 80%]  (Sampling)
+Chain 3, Iteration: 4000 / 5000 [ 80%]  (Sampling)
 Chain 2, Iteration: 4500 / 5000 [ 90%]  (Sampling)
 Chain 1, Iteration: 4500 / 5000 [ 90%]  (Sampling)
 Chain 4, Iteration: 4500 / 5000 [ 90%]  (Sampling)
 Chain 5, Iteration: 4500 / 5000 [ 90%]  (Sampling)
 Chain 3, Iteration: 4500 / 5000 [ 90%]  (Sampling)
 Chain 2, Iteration: 5000 / 5000 [100%]  (Sampling)
- Elapsed Time: 39.231 seconds (Warm-up)
-               128.509 seconds (Sampling)
-               167.74 seconds (Total)
+ Elapsed Time: 40.4611 seconds (Warm-up)
+               134.282 seconds (Sampling)
+               174.743 seconds (Total)
 
 The following numerical problems occured the indicated number of times after warmup on chain 2
                                                                                             count
@@ -332,9 +307,9 @@ When a numerical problem occurs, the Hamiltonian proposal gets rejected.
 If the number in the 'count' column is small, do not ask about this message on stan-users.
 
 Chain 1, Iteration: 5000 / 5000 [100%]  (Sampling)
- Elapsed Time: 40.0805 seconds (Warm-up)
-               129.057 seconds (Sampling)
-               169.137 seconds (Total)
+ Elapsed Time: 41.281 seconds (Warm-up)
+               135.674 seconds (Sampling)
+               176.955 seconds (Total)
 
 The following numerical problems occured the indicated number of times after warmup on chain 1
                                                                                             count
@@ -344,9 +319,9 @@ When a numerical problem occurs, the Hamiltonian proposal gets rejected.
 If the number in the 'count' column is small, do not ask about this message on stan-users.
 
 Chain 4, Iteration: 5000 / 5000 [100%]  (Sampling)
- Elapsed Time: 38.4983 seconds (Warm-up)
-               131.828 seconds (Sampling)
-               170.326 seconds (Total)
+ Elapsed Time: 39.7955 seconds (Warm-up)
+               138.806 seconds (Sampling)
+               178.601 seconds (Total)
 
 The following numerical problems occured the indicated number of times after warmup on chain 4
                                                                                             count
@@ -355,9 +330,9 @@ When a numerical problem occurs, the Hamiltonian proposal gets rejected.
 If the number in the 'count' column is small, do not ask about this message on stan-users.
 
 Chain 5, Iteration: 5000 / 5000 [100%]  (Sampling)
- Elapsed Time: 44.1029 seconds (Warm-up)
-               126.956 seconds (Sampling)
-               171.059 seconds (Total)
+ Elapsed Time: 44.8958 seconds (Warm-up)
+               134.227 seconds (Sampling)
+               179.123 seconds (Total)
 
 The following numerical problems occured the indicated number of times after warmup on chain 5
                                                                                             count
@@ -366,9 +341,9 @@ When a numerical problem occurs, the Hamiltonian proposal gets rejected.
 If the number in the 'count' column is small, do not ask about this message on stan-users.
 
 Chain 3, Iteration: 5000 / 5000 [100%]  (Sampling)
- Elapsed Time: 45.1751 seconds (Warm-up)
-               127.101 seconds (Sampling)
-               172.276 seconds (Total)
+ Elapsed Time: 46.3083 seconds (Warm-up)
+               134.376 seconds (Sampling)
+               180.684 seconds (Total)
 
 The following numerical problems occured the indicated number of times after warmup on chain 3
                                                                                             count
@@ -458,7 +433,7 @@ crop_bdepth_diff[2]     0.38  7643    1
 crop_bdepth_diff[3]     0.14  6720    1
 lp__                -1411.33  4309    1
 
-Samples were drawn using NUTS(diag_e) at Sun Jul 31 12:47:20 2016.
+Samples were drawn using NUTS(diag_e) at Sun Jul 31 18:41:46 2016.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).
@@ -495,7 +470,7 @@ detect_odds_pred[15]    1
 detect_odds_pred[28]    1
 pred_tot[1]             1
 
-Samples were drawn using NUTS(diag_e) at Sun Jul 31 12:47:20 2016.
+Samples were drawn using NUTS(diag_e) at Sun Jul 31 18:41:46 2016.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).
@@ -525,9 +500,9 @@ Removed 223 rows containing non-finite values (stat_smooth).
 null device 
           1 
 
-real	3m55.859s
-user	0m50.304s
-sys	0m3.736s
+real	4m5.823s
+user	0m52.247s
+sys	0m3.850s
 Extracting fits
 Loading required package: ggplot2
 Loading required package: StanHeaders

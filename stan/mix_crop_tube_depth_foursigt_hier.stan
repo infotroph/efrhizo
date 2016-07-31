@@ -50,15 +50,15 @@ transformed data{
 	real log_depth_centered[N];
 	real log_depth_pred_centered[N_pred];
 
-	depth_logmean <- log(mean(depth));
-	depth_pred_max <- max(depth_pred);
+	depth_logmean = log(mean(depth));
+	depth_pred_max = max(depth_pred);
 	for(n in 1:N){
-		tube_crop[tube[n]] <- crop[n];
-		log_depth_centered[n] <- log(depth[n]) - depth_logmean;
+		tube_crop[tube[n]] = crop[n];
+		log_depth_centered[n] = log(depth[n]) - depth_logmean;
 	}
 	for(n in 1:N_pred){
-		tube_crop_pred[tube_pred[n]] <- crop_pred[n];
-		log_depth_pred_centered[n] <- log(depth_pred[n]) - depth_logmean;
+		tube_crop_pred[tube_pred[n]] = crop_pred[n];
+		log_depth_pred_centered[n] = log(depth_pred[n]) - depth_logmean;
 	}
 
 }
@@ -96,16 +96,16 @@ transformed parameters{
 	for(n in 1:N){
 		// Note centered regression --
 		// intercept here is E[y] at mean depth, not surface!
-		mu[n] <- intercept[crop[n]]
+		mu[n] = intercept[crop[n]]
 			+ b_tube[tube[n]]
 			+ b_depth[crop[n]] * log_depth_centered[n];
-		mu_obs[n] <- mu[n]
+		mu_obs[n] = mu[n]
 			+ log_inv_logit((depth[n]-loc_surface)/scale_surface);
-		sig[n] <- sigma[crop[n]];
+		sig[n] = sigma[crop[n]];
 	}
 
 	// logistic regression for probability of detecting roots in a given image
-	detect_odds <- (mu_obs - loc_detect)/scale_detect;
+	detect_odds = (mu_obs - loc_detect)/scale_detect;
 }
 
 model{
@@ -147,7 +147,7 @@ generated quantities{
 	// Starting from depth=0.1 cm instead of 0 to stabilize estimates,
 	// otherwise they run to +/- infinity when b is near -1.
 	for(c in 1:C){
-		crop_tot[c] <- 
+		crop_tot[c] = 
 			(exp(intercept[c] - b_depth[c]*depth_logmean)
 				* (depth_pred_max^(b_depth[c] + 1) - 0.1 * 0.1^b_depth[c]))
 			/ (b_depth[c] + 1);
@@ -157,20 +157,20 @@ generated quantities{
 	// First expected total root volume, 
 	// then the parameters that contribute to it.
 	for(c in 2:C){
-		crop_tot_diff[c-1] <- crop_tot[c] - crop_tot[1];
-		crop_int_diff[c-1] <- intercept[c] - intercept[1];
-		crop_bdepth_diff[c-1] <- b_depth[c] - b_depth[1];
+		crop_tot_diff[c-1] = crop_tot[c] - crop_tot[1];
+		crop_int_diff[c-1] = intercept[c] - intercept[1];
+		crop_bdepth_diff[c-1] = b_depth[c] - b_depth[1];
 	}
 
 	for(t in 1:T_pred){
 		int tc;
-		tc <- tube_crop_pred[t];
+		tc = tube_crop_pred[t];
 
 		// prediction offset for a random NEWLY OBSERVED tube.
-		b_tube_pred[t] <- normal_rng(0, sig_tube[tc]);
+		b_tube_pred[t] = normal_rng(0, sig_tube[tc]);
 
 		// total root volume in soil profile
-		pred_tot[t] <-
+		pred_tot[t] =
 			exp(intercept[tc]
 				- b_depth[tc]*depth_logmean
 				+ b_tube_pred[t])
@@ -179,16 +179,16 @@ generated quantities{
 	}
 
 	for(n in 1:N_pred){
-		mu_pred[n] <-
+		mu_pred[n] =
 			intercept[crop_pred[n]]
 			+ b_tube_pred[tube_pred[n]]
 			+ b_depth[crop_pred[n]] * log_depth_pred_centered[n];
-		mu_obs_pred[n] <-
+		mu_obs_pred[n] =
 			mu_pred[n]
 			+ log_inv_logit((depth_pred[n]-loc_surface)/scale_surface);
 
-		detect_odds_pred[n] <- inv_logit((mu_obs_pred[n] - loc_detect)/scale_detect);
+		detect_odds_pred[n] = inv_logit((mu_obs_pred[n] - loc_detect)/scale_detect);
 
-		y_pred[n] <- lognormal_rng(mu_obs_pred[n], sigma[crop_pred[n]]) * bernoulli_rng(detect_odds_pred[n]);
+		y_pred[n] = lognormal_rng(mu_obs_pred[n], sigma[crop_pred[n]]) * bernoulli_rng(detect_odds_pred[n]);
 	}
 }

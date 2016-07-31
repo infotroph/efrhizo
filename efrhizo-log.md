@@ -1878,3 +1878,9 @@ otherwise. Recall that `intercept[c] - b_depth[c]*depth_logmean` is just to reco
 Test runs confirm that the if statement itself makes no difference in inference: Most chains are binary indentical, as you'd hope given the NaNs were relatively rare in the first place. May slow runs down a tiny bit (6-8 seconds per chain in runs that take 3-5 minutes), but not enough to matter.
 
 Switching the integration start point DOES make a difference, though -- many fewer ridiculously-large total values when integrating from 1 cm than when integrating from 0.1 cm. This is a bit of a judgement call given that I'm fundamentally modeling a function that goes to infinity at zero, but 1 cm seems like the "most natural" cutoff. Keeping these changes.
+
+## 2016-07-31
+
+Stan development team announces that Stan 2.10 contains a subtle bug that biases the HMC sampler and produces veeery subtly wrong distributions. They advise upgrading to Stan 2.11 immediately and not trusting any output from Stan 2.10. Reran all models and committed result, no other changes. 
+
+While I'm at it: the'<-' assignment operator is deprecated in favor of '=' since Stan 2.10. Changed it in all my Stan scripts and reran again.

@@ -32,16 +32,16 @@ transformed parameters {
 	vector[3] mu_mon; // monitor a few mu without storing all
 	vector[T] tube_intercept;
 
-	tube_intercept <- intercept + tube_offset * tube_sigma;
+	tube_intercept = intercept + tube_offset * tube_sigma;
 
 	for(n in 1:N){
-		mu[n] <- (
+		mu[n] = (
 			tube_intercept[tube_id[n]]
 			+ b_depth * (log(depth[n]) - log(50)));
 	}
-	mu_mon[1] <- mu[1];
-	mu_mon[2] <- mu[N/2]; // int division warning OK: just want some mu near middle.
-	mu_mon[3] <- mu[N];
+	mu_mon[1] = mu[1];
+	mu_mon[2] = mu[N/2]; // int division warning OK: just want some mu near middle.
+	mu_mon[3] = mu[N];
 }
 
 model {
@@ -61,11 +61,11 @@ generated quantities {
 	vector[Tp] tube_predoffset;
 
 	for(t in 1:Tp){
-		tube_predoffset[t] <- normal_rng(0, 1);
-		tube_predintercept[t] <- intercept + tube_predoffset[t] * tube_sigma;
+		tube_predoffset[t] = normal_rng(0, 1);
+		tube_predintercept[t] = intercept + tube_predoffset[t] * tube_sigma;
 	}
 	for(n in 1:Np){
-		mu_pred[n] <- tube_predintercept[tube_id_pred[n]] + b_depth * (log(depth_pred[n])-log(50));
-		y_pred[n] <- lognormal_rng(mu_pred[n], sigma);
+		mu_pred[n] = tube_predintercept[tube_id_pred[n]] + b_depth * (log(depth_pred[n])-log(50));
+		y_pred[n] = lognormal_rng(mu_pred[n], sigma);
 	}
 }

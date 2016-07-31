@@ -38,8 +38,8 @@ data{
 transformed data{
 	real depth_logmean;
 	real depth_pred_max;
-	depth_logmean <- log(mean(depth));
-	depth_pred_max <- max(depth_pred);
+	depth_logmean = log(mean(depth));
+	depth_pred_max = max(depth_pred);
 }
 
 parameters{
@@ -72,15 +72,15 @@ transformed parameters{
 	for(n in 1:N){
 		// Note centered regression --
 		// intercept here is E[y] at mean depth, not surface!
-		mu[n] <- intercept
+		mu[n] = intercept
 			+ b_tube[tube[n]]
 			+ b_depth*(log(depth[n]) - depth_logmean);
-		mu_obs[n] <- mu[n]
+		mu_obs[n] = mu[n]
 			+ log_inv_logit((depth[n]-loc_surface)/scale_surface);
 	}
 	// center means for logistic regression, too
-	mu_obs_mean <- mean(mu_obs);
-	detect_odds <- a_detect + b_detect*(mu_obs - mu_obs_mean);
+	mu_obs_mean = mean(mu_obs);
+	detect_odds = a_detect + b_detect*(mu_obs - mu_obs_mean);
 }
 
 model{
@@ -109,10 +109,10 @@ generated quantities{
 
 	for(t in 1:T_pred){
 		// prediction offset for a random NEWLY OBSERVED tube.
-		b_tube_pred[t] <- normal_rng(0, sig_tube);
+		b_tube_pred[t] = normal_rng(0, sig_tube);
 
 		// total root volume in soil profile
-		pred_tot[t] <-
+		pred_tot[t] =
 			exp(intercept
 				- b_depth*depth_logmean
 				+ b_tube_pred[t])
@@ -121,17 +121,17 @@ generated quantities{
 	}
 
 	for(n in 1:N_pred){
-		mu_pred[n] <-
+		mu_pred[n] =
 			intercept
 			+ b_tube_pred[tube_pred[n]]
 			+ b_depth * (log(depth_pred[n]) - depth_logmean);
-		mu_obs_pred[n] <-
+		mu_obs_pred[n] =
 			mu_pred[n]
 			+ log_inv_logit((depth_pred[n]-loc_surface)/scale_surface);
 
-		detect_odds_pred[n] <- inv_logit(
+		detect_odds_pred[n] = inv_logit(
 			a_detect + b_detect * (mu_obs_pred[n] - mu_obs_mean));
 
-		y_pred[n] <- lognormal_rng(mu_obs_pred[n], sigma) * bernoulli_rng(detect_odds_pred[n]);
+		y_pred[n] = lognormal_rng(mu_obs_pred[n], sigma) * bernoulli_rng(detect_odds_pred[n]);
 	}
 }
