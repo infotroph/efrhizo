@@ -9,7 +9,6 @@ raw.2012 = droplevels(raw.2012[raw.2012$Location %in% seq(5,120,5),])
 
 # Censor all images that were too low-quality to trace
 censor.2012 = read.csv("../data/2012/2012-censorframes.csv")
-	# TODO: 2012-censorframes is VERY incomplete, only covers first 1.5 sessions.
 censor.2012$date = as.Date(censor.2012$date)
 censor.2012 = censor.2012[order(censor.2012$date, censor.2012$tube, censor.2012$loc),]
 	# (sort is just for convenience when viewing manually. 
