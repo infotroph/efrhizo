@@ -185,7 +185,7 @@ data/stripped2010.csv: \
 		rawdata/censorframes2010.csv \
 		rawdata/censorimg2010.csv \
 		data/offset2010.csv
-	Rscript $^ data/stripped2010.csv >> tmp/2010-cleanup-log.txt
+	mkdir -p tmp && Rscript $^ data/stripped2010.csv >> tmp/2010-cleanup-log.txt
 
 data/stripped2011.csv: \
 		scripts/cleanup.r \
@@ -198,7 +198,7 @@ data/stripped2011.csv: \
 		rawdata/censorframes2011.csv \
 		"NULL" \
 		data/offset2011.csv \
-		data/stripped2011.csv >> tmp/2011-cleanup-log.txt
+		mkdir -p tmp && data/stripped2011.csv >> tmp/2011-cleanup-log.txt
 
 data/stripped2012.csv: \
 		scripts/cleanup.r \
@@ -211,7 +211,7 @@ data/stripped2012.csv: \
 		rawdata/censorframes2012.csv \
 		"NULL" \
 		data/offset2012.csv \
-		data/stripped2012.csv >> tmp/2012-cleanup-log.txt
+		mkdir -p tmp && data/stripped2012.csv >> tmp/2012-cleanup-log.txt
 
 data/stripped2013.csv: \
 		scripts/cleanup.r \
@@ -224,7 +224,7 @@ data/stripped2013.csv: \
 		rawdata/censorframes2013.csv \
 		"NULL" \
 		data/offset2013.csv \
-		data/stripped2013.csv >> tmp/2013-cleanup-log.txt
+		mkdir -p tmp && data/stripped2013.csv >> tmp/2013-cleanup-log.txt
 
 data/stripped2014.csv: \
 		scripts/cleanup.r \
@@ -237,7 +237,7 @@ data/stripped2014.csv: \
 		rawdata/censorframes2014.csv \
 		"NULL" \
 		data/offset2014.csv \
-		data/stripped2014.csv >> tmp/2014-cleanup-log.txt
+		mkdir -p tmp && data/stripped2014.csv >> tmp/2014-cleanup-log.txt
 
 data/stripped2014-destructive.csv: \
 		scripts/cleanup-destructive.r \
@@ -250,7 +250,7 @@ data/stripped2014-destructive.csv: \
 		rawdata/censorframes2014.csv \
 		"NULL" \
 		data/offset2014.csv \
-		data/stripped2014-destructive.csv >> tmp/2014-destructive-cleanup-log.txt 
+		mkdir -p tmp && data/stripped2014-destructive.csv >> tmp/2014-destructive-cleanup-log.txt 
 
 data/tractorcore.csv: \
 		$(RAWCORES) \
