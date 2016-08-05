@@ -35,6 +35,46 @@ stan: Scripts for hierarchical Bayesian inference on how root volume differs bet
 
 tmp: Things I don't intend to keep but am not deleting just yet, e.g. logged debugging output. This directory is ignored by git.
 
+
+Installing & running:
+
+To run the analysis scripts you'll need:
+
+* A working C compiler and UNIX toolchain with at least Bash, Make, sed, tr, and probably others. If you don't have these installed already, consult your favorite search engine or local expert.
+* R >=3.2, available from https://www.r-project.org
+* The following R packages and all their dependencies. To install them all at once, open an R session and issue these commands:
+the following commands:
+
+	install.packages(c("rstan", "dplyr", "viridis", "plotrix", "cowplot", "devtools")
+	library(devtools)
+	install_github("infotroph/efrhizo", subdir="scripts/rhizoFuncs/")
+	install_github("infotroph/DeLuciatoR")
+	install_github("infotroph/ggplotTicks")
+
+To rerun all my analyses: change directories into the root level of the project, type `make`, and walk away for at least an hour, or much longer if your computer has fewer than 5 CPU cores. The whole run takes ~100 minutes, mostly CPU-bound, on my 8-core mid-2015 Macbook Pro (2.2 GHz i7).
+
+To run individual components: See comments in scripts, usage in the Makefile, and, uh, probably ask me questions about the parts I forgot to document.
+
+The general shape of the data cleanup pipeline is as follows:
+
+	* Raw WinRhizo output lives in `rawdata/ef*.txt`, but beware that filename capitalization is not consistent.
+	* Remove measurements of individual roots and gather all whole-image totals into one file per year: `frametot_collect.sh`
+	* Calculate pixel<->mm calibration from stored WinRhizo calibration files (`rawdata/calibs*.CAL`): `slurpcals.sh`
+	* Estimate installation offsets (mm of tube projecting aboveground, needed to convert location-within-tube to depth-in-soil) for each day, using field measurements where available (`rawdata/tube_offsets/*.csv`) and the target installation offset of 22 cm where they are not: `estimate_offset.r`
+	* Strip out bad data as specified in manually-compiled censor list (`rawdata/censorframes*.csv`). Most of these are images that are too low-quality to trace confidently (blurry, dark, obstructed by mud in the tube, etc): `cleanup.r`
+	* Clean up and reshape data from the deep-coring experiment (rawdata/Tractor-Core*.csv): `tractorcore-cleanup.R`
+
+To fit Stan models to the clean rhizotron data:
+
+	* "clean" data lives in `data/stripped*.csv`, but always gets passed to yet another cleanup script... see below. TODO: Fix this.
+	* Each file in `stan/*.stan` defines one probability model for the distribution of root volume in the soil profile. When called with a particular dataset, Stan compiles this model into a working Hamiltonian Monte Carlo sampler and generates direct draws from the posterior distribution. The model presented in the manuscript is `mctd_foursurf.stan`.
+	* Each `*.stan` should have a matching `*.R` that is responsible for gathering data, passing it to Stan, running the sampler, printing some summary statistics to the log, and saving the resulting samples in an Rdata file.
+	* Every `*.R` script starts by calling `scripts/stat-prep.R`, which gathers all the clean rhizotron data into one data frame and does some minor re-shaping before passing it off to the run-specific script. This script ought to either do a lot more of what the run scripts do, or it ought to be folded into one of the upstream cleanup scripts.
+	* All the Bash scripts in `stan/*.sh` are simple wrappers to loop over each sampling session calling the appropriate R script that calls the appropriate Stan model. My analyses all use`mctd_foursurf.sh`.
+	* After running Stan, extract samples from the saved Rdata file and plot/analyze them as desired. I use `extractfits_mctd.R` and `plotfits_mctd.R` respectively; beware that these scripts are tightly coupled to the exact output format of the `mctd_foursurf` model, and it will probably be a pain to use them on any of the other models in the directory.
+	* I have run mctd_foursurf successfully using Stan 2.11 on OS X 10.11.6 and Amazon Linux AMI release 2016.03, but have not tested it in Windows. The other models appear to run well on my machine, but I haven't tested them cross-platform and I have no validated their output carefully. Consider them work in progress!
+	* Be sure to use Stan >= 2.11 -- Stan 2.9 and earlier didn't support the '=' assignment syntax, and 2.10 contained a nasty sampler bug.
+
 Questions? 
 Chris Black
 black11@illinois.edu or chris@ckblack.org or https://twitter.com/infotroph 

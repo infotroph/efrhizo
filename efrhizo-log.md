@@ -1884,3 +1884,9 @@ Switching the integration start point DOES make a difference, though -- many few
 Stan development team announces that Stan 2.10 contains a subtle bug that biases the HMC sampler and produces veeery subtly wrong distributions. They advise upgrading to Stan 2.11 immediately and not trusting any output from Stan 2.10. Reran all models and committed result, no other changes. 
 
 While I'm at it: the'<-' assignment operator is deprecated in favor of '=' since Stan 2.10. Changed it in all my Stan scripts and reran again.
+
+## 2016-08-05
+
+Updating install/run instructions per suggestions from David LeBauer: Have Make generate a tmp directory if it doesn't exist already, list all dependencies in README, document the steps of the analysis.
+
+Also, fixed some stray commas in `rawdata/censorframes2012.csv`.
