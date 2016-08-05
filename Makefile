@@ -193,12 +193,12 @@ data/stripped2011.csv: \
 		rawdata/censorframes2011.csv \
 		\
 		data/offset2011.csv
-	Rscript scripts/cleanup.r \
+	mkdir -p tmp && Rscript scripts/cleanup.r \
 		data/frametots2011.txt \
 		rawdata/censorframes2011.csv \
 		"NULL" \
 		data/offset2011.csv \
-		mkdir -p tmp && data/stripped2011.csv >> tmp/2011-cleanup-log.txt
+		data/stripped2011.csv >> tmp/2011-cleanup-log.txt
 
 data/stripped2012.csv: \
 		scripts/cleanup.r \
@@ -206,12 +206,12 @@ data/stripped2012.csv: \
 		rawdata/censorframes2012.csv \
 		\
 		data/offset2012.csv
-	Rscript scripts/cleanup.r \
+	mkdir -p tmp && Rscript scripts/cleanup.r \
 		data/frametots2012.txt \
 		rawdata/censorframes2012.csv \
 		"NULL" \
 		data/offset2012.csv \
-		mkdir -p tmp && data/stripped2012.csv >> tmp/2012-cleanup-log.txt
+		data/stripped2012.csv >> tmp/2012-cleanup-log.txt
 
 data/stripped2013.csv: \
 		scripts/cleanup.r \
@@ -219,12 +219,12 @@ data/stripped2013.csv: \
 		rawdata/censorframes2013.csv \
 		\
 		data/offset2013.csv
-	Rscript scripts/cleanup.r \
+	mkdir -p tmp && Rscript scripts/cleanup.r \
 		data/frametots2013.txt \
 		rawdata/censorframes2013.csv \
 		"NULL" \
 		data/offset2013.csv \
-		mkdir -p tmp && data/stripped2013.csv >> tmp/2013-cleanup-log.txt
+		data/stripped2013.csv >> tmp/2013-cleanup-log.txt
 
 data/stripped2014.csv: \
 		scripts/cleanup.r \
@@ -232,12 +232,12 @@ data/stripped2014.csv: \
 		rawdata/censorframes2014.csv \
 		\
 		data/offset2014.csv
-	Rscript scripts/cleanup.r \
+	mkdir -p tmp && Rscript scripts/cleanup.r \
 		data/frametots2014.txt \
 		rawdata/censorframes2014.csv \
 		"NULL" \
 		data/offset2014.csv \
-		mkdir -p tmp && data/stripped2014.csv >> tmp/2014-cleanup-log.txt
+		data/stripped2014.csv >> tmp/2014-cleanup-log.txt
 
 data/stripped2014-destructive.csv: \
 		scripts/cleanup-destructive.r \
@@ -245,12 +245,12 @@ data/stripped2014-destructive.csv: \
 		rawdata/censorframes2014.csv \
 		\
 		data/offset2014.csv
-	Rscript scripts/cleanup-destructive.r \
+	mkdir -p tmp && Rscript scripts/cleanup-destructive.r \
 		data/frametots2014.txt \
 		rawdata/censorframes2014.csv \
 		"NULL" \
 		data/offset2014.csv \
-		mkdir -p tmp && data/stripped2014-destructive.csv >> tmp/2014-destructive-cleanup-log.txt 
+		data/stripped2014-destructive.csv >> tmp/2014-destructive-cleanup-log.txt
 
 data/tractorcore.csv: \
 		$(RAWCORES) \
@@ -260,7 +260,7 @@ data/tractorcore.csv: \
 
 # Run Stan, extract fits, make some diagnostic plots.
 # Beware: Starts every run by deleting everything in data/stan!
-# TODO: Make this less monolithic so that it's possible to update incremenally.
+# TODO: Make this less monolithic so that it's possible to update incrementally.
 data/stan: \
 		stan/mctd_foursurf.sh \
 		stan/mctd_foursurf.R \
