@@ -63,8 +63,8 @@ Switch,2,61,2S1,2012-05-22,JNR,2013-10-03,JNR,05_22,,50,8,
 Switch,2,62,2S2,2012-05-22,JNR,2013-10-03,JNR,05_22,,85,10,
 Switch,2,63,2S3,2012-05-22,JNR,2013-10-03,JNR,05_22,,100,11,
 Switch,2,64,2S4,2012-05-22,JNR,2013-10-03,JNR,05_22,,40,5,
-Switch,3,65,3S1,2012-05-21,JNR,2014-03-14,CRS,05_21,,105,13,Already traced… is it in the right file?
-Switch,3,66,3S2,,JNR,,CRS,,,,,Already traced… is it in the right file?
+Switch,3,65,3S1,2012-05-21,JNR,2014-03-14,CRS,05_21,,105,13,Already traced-- is it in the right file?
+Switch,3,66,3S2,,JNR,,CRS,,,,,Already traced-- is it in the right file?
 Switch,3,67,3S3,,,,CRS,,,,,DNE
 Switch,3,68,3S4,2012-05-21,JNR,2014-03-14,CRS,,,95,10,
 Switch,4,69,4S1,2012-05-21,JNR,2013-10-09,JNR,05_21,,80,15,
