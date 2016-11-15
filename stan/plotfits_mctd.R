@@ -84,11 +84,11 @@ volume_expr = expression(paste("ln(", mm^3, " root ", mm^2, " image)"))
 # Root volume by depth
 peak_plot = mirror_ticks(
 	ggplot(predmu[paste(predmu$Year, predmu$Session) %in% peakstr,],
-		aes(depth, mean, fill=factor(Date), color=factor(Date)))
+		aes(x=depth, y=mean))
 	+facet_wrap(~Species)
-	+geom_line()
+	+geom_line(aes(color=factor(Date)))
  	+geom_ribbon(
-		aes(x=depth, y=mean, ymin=`25%`, ymax=`75%`),
+		aes(ymin=`25%`, ymax=`75%`, fill=factor(Date)),
  		alpha=0.3)
 	+coord_flip()
 	+scale_x_reverse()
@@ -114,11 +114,11 @@ ses10_plot = mirror_ticks(
 		%>% filter(predmu$Year == 2010)
 		%>% mutate(
 			Species = factor(Species, labels = sub("Maize-Soybean", "Soybean", levels(Species)))),
-		aes(depth, mean, fill=factor(Date), color=factor(Date)))
+		aes(x=depth, y=mean))
 	+facet_wrap(~Species)
-	+geom_line()
+	+geom_line(aes(color=factor(Date)))
  	+geom_ribbon(
- 		aes(x=depth, y=mean, ymin=`25%`, ymax=`75%`),
+		aes(ymin=`25%`, ymax=`75%`, fill=factor(Date)),
  		alpha=0.3)
 	+coord_flip()
 	+ylab(volume_expr)
@@ -136,11 +136,11 @@ ses12_plot = mirror_ticks(
 		%>% filter(predmu$Year == 2012)
 		%>% mutate(
 			Species = factor(Species, labels = sub("Maize-Soybean", "Maize", levels(Species)))),
-		aes(depth, mean, fill=factor(Date), color=factor(Date)))
+		aes(x=depth, y=mean))
 	+facet_wrap(~Species)
-	+geom_line()
+	+geom_line(aes(color=factor(Date)))
  	+geom_ribbon(
- 		aes(x=depth, y=mean, ymin=`25%`, ymax=`75%`),
+		aes(ymin=`25%`, ymax=`75%`, fill=factor(Date)),
  		alpha=0.3)
 	+coord_flip()
 	+scale_x_reverse()
