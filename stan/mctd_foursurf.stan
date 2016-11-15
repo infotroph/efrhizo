@@ -30,8 +30,6 @@ data{
 	int<lower=0, upper=1> y_logi[N]; // logical: is y > 0?
 	int<lower=0, upper=N> first_pos; // index of the first nonzero y value
 	int<lower=0, upper=N> n_pos;	// how many y are > 0?
-	int<lower=1, upper=T> crop_first_tube[C]; // Lowest tube number from each crop
-	int<lower=1, upper=T> crop_num_tubes[C]; // How many tubes from each crop
 
 	//Pseudodata for predictive check
 	int<lower=0> N_pred;
@@ -40,12 +38,29 @@ data{
 	int<lower=0, upper=C_pred> crop_pred[N_pred];
 	int<lower=0, upper=T_pred> tube_pred[N_pred];
 	real<lower=0> depth_pred[N_pred];
+
+	//Priors
+	real sig_tube_prior_m;
+	real<lower=0> sig_tube_prior_s;
+	real sigma_prior_m;
+	real<lower=0> sigma_prior_s;
+	real intercept_prior_m;
+	real<lower=0> intercept_prior_s;
+	real b_depth_prior_m;
+	real<lower=0> b_depth_prior_s;
+	real loc_surface_prior_m;
+	real<lower=0> loc_surface_prior_s;
+	real scale_surface_prior_m;
+	real<lower=0> scale_surface_prior_s;
+	real loc_detect_prior_m;
+	real<lower=0> loc_detect_prior_s;
+	real scale_detect_prior_m;
+	real<lower=0> scale_detect_prior_s;
 }
 
 transformed data{
 	real depth_logmean;
 	real depth_pred_max;
-	int<lower=1,upper=C> tube_crop[T];
 	int<lower=1,upper=C_pred> tube_crop_pred[T_pred];
 	real log_depth_centered[N];
 	real log_depth_pred_centered[N_pred];
@@ -53,7 +68,6 @@ transformed data{
 	depth_logmean = log(mean(depth));
 	depth_pred_max = max(depth_pred);
 	for(n in 1:N){
-		tube_crop[tube[n]] = crop[n];
 		log_depth_centered[n] = log(depth[n]) - depth_logmean;
 	}
 	for(n in 1:N_pred){
@@ -108,17 +122,15 @@ transformed parameters{
 
 model{
 	// Priors, mostly derived from assuming the range of log(y) is roughly -12 to 0.
-	sig_tube ~ normal(0, 3);
-	for(c in 1:C){
-		sigma[c] ~ normal(0, 3);
-		segment(b_tube, crop_first_tube[c], crop_num_tubes[c]) ~ normal(0, sig_tube);
-		intercept[c] ~ normal(-6, 6);
-		b_depth[c] ~ normal(-1, 5);
-		loc_surface[c] ~ normal(13, 10);
-		scale_surface[c] ~ normal(6, 5);
-	}
-	loc_detect ~ normal(-8, 10);
-	scale_detect ~ normal(0, 6);
+	sig_tube ~ normal(sig_tube_prior_m, sig_tube_prior_s);
+	b_tube ~ normal(0, sig_tube);
+	sigma ~ normal(sigma_prior_m, sigma_prior_s);
+	intercept ~ normal(intercept_prior_m, intercept_prior_s);
+	b_depth ~ normal(b_depth_prior_m, b_depth_prior_s);
+	loc_surface ~ normal(loc_surface_prior_m, loc_surface_prior_s);
+	scale_surface ~ normal(scale_surface_prior_m, scale_surface_prior_s);
+	loc_detect ~ normal(loc_detect_prior_m, loc_detect_prior_s);
+	scale_detect ~ normal(scale_detect_prior_m, scale_detect_prior_s);
 	
 	y_logi ~ bernoulli_logit(detect_odds);
 	segment(y, first_pos, n_pos) ~ lognormal(

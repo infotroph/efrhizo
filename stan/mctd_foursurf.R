@@ -75,6 +75,27 @@ plotpars_pred=c(
 	"detect_odds_pred[28]",
 	"pred_tot[1]")
 
+# Prior means/sds for model parameters
+# Distributions of all priors are (currently) modeled as normals.
+priors = list(
+	sig_tube_prior_m=0,
+	sig_tube_prior_s=3,
+	sigma_prior_m=0,
+	sigma_prior_s=3,
+	intercept_prior_m=-6,
+	intercept_prior_s=6,
+	b_depth_prior_m=-1,
+	b_depth_prior_s=5,
+	loc_surface_prior_m=13,
+	loc_surface_prior_s=10,
+	scale_surface_prior_m=6,
+	scale_surface_prior_s=5,
+	loc_detect_prior_m=-8,
+	loc_detect_prior_s=10,
+	scale_detect_prior_m=0,
+	scale_detect_prior_s=6
+)
+
 source("scripts/stat-prep.R") # creates data frame "strpall"
 strpall = strpall[strpall$Depth > 0,]
 
@@ -136,14 +157,28 @@ rz_mtd = stan(
 		y_logi=as.numeric(rzdat$rootvol.mm3.mm2 > 0),
 		first_pos=which(rzdat$rootvol.mm3.mm2 > 0)[1],
 		n_pos=length(which(rzdat$rootvol.mm3.mm2 > 0)),
-		crop_first_tube=cropkey$first_tube_alias,
-		crop_num_tubes=cropkey$n_tubes,
 		N_pred=nrow(rz_pred),
 		T_pred=length(unique(rz_pred$tube)),
 		C_pred=length(unique(rz_pred$Species)),
 		tube_pred=rz_pred$tube,
 		depth_pred=rz_pred$depth,
-		crop_pred=as.numeric(rz_pred$Species)),
+		crop_pred=as.numeric(rz_pred$Species),
+		sig_tube_prior_m=priors$sig_tube_prior_m,
+		sig_tube_prior_s=priors$sig_tube_prior_s,
+		sigma_prior_m=priors$sigma_prior_m,
+		sigma_prior_s=priors$sigma_prior_s,
+		intercept_prior_m=priors$intercept_prior_m,
+		intercept_prior_s=priors$intercept_prior_s,
+		b_depth_prior_m=priors$b_depth_prior_m,
+		b_depth_prior_s=priors$b_depth_prior_s,
+		loc_surface_prior_m=priors$loc_surface_prior_m,
+		loc_surface_prior_s=priors$loc_surface_prior_s,
+		scale_surface_prior_m=priors$loc_surface_prior_m,
+		scale_surface_prior_s=priors$loc_surface_prior_s,
+		loc_detect_prior_m=priors$loc_detect_prior_m,
+		loc_detect_prior_s=priors$loc_detect_prior_s,
+		scale_detect_prior_m=priors$scale_detect_prior_m,
+		scale_detect_prior_s=priors$scale_detect_prior_s),
 	file="stan/mctd_foursurf.stan",
 	iter=n_iters,
 	warmup=n_warm,
