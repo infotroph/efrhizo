@@ -190,7 +190,7 @@ rz_mtd = stan(
 	verbose=TRUE,
 	open_progress=FALSE)
 
-save(rz_mtd, rzdat, rz_pred, cropkey, file=file.path(output_path, paste0(runname, ".Rdata")))
+save(rz_mtd, rzdat, rz_pred, cropkey, priors, file=file.path(output_path, paste0(runname, ".Rdata")))
 warnings()
 stopifnot(rz_mtd@mode == 0) # 1 or 2 = error
 

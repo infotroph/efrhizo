@@ -1,4 +1,8 @@
 library(rstan)
+library(dplyr)
+# Called below without loading packages:
+# tidyr::extract
+# broom::tidyMCMC
 
 # usage: Rscript extractfits_mctd.R path/to/standata.Rdata, path/to/output_csv_dir/, [identifier_to_add_to_filenames]
 args=commandArgs(trailingOnly=TRUE)
@@ -21,7 +25,7 @@ extend_csv = function(x, file){
 	}
 }
 
-# Assumes the rdata file contains three objects:
+# Assumes the rdata file contains four objects:
 # rz_mtd, a stanfit object fit using mix_crop_tube_depth.stan
 #	Note the misnomer! Should arguably be called rz_mctd
 # rzdat, a dataframe containing the subset of raw data rows used for this fit
@@ -30,6 +34,7 @@ extend_csv = function(x, file){
 #	plus "tube_alias", which maps "Tube" from 1:96 to 1:(n_tubes_present_in_this_run).
 # rz_pred, a dataframe containing the pseudodata I used to generate predicted values.
 #	Contains columns "tube", "depth", "species".
+# priors, a named list of the means/sds passed to prior distributions this run.
 load(rdata_path)
 
 year = unique(rzdat$Year)
@@ -122,29 +127,43 @@ rz_pred_pdet$Year = year
 rz_pred_pdet$Session = session
 rz_pred_pdet$Date = sesdate
 
-parnames = c("loc_detect",
-	"scale_detect",
-	"loc_surface",
-	"scale_surface",
-	"sig_tube",
-	"intercept",
-	"b_depth",
-	"sigma",
-	"lp__")
-rz_pars = as.data.frame(summary(rz_mtd, pars=parnames)$summary)
-rz_pars$Year = year
-rz_pars$Session = session
-rz_pars$Date = sesdate
-rz_pars$Run_ID = label
-rz_pars$stan_name = rownames(rz_pars)
-rz_pars$parameter = rz_pars$stan_name
-for(i in 1:nrow(crop_id)){
-	rz_pars$parameter = sub(
-		pattern=crop_id$num[i],
-		replacement=crop_id$name[i],
-		x=rz_pars$parameter)
-}
+prior_df = (as.data.frame(priors)
+	%>% gather(key, value)
+	%>% extract(key, c("parameter", "key"), "(.*)_prior_(\\w)")
+	%>% mutate(key=recode(key, "m"="prior_mean", "s"="prior_sd"))
+	%>% spread(key, value))
 
+rz_pars = (
+	broom::tidyMCMC(
+		x=rz_mtd,
+		pars=prior_df$parameter,
+		conf.int=TRUE,
+		conf.level=0.95.
+		ess=TRUE,
+		rhat=TRUE)
+	%>% rename(conf_2.5=conf.low, conf_97.5=conf.high)
+	%>% left_join(broom::tidyMCMC(
+		x=rz_mtd,
+		pars=prior_df$parameter,
+		conf.int=TRUE,
+		conf.level=0.5.
+		ess=TRUE,
+		rhat=TRUE))
+	%>% rename(conf_25=conf.low, conf_75=conf.high)
+	%>% mutate( # identifiers for use after merging into bigger file
+		Year=year,
+		Session=session,
+		Date=sesdate,
+		Run_ID=label)
+	%>% tidyr::extract(# "vec_par[1]" -> (vec_par, 1), "scalar_par" -> (scalar_par, NA)
+		col=term,
+		into=c("parameter", "crop_num"),
+		regex="([^\\[]+)\\[?(\\d*)\\]?",
+		remove=FALSE,
+		convert=TRUE)
+	%>% left_join(cropkey %>% select(crop_num=num, crop_name=name))
+	%>% left_join(prior_df)
+)
 
 # Could just do get_posterior_mean(...)[,n_chains+1],
 # but this way works even if result has fewer columns than expected

@@ -1890,3 +1890,9 @@ While I'm at it: the'<-' assignment operator is deprecated in favor of '=' since
 Updating install/run instructions per suggestions from David LeBauer: Have Make generate a tmp directory if it doesn't exist already, list all dependencies in README, document the steps of the analysis.
 
 Also, fixed some stray commas in `rawdata/censorframes2012.csv`.
+
+## 2016-11-15
+
+Working toward a formal analysis of prior sensitivity. First step: rewrite to pass priors as data rather than hard-coding them in the model. While I'm at it, rewrote prior assignments that were within a loop over crops, e.g. `for(c in 1:C){b_depth[c] ~ normal(-1, 5);}` as vectors (`b_depth ~ normal(b_depth_prior_m, b_depth_prior_s)`). Last time I revisited these I was still confused by the sampling notation and thought I needed to assign them separately to make sure each crop's prior was "drawn separately from the distribution." To convince myself this was wrong, I had to consider the equivalent incrementation syntax, which is what Stan is doing under the hood: `target += normal_lpdf(b_depth | -1, 5)` makes it clear we're just computing a log density that depends only on the current value of b_depth.
+
+Edited extractfits.R to save prior list into same CSV as posterior parameter estimates. Used the change to refactor the rest of the parameter saving code -- now uses a dplyr pipeline for easier reshaping and stores crop and parameter names in separate columns. This should make it much easier to improve the parameter intervals figure (`stanfit-params.png`) when I get to that.
