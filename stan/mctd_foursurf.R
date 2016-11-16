@@ -116,7 +116,7 @@ tube_map$Tube_alias = seq_along(tube_map$Tube)
 rzdat=merge(rzdat, tube_map)
 print(dput(tube_map))
 
-rzdat = rzdat[order(rzdat$rootvol.mm3.mm2),]
+rzdat = rzdat[order(rzdat$rootvol.mm3.mm2, decreasing=TRUE),]
 
 print(paste("Using data from", sub_year, ", session", sub_session)) 
 print("Crop name-to-number key:")
@@ -154,9 +154,6 @@ rz_mtd = stan(
 		crop=as.numeric(rzdat$Species),
 		depth=rzdat$Depth,
 		y=rzdat$rootvol.mm3.mm2,
-		y_logi=as.numeric(rzdat$rootvol.mm3.mm2 > 0),
-		first_pos=which(rzdat$rootvol.mm3.mm2 > 0)[1],
-		n_pos=length(which(rzdat$rootvol.mm3.mm2 > 0)),
 		N_pred=nrow(rz_pred),
 		T_pred=length(unique(rz_pred$tube)),
 		C_pred=length(unique(rz_pred$Species)),
@@ -244,7 +241,8 @@ get_postmean_allchains = function(stanobj, ...){
 }
 rzdat$mu_obs_hat = get_postmean_allchains(rz_mtd, "mu_obs")
 rzdat$detect_odds_hat = get_postmean_allchains(rz_mtd, "detect_odds")
-rzdat$sig_hat = get_postmean_allchains(rz_mtd, "sig")
+# sigma is not separately estimated for each point -- use crop-level residuals.
+rzdat$sig_hat = get_postmean_allchains(rz_mtd, "sigma")[merge(rzdat, cropkey, by.x="Species", by.y="name")$num]
 
 rmse_log = with(
 	rzdat[rzdat$rootvol.mm3.mm2 > 0,],

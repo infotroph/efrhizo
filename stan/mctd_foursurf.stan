@@ -14,7 +14,8 @@ And mu is a function of crop, depth and tube identity
 mu_i ~ b_crop + b_tube_i + b_depth * log(depth)
 
 Data is arranged in long format ("database style"),
-and presorted by y so that all the zeros are in a contiguous block.
+and MUST be presorted with y decreasing,
+so that all observations where y==0 are in a contiguous block at the end of the data.
 Only the positive values are passed to the lognormal sampler,
 but zeroes still inform estimated mu through the detection probability.
 */
@@ -27,9 +28,6 @@ data{
 	int<lower=1, upper=C> crop[N]; // Be sure to check number<>crop mapping.
 	real<lower=0> depth[N];			// cm below surface within tube
 	vector<lower=0>[N] y; 			// DV: mm^3 root / mm^2 image area
-	int<lower=0, upper=1> y_logi[N]; // logical: is y > 0?
-	int<lower=0, upper=N> first_pos; // index of the first nonzero y value
-	int<lower=0, upper=N> n_pos;	// how many y are > 0?
 
 	//Pseudodata for predictive check
 	int<lower=0> N_pred;
@@ -64,12 +62,26 @@ transformed data{
 	int<lower=1,upper=C_pred> tube_crop_pred[T_pred];
 	real log_depth_centered[N];
 	real log_depth_pred_centered[N_pred];
+	int<lower=0, upper=1> y_logi[N]; // logical: is y > 0?
+	int<lower=0, upper=N> n_pos;	// how many y are > 0?
 
 	depth_logmean = log(mean(depth));
 	depth_pred_max = max(depth_pred);
+	n_pos = 0;
 	for(n in 1:N){
 		log_depth_centered[n] = log(depth[n]) - depth_logmean;
+		if (y[n] > 0){
+			y_logi[n] = 1;
+			n_pos = n;
+		} else {
+			y_logi[n] = 0;
+		}
 	}
+
+	if(sum(y_logi[(n_pos+1):N]) != 0 || sum(y_logi[1:n_pos]) != n_pos){
+		reject("all observations with y==0 must appear at the end of the dataset")
+	}
+
 	for(n in 1:N_pred){
 		tube_crop_pred[tube_pred[n]] = crop_pred[n];
 		log_depth_pred_centered[n] = log(depth_pred[n]) - depth_logmean;
@@ -103,7 +115,7 @@ transformed parameters{
 	vector[N] mu; // E[latent mean root volume]
 	vector[N] mu_obs; // E[OBSERVED root volume], including surface effect
 	vector[N] detect_odds;
-	vector<lower=0>[N] sig;
+	vector<lower=0>[n_pos] sig;
 
 	for(n in 1:N){
 		// Note centered regression --
@@ -113,7 +125,9 @@ transformed parameters{
 			+ b_depth[crop[n]] * log_depth_centered[n];
 		mu_obs[n] = mu[n]
 			+ log_inv_logit((depth[n]-loc_surface[crop[n]])/scale_surface[crop[n]]);
-		sig[n] = sigma[crop[n]];
+		if(n <= n_pos){
+			sig[n] = sigma[crop[n]];
+		}
 	}
 
 	// logistic regression for probability of detecting roots in a given image
@@ -133,9 +147,7 @@ model{
 	scale_detect ~ normal(scale_detect_prior_m, scale_detect_prior_s);
 	
 	y_logi ~ bernoulli_logit(detect_odds);
-	segment(y, first_pos, n_pos) ~ lognormal(
-		segment(mu_obs, first_pos, n_pos), 
-		segment(sig, first_pos, n_pos));
+	segment(y, 1, n_pos) ~ lognormal(segment(mu_obs, 1, n_pos), sig);
 }
 
 generated quantities{

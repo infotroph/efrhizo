@@ -175,7 +175,8 @@ get_postmean_allchains = function(stanobj, ...){
 rzdat$mu_hat = get_postmean_allchains(rz_mtd, "mu")
 rzdat$mu_obs_hat = get_postmean_allchains(rz_mtd, "mu_obs")
 rzdat$detect_odds_hat = get_postmean_allchains(rz_mtd, "detect_odds")
-rzdat$sig_hat = get_postmean_allchains(rz_mtd, "sig")
+# sigma is not separately estimated for each point -- use crop-level residuals.
+rzdat$sig_hat = get_postmean_allchains(rz_mtd, "sigma")[merge(rzdat, cropkey, by.x="Species", by.y="name")$num]
 
 fit_stats = with(
 	rzdat[rzdat$rootvol.mm3.mm2 > 0,],
