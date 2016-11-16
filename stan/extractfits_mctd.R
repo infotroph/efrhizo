@@ -1,7 +1,7 @@
 library(rstan)
 library(dplyr)
 # Called below without loading packages:
-# tidyr::extract
+# tidyr::extract, tidyr::gather, tidyr::spread
 # broom::tidyMCMC
 
 # usage: Rscript extractfits_mctd.R path/to/standata.Rdata, path/to/output_csv_dir/, [identifier_to_add_to_filenames]
@@ -128,17 +128,17 @@ rz_pred_pdet$Session = session
 rz_pred_pdet$Date = sesdate
 
 prior_df = (as.data.frame(priors)
-	%>% gather(key, value)
-	%>% extract(key, c("parameter", "key"), "(.*)_prior_(\\w)")
+	%>% tidyr::gather(key, value)
+	%>% tidyr::extract(key, c("parameter", "key"), "(.*)_prior_(\\w)")
 	%>% mutate(key=recode(key, "m"="prior_mean", "s"="prior_sd"))
-	%>% spread(key, value))
+	%>% tidyr::spread(key, value))
 
 rz_pars = (
 	broom::tidyMCMC(
 		x=rz_mtd,
 		pars=prior_df$parameter,
 		conf.int=TRUE,
-		conf.level=0.95.
+		conf.level=0.95,
 		ess=TRUE,
 		rhat=TRUE)
 	%>% rename(conf_2.5=conf.low, conf_97.5=conf.high)
@@ -146,7 +146,7 @@ rz_pars = (
 		x=rz_mtd,
 		pars=prior_df$parameter,
 		conf.int=TRUE,
-		conf.level=0.5.
+		conf.level=0.5,
 		ess=TRUE,
 		rhat=TRUE))
 	%>% rename(conf_25=conf.low, conf_75=conf.high)
