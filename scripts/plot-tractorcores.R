@@ -109,7 +109,7 @@ levels(core_avg$Upper) = list(
 	"50-100"="50",
 	"100+"="100")
 
-coreline_root = (
+coreline = (
 	ggplot(core_avg, aes(
 		x=Midpoint,
 		xmax=Midpoint+Midpoint_se,
@@ -118,47 +118,34 @@ coreline_root = (
 		ymax=Biomass_root_mg_cm3+Biomass_root_mg_cm3_se,
 		ymin=Biomass_root_mg_cm3-Biomass_root_mg_cm3_se,
 		shape=Treatment))
+	+ geom_point(
+		aes(y=Biomass_mg_cm3),
+		size=3)
+	+ geom_errorbar(
+		aes(
+			y=Biomass_mg_cm3,
+			ymax=Biomass_mg_cm3+Biomass_mg_cm3_se,
+			ymin=Biomass_mg_cm3-Biomass_mg_cm3_se),
+		width=4)
+	+ geom_line(aes(y=Biomass_mg_cm3, linetype="Roots+rhizomes"))
 	+ geom_point(size=3)
 	+ geom_errorbar(width=4)
-	+ geom_line()
+	+ geom_line(aes(linetype="Roots"))
 	+ facet_wrap(~Year)
 	+ scale_x_reverse()
 	+ coord_flip()
 	+ theme_ggEHD(18)
 	+ theme(
 		aspect.ratio=1.5,
-		legend.position=c(0.8,0.25),
+		legend.position=c(0.8,0.4),
 		legend.key=element_blank(),
 		legend.title=element_blank())
-	+ ylab(expression(paste("Root biomass (mg ", cm^-3, ")")))
+	+ ylab(expression(paste("Biomass (mg ", cm^-3, ")")))
 	+ xlab("Depth (cm)")
 	+ scale_shape_manual(
 		values=c(Maize=21, Miscanthus=22, Prairie=23, Switchgrass=24))
-)
-
-coreline_rootrhizo = (
-	ggplot(core_avg, aes(
-		x=Midpoint,
-		xmax=Midpoint+Midpoint_se,
-		xmin=Midpoint-Midpoint_se,
-		y=Biomass_mg_cm3,
-		ymax=Biomass_mg_cm3+Biomass_mg_cm3_se,
-		ymin=Biomass_mg_cm3-Biomass_mg_cm3_se,
-		shape=Treatment))
-	+ geom_point(size=3)
-	+ geom_errorbar(width=4)
-	+ geom_line()
-	+ facet_wrap(~Year)
-	+ scale_x_reverse()
-	+ coord_flip()
-	+ theme_ggEHD(18)
-	+ theme(
-		aspect.ratio=1.5,
-		legend.position="none")
-	+ ylab(expression(paste("Root + rhizome biomass (mg ", cm^-3, ")")))
-	+ xlab("Depth (cm)")
-	+ scale_shape_manual(
-		values=c(Maize=21, Miscanthus=22, Prairie=23, Switchgrass=24))
+	+ scale_linetype_manual(
+		values=c("Roots"="solid", "Roots+rhizomes"="dashed"))
 )
 
 corebars_root = (
@@ -266,15 +253,10 @@ corebars_rootrhizo_mass = (
 # note plain ggsave instead of ggsave_fitmax --
 # get_dims doesn't understand plot_grid output,
 # so compute sizes here for each subfigure and sum them.
-dim_lr = get_dims(coreline_root, maxheight=9, maxwidth=6.5)
-dim_lrr = get_dims(coreline_rootrhizo, maxheight=9, maxwidth=6.5)
 dim_br = get_dims(corebars_root, maxheight=9, maxwidth=6.5)
 dim_brr = get_dims(corebars_rootrhizo, maxheight=9, maxwidth=6.5)
 dim_brm = get_dims(corebars_root_mass, maxheight=9, maxwidth=6.5)
 dim_brrm = get_dims(corebars_rootrhizo_mass, maxheight=9, maxwidth=6.5)
-lbardims = list(
-	height = dim_lr$height + dim_lrr$height,
-	width = max(dim_lr$width, dim_lrr$width))
 bbardims = list(
 	height = dim_br$height + dim_brr$height,
 	width = max(dim_br$width, dim_brr$width))
@@ -282,20 +264,11 @@ bbarmdims = list(
 	height = dim_brm$height + dim_brrm$height,
 	width = max(dim_brm$width, dim_brrm$width))
 
-ggsave(
+ggsave_fitmax(
 	"figures/tractorcore-exp.png",
-	plot_grid(
-		ggplotGrob(mirror_ticks(coreline_root)),
-		ggplotGrob(mirror_ticks(coreline_rootrhizo)),
-		ncol=1,
-		align="v",
-		rel_heights=c(dim_lr$height, dim_lrr$height),
-		labels="auto",
-		label_size=24,
-		hjust=-2,
-		vjust=2),
-	height=lbardims$height,
-	width=lbardims$width,
+	ggplotGrob(mirror_ticks(coreline)),
+	maxheight=9,
+	maxwidth=6.5,
 	dpi=300)
 ggsave(
 	filename="figures/tractorcore-bars.png",
