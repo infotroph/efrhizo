@@ -1899,3 +1899,6 @@ Edited extractfits.R to save prior list into same CSV as posterior parameter est
 
 Changed model to reduce unused variables by editing Stan code from assuming ascending order (all zeros at the beginning) to assuming descending order (all zeros at the end) and therefore not storing `sig` for zero values. Also now generating `y_logi` and `n_pos` in transformed data block -- no need to pass them as data. Appears to give about a 20% speedup on 2010 data, but did not rerun for all days yet.
 
+## 2016-11-20
+
+Changing strategies for model-vs-tractorcore plot. Since predicted values in `predmu.csv` are not block-specific, better to take expected values from individual images in `obs_vs_pred.csv` and average them by block and depth range. This will ignore simulation uncertainty (especially since I extract individual `mu_hat`  using rstan's `get_posterior_mean` function and do not track their full posterior distribution), but should capture the block effects, as encoded in variability between tubes, and lets me regress obs vs pred on more than five data points in each crop/year. 

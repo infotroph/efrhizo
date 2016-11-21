@@ -326,7 +326,7 @@ figures/stan-vs-cores.png: \
 		data/stan/predmu_current.csv \
 		data/tractorcore.csv
 	Rscript scripts/plot-stan-vs-core.R \
-	data/stan/predmu_current.csv \
+	data/stan/obs_vs_pred_current.csv \
 	data/tractorcore.csv \
 	figures/stan-vs-cores.png
 

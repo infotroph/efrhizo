@@ -3,19 +3,13 @@ library("dplyr")
 library("DeLuciatoR")
 library("ggplotTicks")
 library("viridis")
-se = plotrix::std.error
 
 # Expects three arguments:
-# 1. path to predmu_<modelname>.csv, containing predictions from at least S4 2011 and S2 2014
+# 1. path to obs_vs_pred_<modelname>.csv, containing predictions from at least S4 2011 and S2 2014
 # 2. path to tractorcore.csv, containing *only* those sessions,
 # 3. path for output PNG
 # ... But it doesn't check that for you, so be warned :(
 stanpaths = commandArgs(trailingOnly=TRUE)
-stanpred = (
-	read.csv(stanpaths[[1]])
-	%>% filter((Year == 2011 & Session == 4) | (Year == 2014 & Session == 2)))
-
-coredata = read.csv(stanpaths[[2]])
 
 # Assumed root tissue densities. These are VERY crudely estimated,
 # from a pretty token survey of the literature!
@@ -36,10 +30,14 @@ root_tissue_density = c(
 # Units: mm
 depth_of_view = 0.78
 
-x_label = expression(Depth~"("~ln~cm~")")
-y_label = expression(Root~biomass~"("~ln~g~cm^-3~")")
+x_label = expression(Root~biomass~"("~ln~g~cm^-3~")")
+y_label = expression(Root~volume~"("~ln~mm^3~mm^-2~")")
 
-stanpred = (stanpred
+depth_cuts=c(0,10,30,50,100)
+
+stanpred = (
+	read.csv(stanpaths[[1]])
+	%>% filter((Year == 2011 & Session == 4) | (Year == 2014 & Session == 2))
 	%>% mutate(
 		Crop = c(
 			"Maize-Soybean"="Maize",
@@ -48,68 +46,68 @@ stanpred = (stanpred
 			"Prairie"="Prairie")[as.character(Species)],
 		rtd = root_tissue_density[as.character(Crop)],
 		dov = depth_of_view,
-		adjmean = mean - log(dov) + log(rtd), # = mean/dov*rtd on unit scale
-		adj25 = X25. - log(dov) + log(rtd),
-		adj75 = X75. - log(dov) + log(rtd),
-		adj2.5 = X2.5. - log(dov) + log(rtd),
-		adj97.5 = X97.5. - log(dov) + log(rtd),
-		source="Minirhizotron"))
+		Upper=as.numeric(as.character(cut(
+			x=Depth,
+			breaks=c(depth_cuts, Inf),
+			labels=depth_cuts))))
+	%>% select(-Species, -Tube, -Date, -Session)
+	%>% group_by(Upper, Year, Crop, Block)
+	%>% summarize_each(funs(mean, sd))
+	%>% mutate(
+			mu_hat_2.5 = mu_hat_mean-1.96*mu_hat_sd,
+			mu_hat_97.5 = mu_hat_mean+1.96*mu_hat_sd))
 
-core_blocks = (coredata
-	%>% group_by(Year, Treatment, Upper, Block)
-	%>% summarize_each(
-		funs(mean(., na.rm=TRUE), se(., na.rm=TRUE)),
-		Biomass_g_cm3,
-		Biomass_g_m2,
-		Biomass_root_g_cm3,
-		Biomass_root_g_m2,
-		Midpoint)
-	%>% rename(
-		Depth=Midpoint_mean,
-		Depth_se=Midpoint_se,
-		Crop=Treatment)
-	%>% mutate(source="Soil cores"))
+core_logmeans = (
+	read.csv(stanpaths[[2]])
+	%>% rename(Crop=Treatment)
+	%>% group_by(Year, Crop, Upper, Block)
+	%>% summarize(
+		rootmass=mean(log(Biomass_root_g_cm3), na.rm=TRUE),
+		rootmass_sd=sd(log(Biomass_root_g_cm3), na.rm=TRUE))
+	%>% mutate(
+		rootmass_2.5=rootmass-1.96*rootmass_sd,
+		rootmass_97.5=rootmass+1.96*rootmass_sd))
 
-plt = (ggplot(core_blocks,
+both = (
+	core_logmeans
+	%>% left_join(stanpred)
+	%>% na.omit()) # rhizo data are missing 2014 maize blocks 1-4
+
+plt = (ggplot(both,
 		aes(
-			x=log(Depth),
-			y=log(Biomass_root_g_cm3_mean),
-			fill=source,
-			color=source,
-			shape=source))
+			x=rootmass,
+			y=mu_hat_mean,
+			color=factor(Year)))
+	+ geom_errorbar(aes(ymin=mu_hat_2.5, ymax=mu_hat_97.5))
+	+ geom_errorbarh(aes(xmin=rootmass_2.5, xmax=rootmass_97.5))
 	+ geom_point()
-	+ geom_ribbon(
-		data=stanpred,
-		aes(x=log(depth),
-			y=adjmean,
-			ymin=adj2.5,
-			ymax=adj97.5),
-		colour=NA,
-		alpha=0.3)
-	+ geom_point(
-		data = stanpred,
-		aes(log(depth), adjmean))
-	+ geom_line(
-		data = stanpred,
-		aes(log(depth), adjmean))
 	+ geom_smooth(
 		method="lm",
-		# color="black",
 		show.legend=FALSE)
-	+ facet_grid(Crop~Year)
-	+ coord_flip()
-	+ scale_x_reverse()
+	+ facet_wrap(~Crop)
+	+ geom_abline(
+		aes(intercept=log(dov_mean)-log(rtd_mean),
+			slope=1,
+			linetype="expected"))
 	+ ylab(y_label)
 	+ xlab(x_label)
-	+ scale_fill_viridis(discrete=TRUE, begin=0, end=0.8)
-	+ scale_color_viridis(discrete=TRUE, begin=0, end=0.8)
+	+ scale_color_grey()
+	+ scale_linetype_manual(
+		name="",
+		values=c("expected"="dashed"),
+		labels=c("expected"="Expected"))
+	+ scale_y_continuous(sec.axis = dup_axis(name=NULL, labels=NULL))
+	+ scale_x_continuous(sec.axis = dup_axis(name=NULL, labels=NULL))
 	+ theme_ggEHD(16)
 	+ theme(
 		aspect.ratio=1,
-		legend.position=c(0.55, 0.7),
+		legend.position=c(0.15, 0.9),
+		legend.margin=margin(0, 0, 0, 0, "cm"),
+		legend.spacing=unit(0, "cm"),
 		legend.title=element_blank(),
 		legend.key=element_blank(),
-		strip.background=element_blank()))
+		strip.background=element_blank(),
+		strip.placement="outside"))
 
 ggsave_fitmax(
 	mirror_ticks(plt),
