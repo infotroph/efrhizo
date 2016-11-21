@@ -44,7 +44,7 @@ param_csvs = list.files(
 	path=csv_path,
 	pattern="params.*.csv",
 	full.names=TRUE)
-param_ests = lapply(param_csvs, read.csv, check.names=FALSE)
+param_ests = lapply(param_csvs, read.csv, check.names=FALSE, stringsAsFactors=FALSE)
 
 param_ests = do.call("rbind", param_ests)
 param_ests$Date = as.Date(param_ests$Date)
@@ -72,6 +72,21 @@ predmu$Species=reorder(
 croptot$name=reorder(
 	croptot$name,
 	match(croptot$name, c("Maize-Soybean", "Switchgrass", "Miscanthus", "Prairie")))
+
+# User-friendly names for parameters.
+# TODO: Read this in from an authoritative source instead of hard-coing,
+# so it stops going out of date when the model changes!
+param_symbols = c(
+	"b_depth"="atop(beta^depth, ln~mm^3~mm^-2~ln~cm^-1)",
+	"intercept"="atop(alpha, ln~mm^3~mm^-2)",
+	"loc_surface"="atop(alpha^surface, cm)",
+	"scale_surface"="atop(beta^surface, Delta~odds~cm^-1)",
+	"sigma"="atop(sigma, ln~mm^3~mm^-2)",
+	"loc_detect"="atop(alpha^detect, cm)",
+	"scale_detect"="atop(beta^detect, Delta~odds~ln~mm^3~mm^-2)",
+	"sig_tube"="atop(sigma^tube, ln~mm^3~mm^-2)")
+
+param_ests$symbol_expr = param_symbols[param_ests$parameter]
 
 # To identify which sessions were midsummer "peak biomass" samplings 
 peak = data.frame(
@@ -187,28 +202,72 @@ ggsave_fitmax(
 	maxwidth=12,
 	units="in")
 
-params_plot = mirror_ticks(
+params_plot_crop = (
 	ggplot(
-		param_ests[param_ests$parameter != "lp__",], 
+		param_ests %>% filter(!is.na(crop_name)),
 		aes(
 			Date,
-			mean,
-			ymin=`2.5%`,
-			ymax=`97.5%`,
-			color=factor(Year)))
-	+facet_wrap(~parameter, scales="free_y")
+			estimate,
+			ymin=conf_2.5,
+			ymax=conf_97.5,
+			color="posterior"))
+	+facet_grid(
+		symbol_expr~crop_name,
+		scales="free_y",
+		switch="y",
+		labeller=label_parsed)
+	+geom_pointrange(
+		aes(
+			x=min(Date)-60,
+			y=prior_mean,
+			# scale params are constrained positive,
+			# so CI should not extend below 0
+			ymin=if_else(grepl("sig|scale", parameter), pmax(prior_mean-1.96*prior_sd, 0) , prior_mean-1.96*prior_sd),
+			ymax=prior_mean+1.96*prior_sd,
+			color="prior"),
+		position=position_dodge(width=7))
 	+geom_pointrange(position=position_dodge(width=7), fatten=1)
-	+theme_ggEHD(10	)
+	+scale_color_manual(
+		values=c("prior"="grey", "posterior"="black"),
+		labels=c("prior"="Prior", "posterior"="Posterior"))
+	+theme_ggEHD(14)
 	+theme(
-		legend.position=c(0.7, 0.07),
-		legend.title=element_blank())
-	+labs(
-		title="posterior estimates (mean ± 95% interval)",
-		x="",
-		y=""),
-	allPanels=TRUE)
+		legend.position=c(0.9, 0.13),
+		legend.title=element_blank(),
+		strip.background=element_blank(),
+		strip.placement="outside")
+	+labs(x="", y=""))
+params_plot_common = (
+	ggplot(
+		param_ests %>% filter(is.na(crop_name)),
+		aes(
+			Date,
+			estimate,
+			ymin=conf_2.5,
+			ymax=conf_97.5,
+			color="posterior"))
+	+facet_wrap(~symbol_expr, scales="free_y", nrow=1, labeller=label_parsed)
+	+geom_pointrange(
+		aes(
+			x=min(Date)-60,
+			y=prior_mean,
+			ymin=if_else(grepl("sig|scale", parameter), 0, prior_mean-1.96*prior_sd),
+			ymax=prior_mean+1.96*prior_sd,
+			color="prior"),
+		position=position_dodge(width=7))
+	+geom_pointrange(position=position_dodge(width=7), fatten=1)
+	+scale_color_manual(
+		values=c("prior"="grey", "posterior"="black"),
+		labels=c("prior"="Prior", "posterior"="Posterior"))
+	+theme_ggEHD(14)
+	+theme(
+		legend.position="none",
+		legend.margin=element_blank(),
+		strip.background=element_blank(),
+		strip.placement="outside")
+	+labs(x="", y=""))
 ggsave_fitmax(
-	params_plot,
+	plot_grid(params_plot_crop, params_plot_common, nrow=2, rel_heights=c(3,1)),
 	filename=file.path(img_path, "stanfit-params.png"),
 	maxheight=12,
 	maxwidth=12,
