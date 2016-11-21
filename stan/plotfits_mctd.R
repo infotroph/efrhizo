@@ -372,7 +372,11 @@ allfits_plot = mirror_ticks(
 		aes(xmin=mu_obs_hat-sig_hat*0.67, xmax=mu_obs_hat+sig_hat*0.67),
 		color=viridis(3)[2],
 		alpha=0.3)
-	+geom_point()
+	+geom_point(
+		# Want low alpha on most points to show overplotting,
+		# but 0s in margin are near-invisible unless opaque.
+		aes(alpha=if_else(rootvol.mm3.mm2==0, 1, 0.1)),
+		show.legend=FALSE)
 	+geom_abline(lty="dashed")
 	+geom_smooth(method="lm")
 	+geom_text(
