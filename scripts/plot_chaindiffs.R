@@ -108,17 +108,6 @@ croptot_diff = (
 		file="data/stan/intercept_diff_years.csv",
 		quote=FALSE,
 		row.names=FALSE))
-# Source: local data frame [5 x 4]
-# Groups: crop [?]
-
-#            crop        years         lo        hi
-#           <chr>        <chr>      <dbl>     <dbl>
-# 1 Maize-Soybean 2010 vs 2013 -0.3810014 0.7925172
-# 2 Maize-Soybean 2011 vs 2014 -0.2843859 0.6472303
-# 3    Miscanthus 2010 vs 2014  0.5058077 1.3982014
-# 4       Prairie 2010 vs 2014  0.6400177 1.4966544
-# 5   Switchgrass 2010 vs 2014  0.3543609 1.2703830
-
 (croptot_diff
 	%>% filter(xor(years=="2010 vs 2014", crop=="Maize-Soybean"))
 	%>% group_by(crop, years)
@@ -129,16 +118,6 @@ croptot_diff = (
 		file="data/stan/croptot_diff_years.csv",
 		quote=FALSE,
 		row.names=FALSE))
-# Source: local data frame [5 x 4]
-# Groups: crop [?]
-
-#            crop        years         lo        hi
-#           <chr>        <chr>      <dbl>     <dbl>
-# 1 Maize-Soybean 2010 vs 2013 -0.2746176  1.131273
-# 2 Maize-Soybean 2011 vs 2014 -0.1656128  1.636135
-# 3    Miscanthus 2010 vs 2014  0.3461183  2.346975
-# 4       Prairie 2010 vs 2014  1.1165546  8.698974
-# 5   Switchgrass 2010 vs 2014  1.5030129 23.161595
 
 croptot_diffplot = (
 	ggplot(
