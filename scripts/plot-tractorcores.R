@@ -1,7 +1,6 @@
 library("dplyr")
 library("ggplot2")
 library("DeLuciatoR")
-library("ggplotTicks")
 library("scales")
 library("cowplot")
 se = plotrix::std.error
@@ -132,14 +131,17 @@ coreline = (
 	+ geom_errorbar(width=4)
 	+ geom_line(aes(linetype="Roots"))
 	+ facet_wrap(~Year)
-	+ scale_x_reverse()
+	+ scale_x_reverse(sec.axis=sec_axis(~., labels=NULL))
+	+ scale_y_continuous(sec.axis=sec_axis(~., labels=NULL))
 	+ coord_flip()
 	+ theme_ggEHD(18)
 	+ theme(
 		aspect.ratio=1.5,
 		legend.position=c(0.8,0.4),
 		legend.key=element_blank(),
-		legend.title=element_blank())
+		legend.title=element_blank(),
+		strip.placement="outside",
+		strip.switch.pad.wrap=unit(0.5,"lines"))
 	+ ylab(expression(paste("Biomass (mg ", cm^-3, ")")))
 	+ xlab("Depth (cm)")
 	+ scale_shape_manual(
@@ -165,7 +167,9 @@ corebars_root = (
 	+ ylab(expression(paste("Root C (g ", m^-2, ")")))
 	+ xlab("")
 	+ facet_wrap(~Year)
-	+ scale_y_continuous(breaks=pretty_breaks(n=5))
+	+ scale_y_continuous(
+		breaks=pretty_breaks(n=5),
+		sec.axis=sec_axis(~., labels=NULL))
 	+ theme_ggEHD(14)
 	+ theme(
 		legend.position=c(0.13, 0.65),
@@ -191,7 +195,9 @@ corebars_rootrhizo = (
 	+ ylab(expression(paste("Root + rhizome C (g ", m^-2, ")")))
 	+ xlab("")
 	+ facet_wrap(~Year)
-	+ scale_y_continuous(breaks=pretty_breaks(n=5))
+	+ scale_y_continuous(
+		breaks=pretty_breaks(n=5),
+		sec.axis=sec_axis(~., labels=NULL))
 	+ theme_ggEHD(14)
 	+ theme(
 		legend.position="none",
@@ -216,7 +222,9 @@ corebars_root_mass = (
 	+ ylab(expression(paste("Root biomass (g ", m^-2, ")")))
 	+ xlab("")
 	+ facet_wrap(~Year)
-	+ scale_y_continuous(breaks=pretty_breaks(n=5))
+	+ scale_y_continuous(
+		breaks=pretty_breaks(n=5),
+		sec.axis=sec_axis(~., labels=NULL))
 	+ theme_ggEHD(14)
 	+ theme(
 		legend.position=c(0.13, 0.65),
@@ -242,7 +250,9 @@ corebars_rootrhizo_mass = (
 	+ ylab(expression(paste("Root + rhizome biomass (g ", m^-2, ")")))
 	+ xlab("")
 	+ facet_wrap(~Year)
-	+ scale_y_continuous(breaks=pretty_breaks(n=5))
+	+ scale_y_continuous(
+		breaks=pretty_breaks(n=5),
+		sec.axis=sec_axis(~., labels=NULL))
 	+ theme_ggEHD(14)
 	+ theme(
 		legend.position="none",
@@ -266,15 +276,15 @@ bbarmdims = list(
 
 ggsave_fitmax(
 	"figures/tractorcore-exp.png",
-	ggplotGrob(mirror_ticks(coreline)),
+	coreline,
 	maxheight=9,
 	maxwidth=6.5,
 	dpi=300)
 ggsave(
 	filename="figures/tractorcore-bars.png",
 	plot=plot_grid(
-		mirror_ticks(corebars_root, allPanels=TRUE),
-		mirror_ticks(corebars_rootrhizo, allPanels=TRUE),
+		corebars_root,
+		corebars_rootrhizo,
 		ncol=1,
 		align="v",
 		rel_heights=c(dim_br$height, dim_brr$height),
@@ -288,8 +298,8 @@ ggsave(
 ggsave(
 	filename="figures/tractorcore-bars-mass.png",
 	plot=plot_grid(
-		mirror_ticks(corebars_root_mass, allPanels=TRUE),
-		mirror_ticks(corebars_rootrhizo_mass, allPanels=TRUE),
+		corebars_root_mass,
+		corebars_rootrhizo_mass,
 		ncol=1,
 		align="v",
 		rel_heights=c(dim_brm$height, dim_brrm$height),
