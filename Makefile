@@ -86,7 +86,6 @@ ALL = data/frametots2010.txt \
 	data/stan/intercept_diff_years.csv
 
 all: $(ALL)
-	#not written yet
 
 data/frametots2010.txt: \
 		$(RAW2010) \
