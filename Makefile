@@ -68,6 +68,7 @@ ALL = data/frametots2010.txt \
 	figures/destructive-vol.png \
 	figures/destructive-vol-fulldepth.png \
 	figures/tractorcore-bars.png \
+	figures/tractorcore-bars-mass.png \
 	figures/tractorcore-exp.png \
 	figures/stan-vs-cores.png \
 	figures/stanfit-2010.png \
@@ -321,7 +322,7 @@ figures/destructive-mass.png figures/destructive-massvsvol.png figures/destructi
 		data/stripped2014-destructive.csv
 	Rscript scripts/destructive-tissue.r
 
-figures/tractorcore-bars.png figures/tractorcore-exp.png: \
+figures/tractorcore-bars.png figures/tractorcore-bars-mass.png figures/tractorcore-exp.png: \
 		scripts/plot-tractorcores.R \
 		data/tractorcore.csv
 	Rscript scripts/plot-tractorcores.R
