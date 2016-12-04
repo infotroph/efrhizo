@@ -343,6 +343,9 @@ figures/stanfit-2010.png figures/stanfit-2012.png figures/stanfit-cropdiffs.png 
 		data/stan/predmu_current.csv
 	Rscript stan/plotfits_mctd.R data/stan/ figures/
 
+figures/stanfit-intercept-yeardiffs.png figures/stanfit-croptots-peak.png figures/stanfit-croptot-yeardiffs.png data/stan/croptot_diff_years.csv data/stan/intercept_diff_years.csv: scripts/plot_chaindiffs.R
+	Rscript scripts/plot_chaindiffs.R
+
 clean:
 	rm $(ALL)
 	# Is this actually what I want?
