@@ -2,7 +2,7 @@
 
 This is a Stan-based analysis of the root volumes of perennial bioenergy grasses, as observed by minirhizotron imaging at the EBI Energy Farm (Urbana IL) between 2009 and 2014.
 
-A manuscript describing this project was submitted to Ecological Applications on 2016-12-05, and the corresponding version of this repository is tagged [`ecolapp_sub1`](https://github.com/infotroph/efrhizo/releases/tag/ecolapp_sub1). Changes since then are detailed blow-by-blow in the [project log](efrhizo-log.md) and summarized here for editors/reviewer convenience.
+A manuscript describing this project was submitted to Ecological Applications on 2016-12-05, and the corresponding version of this repository is tagged [`ecolapp_sub1`](https://github.com/infotroph/efrhizo/releases/tag/ecolapp_sub1). Changes since then are detailed blow-by-blow in the [project log](efrhizo-log.md) and summarized here for editor/reviewer convenience.
 
 * 2016-12-07: ReadMe updates.
 
