@@ -1912,6 +1912,14 @@ Overhauling parameter plots. Goals: Put crop-specific priors together as rows of
 * User-friendly parameter names: Added a new column to the dataframe defining symbolic parameter names in unparsed expresion string form (e.g. `"b_depth"="beta^depth"`), passed these to facet_grid instead of plain parameter names along with `labeller=label_parsed`.
 * Show units: there's no easy way to give separate y-axis labels for different rows of a facet_grid, so worked around it by removing them and making the facet strip labels *look like* y-axis labels: Set ylab="", added unit annotations to the parameter name expressions and formatted to appear on a second line (e.g. `"b_depth"="atop(beta^depth, (ln~mm^3~mm^-2~ln~cm^-1)"`), moved row strips to the left edge (`switch="y"`), removed strip background (`strip.background=element_blank()`), and set strips to be outside axes (`strip.placement="outside"`). Since the parameters that do not vary by crop have their strip labels on the top instead of the side, I just left them labeled on top -- they fit better that way and help make it more clear that the three bottom panels do no go in any of the crop columns above them.
 
-# 2016-12-05
+## 2016-12-05
 
 Done since last posting: deposited dissertation, circulated 20161128 manuscript draft for coauthor edits, incorporated changes, sent to Evan for submission to Ecological Applications. See commit logs for those changes, mostly minor. But a big change, as suggested by David LeBauer: instead of declaring parameters "not different" because their separately-calculated uncertainty intervals overlap, need to actually test whether the uncertainty for the *difference between them* includes 0. New script `plot_chaindiffs.R` does this in possibly overkill fashion, by loading up huge dataframes of every HMC draw for each parameter of interest and computing quantiles/saving violin plots of the differences between samples between model runs. The idea: If `icpt_a` are 20000 validly drawn HMC samples from the posterior distribution of the intercept term in session 4 2010 and  `icpt_b` are 20000 validly drawn HMC samples from the posterior distribution of the intercept term in session 2 2014, then if `quantile(icpt_b - icpt_a, c(0.025, 0.975))` does not include zero we can say that we're 95% certain the intercept changed between midsummers 2010 and 2014. Reworked results to rely heavily on this, added three new supplementary figures showing differences between selected model runs for total root volume, slope term, and intercept.
+
+# 2016-12-07
+
+Manuscript was submitted by EHD on 2016-12-05. Tagged the current version (same contents as used in final submission) as `ecolapp_sub1` for easy reference by reviewers, and now doing some README cleanup:
+
+* Renamed ReadMe.txt to Readme.md, formatted as Markdown, edited for clarity and to match current project layout.
+* Added a note indicating that the manuscript is submitted and pointing toward the tagged release.
+* Clarified that `operator-agreement/Makefile` is incomplete and documented what I did to get the numbers in the manuscript.
