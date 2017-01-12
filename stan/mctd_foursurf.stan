@@ -26,7 +26,7 @@ data{
 	int<lower=0> C;					// number of crops
 	int<lower=0, upper=T> tube[N]; 	// tube ID
 	int<lower=1, upper=C> crop[N]; // Be sure to check number<>crop mapping.
-	real<lower=0> depth[N];			// cm below surface within tube
+	vector<lower=0>[N] depth;			// cm below surface within tube
 	vector<lower=0>[N] y; 			// DV: mm^3 root / mm^2 image area
 
 	//Pseudodata for predictive check
@@ -60,8 +60,8 @@ transformed data{
 	real depth_logmean;
 	real depth_pred_max;
 	int<lower=1,upper=C_pred> tube_crop_pred[T_pred];
-	real log_depth_centered[N];
-	real log_depth_pred_centered[N_pred];
+	vector[N] log_depth_centered;
+	vector[N_pred] log_depth_pred_centered;
 	int<lower=0, upper=1> y_logi[N]; // logical: is y > 0?
 	int<lower=0, upper=N> n_pos;	// how many y are > 0?
 
@@ -103,27 +103,20 @@ parameters{
 	real<lower=0> sig_tube;
 
 	// residual -- allowed to vary by crop
-	real<lower=0> sigma[C];
+	vector<lower=0>[C] sigma;
 }
 
 transformed parameters{
 	vector[N] mu; // E[latent mean root volume]
 	vector[N] mu_obs; // E[OBSERVED root volume], including surface effect
 	vector[N] detect_odds;
-	vector<lower=0>[n_pos] sig;
 
-	for(n in 1:N){
-		// Note centered regression --
-		// intercept here is E[y] at mean depth, not surface!
-		mu[n] = intercept[crop[n]]
-			+ b_tube[tube[n]]
-			+ b_depth[crop[n]] * log_depth_centered[n];
-		mu_obs[n] = mu[n]
-			+ log_inv_logit((depth[n]-loc_surface[crop[n]])/scale_surface[crop[n]]);
-		if(n <= n_pos){
-			sig[n] = sigma[crop[n]];
-		}
-	}
+	// Note centered regression --
+	// intercept here is E[y] at mean depth, not surface!
+	mu = intercept[crop]
+		+ b_tube[tube]
+		+ b_depth[crop] .* log_depth_centered;
+	mu_obs = mu + log_inv_logit((depth - loc_surface[crop]) ./ scale_surface[crop]);
 
 	// logistic regression for probability of detecting roots in a given image
 	detect_odds = (mu_obs - loc_detect)/scale_detect;
@@ -141,8 +134,9 @@ model{
 	loc_detect ~ normal(loc_detect_prior_m, loc_detect_prior_s);
 	scale_detect ~ normal(scale_detect_prior_m, scale_detect_prior_s);
 	
+	// Likelihood.
 	y_logi ~ bernoulli_logit(detect_odds);
-	segment(y, 1, n_pos) ~ lognormal(segment(mu_obs, 1, n_pos), sig);
+	head(y, n_pos) ~ lognormal(head(mu_obs, n_pos), sigma[head(crop, n_pos)]);
 }
 
 generated quantities{
