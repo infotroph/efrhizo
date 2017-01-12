@@ -67,16 +67,11 @@ transformed data{
 
 	depth_logmean = log(mean(depth));
 	depth_pred_max = max(depth_pred);
-	n_pos = 0;
 	for(n in 1:N){
 		log_depth_centered[n] = log(depth[n]) - depth_logmean;
-		if (y[n] > 0){
-			y_logi[n] = 1;
-			n_pos = n;
-		} else {
-			y_logi[n] = 0;
-		}
+		y_logi[n] = int_step(y[n]);
 	}
+	n_pos = sum(y_logi);
 
 	if(sum(y_logi[(n_pos+1):N]) != 0 || sum(y_logi[1:n_pos]) != n_pos){
 		reject("all observations with y==0 must appear at the end of the dataset")
