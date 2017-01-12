@@ -35,7 +35,7 @@ data{
 	int<lower=0> C_pred;
 	int<lower=0, upper=C_pred> crop_pred[N_pred];
 	int<lower=0, upper=T_pred> tube_pred[N_pred];
-	real<lower=0> depth_pred[N_pred];
+	vector<lower=0>[N_pred] depth_pred;
 
 	//Priors
 	real sig_tube_prior_m;
@@ -140,12 +140,12 @@ model{
 }
 
 generated quantities{
-	real b_tube_pred[T_pred];
+	vector[T_pred] b_tube_pred;
 	real<lower=0> pred_tot[T_pred];
-	real mu_pred[N_pred];
-	real mu_obs_pred[N_pred];
-	real detect_odds_pred[N_pred];
-	real<lower=0> y_pred[N_pred];
+	vector[N_pred] mu_pred;
+	vector[N_pred] mu_obs_pred;
+	vector[N_pred] detect_odds_pred;
+	vector<lower=0>[N_pred] y_pred;
 	real<lower=0> crop_tot[C];
 	real crop_tot_diff[C-1];
 	real crop_int_diff[C-1];
@@ -198,17 +198,12 @@ generated quantities{
 		}
 	}
 
+	mu_pred = intercept[crop_pred]
+		+ b_tube_pred[tube_pred]
+		+ b_depth[crop_pred] .* log_depth_pred_centered;
+	mu_obs_pred = mu_pred + log_inv_logit((depth_pred - loc_surface[crop_pred]) ./ scale_surface[crop_pred]);
+	detect_odds_pred = inv_logit((mu_obs_pred - loc_detect)/scale_detect);
 	for(n in 1:N_pred){
-		mu_pred[n] =
-			intercept[crop_pred[n]]
-			+ b_tube_pred[tube_pred[n]]
-			+ b_depth[crop_pred[n]] * log_depth_pred_centered[n];
-		mu_obs_pred[n] =
-			mu_pred[n]
-			+ log_inv_logit((depth_pred[n]-loc_surface[crop_pred[n]])/scale_surface[crop_pred[n]]);
-
-		detect_odds_pred[n] = inv_logit((mu_obs_pred[n] - loc_detect)/scale_detect);
-
 		y_pred[n] = lognormal_rng(mu_obs_pred[n], sigma[crop_pred[n]]) * bernoulli_rng(detect_odds_pred[n]);
 	}
 }
