@@ -141,12 +141,12 @@ model{
 
 generated quantities{
 	vector[T_pred] b_tube_pred;
-	real<lower=0> pred_tot[T_pred];
+	vector<lower=0>[T_pred] pred_tot;
 	vector[N_pred] mu_pred;
 	vector[N_pred] mu_obs_pred;
 	vector[N_pred] detect_odds_pred;
 	vector<lower=0>[N_pred] y_pred;
-	real<lower=0> crop_tot[C];
+	vector<lower=0>[C] crop_tot;
 	real crop_tot_diff[C-1];
 	real crop_int_diff[C-1];
 	real crop_bdepth_diff[C-1];
@@ -178,25 +178,10 @@ generated quantities{
 	}
 
 	for(t in 1:T_pred){
-		int tc;
-		tc = tube_crop_pred[t];
-
 		// prediction offset for a random NEWLY OBSERVED tube.
 		b_tube_pred[t] = normal_rng(0, sig_tube);
-
-		// total root volume in soil profile (from 1 cm to deepest pred depth)
-		if(b_depth[tc] == -1.0){
-			// integral below gives NaN when b+1==0, but is equal to:
-			pred_tot[t] =
-				exp(intercept[tc] - b_depth[tc]*depth_logmean + b_tube_pred[t])
-				* log(depth_pred_max);
-		}else{
-			pred_tot[t] =
-				exp(intercept[tc] - b_depth[tc]*depth_logmean + b_tube_pred[t])
-				* (pow(depth_pred_max, b_depth[tc]+1) - 1)
-				/ (b_depth[tc]+1);
-		}
 	}
+	pred_tot = crop_tot[tube_crop_pred] .* exp(b_tube_pred);
 
 	mu_pred = intercept[crop_pred]
 		+ b_tube_pred[tube_pred]
