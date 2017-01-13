@@ -74,7 +74,7 @@ croptot$name=reorder(
 	match(croptot$name, c("Maize-Soybean", "Switchgrass", "Miscanthus", "Prairie")))
 
 # User-friendly names for parameters.
-# TODO: Read this in from an authoritative source instead of hard-coing,
+# TODO: Read this in from an authoritative source instead of hard-coding,
 # so it stops going out of date when the model changes!
 param_symbols = c(
 	"b_depth"="atop(beta^depth, ln~mm^3~mm^-2~ln~cm^-1)",
@@ -230,13 +230,15 @@ params_plot_crop = (
 	+scale_color_manual(
 		values=c("prior"="grey", "posterior"="black"),
 		labels=c("prior"="Prior", "posterior"="Posterior"))
-	+theme_ggEHD(14)
+	+theme_ggEHD(16)
 	+theme(
-		legend.position=c(0.9, 0.13),
+		legend.position=c(0.9, 0.14),
 		legend.title=element_blank(),
+		legend.background=element_blank(),
 		strip.background=element_blank(),
-		strip.placement="outside")
-	+labs(x="", y=""))
+		strip.placement="outside",
+		axis.text=element_text(size=12))
+	+labs(x=NULL, y=NULL))
 params_plot_common = (
 	ggplot(
 		param_ests %>% filter(is.na(crop_name)),
@@ -259,18 +261,21 @@ params_plot_common = (
 	+scale_color_manual(
 		values=c("prior"="grey", "posterior"="black"),
 		labels=c("prior"="Prior", "posterior"="Posterior"))
-	+theme_ggEHD(14)
+	+theme_ggEHD(16)
 	+theme(
 		legend.position="none",
 		legend.margin=element_blank(),
 		strip.background=element_blank(),
-		strip.placement="outside")
-	+labs(x="", y=""))
-ggsave_fitmax(
+		strip.placement="outside",
+		axis.text=element_text(size=12))
+	+labs(x=NULL, y=expression(atop(,)))) # Really just expanding left margin, so spacing matches top plot's labels
+ppcrop_dim = get_dims(params_plot_crop, maxheight=10.125, maxwidth=9.75)
+ppcom_dim = get_dims(params_plot_common, maxheight=3.375, maxwidth=9.75)
+ggsave(
 	plot_grid(params_plot_crop, params_plot_common, nrow=2, rel_heights=c(3,1)),
 	filename=file.path(img_path, "stanfit-params.png"),
-	maxheight=12,
-	maxwidth=12,
+	height=ppcrop_dim$height+ppcom_dim$height,
+	width=max(ppcrop_dim$width,ppcom_dim$width),
 	units="in")
 
 fits_plot = mirror_ticks(

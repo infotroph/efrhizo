@@ -1941,3 +1941,4 @@ Manuscript was desk-rejected from Ecological Applications. Preparing to resubmit
 * Deleted unused images in manuscript image directory (all have long since been replaced by better versions): `coreC.png`, `mass_vs_rhizo.png`, `peak_yearly.png`, `seasonal.png`, `volbyimg.png`.
 * Added `tractorcore_stats.txt` to Makefile (previously missing).
 * Edited `tractorcore-stats.R` to set lsmeans degrees-of-freedom method: Was Kenward-Roger by default in lsmeans <= 2.23, but changed to Satterthwaite in lsmeans 2.24. I want K-R, so added `lsm.options(lmer.df="ken")` to re-enable old behavior. 
+* Tweaked plotting of stanfit-params.png: Better dimension calculations, less ridiculous page size (now plotting at 1.5x final size instead of ~2x), more readable labels. 
