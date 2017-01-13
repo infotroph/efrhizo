@@ -386,13 +386,13 @@ croptot_diffplot = (
 		legend.position=c(0.2,0.8))
 	+ scale_y_continuous(
 		sec.axis=sec_axis(~., labels=NULL),
-		limits=c(-5,55)) # cuts off switchgrass upper tail -- goes to 135
+		limits=c(-5, 40)) # cuts off switchgrass upper tail -- goes to 125
 	+ geom_line(
 		# manually constructed cut indicator on switchgrass upper tail
-		# If not cut off by ylim, would extend to 135 and make it hard to see other violins
+		# If not cut off by ylim, would extend to 125 and make it hard to see other violins
 		data=data.frame(
 			x=5+c(-0.1,-.05,0.05,0.1),
-			y=54+c(0,1,0,1)),
+			y=39+c(0,1,0,1)),
 		aes(x=x,y=y),
 		inherit.aes=FALSE)
 )
