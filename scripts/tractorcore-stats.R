@@ -12,6 +12,11 @@ sessionInfo()
 
 coredata=read.csv("data/tractorcore.csv")
 
+# use Kenward-Roger degrees of freedom for lsmeans,
+# for compatibility with lsmeans <= 2.23
+# (default changed to Satterthwaite in lsmeans 2.24)
+lsm.options(lmer.df = "ken")
+
 core_blocks = (coredata
 	%>% mutate(Year=factor(Year))
 	%>% group_by(Year, Treatment, Upper, Block)

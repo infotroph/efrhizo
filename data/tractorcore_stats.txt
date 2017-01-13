@@ -1,6 +1,6 @@
-R version 3.3.0 (2016-05-03)
+R version 3.3.2 (2016-10-31)
 Platform: x86_64-apple-darwin13.4.0 (64-bit)
-Running under: OS X 10.11.5 (El Capitan)
+Running under: OS X El Capitan 10.11.6
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -9,17 +9,17 @@ attached base packages:
 [1] methods   stats     graphics  grDevices utils     datasets  base     
 
 other attached packages:
-[1] dplyr_0.4.3        lsmeans_2.23       estimability_1.1-1 lme4_1.1-12       
-[5] Matrix_1.2-6      
+[1] dplyr_0.5.0      lsmeans_2.25     estimability_1.2 lme4_1.1-12     
+[5] Matrix_1.2-7.1  
 
 loaded via a namespace (and not attached):
- [1] Rcpp_0.12.5      magrittr_1.5     splines_3.3.0    MASS_7.3-45     
- [5] xtable_1.8-2     lattice_0.20-33  R6_2.1.2         multcomp_1.4-5  
- [9] minqa_1.2.4      plyr_1.8.3       tools_3.3.0      parallel_3.3.0  
-[13] grid_3.3.0       nlme_3.1-128     plotrix_3.6-2    TH.data_1.0-7   
-[17] coda_0.18-1      DBI_0.4-1        survival_2.39-4  assertthat_0.1  
-[21] nloptr_1.0.4     codetools_0.2-14 sandwich_2.3-4   mvtnorm_1.0-5   
-[25] zoo_1.7-13      
+ [1] Rcpp_0.12.8      magrittr_1.5     splines_3.3.2    MASS_7.3-45     
+ [5] xtable_1.8-2     lattice_0.20-34  R6_2.2.0         multcomp_1.4-6  
+ [9] minqa_1.2.4      plyr_1.8.4       tools_3.3.2      grid_3.3.2      
+[13] nlme_3.1-128     plotrix_3.6-4    TH.data_1.0-7    coda_0.19-1     
+[17] DBI_0.5-1        survival_2.40-1  assertthat_0.1   tibble_1.2      
+[21] nloptr_1.0.4     codetools_0.2-15 sandwich_2.3-4   mvtnorm_1.0-5   
+[25] zoo_1.7-14      
 
 ------------------------------------------------
  Total tractor core biomass (ln g root+rhizome m^-2):
@@ -46,6 +46,7 @@ Year = 2014:
  Prairie     1924.2096 305.84862 32 1392.01109 2659.8802
  Switchgrass 2374.7422 377.45971 32 1717.93519 3282.6620
 
+Degrees-of-freedom method: kenward-roger 
 Confidence level used: 0.95 
 Intervals are back-transformed from the log scale 
 
@@ -158,6 +159,7 @@ Year = 2014:
  Prairie     1924.2096 282.33186 32 1427.09931 2594.4815
  Switchgrass 1518.0298 222.73466 32 1125.85411 2046.8145
 
+Degrees-of-freedom method: kenward-roger 
 Confidence level used: 0.95 
 Intervals are back-transformed from the log scale 
 
@@ -645,6 +647,7 @@ Year = 2014, Depth = 128:
  Switchgrass  -8.509757 0.2449185  4  -9.189760 -7.829754   b   
  Miscanthus   -8.179064 0.2449493  4  -8.859153 -7.498976   b   
 
+Results are given on the log (not the response) scale. 
 Confidence level used: 0.95 
 P value adjustment: tukey method for comparing a family of 4 estimates 
 significance level used: alpha = 0.05 
@@ -663,6 +666,7 @@ Year = 2014:
  Miscanthus        -1.2377915 0.09583733 180 -1.426901 -1.0486823  a    
  Maize             -0.8438738 0.09556846 180 -1.032452 -0.6552952   b   
 
+Trends are based on the log (transformed) scale 
 Confidence level used: 0.95 
 P value adjustment: tukey method for comparing a family of 4 estimates 
 significance level used: alpha = 0.05 
@@ -1089,6 +1093,7 @@ Year = 2014, Depth = 128:
  Switchgrass  -8.170999 0.2383004  4  -8.832627 -7.509371   b   
  Miscanthus   -7.835289 0.2383177  4  -8.496965 -7.173613   b   
 
+Results are given on the log (not the response) scale. 
 Confidence level used: 0.95 
 P value adjustment: tukey method for comparing a family of 4 estimates 
 significance level used: alpha = 0.05 
@@ -1107,6 +1112,7 @@ Year = 2014:
  Miscanthus        -0.8459365 0.08873044 180 -1.0210222 -0.6708509   b   
  Maize             -0.8350667 0.08850032 180 -1.0096983 -0.6604351   b   
 
+Trends are based on the log (transformed) scale 
 Confidence level used: 0.95 
 P value adjustment: tukey method for comparing a family of 4 estimates 
 significance level used: alpha = 0.05 

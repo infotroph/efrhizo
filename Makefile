@@ -54,6 +54,7 @@ ALL = data/frametots2010.txt \
 	data/offset2013.csv \
 	data/offset2014.csv \
 	data/tractorcore.csv \
+	data/tractorcore_stats.txt \
 	data/destructive-mass-nearvsfar.txt \
 	data/stan \
 	figures/logvol-cornpoints-2012.png \
@@ -266,6 +267,10 @@ data/tractorcore.csv: \
 		scripts/tractorcore-cleanup.R
 	Rscript scripts/tractorcore-cleanup.R
 
+data/tractorcore_stats.txt: \
+		data/tractorcore.csv \
+		scripts/tractorcore-stats.R
+	Rscript scripts/tractorcore-stats.R
 
 # Run Stan, extract fits, make some diagnostic plots.
 # Beware: Starts every run by deleting everything in data/stan!

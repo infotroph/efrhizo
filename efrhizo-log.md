@@ -1934,3 +1934,10 @@ Manuscript was desk-rejected from Ecological Applications. Preparing to resubmit
 * Makefile complains that it has "no rule" to make `data/stan/*.Rdata`, despite their existing and being listed as prerequisites for all the `plot-chaindiffs.R` outputs. Guessing this is a weirdness of Make not expanding globs the way I think... No idea why this worked in November but not now. Anyway, fixed by replacing `data/stan/*.Rdata` with `$(wildcard data/stan/*.Rdata)`.
 * Updated sampler produces slightly shorter tails on the between-year differences in `stanfit-croptot-endyears.png` -- highest point in the Switchgrass violin now goes to 124.8 instead of 135, Miscanthus now ~35 instead of ~45. Moved the y limits in from 55 to 40 for slightly better visibility of the other violins.
 * Committed new versions of figures and data.
+
+#2017-01-13
+
+* Copied updated figures into manuscript directory. Note to self: Next project, don't duplicate figure storage like this.
+* Deleted unused images in manuscript image directory (all have long since been replaced by better versions): `coreC.png`, `mass_vs_rhizo.png`, `peak_yearly.png`, `seasonal.png`, `volbyimg.png`.
+* Added `tractorcore_stats.txt` to Makefile (previously missing).
+* Edited `tractorcore-stats.R` to set lsmeans degrees-of-freedom method: Was Kenward-Roger by default in lsmeans <= 2.23, but changed to Satterthwaite in lsmeans 2.24. I want K-R, so added `lsm.options(lmer.df="ken")` to re-enable old behavior. 
