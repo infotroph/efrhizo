@@ -352,7 +352,7 @@ figures/stanfit-2010.png figures/stanfit-2012.png figures/stanfit-cropdiffs.png 
 		data/stan/predmu_current.csv
 	Rscript stan/plotfits_mctd.R data/stan/ figures/
 
-figures/stanfit-croptot-endyears.png figures/stanfit-intercept-endyears.png figures/stanfit-slope.png figures/stanfit-seasondiffs.png data/stan/intercept_diff_years.csv data/stan/croptot_diff_years.csv data/stan/slope_diff_years.csv data/stan/intercept_diff_sessions.csv data/stan/slope_diff_sessions.csv: scripts/plot_chaindiffs.R data/stan/*.Rdata
+figures/stanfit-croptot-endyears.png figures/stanfit-intercept-endyears.png figures/stanfit-slope.png figures/stanfit-seasondiffs.png data/stan/intercept_diff_years.csv data/stan/croptot_diff_years.csv data/stan/slope_diff_years.csv data/stan/intercept_diff_sessions.csv data/stan/slope_diff_sessions.csv: scripts/plot_chaindiffs.R $(wildcard data/stan/*.Rdata)
 	Rscript scripts/plot_chaindiffs.R
 
 clean:
