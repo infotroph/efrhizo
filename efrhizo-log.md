@@ -1923,3 +1923,14 @@ Manuscript was submitted by EHD on 2016-12-05. Tagged the current version (same 
 * Renamed ReadMe.txt to Readme.md, formatted as Markdown, edited for clarity and to match current project layout.
 * Added a note indicating that the manuscript is submitted and pointing toward the tagged release.
 * Clarified that `operator-agreement/Makefile` is incomplete and documented what I did to get the numbers in the manuscript.
+
+# 2017-01-12
+
+Manuscript was desk-rejected from Ecological Applications. Preparing to resubmit to Plant and Soil with minimal changes:
+
+* Reran model under Stan 2.14 to ensure results aren't affected by a variance bias in previous versions of the NUTS sampler (see https://github.com/stan-dev/stan/issues/2178). Result: Only a few tiny changes in tail length.
+* Added a model optimization as long as I'm rerunning: All functions I use in the transformed parameters block of `mctd_foursurf.R` are now capable of working on vectors, meaning it's now possible to eliminate the assignment loop over individual elements of `mu` and `mu_obs`. This improves runtime by about 20% -- from 1 hour 20 minutes for a full run down to an hour even!
+* Cleaned up generated quantities block for readability and to match model block.
+* Makefile complains that it has "no rule" to make `data/stan/*.Rdata`, despite their existing and being listed as prerequisites for all the `plot-chaindiffs.R` outputs. Guessing this is a weirdness of Make not expanding globs the way I think... No idea why this worked in November but not now. Anyway, fixed by replacing `data/stan/*.Rdata` with `$(wildcard data/stan/*.Rdata)`.
+* Updated sampler produces slightly shorter tails on the between-year differences in `stanfit-croptot-endyears.png` -- highest point in the Switchgrass violin now goes to 124.8 instead of 135, Miscanthus now ~35 instead of ~45. Moved the y limits in from 55 to 40 for slightly better visibility of the other violins.
+* Committed new versions of figures and data.
