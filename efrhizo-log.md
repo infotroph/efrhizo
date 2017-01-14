@@ -1928,7 +1928,7 @@ Manuscript was submitted by EHD on 2016-12-05. Tagged the current version (same 
 
 Manuscript was desk-rejected from Ecological Applications. Preparing to resubmit to Plant and Soil with minimal changes:
 
-* Reran model under Stan 2.14 to ensure results aren't affected by a variance bias in previous versions of the NUTS sampler (see https://github.com/stan-dev/stan/issues/2178). Result: Only a few tiny changes in tail length.
+* Reran model under Stan 2.14 to ensure results aren't affected by a variance bias in previous versions of the NUTS sampler (see [https://github.com/stan-dev/stan/issues/2178]). Result: Only a few tiny changes in tail length.
 * Added a model optimization as long as I'm rerunning: All functions I use in the transformed parameters block of `mctd_foursurf.R` are now capable of working on vectors, meaning it's now possible to eliminate the assignment loop over individual elements of `mu` and `mu_obs`. This improves runtime by about 20% -- from 1 hour 20 minutes for a full run down to an hour even!
 * Cleaned up generated quantities block for readability and to match model block.
 * Makefile complains that it has "no rule" to make `data/stan/*.Rdata`, despite their existing and being listed as prerequisites for all the `plot-chaindiffs.R` outputs. Guessing this is a weirdness of Make not expanding globs the way I think... No idea why this worked in November but not now. Anyway, fixed by replacing `data/stan/*.Rdata` with `$(wildcard data/stan/*.Rdata)`.
@@ -1942,3 +1942,9 @@ Manuscript was desk-rejected from Ecological Applications. Preparing to resubmit
 * Added `tractorcore_stats.txt` to Makefile (previously missing).
 * Edited `tractorcore-stats.R` to set lsmeans degrees-of-freedom method: Was Kenward-Roger by default in lsmeans <= 2.23, but changed to Satterthwaite in lsmeans 2.24. I want K-R, so added `lsm.options(lmer.df="ken")` to re-enable old behavior. 
 * Tweaked plotting of stanfit-params.png: Better dimension calculations, less ridiculous page size (now plotting at 1.5x final size instead of ~2x), more readable labels. 
+* Edited figure caption for `croptot_peak.png`: cut-off tail of Switchgrass violin now extends to 'only' 124.8, not 135.
+
+OK, now finally making changes that are specific to Plant and Soil journal style:
+* Added addresses to author affilitations
+* Moved keyword section to come before abstract
+* Cut keywords from 9 to 5 ("4 to 6" allowed) -- Assuming indexers will pick up species names from the abstract.

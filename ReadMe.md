@@ -2,9 +2,7 @@
 
 This is a Stan-based analysis of the root volumes of perennial bioenergy grasses, as observed by minirhizotron imaging at the EBI Energy Farm (Urbana IL) between 2009 and 2014.
 
-A manuscript describing this project was submitted to Ecological Applications on 2016-12-05, and the corresponding version of this repository is tagged [`ecolapp_sub1`](https://github.com/infotroph/efrhizo/releases/tag/ecolapp_sub1). Changes since then are detailed blow-by-blow in the [project log](efrhizo-log.md) and summarized here for editor/reviewer convenience.
-
-* 2016-12-07: ReadMe updates.
+A manuscript describing this project is in preparation and will be submitted to Plant and Soil in January 2017. Email chris@ckblack.org if you'd like a copy of the current draft.
 
 Raw images and the pixel-by-pixel tracing data are not stored here -- those live on the DeLucia fileserver. The primary "raw" data in this repository are the WinRhizo datafiles, which contain total length/area/volume and average width for each image, plus summaries of each root that are currently thrown out before analysis. I will include images and raw traces in the full data+script package, which will be made available on [Dryad](http://datadryad.org) at the time the manuscript is accepted.
 
@@ -78,14 +76,14 @@ To run the analysis scripts you'll need:
     ```
     install.packages(c(
         "rstan", "dplyr", "tidyr", "forcats",
-        "viridis", "plotrix", "cowplot", "devtools"))
+        "viridis", "plotrix", "cowplot", "devtools", "lmerTest"))
     library(devtools)
     install_github("infotroph/efrhizo", subdir="scripts/rhizoFuncs/")
     install_github("infotroph/DeLuciatoR")
     install_github("infotroph/ggplotTicks")
     ```
 
-To rerun my analyses: Open a shell, `cd` to the root of the project directory, type `make`, and walk away for at least an hour, or much longer if your computer has fewer than 5 CPU cores. The whole run takes ~100 minutes, mostly CPU-bound, on my 8-core mid-2015 Macbook Pro (2.2 GHz i7).
+To rerun my analyses: Open a shell, `cd` to the root of the project directory, type `make`, and walk away for at least an hour, or much longer if your computer has fewer than 5 CPU cores. The whole run takes ~80 minutes, mostly CPU-bound, on my 8-core mid-2015 Macbook Pro (2.2 GHz i7).
 
 To run individual components: See comments in scripts, usage in the Makefile, and, uh, probably ask me questions about the parts I forgot to document.
 
@@ -109,9 +107,9 @@ To fit Stan models to the clean rhizotron data:
 * To calculate differences between parameters from different sampling days, `scripts/plot_chaindiffs.R` loads up the full MC chains from all fitted models at once and computes quantiles on the elementwise differences between days for each parameter of interest. Be wary of this script for two reasons:
 	- It manipulates all the samples at once, so each calculation involves ~2M datapoints, and I wrote it with zero thought about efficiency. The current version is slow and memory-hungry.
 	- It is tightly coupled to the exact structure and naming conventions of the models saved by `mctd_foursurf.R` and will probably break if they change. TODO: fix this, possibly in a way that involves using the Bayesplot package.
-* Be sure to use Stan >= 2.11 -- Stan 2.9 and earlier didn't support the '=' assignment syntax, and 2.10 contained a nasty sampler bug.
+* Be sure to use Stan >= 2.14: the model uses syntax that was not available before 2.13 (specifically vectorized calls to `log_inv_logit`), and 2.13 was affected by a [subtle sampler bug](https://github.com/stan-dev/stan/issues/2178) that is fixed in 2.14.
 
-I have run mctd_foursurf successfully using Stan 2.11 and 2.12.1 on OS X 10.11.6, and  using Stan 2.11 on Amazon Linux AMI release 2016.03, but have not tested it in Windows. The other models appear to run well on my machine, but I haven't tested them cross-platform and I have not validated their output carefully. Consider them work in progress!
+I have run `mctd_foursurf` successfully on OS X 10.11.6 and Amazon Linux AMI release 2016.03, but have not tested it in Windows. The other models appear to run well on my machine, but I haven't tested them cross-platform and I have not validated their output carefully. Consider them work in progress!
 
 Questions? 
 Chris Black
