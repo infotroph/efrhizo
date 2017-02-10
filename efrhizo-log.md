@@ -327,7 +327,7 @@ Now comparing 2014 peak numbers against 2014 tractor core values.
 * Read into R, will save session separately.
 
 
-2014-03-31:
+## 2014-03-31:
 
 Presented current results to DeLucia lab this morning. Concensus from Evan and others is that existing data are sufficient and we don't need to collect any more images. 
 
@@ -1916,7 +1916,7 @@ Overhauling parameter plots. Goals: Put crop-specific priors together as rows of
 
 Done since last posting: deposited dissertation, circulated 20161128 manuscript draft for coauthor edits, incorporated changes, sent to Evan for submission to Ecological Applications. See commit logs for those changes, mostly minor. But a big change, as suggested by David LeBauer: instead of declaring parameters "not different" because their separately-calculated uncertainty intervals overlap, need to actually test whether the uncertainty for the *difference between them* includes 0. New script `plot_chaindiffs.R` does this in possibly overkill fashion, by loading up huge dataframes of every HMC draw for each parameter of interest and computing quantiles/saving violin plots of the differences between samples between model runs. The idea: If `icpt_a` are 20000 validly drawn HMC samples from the posterior distribution of the intercept term in session 4 2010 and  `icpt_b` are 20000 validly drawn HMC samples from the posterior distribution of the intercept term in session 2 2014, then if `quantile(icpt_b - icpt_a, c(0.025, 0.975))` does not include zero we can say that we're 95% certain the intercept changed between midsummers 2010 and 2014. Reworked results to rely heavily on this, added three new supplementary figures showing differences between selected model runs for total root volume, slope term, and intercept.
 
-# 2016-12-07
+## 2016-12-07
 
 Manuscript was submitted by EHD on 2016-12-05. Tagged the current version (same contents as used in final submission) as `ecolapp_sub1` for easy reference by reviewers, and now doing some README cleanup:
 
@@ -1924,7 +1924,7 @@ Manuscript was submitted by EHD on 2016-12-05. Tagged the current version (same 
 * Added a note indicating that the manuscript is submitted and pointing toward the tagged release.
 * Clarified that `operator-agreement/Makefile` is incomplete and documented what I did to get the numbers in the manuscript.
 
-# 2017-01-12
+## 2017-01-12
 
 Manuscript was desk-rejected from Ecological Applications. Preparing to resubmit to Plant and Soil with minimal changes:
 
@@ -1935,7 +1935,7 @@ Manuscript was desk-rejected from Ecological Applications. Preparing to resubmit
 * Updated sampler produces slightly shorter tails on the between-year differences in `stanfit-croptot-endyears.png` -- highest point in the Switchgrass violin now goes to 124.8 instead of 135, Miscanthus now ~35 instead of ~45. Moved the y limits in from 55 to 40 for slightly better visibility of the other violins.
 * Committed new versions of figures and data.
 
-#2017-01-13
+## 2017-01-13
 
 * Copied updated figures into manuscript directory. Note to self: Next project, don't duplicate figure storage like this.
 * Deleted unused images in manuscript image directory (all have long since been replaced by better versions): `coreC.png`, `mass_vs_rhizo.png`, `peak_yearly.png`, `seasonal.png`, `volbyimg.png`.
@@ -1948,3 +1948,36 @@ OK, now finally making changes that are specific to Plant and Soil journal style
 * Added addresses to author affilitations
 * Moved keyword section to come before abstract
 * Cut keywords from 9 to 5 ("4 to 6" allowed) -- Assuming indexers will pick up species names from the abstract.
+
+## 2017-01-19
+
+* Trimmed abstract down to 200 words and separated into four sections
+* Converted reference list style to Plant and Soil (AKA generic Springer) style. This required adding abbreviated journal names and finding DOIs for a few refs that didn't have them already.
+* Renamed methods section to "Materials and Methods"
+* Removed puntuation from ends of all figure caption (Really, editors??), set "Fig. n" caption prefix to boldface.
+
+Also added a few more updates that are not strictly for journal style:
+
+* Updated references and in-text mentions to use current software versions
+* Updated reported half-detection depths reported in results -- I haven't updated these since the 2016-06-23 draft! The code I used to find current values:
+	```
+	(read.csv("data/stan/params_current.csv")
+	%>% filter(parameter=="loc_surface")
+	%>% group_by(crop_name)
+	%>% select(estimate)
+	%>% summarize_each(funs(min, max)))
+
+	# Adding missing grouping variables: `crop_name`
+	# A tibble: 4 × 3
+	#       crop_name       min      max
+	#          <fctr>     <dbl>    <dbl>
+	# 1 Maize-Soybean  6.941290 33.32262
+	# 2    Miscanthus 10.340915 24.83184
+	# 3       Prairie  9.502021 26.17084
+	# 4   Switchgrass 13.688185 35.68694
+	```
+* Added citation of Hall and Sinclair 2015 ("Rooting Front and Water Uptake: What You See and Get May Differ", Agron J) to discussion, to reinforce the notion that rooting depth doesn't guarantee useful water extraction.
+
+## 2017-01-22
+
+Sent updated manuscript to Evan for submission to Plant and Soil.
