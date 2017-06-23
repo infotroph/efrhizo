@@ -2014,3 +2014,7 @@ Full changes (Line numbers refer to PLSO pdf):
 	* 726, 729, 735, 741, 743, 753, 760, 773: Inserted missing space in ",ln"
 	* 755: Replaced "<=" with "≤".
 	* 756: Replaced ">=" with "≥".
+
+## 2017-06-23
+
+Manuscript is accepted pending minor revisions. While checking over scripts, found a typo: Prior for `scale_surface` was being set to 13±10 (the prior for `loc_surface`) instead of 6±5. Fixed and reran Stan models; very little change in most results, but some welcome shortening in the right tails of each crop's scale_surface posterior, and consequently fewer extreme high outliers in the estimated year-over-year change in total switchgrass root volume.  
