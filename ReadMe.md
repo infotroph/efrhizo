@@ -42,7 +42,7 @@ Human-readable information. What I did, what I didn't do, reminders, to-do lists
 
 A sub-experiment asking "how similar are the data produced by different workers tracing the same images?" I'm now using these same images as a worker training battery. 
 
-This directory is *not* updated by the whole-project Make; there is a local Makefile instead. To rerun the operator agreement scripts, `cd operator-agreement && make`. TODO: remove outdated static figures.
+This directory is *not* updated by the whole-project Make; there is a local Makefile instead. To rerun the operator agreement scripts, `cd operator-agreement && make`. See operator-agreement/ReadMe.md for more details.
 
 ### [protocols](protocols/)
 
