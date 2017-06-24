@@ -3,6 +3,11 @@ library(rhizoFuncs)
 library(rstan)
 tidyMCMC = broom::tidyMCMC
 
+set.seed(63493)
+sessionInfo()
+
+pdf("agreement_plots.pdf", width=8.5, height=11)
+
 rstan_options(auto_write = TRUE)
 options(mc.cores=7)
 
@@ -74,7 +79,7 @@ oas_mi = (tidyMCMC(
 		convert=TRUE))
 oa_img_obspred = (oa 
 	%>% group_by(src_imgnum) 
-	%>% summarize_each(funs(mean, sd), starts_with("Tot"))
+	%>% summarize_at(vars(starts_with("Tot")), funs(mean, sd))
 	%>% left_join(oas_mi))
 
 #observed img means vs predicted, first on linear scale then on log scale
@@ -111,3 +116,5 @@ oa_pd_obspred = (oa
 	+ geom_abline()
 	+ geom_errorbar(aes(ymin=conf.low, ymax=conf.high))
 	+ ylab("estimated detect_odds"))
+
+dev.off()
