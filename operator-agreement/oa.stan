@@ -42,8 +42,8 @@ transformed data{
 
 parameters{
 	// for logit
-	real loc_detect[R];
-	real<lower=0> scale_detect[R];
+	vector[R] loc_detect;
+	vector<lower=0>[R] scale_detect;
 
 	// Expected value for each image
 	vector[I] mu_img;
@@ -58,17 +58,11 @@ parameters{
 transformed parameters{
 	vector[N] mu;
 	vector[N] detect_odds;
-	vector<lower=0>[n_pos] sig;
 	vector[R] b_rater;
 	
 	b_rater = b_rater_scale*(b_rater_raw - 1.0/R);
-	for(n in 1:N){
-		mu[n] = mu_img[image[n]] + b_rater[rater[n]];
-		detect_odds[n] = (mu[n] - loc_detect[rater[n]])/scale_detect[rater[n]];
-		if(n <= n_pos){
-			sig[n] = sigma[rater[n]];
-		}
-	}
+	mu = mu_img[image] + b_rater[rater];
+	detect_odds = (mu - loc_detect[rater]) ./ scale_detect[rater];
 }
 
 model{
@@ -81,7 +75,7 @@ model{
 	scale_detect ~ normal(0, 6);
 
 	y_logi ~ bernoulli_logit(detect_odds);
-	segment(y, 1, n_pos) ~ lognormal(segment(mu, 1, n_pos), sig);
+	head(y, n_pos) ~ lognormal(head(mu, n_pos), sigma[head(rater, n_pos)]);
 }
 
 generated quantities {
