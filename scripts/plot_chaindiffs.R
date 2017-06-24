@@ -31,7 +31,7 @@ get_chains = function(param){
 	(list.files("data/stan/", pattern="*.Rdata", full.names=TRUE)
 	%>% data.frame(src=., stringsAsFactors=FALSE)
 	%>% group_by(src)
-	%>% do(fit=get_par(rdata_file=.$src, param=param))
+	%>% mutate(fit=list(get_par(rdata_file=src, param=param)))
 	%>% unnest()
 	%>% extract(src, c("year", "session"), regex="_(\\d{4})_s(\\d)"))
 		# NB leaves year and session as character, which is what I want today.
@@ -107,10 +107,10 @@ intercept_endyear_diff = (
 	%>% filter_peaks()
 	%>% gather(crop, icpt, -year, -session)
 	%>% group_by(crop)
-	%>% do(
+	%>% do(diffs=list(tibble(
 		"2010 vs 2014" = filter(.,year=="2014")$icpt - filter(.,year=="2010")$icpt,
 		"2010 vs 2013" = filter(.,year=="2013")$icpt - filter(.,year=="2010")$icpt,
-		"2011 vs 2014" = filter(.,year=="2014")$icpt - filter(.,year=="2011")$icpt)
+		"2011 vs 2014" = filter(.,year=="2014")$icpt - filter(.,year=="2011")$icpt)))
 	%>% unnest()
 	%>% gather(years, diff_icpt, -crop)
 )
@@ -119,10 +119,10 @@ croptot_endyear_diff = (
 	%>% filter_peaks()
 	%>% gather(crop, total, -year, -session)
 	%>% group_by(crop)
-	%>% do(
+	%>% do(diffs=list(tibble(
 		"2010 vs 2014" = filter(.,year=="2014")$total - filter(.,year=="2010")$total,
 		"2010 vs 2013" = filter(.,year=="2013")$total - filter(.,year=="2010")$total,
-		"2011 vs 2014" = filter(.,year=="2014")$total - filter(.,year=="2011")$total)
+		"2011 vs 2014" = filter(.,year=="2014")$total - filter(.,year=="2011")$total)))
 	%>% unnest()
 	%>% gather(years, diff_tot, -crop)
 )
@@ -131,7 +131,7 @@ slope_diff = (
 	%>% filter_peaks()
 	%>% gather(crop, b_depth, -year, -session)
 	%>% group_by(crop)
-	%>% do(
+	%>% do(diffs=list(tibble(
 		"2010, 2011" = filter(.,year=="2011")$b_depth - filter(.,year=="2010")$b_depth,
 		"2010, 2012" = filter(.,year=="2012")$b_depth - filter(.,year=="2010")$b_depth,
 		"2010, 2013" = filter(.,year=="2013")$b_depth - filter(.,year=="2010")$b_depth,
@@ -141,7 +141,7 @@ slope_diff = (
 		"2011, 2014" = filter(.,year=="2014")$b_depth - filter(.,year=="2011")$b_depth,
 		"2012, 2013" = filter(.,year=="2013")$b_depth - filter(.,year=="2012")$b_depth,
 		"2012, 2014" = filter(.,year=="2014")$b_depth - filter(.,year=="2012")$b_depth,
-		"2013, 2014" = filter(.,year=="2014")$b_depth - filter(.,year=="2013")$b_depth)
+		"2013, 2014" = filter(.,year=="2014")$b_depth - filter(.,year=="2013")$b_depth)))
 	%>% unnest()
 	%>% gather(years, diff_slope, -crop)
 )
@@ -154,13 +154,13 @@ intercept_diff_2010 = (
 	%>% filter(year=="2010")
 	%>% gather(crop, icpt, -year, -session)
 	%>% group_by(year, crop)
-	%>% do(
+	%>% do(diffs=list(tibble(
 		"5/27, 7/23"  = sample(filter(.,session=="3")$icpt, 10000) - sample(filter(.,session=="1")$icpt, 10000),
 		"5/27, 8/16"  = sample(filter(.,session=="4")$icpt, 10000) - sample(filter(.,session=="1")$icpt, 10000),
 		"5/27, 10/10" = sample(filter(.,session=="5")$icpt, 10000) - sample(filter(.,session=="1")$icpt, 10000),
 		"7/23, 8/16"  = sample(filter(.,session=="4")$icpt, 10000) - sample(filter(.,session=="3")$icpt, 10000),
 		"7/23, 10/10" = sample(filter(.,session=="5")$icpt, 10000) - sample(filter(.,session=="3")$icpt, 10000),
-		"8/16, 10/10" = sample(filter(.,session=="5")$icpt, 10000) - sample(filter(.,session=="4")$icpt, 10000))
+		"8/16, 10/10" = sample(filter(.,session=="5")$icpt, 10000) - sample(filter(.,session=="4")$icpt, 10000))))
 	%>% unnest()
 	%>% gather(sessions, diff_icpt, -crop, -year)
 )
@@ -169,13 +169,13 @@ slope_diff_2010 = (
 	%>% filter(year=="2010")
 	%>% gather(crop, b_depth, -year, -session)
 	%>% group_by(year, crop)
-	%>% do(
+	%>% do(diffs=list(tibble(
 		"5/27, 7/23"  = sample(filter(.,session=="3")$b_depth, 10000) - sample(filter(.,session=="1")$b_depth, 10000),
 		"5/27, 8/16"  = sample(filter(.,session=="4")$b_depth, 10000) - sample(filter(.,session=="1")$b_depth, 10000),
 		"5/27, 10/10" = sample(filter(.,session=="5")$b_depth, 10000) - sample(filter(.,session=="1")$b_depth, 10000),
 		"7/23, 8/16"  = sample(filter(.,session=="4")$b_depth, 10000) - sample(filter(.,session=="3")$b_depth, 10000),
 		"7/23, 10/10" = sample(filter(.,session=="5")$b_depth, 10000) - sample(filter(.,session=="3")$b_depth, 10000),
-		"8/16, 10/10" = sample(filter(.,session=="5")$b_depth, 10000) - sample(filter(.,session=="4")$b_depth, 10000))
+		"8/16, 10/10" = sample(filter(.,session=="5")$b_depth, 10000) - sample(filter(.,session=="4")$b_depth, 10000))))
 	%>% unnest()
 	%>% gather(sessions, diff_slope, -crop, -year)
 )
@@ -189,7 +189,7 @@ intercept_diff_2012 = (
 	%>% gather(crop, icpt, -year, -session)
 	%>% filter(session != "6" | crop != "Maize-Soybean") 
 	%>% group_by(year, crop)
-	%>% do(
+	%>% do(diffs=list(tibble(
 		"5/21, 6/06" = sample(filter(.,session=="2")$icpt, 10000) - sample(filter(.,session=="1")$icpt, 10000),
 		"5/21, 6/20" = sample(filter(.,session=="3")$icpt, 10000) - sample(filter(.,session=="1")$icpt, 10000),
 		"5/21, 8/5" = sample(filter(.,session=="4")$icpt, 10000) - sample(filter(.,session=="1")$icpt, 10000),
@@ -219,7 +219,7 @@ intercept_diff_2012 = (
 		"8/30, 10/24" = if(all(.$crop=="Maize-Soybean")){
 				rep(NA, 10000)
 			}else{
-				sample(filter(.,session=="6")$icpt, 10000) - sample(filter(.,session=="5")$icpt, 10000)})
+				sample(filter(.,session=="6")$icpt, 10000) - sample(filter(.,session=="5")$icpt, 10000)})))
 	%>% unnest()
 	%>% gather(sessions, diff_icpt, -crop, -year)
 	%>% remove_missing(vars="diff_icpt")
@@ -230,7 +230,7 @@ slope_diff_2012 = (
 	%>% gather(crop, b_depth, -year, -session)
 	%>% filter(session != "6" | crop != "Maize-Soybean") 
 	%>% group_by(year, crop)
-	%>% do(
+	%>% do(diffs=list(tibble(
 		"5/21, 6/06"  = sample(filter(.,session=="2")$b_depth, 10000) - sample(filter(.,session=="1")$b_depth, 10000),
 		"5/21, 6/20"  = sample(filter(.,session=="3")$b_depth, 10000) - sample(filter(.,session=="1")$b_depth, 10000),
 		"5/21, 8/5"   = sample(filter(.,session=="4")$b_depth, 10000) - sample(filter(.,session=="1")$b_depth, 10000),
@@ -260,7 +260,7 @@ slope_diff_2012 = (
 		"8/30, 10/24" = if(all(.$crop=="Maize-Soybean")){
 				rep(NA, 10000)
 			}else{
-				sample(filter(.,session=="6")$b_depth, 10000) - sample(filter(.,session=="5")$b_depth, 10000)})
+				sample(filter(.,session=="6")$b_depth, 10000) - sample(filter(.,session=="5")$b_depth, 10000)})))
 	%>% unnest()
 	%>% gather(sessions, diff_slope, -crop, -year)
 	%>% remove_missing(vars="diff_slope")
@@ -385,8 +385,8 @@ croptot_diffplot = (
 		legend.title=element_blank(),
 		legend.position=c(0.2,0.8))
 	+ scale_y_continuous(
-		sec.axis=sec_axis(~., labels=NULL),
-		limits=c(-5, 40)) # cuts off switchgrass upper tail -- goes to 125
+		sec.axis=sec_axis(~., labels=NULL))
+	+ coord_cartesian(ylim=c(-5, 40)) # cuts off switchgrass upper tail -- heed the warning below!
 	+ geom_line(
 		# manually constructed cut indicator on switchgrass upper tail
 		# If not cut off by ylim, would extend to 125 and make it hard to see other violins
@@ -396,6 +396,17 @@ croptot_diffplot = (
 		aes(x=x,y=y),
 		inherit.aes=FALSE)
 )
+warning(paste(
+	"Saving stanfit-croptot-endyears.png with manually assigned y-axis limits (-5, 40),",
+	"to cut off long upper tail of switchgrass so the other violins remain visible.",
+	"When Chris chose these limits, max(diff_tot[Crop==\"Switchgrass\"]) was 88.",
+	"Today it is",
+	round(max(croptot_endyear_diff$diff_tot[croptot_endyear_diff$crop == "Switchgrass"])),
+	"and there are",
+	(length(which(croptot_endyear_diff$diff_tot < -5))
+	+ length(which(croptot_endyear_diff$diff_tot > 40))),
+	"points outside the range of the graph.",
+	"If this isn't what you want, please edit the axis limits!"))
 ggsave_fitmax(
 	filename="figures/stanfit-croptot-endyears.png",
 	plot=plot_grid(

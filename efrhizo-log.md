@@ -2018,3 +2018,9 @@ Full changes (Line numbers refer to PLSO pdf):
 ## 2017-06-23
 
 Manuscript is accepted pending minor revisions. While checking over scripts, found a typo: Prior for `scale_surface` was being set to 13±10 (the prior for `loc_surface`) instead of 6±5. Fixed and reran Stan models; very little change in most results, but some welcome shortening in the right tails of each crop's scale_surface posterior, and consequently fewer extreme high outliers in the estimated year-over-year change in total switchgrass root volume.  
+
+Minor script updates to support dplyr 0.7: 
+
+* `plot_chaindiffs.R`: `do()` now requires multi-column results to be a tbl wrapped in a list. N.B. Only reason I'm using `tibble` rather than `data.frame` here is that tibble doesn't check/mangle column names like "5/21, 6/06" to "X5.21..6.06".
+* Not dplyr-related, but while I'm at it: The plotting code for `stanfit-croptot-endyears.png` contains hard-coded margins to cut off the above-mentioned long tail of the change in switchgrass root volume. Values are still OK for current output, but could easily be inappropriate if estimates change more. Don't want to mess with automatic calculation today, but added a warning to alert the user if the range of the dataset changes.
+* `scripts/tractorcore_stats.R`: `summarize_each` is deprecated in favor of `summarize_at` and `summarize_all`. Results are identical to previous version.

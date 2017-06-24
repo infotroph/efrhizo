@@ -20,13 +20,14 @@ lsm.options(lmer.df = "ken")
 core_blocks = (coredata
 	%>% mutate(Year=factor(Year))
 	%>% group_by(Year, Treatment, Upper, Block)
-	%>% summarize_each(
-		funs(mean(., na.rm=TRUE), se(., na.rm=TRUE)),
-		Biomass_g_cm3,
-		Biomass_g_m2,
-		Biomass_root_g_cm3,
-		Biomass_root_g_m2,
-		Midpoint)
+	%>% summarize_at(
+		.vars = c("Biomass_g_cm3",
+		"Biomass_g_m2",
+		"Biomass_root_g_cm3",
+		"Biomass_root_g_m2",
+		"Midpoint"),
+		.funs = funs(mean, se),
+		na.rm = TRUE)
 	%>% rename(
 		Crop=Treatment,
 		Depth=Midpoint_mean,
@@ -34,7 +35,7 @@ core_blocks = (coredata
 
 core_block_tots = (core_blocks 
 	%>% group_by(Year, Crop, Block) 
-	%>% summarize_each(funs(sum)) 
+	%>% summarize_all(sum) 
 	%>% select(Year, Crop, Block, ends_with("m2_mean")))
 
 # Total root or root+rhizome mass per area
