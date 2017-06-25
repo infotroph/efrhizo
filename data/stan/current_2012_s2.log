@@ -1,8 +1,8 @@
-Starting current_2012_s2 on  Thu Jan 12 22:19:46 UTC 2017
+Starting current_2012_s2 on  Fri Jun 23 19:34:06 UTC 2017
 Running mctd_foursurf.R for year  2012  session  2
 Loading required package: ggplot2
 Loading required package: StanHeaders
-rstan (Version 2.14.1, packaged: 2016-12-28 14:55:41 UTC, GitRev: 5fa1e80eb817)
+rstan (Version 2.15.1, packaged: 2017-04-19 05:03:57 UTC, GitRev: 2e1f913d3ca3)
 For execution on a local, multicore CPU with excess RAM we recommend calling
 rstan_options(auto_write = TRUE)
 options(mc.cores = parallel::detectCores())
@@ -17,13 +17,13 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  base     
 
 other attached packages:
-[1] rstan_2.14.1       StanHeaders_2.14.0 ggplot2_2.2.1     
+[1] rstan_2.15.1         StanHeaders_2.15.0-1 ggplot2_2.2.1       
 
 loaded via a namespace (and not attached):
- [1] colorspace_1.3-2 scales_0.4.1     assertthat_0.1   lazyeval_0.2.0  
- [5] plyr_1.8.4       tools_3.3.2      inline_0.3.14    gtable_0.2.0    
- [9] tibble_1.2       gridExtra_2.2.1  Rcpp_0.12.8      grid_3.3.2      
-[13] methods_3.3.2    stats4_3.3.2     munsell_0.4.3   
+ [1] colorspace_1.3-2 scales_0.4.1     lazyeval_0.2.0   plyr_1.8.4      
+ [5] inline_0.3.14    gtable_0.2.0     tibble_1.3.3     gridExtra_2.2.1 
+ [9] Rcpp_0.12.11     grid_3.3.2       methods_3.3.2    stats4_3.3.2    
+[13] rlang_0.1.1      munsell_0.4.3   
 structure(list(Tube = c(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L, 
 11L, 12L, 13L, 14L, 15L, 16L, 17L, 18L, 19L, 20L, 21L, 22L, 23L, 
 24L, 25L, 26L, 28L, 29L, 30L, 31L, 32L, 33L, 34L, 35L, 36L, 37L, 
@@ -275,207 +275,207 @@ STARTING SAMPLER FOR MODEL 'mctd_foursurf' NOW.
 SAMPLING FOR MODEL 'mctd_foursurf' NOW (CHAIN 5).
 
 Chain 5, Iteration:    1 / 5000 [  0%]  (Warmup)
-Chain 4, Iteration:  500 / 5000 [ 10%]  (Warmup)
-Chain 2, Iteration:  500 / 5000 [ 10%]  (Warmup)
 Chain 1, Iteration:  500 / 5000 [ 10%]  (Warmup)
+Chain 2, Iteration:  500 / 5000 [ 10%]  (Warmup)
 Chain 5, Iteration:  500 / 5000 [ 10%]  (Warmup)
 Chain 3, Iteration:  500 / 5000 [ 10%]  (Warmup)
-Chain 4, Iteration: 1000 / 5000 [ 20%]  (Warmup)
-Chain 4, Iteration: 1001 / 5000 [ 20%]  (Sampling)
+Chain 4, Iteration:  500 / 5000 [ 10%]  (Warmup)
 Chain 2, Iteration: 1000 / 5000 [ 20%]  (Warmup)
 Chain 2, Iteration: 1001 / 5000 [ 20%]  (Sampling)
 Chain 1, Iteration: 1000 / 5000 [ 20%]  (Warmup)
 Chain 1, Iteration: 1001 / 5000 [ 20%]  (Sampling)
-Chain 3, Iteration: 1000 / 5000 [ 20%]  (Warmup)
-Chain 3, Iteration: 1001 / 5000 [ 20%]  (Sampling)
 Chain 5, Iteration: 1000 / 5000 [ 20%]  (Warmup)
 Chain 5, Iteration: 1001 / 5000 [ 20%]  (Sampling)
-Chain 4, Iteration: 1500 / 5000 [ 30%]  (Sampling)
+Chain 3, Iteration: 1000 / 5000 [ 20%]  (Warmup)
+Chain 3, Iteration: 1001 / 5000 [ 20%]  (Sampling)
+Chain 4, Iteration: 1000 / 5000 [ 20%]  (Warmup)
+Chain 4, Iteration: 1001 / 5000 [ 20%]  (Sampling)
 Chain 2, Iteration: 1500 / 5000 [ 30%]  (Sampling)
 Chain 1, Iteration: 1500 / 5000 [ 30%]  (Sampling)
-Chain 3, Iteration: 1500 / 5000 [ 30%]  (Sampling)
 Chain 5, Iteration: 1500 / 5000 [ 30%]  (Sampling)
-Chain 4, Iteration: 2000 / 5000 [ 40%]  (Sampling)
+Chain 4, Iteration: 1500 / 5000 [ 30%]  (Sampling)
+Chain 3, Iteration: 1500 / 5000 [ 30%]  (Sampling)
 Chain 2, Iteration: 2000 / 5000 [ 40%]  (Sampling)
 Chain 1, Iteration: 2000 / 5000 [ 40%]  (Sampling)
-Chain 3, Iteration: 2000 / 5000 [ 40%]  (Sampling)
-Chain 4, Iteration: 2500 / 5000 [ 50%]  (Sampling)
 Chain 5, Iteration: 2000 / 5000 [ 40%]  (Sampling)
+Chain 4, Iteration: 2000 / 5000 [ 40%]  (Sampling)
+Chain 3, Iteration: 2000 / 5000 [ 40%]  (Sampling)
 Chain 2, Iteration: 2500 / 5000 [ 50%]  (Sampling)
 Chain 1, Iteration: 2500 / 5000 [ 50%]  (Sampling)
-Chain 3, Iteration: 2500 / 5000 [ 50%]  (Sampling)
-Chain 4, Iteration: 3000 / 5000 [ 60%]  (Sampling)
-Chain 2, Iteration: 3000 / 5000 [ 60%]  (Sampling)
-Chain 1, Iteration: 3000 / 5000 [ 60%]  (Sampling)
 Chain 5, Iteration: 2500 / 5000 [ 50%]  (Sampling)
+Chain 4, Iteration: 2500 / 5000 [ 50%]  (Sampling)
+Chain 2, Iteration: 3000 / 5000 [ 60%]  (Sampling)
+Chain 3, Iteration: 2500 / 5000 [ 50%]  (Sampling)
+Chain 1, Iteration: 3000 / 5000 [ 60%]  (Sampling)
+Chain 5, Iteration: 3000 / 5000 [ 60%]  (Sampling)
+Chain 4, Iteration: 3000 / 5000 [ 60%]  (Sampling)
+Chain 2, Iteration: 3500 / 5000 [ 70%]  (Sampling)
+Chain 5, Iteration: 3500 / 5000 [ 70%]  (Sampling)
+Chain 1, Iteration: 3500 / 5000 [ 70%]  (Sampling)
 Chain 3, Iteration: 3000 / 5000 [ 60%]  (Sampling)
 Chain 4, Iteration: 3500 / 5000 [ 70%]  (Sampling)
-Chain 2, Iteration: 3500 / 5000 [ 70%]  (Sampling)
-Chain 1, Iteration: 3500 / 5000 [ 70%]  (Sampling)
-Chain 5, Iteration: 3000 / 5000 [ 60%]  (Sampling)
+Chain 2, Iteration: 4000 / 5000 [ 80%]  (Sampling)
+Chain 5, Iteration: 4000 / 5000 [ 80%]  (Sampling)
+Chain 1, Iteration: 4000 / 5000 [ 80%]  (Sampling)
 Chain 4, Iteration: 4000 / 5000 [ 80%]  (Sampling)
 Chain 3, Iteration: 3500 / 5000 [ 70%]  (Sampling)
-Chain 2, Iteration: 4000 / 5000 [ 80%]  (Sampling)
-Chain 1, Iteration: 4000 / 5000 [ 80%]  (Sampling)
-Chain 5, Iteration: 3500 / 5000 [ 70%]  (Sampling)
-Chain 4, Iteration: 4500 / 5000 [ 90%]  (Sampling)
 Chain 2, Iteration: 4500 / 5000 [ 90%]  (Sampling)
+Chain 5, Iteration: 4500 / 5000 [ 90%]  (Sampling)
 Chain 1, Iteration: 4500 / 5000 [ 90%]  (Sampling)
+Chain 4, Iteration: 4500 / 5000 [ 90%]  (Sampling)
 Chain 3, Iteration: 4000 / 5000 [ 80%]  (Sampling)
-Chain 4, Iteration: 5000 / 5000 [100%]  (Sampling)
- Elapsed Time: 44.8177 seconds (Warm-up)
-               160.304 seconds (Sampling)
-               205.122 seconds (Total)
-
-The following numerical problems occured the indicated number of times on chain 4
-                                                                                            count
-Exception thrown at line 139: lognormal_log: Scale parameter[1] is inf, but must be finite!     3
-Exception thrown at line 139: lognormal_log: Scale parameter[1] is 0, but must be > 0!          2
-When a numerical problem occurs, the Hamiltonian proposal gets rejected.
-See http://mc-stan.org/misc/warnings.html#exception-hamiltonian-proposal-rejected
-If the number in the 'count' column is small, do not ask about this message on stan-users.
-
 Chain 2, Iteration: 5000 / 5000 [100%]  (Sampling)
- Elapsed Time: 47.0991 seconds (Warm-up)
-               160.688 seconds (Sampling)
-               207.787 seconds (Total)
+ Elapsed Time: 51.7303 seconds (Warm-up)
+               178.145 seconds (Sampling)
+               229.876 seconds (Total)
 
-The following numerical problems occured the indicated number of times on chain 2
+The following numerical problems occurred the indicated number of times on chain 2
                                                                                             count
 Exception thrown at line 139: lognormal_log: Scale parameter[1] is inf, but must be finite!     5
 Exception thrown at line 139: lognormal_log: Scale parameter[4] is inf, but must be finite!     3
 Exception thrown at line 128: normal_log: Scale parameter is 0, but must be > 0!                1
 When a numerical problem occurs, the Hamiltonian proposal gets rejected.
 See http://mc-stan.org/misc/warnings.html#exception-hamiltonian-proposal-rejected
-If the number in the 'count' column is small, do not ask about this message on stan-users.
-
-Chain 1, Iteration: 5000 / 5000 [100%]  (Sampling)
- Elapsed Time: 48.4947 seconds (Warm-up)
-               160.36 seconds (Sampling)
-               208.854 seconds (Total)
-
-The following numerical problems occured the indicated number of times on chain 1
-                                                                                            count
-Exception thrown at line 139: lognormal_log: Scale parameter[4] is inf, but must be finite!     4
-Exception thrown at line 139: lognormal_log: Scale parameter[1] is inf, but must be finite!     2
-Exception thrown at line 139: lognormal_log: Scale parameter[9] is inf, but must be finite!     1
-When a numerical problem occurs, the Hamiltonian proposal gets rejected.
-See http://mc-stan.org/misc/warnings.html#exception-hamiltonian-proposal-rejected
-If the number in the 'count' column is small, do not ask about this message on stan-users.
-
-Chain 5, Iteration: 4000 / 5000 [ 80%]  (Sampling)
-Chain 3, Iteration: 4500 / 5000 [ 90%]  (Sampling)
-Chain 5, Iteration: 4500 / 5000 [ 90%]  (Sampling)
-Chain 3, Iteration: 5000 / 5000 [100%]  (Sampling)
- Elapsed Time: 50.9712 seconds (Warm-up)
-               181.067 seconds (Sampling)
-               232.038 seconds (Total)
-
-The following numerical problems occured the indicated number of times on chain 3
-                                                                                            count
-Exception thrown at line 139: lognormal_log: Scale parameter[1] is inf, but must be finite!     5
-Exception thrown at line 128: normal_log: Scale parameter is 0, but must be > 0!                1
-Exception thrown at line 139: lognormal_log: Scale parameter[9] is inf, but must be finite!     1
-When a numerical problem occurs, the Hamiltonian proposal gets rejected.
-See http://mc-stan.org/misc/warnings.html#exception-hamiltonian-proposal-rejected
-If the number in the 'count' column is small, do not ask about this message on stan-users.
+If the number in the 'count' column is small, there is no need to ask about this message on stan-users.
 
 Chain 5, Iteration: 5000 / 5000 [100%]  (Sampling)
- Elapsed Time: 50.3492 seconds (Warm-up)
-               199.814 seconds (Sampling)
-               250.163 seconds (Total)
+ Elapsed Time: 54.6642 seconds (Warm-up)
+               179.92 seconds (Sampling)
+               234.584 seconds (Total)
 
-The following numerical problems occured the indicated number of times on chain 5
+The following numerical problems occurred the indicated number of times on chain 5
                                                                                             count
 Exception thrown at line 139: lognormal_log: Scale parameter[1] is inf, but must be finite!     4
 Exception thrown at line 139: lognormal_log: Scale parameter[4] is inf, but must be finite!     4
 Exception thrown at line 128: normal_log: Scale parameter is 0, but must be > 0!                1
 When a numerical problem occurs, the Hamiltonian proposal gets rejected.
 See http://mc-stan.org/misc/warnings.html#exception-hamiltonian-proposal-rejected
-If the number in the 'count' column is small, do not ask about this message on stan-users.
+If the number in the 'count' column is small, there is no need to ask about this message on stan-users.
+
+Chain 1, Iteration: 5000 / 5000 [100%]  (Sampling)
+ Elapsed Time: 52.3415 seconds (Warm-up)
+               185.913 seconds (Sampling)
+               238.254 seconds (Total)
+
+The following numerical problems occurred the indicated number of times on chain 1
+                                                                                            count
+Exception thrown at line 139: lognormal_log: Scale parameter[4] is inf, but must be finite!     4
+Exception thrown at line 139: lognormal_log: Scale parameter[1] is inf, but must be finite!     2
+Exception thrown at line 139: lognormal_log: Scale parameter[9] is inf, but must be finite!     1
+When a numerical problem occurs, the Hamiltonian proposal gets rejected.
+See http://mc-stan.org/misc/warnings.html#exception-hamiltonian-proposal-rejected
+If the number in the 'count' column is small, there is no need to ask about this message on stan-users.
+
+Chain 4, Iteration: 5000 / 5000 [100%]  (Sampling)
+ Elapsed Time: 58.3722 seconds (Warm-up)
+               178.7 seconds (Sampling)
+               237.072 seconds (Total)
+
+The following numerical problems occurred the indicated number of times on chain 4
+                                                                                            count
+Exception thrown at line 139: lognormal_log: Scale parameter[1] is inf, but must be finite!     3
+Exception thrown at line 139: lognormal_log: Scale parameter[1] is 0, but must be > 0!          2
+When a numerical problem occurs, the Hamiltonian proposal gets rejected.
+See http://mc-stan.org/misc/warnings.html#exception-hamiltonian-proposal-rejected
+If the number in the 'count' column is small, there is no need to ask about this message on stan-users.
+
+Chain 3, Iteration: 4500 / 5000 [ 90%]  (Sampling)
+Chain 3, Iteration: 5000 / 5000 [100%]  (Sampling)
+ Elapsed Time: 57.5891 seconds (Warm-up)
+               205.947 seconds (Sampling)
+               263.536 seconds (Total)
+
+The following numerical problems occurred the indicated number of times on chain 3
+                                                                                            count
+Exception thrown at line 139: lognormal_log: Scale parameter[1] is inf, but must be finite!     5
+Exception thrown at line 128: normal_log: Scale parameter is 0, but must be > 0!                1
+Exception thrown at line 139: lognormal_log: Scale parameter[9] is inf, but must be finite!     1
+When a numerical problem occurs, the Hamiltonian proposal gets rejected.
+See http://mc-stan.org/misc/warnings.html#exception-hamiltonian-proposal-rejected
+If the number in the 'count' column is small, there is no need to ask about this message on stan-users.
 NULL
 Inference for Stan model: mctd_foursurf.
 5 chains, each with iter=5000; warmup=1000; thin=1; 
 post-warmup draws per chain=4000, total post-warmup draws=20000.
 
                         mean se_mean    sd     2.5%      25%      50%      75%
-loc_detect             -6.10    0.00  0.10    -6.30    -6.16    -6.10    -6.03
-scale_detect            0.61    0.00  0.09     0.45     0.55     0.60     0.66
-loc_surface[1]         14.57    0.02  2.62     9.72    12.74    14.47    16.27
-loc_surface[2]         27.04    0.02  2.65    21.74    25.31    27.10    28.83
-loc_surface[3]         16.76    0.09  8.55    -0.85    11.08    17.21    22.82
-loc_surface[4]         21.78    0.04  4.08    13.80    19.00    21.82    24.53
-scale_surface[1]        3.22    0.01  0.75     1.89     2.69     3.17     3.69
-scale_surface[2]        5.41    0.01  0.69     4.21     4.93     5.35     5.83
-scale_surface[3]       13.53    0.03  3.93     7.22    10.94    12.98    15.56
-scale_surface[4]        6.99    0.01  1.33     4.77     6.06     6.87     7.77
-intercept[1]           -6.59    0.00  0.19    -6.97    -6.71    -6.58    -6.46
-intercept[2]           -5.03    0.00  0.15    -5.31    -5.13    -5.03    -4.93
-intercept[3]           -5.67    0.00  0.15    -5.97    -5.77    -5.67    -5.57
-intercept[4]           -5.35    0.00  0.13    -5.62    -5.44    -5.35    -5.26
-b_depth[1]             -1.20    0.00  0.21    -1.65    -1.33    -1.19    -1.05
-b_depth[2]             -1.26    0.00  0.20    -1.66    -1.40    -1.25    -1.12
-b_depth[3]             -0.39    0.00  0.18    -0.79    -0.50    -0.37    -0.25
-b_depth[4]             -0.93    0.00  0.18    -1.29    -1.04    -0.92    -0.81
-sig_tube                0.50    0.00  0.08     0.36     0.45     0.50     0.55
-sigma[1]                2.16    0.00  0.13     1.93     2.08     2.16     2.25
-sigma[2]                1.80    0.00  0.08     1.65     1.75     1.80     1.85
+loc_detect             -6.11    0.00  0.10    -6.31    -6.18    -6.11    -6.04
+scale_detect            0.62    0.00  0.08     0.47     0.56     0.62     0.68
+loc_surface[1]         14.69    0.02  2.58     9.92    12.87    14.61    16.38
+loc_surface[2]         27.05    0.02  2.64    21.69    25.33    27.11    28.89
+loc_surface[3]         16.57    0.10  8.63    -1.05    10.84    16.88    22.65
+loc_surface[4]         21.58    0.04  4.02    13.72    18.90    21.56    24.26
+scale_surface[1]        3.19    0.01  0.73     1.91     2.68     3.14     3.65
+scale_surface[2]        5.35    0.01  0.67     4.19     4.88     5.30     5.77
+scale_surface[3]       10.89    0.03  2.74     5.16     9.24    10.87    12.55
+scale_surface[4]        6.77    0.01  1.23     4.64     5.91     6.66     7.52
+intercept[1]           -6.61    0.00  0.19    -6.99    -6.73    -6.60    -6.48
+intercept[2]           -5.02    0.00  0.15    -5.30    -5.12    -5.02    -4.92
+intercept[3]           -5.69    0.00  0.15    -5.99    -5.79    -5.69    -5.59
+intercept[4]           -5.35    0.00  0.14    -5.62    -5.44    -5.35    -5.27
+b_depth[1]             -1.22    0.00  0.21    -1.66    -1.35    -1.21    -1.07
+b_depth[2]             -1.27    0.00  0.21    -1.68    -1.41    -1.27    -1.13
+b_depth[3]             -0.40    0.00  0.21    -0.85    -0.53    -0.39    -0.26
+b_depth[4]             -0.94    0.00  0.18    -1.31    -1.05    -0.93    -0.81
+sig_tube                0.51    0.00  0.08     0.37     0.46     0.51     0.56
+sigma[1]                2.16    0.00  0.13     1.93     2.07     2.16     2.25
+sigma[2]                1.80    0.00  0.08     1.65     1.74     1.80     1.85
 sigma[3]                1.81    0.00  0.08     1.65     1.75     1.80     1.86
-sigma[4]                1.72    0.00  0.07     1.59     1.67     1.72     1.76
-crop_tot[1]             0.70    0.00  0.39     0.33     0.47     0.60     0.79
-crop_tot[2]             3.94    0.03  2.51     1.45     2.39     3.27     4.69
-crop_tot[3]             0.55    0.00  0.14     0.36     0.46     0.52     0.61
-crop_tot[4]             1.41    0.01  0.57     0.75     1.04     1.27     1.63
-crop_tot_diff[1]        3.24    0.02  2.52     0.63     1.71     2.60     4.01
-crop_tot_diff[2]       -0.15    0.01  0.42    -1.14    -0.27    -0.07     0.08
-crop_tot_diff[3]        0.72    0.01  0.66    -0.39     0.37     0.65     1.00
-crop_int_diff[1]        1.56    0.00  0.24     1.10     1.39     1.56     1.72
-crop_int_diff[2]        0.92    0.00  0.21     0.54     0.77     0.91     1.06
-crop_int_diff[3]        1.24    0.00  0.22     0.83     1.09     1.23     1.38
-crop_bdepth_diff[1]    -0.06    0.00  0.28    -0.58    -0.25    -0.07     0.12
-crop_bdepth_diff[2]     0.81    0.00  0.28     0.29     0.62     0.81     1.00
-crop_bdepth_diff[3]     0.27    0.00  0.25    -0.20     0.10     0.26     0.43
-lp__                -2173.78    0.28 12.86 -2199.23 -2182.32 -2173.64 -2165.16
+sigma[4]                1.72    0.00  0.07     1.59     1.67     1.71     1.76
+crop_tot[1]             0.71    0.00  0.41     0.34     0.48     0.61     0.82
+crop_tot[2]             4.10    0.03  2.64     1.47     2.44     3.39     4.86
+crop_tot[3]             0.55    0.00  0.16     0.35     0.45     0.52     0.61
+crop_tot[4]             1.43    0.01  0.60     0.75     1.04     1.28     1.65
+crop_tot_diff[1]        3.38    0.02  2.65     0.61     1.76     2.69     4.17
+crop_tot_diff[2]       -0.16    0.01  0.44    -1.17    -0.30    -0.09     0.07
+crop_tot_diff[3]        0.71    0.01  0.70    -0.43     0.35     0.64     1.00
+crop_int_diff[1]        1.59    0.00  0.25     1.14     1.42     1.58     1.75
+crop_int_diff[2]        0.92    0.00  0.21     0.52     0.77     0.91     1.06
+crop_int_diff[3]        1.25    0.00  0.22     0.85     1.10     1.25     1.40
+crop_bdepth_diff[1]    -0.05    0.00  0.28    -0.58    -0.24    -0.06     0.13
+crop_bdepth_diff[2]     0.82    0.00  0.29     0.27     0.62     0.82     1.01
+crop_bdepth_diff[3]     0.28    0.00  0.25    -0.19     0.11     0.27     0.45
+lp__                -2175.17    0.28 12.59 -2199.78 -2183.62 -2175.15 -2166.81
                        97.5% n_eff Rhat
-loc_detect             -5.91  3312    1
-scale_detect            0.79  2436    1
-loc_surface[1]         19.98 11997    1
-loc_surface[2]         32.17 13546    1
-loc_surface[3]         32.16  9954    1
-loc_surface[4]         29.80 11152    1
-scale_surface[1]        4.83  8659    1
-scale_surface[2]        6.93  8581    1
-scale_surface[3]       22.85 20000    1
-scale_surface[4]        9.97 10834    1
-intercept[1]           -6.24  3207    1
-intercept[2]           -4.74  6274    1
-intercept[3]           -5.38  4811    1
-intercept[4]           -5.09  5019    1
-b_depth[1]             -0.82  3823    1
-b_depth[2]             -0.88 12248    1
-b_depth[3]             -0.07  9653    1
-b_depth[4]             -0.59  8983    1
-sig_tube                0.66  2425    1
+loc_detect             -5.92  2947    1
+scale_detect            0.80  2232    1
+loc_surface[1]         20.02 11249    1
+loc_surface[2]         32.07 13751    1
+loc_surface[3]         32.45  7256    1
+loc_surface[4]         29.46 10520    1
+scale_surface[1]        4.75  8141    1
+scale_surface[2]        6.81  7350    1
+scale_surface[3]       16.40  7195    1
+scale_surface[4]        9.47 12182    1
+intercept[1]           -6.26  3021    1
+intercept[2]           -4.71  5459    1
+intercept[3]           -5.39  4250    1
+intercept[4]           -5.09  4714    1
+b_depth[1]             -0.84  3613    1
+b_depth[2]             -0.88 12193    1
+b_depth[3]             -0.03  7419    1
+b_depth[4]             -0.60  8586    1
+sig_tube                0.67  2427    1
 sigma[1]                2.43 20000    1
 sigma[2]                1.96 20000    1
 sigma[3]                1.97 20000    1
-sigma[4]                1.86 20000    1
-crop_tot[1]             1.64  7548    1
-crop_tot[2]            10.31 10065    1
-crop_tot[3]             0.90  7147    1
-crop_tot[4]             2.87  8489    1
-crop_tot_diff[1]        9.61 10853    1
-crop_tot_diff[2]        0.37  6823    1
-crop_tot_diff[3]        2.19 11798    1
-crop_int_diff[1]        2.07  3464    1
-crop_int_diff[2]        1.36  4453    1
-crop_int_diff[3]        1.69  3487    1
-crop_bdepth_diff[1]     0.51  7490    1
-crop_bdepth_diff[2]     1.37  5382    1
-crop_bdepth_diff[3]     0.78  7758    1
-lp__                -2148.76  2150    1
+sigma[4]                1.85 20000    1
+crop_tot[1]             1.68  6780    1
+crop_tot[2]            11.13 10140    1
+crop_tot[3]             0.95  7198    1
+crop_tot[4]             2.98  7507    1
+crop_tot_diff[1]       10.38 11403    1
+crop_tot_diff[2]        0.40  6989    1
+crop_tot_diff[3]        2.28  9913    1
+crop_int_diff[1]        2.10  3048    1
+crop_int_diff[2]        1.35  3958    1
+crop_int_diff[3]        1.70  3127    1
+crop_bdepth_diff[1]     0.53  7620    1
+crop_bdepth_diff[2]     1.41  5726    1
+crop_bdepth_diff[3]     0.80  8365    1
+lp__                -2150.21  2023    1
 
-Samples were drawn using NUTS(diag_e) at Thu Jan 12 17:24:08 2017.
+Samples were drawn using NUTS(diag_e) at Fri Jun 23 15:38:42 2017.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).
@@ -484,19 +484,19 @@ Inference for Stan model: mctd_foursurf.
 post-warmup draws per chain=4000, total post-warmup draws=20000.
 
                       mean se_mean   sd  2.5%   25%   50%   75% 97.5% n_eff
-y_pred[1]             0.06    0.00 0.32  0.00  0.00  0.01  0.03  0.38 19323
-y_pred[15]            0.03    0.00 0.13  0.00  0.00  0.00  0.02  0.19 19443
-y_pred[28]            0.01    0.00 0.13  0.00  0.00  0.00  0.00  0.10 19831
-mu_pred[1]            0.18    0.01 1.02 -1.77 -0.52  0.16  0.85  2.23 12592
-mu_pred[15]          -4.34    0.00 0.57 -5.44 -4.72 -4.35 -3.96 -3.21 14898
-mu_pred[28]          -6.11    0.00 0.54 -7.18 -6.46 -6.11 -5.76 -5.06 16143
-mu_obs_pred[1]       -4.70    0.01 0.67 -6.04 -5.14 -4.70 -4.26 -3.40 15744
-mu_obs_pred[15]      -5.11    0.00 0.54 -6.16 -5.46 -5.11 -4.75 -4.04 16252
-mu_obs_pred[28]      -6.11    0.00 0.54 -7.18 -6.46 -6.11 -5.76 -5.06 16162
-detect_odds_pred[1]   0.87    0.00 0.12  0.53  0.83  0.91  0.96  0.99 12570
-detect_odds_pred[15]  0.81    0.00 0.13  0.48  0.74  0.84  0.90  0.97 16860
-detect_odds_pred[28]  0.49    0.00 0.19  0.15  0.35  0.50  0.63  0.85 18308
-pred_tot[1]           4.48    0.04 4.09  0.90  2.08  3.32  5.45 15.14 13139
+y_pred[1]             0.05    0.00 0.25  0.00  0.00  0.01  0.03  0.38 20000
+y_pred[15]            0.03    0.00 0.19  0.00  0.00  0.00  0.02  0.19 20000
+y_pred[28]            0.01    0.00 0.11  0.00  0.00  0.00  0.00  0.10 20000
+mu_pred[1]            0.23    0.01 1.03 -1.76 -0.47  0.22  0.92  2.30 11728
+mu_pred[15]          -4.33    0.00 0.58 -5.49 -4.71 -4.34 -3.95 -3.19 15411
+mu_pred[28]          -6.13    0.00 0.55 -7.23 -6.48 -6.12 -5.76 -5.07 16739
+mu_obs_pred[1]       -4.70    0.01 0.67 -6.06 -5.14 -4.69 -4.25 -3.39 15204
+mu_obs_pred[15]      -5.09    0.00 0.56 -6.20 -5.45 -5.09 -4.73 -4.01 17815
+mu_obs_pred[28]      -6.13    0.00 0.55 -7.23 -6.48 -6.12 -5.76 -5.07 16752
+detect_odds_pred[1]   0.87    0.00 0.12  0.53  0.82  0.91  0.96  0.99 12496
+detect_odds_pred[15]  0.81    0.00 0.13  0.47  0.74  0.84  0.90  0.97 17930
+detect_odds_pred[28]  0.49    0.00 0.19  0.15  0.35  0.49  0.63  0.84 18710
+pred_tot[1]           4.67    0.04 4.33  0.92  2.15  3.46  5.67 15.75 13335
                      Rhat
 y_pred[1]               1
 y_pred[15]              1
@@ -512,7 +512,7 @@ detect_odds_pred[15]    1
 detect_odds_pred[28]    1
 pred_tot[1]             1
 
-Samples were drawn using NUTS(diag_e) at Thu Jan 12 17:24:08 2017.
+Samples were drawn using NUTS(diag_e) at Fri Jun 23 15:38:42 2017.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).
@@ -520,8 +520,8 @@ convergence, Rhat=1).
 
 mean of log(nonzero root volume): -5.428764 
 
-RMSE of mu_obs vs log observed (zeroes excluded):  1.803671 
-RMSE/var:  0.4816399 
+RMSE of mu_obs vs log observed (zeroes excluded):  1.802194 
+RMSE/var:  0.4812456 
 
 ci_level: 0.8 (80% intervals)
 outer_level: 0.95 (95% intervals)
@@ -544,13 +544,13 @@ Removed 717 rows containing non-finite values (stat_smooth).
 null device 
           1 
 
-real	5m19.850s
-user	19m19.305s
-sys	0m8.437s
+real	5m34.225s
+user	20m56.571s
+sys	0m10.881s
 Extracting fits
 Loading required package: ggplot2
 Loading required package: StanHeaders
-rstan (Version 2.14.1, packaged: 2016-12-28 14:55:41 UTC, GitRev: 5fa1e80eb817)
+rstan (Version 2.15.1, packaged: 2017-04-19 05:03:57 UTC, GitRev: 2e1f913d3ca3)
 For execution on a local, multicore CPU with excess RAM we recommend calling
 rstan_options(auto_write = TRUE)
 options(mc.cores = parallel::detectCores())

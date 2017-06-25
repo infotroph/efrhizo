@@ -9,17 +9,17 @@ attached base packages:
 [1] methods   stats     graphics  grDevices utils     datasets  base     
 
 other attached packages:
-[1] dplyr_0.5.0      lsmeans_2.25     estimability_1.2 lme4_1.1-12     
-[5] Matrix_1.2-7.1  
+[1] dplyr_0.7.1      lsmeans_2.26-3   estimability_1.2 lme4_1.1-13     
+[5] Matrix_1.2-10   
 
 loaded via a namespace (and not attached):
- [1] Rcpp_0.12.8      magrittr_1.5     splines_3.3.2    MASS_7.3-45     
- [5] xtable_1.8-2     lattice_0.20-34  R6_2.2.0         multcomp_1.4-6  
- [9] minqa_1.2.4      plyr_1.8.4       tools_3.3.2      grid_3.3.2      
-[13] nlme_3.1-128     plotrix_3.6-4    TH.data_1.0-7    coda_0.19-1     
-[17] DBI_0.5-1        survival_2.40-1  assertthat_0.1   tibble_1.2      
-[21] nloptr_1.0.4     codetools_0.2-15 sandwich_2.3-4   mvtnorm_1.0-5   
-[25] zoo_1.7-14      
+ [1] Rcpp_0.12.11     magrittr_1.5     bindr_0.1        splines_3.3.2   
+ [5] MASS_7.3-47      xtable_1.8-2     lattice_0.20-35  R6_2.2.2        
+ [9] rlang_0.1.1      multcomp_1.4-6   minqa_1.2.4      plyr_1.8.4      
+[13] grid_3.3.2       nlme_3.1-131     plotrix_3.6-5    TH.data_1.0-8   
+[17] coda_0.19-1      survival_2.41-3  assertthat_0.2.0 tibble_1.3.3    
+[21] bindrcpp_0.2     nloptr_1.0.4     codetools_0.2-15 glue_1.1.1      
+[25] sandwich_2.3-4   mvtnorm_1.0-6    pkgconfig_2.0.1  zoo_1.8-0       
 
 ------------------------------------------------
  Total tractor core biomass (ln g root+rhizome m^-2):
