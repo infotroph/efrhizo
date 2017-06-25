@@ -2,23 +2,57 @@
 
 This directory contains a sub-experiment that uses a set of images from the EBI minirhizotron experiment to examine the degree of variability between analysts. These images were our standard training battery: Every technician who worked on the experiment started by tracing these images, then adjusting their tracings in response to feedback from the project manager.
 
-Design: 100 images, with 25 selected from each of the 4 cropping systems in the EBI experiment: Maize-soybean rotation (images are from maize only), Miscanthus, Switchgrass, 32-species prairie mix. 
-Only about half the images from each crop contain roots; Images were selected to show a realistic mix of lighting conditions, depths in the tube, presence/absence of roots (roughly half the images were classified as containing no roots), etc.
+## Design
+
+The training set consists of 100 images, with 25 selected from each of the 4 cropping systems in the EBI experiment: Maize-soybean rotation (images are from maize only), *Miscanthus*, switchgrass, and a 32-species prairie mix.
+Images were selected to show a realistic mix of lighting conditions, depths in the tube, presence/absence of roots (roughly half the images were classified as containing no roots), etc.
 
 The images are presented with no crop or depth information, in an order determined randomly but in the same order for all technicians. 12 images are presented 3 times each under different file names as a within-technician consistency check, for a total task size of 124 frames to be traced. For each frame, the technicians are asked to:
 
-1. Look for any image quality issues that would prevent them from seeing roots in some or all of the image area. If any portion of the image is poor to trace (usually because the image is too dark or blurry, occasionally because of mud streaks or scratches from improper tube installation), they are instructed to log the image as unusable even if some roots are visible elsewhere in the image.
+1. Look for any image quality issues that would prevent them from seeing roots in some or all of the image area. If any portion of the image is too poor to trace (usually because the image is too dark or blurry, occasionally because of mud streaks or scratches from improper tube installation), they are instructed to log the image as unusable even if some roots are visible elsewhere in the image.
 2. Identify whether the image contains any roots at all. If none, log a zero and move on to the next image.
 3. Trace the length and width of every image feature that:
 	3a. can be positively identified as a root, and
 	3b. has its full diameter visible and in focus.
 4. log that the frame is traced and contains roots, then move on to the next image.
 
-Directory contents:
 
-* rawdata: unprocessed data as it came from the image-tracing computer, including:
-	* agreement-<initials>.txt: WinRhizo data file each technician's tracing. Contains raw whole-frame total dimensions and some information about individual roots.
-	* calibrations.csv: horizontal and vertical pixel size used by each technician. All measured the same target image, so these SHOULD be very similar. These dimensions are available in the data files too, just collected them here for references.
-	* log-<initials>.csv: Running log of when tech traced each frame, whether it contained roots, and any notes.
-	* pat-<initials>: Directory of all WinRhizo trace files (*.pat). These contain the raw pixel coordinates of every traced root segment, but in an undocumented format.
-	* retrace-log-EA.txt, retraced-agree-EA.txt: Out of curiousity I asked EA to redo the agreement tracing at the end of the summer, changing anything that now looked "wrong" to him after a summer of tracing real data. This is not currently used in the analysis, but comparing the retrace numbers against his initial tracings should give an indication of how much one randomly selected technician's judgement changes with training.
+## Analysis
+
+To examine whether the estimated root volume differs substantially when traced by different technicians, I fit a simple random-effects model with zero inflation: When image i is traced by technician j, the estimated root volume is
+
+```
+y_ij = | logN(mu_ij, sigma_j), with probability phi_ij,
+       | 0, with probability 1 - phi_ij
+where
+	mu_ij = mu_i + mu_j
+	phi_ij = 1 / (1 + e^(-(mu_ij - alpha_j)/beta_j))
+```
+
+Stated in words, this model holds that an individual techician can influence the results in four different ways:
+
+* Bias toward higher or lower root volumes (`mu_j`)
+* Higher or lower precision/repeatability when given the same image (`sigma_j`)
+* Higher or lower threshold for declaring an image to contain "no detectable roots" (`alpha_j`)
+* Faster or slower change in the number of no-root decisions as mu changes (`beta_j`)
+
+As in the full model for the bioenergy crop experiment, be cautious when interpreting the absolute values of the alpha and beta parameters. The observed zeroes are conceptually a mixture of biological and technical heterogeneity (some patches of soil truly contain no roots, but also some operators are better at seeing fine roots than others), so a high alpha does not necessarily mean small roots are going undetected! Fortunately, in this model all operators saw the same images, so differences *between* alphas can still be attributed to operator differences.
+
+## Guide to directory contents
+
+* `agreement_log.txt`: Text output from the model. Regenerated every time the Makefile is run.
+* `agreement_plots.pdf`: Plots generated by the model, mostly intended for validation of the HMC chains. TODO: Edit these to be more useful for interpreting parameter estimates. Regenerated every time the Makefile is run.
+* `agreement-all.csv`: Compiled data ready to be used as model input. Regenerated (from original files in `rawdata/`) every time the Makefile is run.
+* `img_id.csv`: Identities and original collection time/crop/location information for the images in the training set.
+* `imgs`: The training set images that each technician traced to generate this dataset. As detailed above, note that the tube numbers, timestamps, and depth assignments are all arbitrarily assigned and do not correspond to that image's true collection conditions.
+* `Makefile`: Run this to regenerate the analysis.
+* `oa_frametot_collect.sh`: Script used by Make to generate `agreement_all.csv`, by extracting whole-image totals from `rawdata/agreement*.txt` and returning them in CSV format.
+* `oa.stan`: Source code for the Stan program that fits the model described above. Note that this file is compiled and run by `operator_agreement.R`, which currently does *not* save fitted model -- if you want to examine the HMC samples in more detail, edit `operator_agreement.R` to save them for you.
+* `operator_agreement.R`: Script that fits the model and prints results. Text output, including parameter estimates, is saved to `agreement_log.txt`; plots are saved to `agreement_plots.pdf`.
+* `rawdata`: unprocessed data as it came from the image-tracing computer, including:
+	* `agreement-<initials>.txt`: WinRhizo data file each technician's tracing. Contains raw whole-frame total dimensions and some information about individual roots.
+	* calibrations.csv: horizontal and vertical pixel size used by each technician. All measured the same target image, so these *should* be very similar. These dimensions are available in the data files too, just collected them here for references.
+	* `log-<initials>.csv`: Running log of when tech traced each frame, whether it contained roots, and any notes.
+	* `pat-<initials>`: Directory of all WinRhizo trace files (`*.pat`). These contain the raw pixel coordinates of every traced root segment, but in an undocumented format.
+	* `retrace-log-EA.txt`, `retraced-agree-EA.txt`: Out of curiousity I asked EA to redo the agreement tracing at the end of the summer, changing anything that now looked "wrong" to him after a summer of tracing real data. This is not currently used in the analysis, but comparing the retrace numbers against his initial tracings should give an indication of how much one randomly selected technician's judgement changes with training.
+* `ReadMe.md`: The file you're reading right now.
