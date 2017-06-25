@@ -2030,3 +2030,7 @@ Updated operator-agreement directory:
 * Added the main analysis script to the Makefile (previously missing and had to be run by hand).
 * Deleted old copies of data files and images/text outputs from old exploratory analyses.
 * Excel workbook `allfiles.xls` is left over from my inefficient image selection process, and `blank-id.xlsx` and `idKey.csv` are from abandoned preliminary analyses. All the useful information from these is now summarized much more neatly in `img_id.csv`, with the exception that `idKey.csv` contains the actual filenames of the image files where `img_id.csv` only identifies them by tube and location. Added the filenames to a new "assigned_imgname" column of `img_id.csv`, deleted `allfiles.xls` and `blank-id.xlsx` and `idKey.csv`.
+
+## 2017-06-25
+
+Rewrote `scripts/simrhizo.r` to include surface and detection effects, renamed to `simdat.R`. Added a complete script that uses it for testing the model, complete with diagnostic plots. Hooray, the model recovers known parameters well!
