@@ -2034,3 +2034,5 @@ Updated operator-agreement directory:
 ## 2017-06-25
 
 Rewrote `scripts/simrhizo.r` to include surface and detection effects, renamed to `simdat.R`. Added a complete script that uses it for testing the model, complete with diagnostic plots. Hooray, the model recovers known parameters well!
+
+Updated .gitattributes file so $(git diff someimage.png) shows a visual diff. This requires ImageMagick, Preview.app on OS X, and a script not commited here which displays a triptych of old image, red-highlighted differences between old and new, new image.

@@ -3,3 +3,4 @@
 *.pptx diff=xmlzip
 *.xls diff=showxls
 *.csv diff=csv
+*.png diff=image
