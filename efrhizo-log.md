@@ -2036,3 +2036,13 @@ Updated operator-agreement directory:
 Rewrote `scripts/simrhizo.r` to include surface and detection effects, renamed to `simdat.R`. Added a complete script that uses it for testing the model, complete with diagnostic plots. Hooray, the model recovers known parameters well!
 
 Updated .gitattributes file so $(git diff someimage.png) shows a visual diff. This requires ImageMagick, Preview.app on OS X, and a script not commited here which displays a triptych of old image, red-highlighted differences between old and new, new image.
+
+Addressing reviewer comments:
+
+* Added phrasing about interannual and seasonal variability to abstract
+* Clarified that 2014 Miscanthus obs were averaged across N treatments because we didn't collect enough data to look at it, and we are NOT claiming the N treatment had no effect.
+* Fixed symbol typos:
+	- one in-text reference to surface params in results used a/b instead of alpha/beta
+	- Deleted epsilon from eqn 4 (#eq:rzmu) -- this equation is an expectation, not a full regression model! No residual term is needed.
+	- Changed discussion of "epsilon" in priors.md to "sigma" -- this *is* the residual term of the model, but I call it sigma everywhere else in the paper and it gets used in scale parameter context way more than residual term context.
+* Added a graphical illustration of surface effect (replotting Bragg et al. table 1)

@@ -76,11 +76,10 @@ To run the analysis scripts you'll need:
     ```
     install.packages(c(
         "rstan", "dplyr", "tidyr", "forcats",
-        "viridis", "plotrix", "cowplot", "devtools", "lmerTest"))
-    library(devtools)
-    install_github("infotroph/efrhizo", subdir="scripts/rhizoFuncs/")
-    install_github("infotroph/DeLuciatoR")
-    install_github("infotroph/ggplotTicks")
+        "viridis", "plotrix", "cowplot", "devtools", "lmerTest", "csvy"))
+    devtools::install_github("infotroph/efrhizo", subdir="scripts/rhizoFuncs/")
+    devtools::install_github("infotroph/DeLuciatoR")
+    devtools::install_github("infotroph/ggplotTicks")
     ```
 
 To rerun my analyses: Open a shell, `cd` to the root of the project directory, type `make`, and walk away for at least an hour, or much longer if your computer has fewer than 5 CPU cores. The whole run takes ~80 minutes, mostly CPU-bound, on my 8-core mid-2015 Macbook Pro (2.2 GHz i7).

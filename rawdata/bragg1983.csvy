@@ -1,0 +1,56 @@
+---
+source: Table 1 of Bragg et al 1982
+citation: "P.L. Bragg, G. Govi, R.Q. Cannell. 1983. A comparison of methods, including angled and vertical minirhizotrons, for studying root growth and distribution in a spring oat crop. Plant and Soil 73(3): 435-440. DOI:10.1007/BF02184322" 
+methods: Each value is the mean of four measurements.
+fields:
+    - name: date
+      units: YYYY-MM-DD
+    - name: depth
+      units: cm
+    - name: rl
+      units: cm
+      explanation: Measurement of length of roots (cm) washed from 5 cm deep, 7-cm diameter core segments.
+    - name: cb
+      units: count
+      explanation: Counts of number of roots on horizontal 7-cm diameter faces of core segments at 5-cm depth increments.
+    - name: am
+      units: count
+      explanation: Calculated counts of number of roots intercepting angled minirhizotrons at 5-cm depth increments.
+    - name: vm
+      units: count
+      explanation: Counts of number of roots intercepting grid lines marked on vertical minirhizotrons at 5-cm depth increments.
+
+---
+date, depth, rl, cb, am, vm
+1981-07-08, 5, 1830, 46.0, 6.1, 17.3
+1981-07-08, 10, 990, 38.0, 9.9, 14.5
+1981-07-08, 15, 639, 28.3, 9.5, 12.5
+1981-07-08, 20, 514, 19.3, 9.2, 11.8
+1981-07-08, 25, 506, 16.0, 7.9, 9.3
+1981-07-08, 30, 377, 13.0, 9.5, 9.0
+1981-07-08, 35, 350, 11.8, 9.3, 6.3
+1981-07-08, 40, 370, 13.3, 10.5, 6.3
+1981-07-08, 45, 287, 9.8, 8.0, 7.0
+1981-07-08, 50, 285, 3.8, 3.8, 6.8
+1981-07-08, 55, 261, 5.3, 4.3, 6.8
+1981-07-08, 60, 164, 4.7, 4.2, 5.0
+1981-07-08, 65, 200, 6.0, 5.7, 6.3
+1981-07-08, 70, 188, 7.0, 4.8, 3.0
+1981-08-12, 5, 1306, 27.8, 10.0, 18.8
+1981-08-12, 10, 568, 21.8, 12.3, 16.8
+1981-08-12, 15, 597, 19.8, 14.4, 16.0
+1981-08-12, 20, 485, 18.0, 13.6, 16.0
+1981-08-12, 25, 435, 17.5, 12.0, 12.8
+1981-08-12, 30, 355, 13.8, 13.1, 12.3
+1981-08-12, 35, 321, 11.5, 12.1, 10.3 
+1981-08-12, 40, 372, 13.0, 13.6, 8.0
+1981-08-12, 45, 213, 10.0, 11.8, 7.5
+1981-08-12, 50, 289, 10.0, 8.3, 7.0
+1981-08-12, 55, 245, 9.5, 7.6, 7.0
+1981-08-12, 60, 270, 10.0, 7.0, 5.3
+1981-08-12, 65, 211, 7.0, 7.9, 6.3
+1981-08-12, 70, 231, 6.5, 7.3, 5.3
+1981-08-12, 75, 239, 7.8, 7.1, 4.8
+1981-08-12, 80, 152, 3.8, 4.9, 5.5
+1981-08-12, 85, 110, 4.0, 2.9, 4.0
+1981-08-12, 90, 84, 1.3, 1.2, 3.5
