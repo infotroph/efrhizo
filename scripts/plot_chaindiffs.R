@@ -44,6 +44,12 @@ filter_peaks = function(df){
 	filter(df, (session==4)| year %in% c("2013", "2014"))
 }
 
+# "is the distribution of these values different from zero?"
+# returns TRUE if the upper and lower quantiles of x both have the same sign, FALSE otherwise.
+same_sign = function(x, lq = 0.025, uq = 0.975){
+	xq = quantile(x, c(lq, uq))
+	all(xq > 0) || all(xq < 0)
+}
 
 croptot_chains = get_chains("crop_tot")
 intercept_chains = get_chains("intercept")
@@ -144,7 +150,13 @@ slope_diff = (
 		"2013, 2014" = filter(.,year=="2014")$b_depth - filter(.,year=="2013")$b_depth)))
 	%>% unnest()
 	%>% gather(years, diff_slope, -crop)
+	%>% group_by(years, crop)
+	%>% mutate(differs = same_sign(diff_slope))
 )
+
+
+print(slope_diff %>% group_by(crop, differs) %>% summarize(n()))
+glimpse(slope_diff)
 
 # Between-session differences for 2010 and 2012.
 # Since a few sessions have differing numbers of samples, we compare a subset.
@@ -289,7 +301,9 @@ intercept_diff_sessions = (
 		"6/20, 10/24",
 		"8/5, 8/30",
 		"8/5, 10/24", 
-		"8/30, 10/24"))))
+		"8/30, 10/24")))
+	%>% group_by(sessions, crop)
+	%>% mutate(differs=same_sign(diff_icpt)))
 slope_diff_sessions = (
 	bind_rows(slope_diff_2010, slope_diff_2012)
 	%>% mutate(sessions=factor(sessions, levels=c(
@@ -313,7 +327,9 @@ slope_diff_sessions = (
 		"6/20, 10/24",
 		"8/5, 8/30",
 		"8/5, 10/24", 
-		"8/30, 10/24"))))
+		"8/30, 10/24")))
+	%>% group_by(sessions, crop)
+	%>% mutate(differs=same_sign(diff_slope)))
 
 
 # save 95% CIs for hypothesis testing
@@ -458,16 +474,24 @@ ggsave_fitmax(
 slope_diffplot = (
 	ggplot(
 		data=slope_diff,
-		aes(years, diff_slope), fill="grey")
+		aes(years, diff_slope, fill=differs))
 	+ geom_hline(aes(yintercept=0))
-	+ geom_violin(draw_quantiles=c(0.025, 0.975), fill="grey")
+	+ geom_violin(draw_quantiles=c(0.025, 0.975))
 	+facet_wrap(~crop)
 	+ xlab(NULL)
 	+ ylab(expression(Delta~beta^depth*","~ln~mm^3~mm^-2~ln~cm^-1))
 	+ scale_y_continuous(sec.axis=sec_axis(~., labels=NULL))
+	+ viridis::scale_fill_viridis(
+		labels = c("TRUE"="95% excludes 0", "FALSE"="95% includes 0"),
+		discrete = TRUE,
+		begin = 0.1,
+		end = 0.9)
 	+ theme_ggEHD(16)
 	+ theme(
-		axis.text.x=element_text(angle=45, hjust=1))
+		axis.text.x = element_text(angle=45, hjust=1),
+		legend.title = element_blank(),
+		legend.position = c(0.67, 0.63),
+		legend.background = element_blank())
 )
 ggsave_fitmax(
 	filename="figures/stanfit-slope.png",
@@ -484,34 +508,50 @@ ggsave_fitmax(
 intercept_session_diffplot = (
 	ggplot(
 		data=intercept_diff_sessions,
-		aes(sessions, diff_icpt), fill="grey")
+		aes(sessions, diff_icpt, fill=differs))
 	+ geom_hline(aes(yintercept=0))
-	+ geom_violin(draw_quantiles=c(0.025, 0.975), fill="grey")
+	+ geom_violin(draw_quantiles=c(0.025, 0.975))
 	+facet_grid(crop~year, scales="free_x")
 	+ xlab(NULL)
 	+ ylab(expression(Delta~alpha*","~ln~mm^3~mm^-2))
 	+ scale_y_continuous(sec.axis=sec_axis(~., labels=NULL))
+	+ viridis::scale_fill_viridis(
+		labels = c("TRUE"="95% excludes 0", "FALSE"="95% includes 0"),
+		discrete = TRUE,
+		begin = 0.1,
+		end = 0.9)
 	+ theme_ggEHD(16)
 	+ theme(
 		strip.placement="outside",
 		strip.switch.pad.grid=unit(0.5,"lines"),
-		axis.text.x=element_text(angle=45, hjust=1))
+		axis.text.x=element_text(angle=45, hjust=1),
+		legend.title = element_blank(),
+		legend.position = c(0.2, 0.2),
+		legend.background = element_blank())
 )
 slope_session_diffplot = (
 	ggplot(
 		data=slope_diff_sessions,
-		aes(sessions, diff_slope), fill="grey")
+		aes(sessions, diff_slope, fill=differs))
 	+ geom_hline(aes(yintercept=0))
-	+ geom_violin(draw_quantiles=c(0.025, 0.975), fill="grey")
+	+ geom_violin(draw_quantiles=c(0.025, 0.975))
 	+facet_grid(crop~year, scales="free_x")
 	+ xlab(NULL)
 	+ ylab(expression(Delta~beta^depth*","~ln~mm^3~mm^-2~ln~cm^-1))
 	+ scale_y_continuous(sec.axis=sec_axis(~., labels=NULL))
+	+ viridis::scale_fill_viridis(
+		labels = c("TRUE"="95% excludes 0", "FALSE"="95% includes 0"),
+		discrete = TRUE,
+		begin = 0.1,
+		end = 0.9)
 	+ theme_ggEHD(16)
 	+ theme(
 		strip.placement="outside",
 		strip.switch.pad.grid=unit(0.5,"lines"),
-		axis.text.x=element_text(angle=45, hjust=1))
+		axis.text.x=element_text(angle=45, hjust=1),
+		legend.title = element_blank(),
+		legend.position = c(0.2, 0.2),
+		legend.background = element_blank())
 )
 ggsave_fitmax(
 	filename="figures/stanfit-seasondiffs.png",

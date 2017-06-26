@@ -2046,3 +2046,8 @@ Addressing reviewer comments:
 	- Deleted epsilon from eqn 4 (#eq:rzmu) -- this equation is an expectation, not a full regression model! No residual term is needed.
 	- Changed discussion of "epsilon" in priors.md to "sigma" -- this *is* the residual term of the model, but I call it sigma everywhere else in the paper and it gets used in scale parameter context way more than residual term context.
 * Added a graphical illustration of surface effect (replotting Bragg et al. table 1)
+* Converted "logit"/"logistic" function names in eqns 5 and 7 to explicit equations. This is especially important because eqn 5 actually uses inverse logit!
+* Clearer description of alpha_surface parameter
+* don't describe differences between crop systems as "species differences" when prairie is a multispecies system.
+* Be more careful about describing rhizo-vs-core correlations -- reviewer is not convinced these count as "good agreement"
+* In figs S4 and S5, plot differences with a contrasting color for violins that do not overlap zero.
