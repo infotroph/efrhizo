@@ -2051,3 +2051,19 @@ Addressing reviewer comments:
 * don't describe differences between crop systems as "species differences" when prairie is a multispecies system.
 * Be more careful about describing rhizo-vs-core correlations -- reviewer is not convinced these count as "good agreement"
 * In figs S4 and S5, plot differences with a contrasting color for violins that do not overlap zero.
+
+## 2017-06-26
+
+A few more tweaks to text: Wording improvements from Nuria comments, add citation for Laura Rose's new Front Plant Sci paper demonstrating that measuring root length, assuming constant diameter, and calculating volume from those will reliably underestimate root volume.
+
+Preparing data for Dryad upload: 
+
+* Zipped entire contents of `data/stan` as `Rootvolume_Black_etal_2017_stan_output.zip`. This will be the "all model output including HMC chains and diagnostics plots" file.
+
+* Ditto entire `ef_tracing` repository, as `Rootvolume_Black_etal_2017_tracefiles.zip`. 
+
+* Images are scattered across a couple of hard drives right now, will need to assemble them tomorrow. 
+
+* After committing these edits to this file, I will tag the commit as "plso_sub2", push all changes, then save this repository as `Rootvolume_Black_etal_2017_scripts_results.zip`.
+
+* Will add a final version of the accepted manuscript once it's truly accepted.
